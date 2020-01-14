@@ -190,14 +190,14 @@ void Fastboi::Collision::DispatchCollisions(const Collisions_t& collisions) {
 tuple<Velocity, Velocity> Fastboi::Collision::ResolveCollision(const Collision_t& collision) {
     tuple<Velocity, Velocity> finalVelocities;
 
-    if (collision.a.isTrigger || collision.b.isTrigger) return finalVelocities; // Triggers do not affect velocities at all
+    if (collision.a.IsTrigger() || collision.b.IsTrigger()) return finalVelocities; // Triggers do not affect velocities at all
 
-    if (!collision.a.isFixed) {
+    if (!collision.a.IsFixed()) {
         get<0>(finalVelocities) = -collision.data.penetration;
     } else
         get<0>(finalVelocities) = Velocity::zero();
 
-    if (!collision.b.isFixed)
+    if (!collision.b.IsFixed())
         get<1>(finalVelocities) = collision.data.penetration;
     else
         get<1>(finalVelocities) = Velocity::zero();

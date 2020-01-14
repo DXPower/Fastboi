@@ -20,21 +20,30 @@ struct Collider {
 
     bool isStarted = false;
     bool isDeleted = false;
+    uint_fast8_t flags;
     
     public:
+    enum {
+        TRIGGER = 1 // Trigger means any collision will not affect either itself or other's positions, but still triggers event. (Like a tripwire)
+        , FIXED = 2 // Fixed means any collision will not affect its own position, but still can affect another's position. (Like a wall)
+    };
+
     Fastboi::Signal<void(const Fastboi::CollisionEvent&)> collisionSignal;
     Gameobject& gameobject;
-    bool isTrigger, isFixed;
 
     Collider(Gameobject& gameobject);
-    Collider(Gameobject& gameobject, bool isTrigger, bool isFixed);
+    Collider(Gameobject& gameobject, uint_fast8_t flags);
     virtual ~Collider();
     
     void Start();
     void Update();
-    void Destroy() { isDeleted = true; };
+    inline void Destroy() { isDeleted = true; };
 
-    const circular_vector<Position>& GetVertices() const;    
+    const circular_vector<Position>& GetVertices() const; 
+
+    inline bool IsTrigger() const { return flags & TRIGGER; };
+    inline bool IsFixed() const { return flags & FIXED; };  
+    inline void SetFlags(uint_fast8_t flags) { this->flags = flags; };
 
     private:
     void Collide(const Collider& collider);

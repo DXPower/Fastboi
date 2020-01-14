@@ -63,14 +63,14 @@ Bullet::Bullet(const Position& p, const Velocity& v) : Gameobject("Bullet") {
     AddComponent<ColorShiftComp>(this);
 
     AddComponent<BoxColorRenderer>(*this, RenderData(RenderOrder::PARTICLES));
-    Collider& collider = AddComponent<Collider>(*this, true, false);
+    Collider& collider = AddComponent<Collider>(*this, Collider::TRIGGER);
     collider.collisionSignal.connect<&Bullet::Hit>(this);
 
     printf("New bullet actor!\n");
 }
 
 void Bullet::Hit(const Fastboi::CollisionEvent& e) {
-    if (e.collider.isTrigger || e.collider.gameobject.HasComponent<Player>()) return;
+    if (e.collider.IsTrigger() || e.collider.gameobject.HasComponent<Player>()) return;
 
     Fastboi::camera.SetTarget(*(new Transform(*transform)), CameraTarget::OWNING);
 
@@ -131,7 +131,7 @@ Brick::Brick(const Position& position)
     printf("Transform made.\n");
 
     AddComponent<RepeatRenderer>(*this, RenderData(RenderOrder::GROUND), "Brick", Size(80.f, 80.f));
-    AddComponent<Collider>(*this, false, true);
+    AddComponent<Collider>(*this, Collider::FIXED);
 
     expandListener.signal->connect<&Brick::Expand>(this);
 

@@ -43,36 +43,33 @@ TEST_CASE("Colliders", "[collider]") {
         printf("Second section end\n");
     }
 
-    SECTION("Correct defualt isTrigger") {
-        REQUIRE(collider.isTrigger == false);
+    SECTION("Correct defualt IsTrigger") {
+        REQUIRE(collider.IsTrigger() == false);
     }
 
-    SECTION("Correct defaut isFixed") {
-        REQUIRE(collider.isFixed == false);
+    SECTION("Correct defaut IsFixed") {
+        REQUIRE(collider.IsFixed() == false);
     }
 
-    SECTION("isTrigger, isFixed constructor") {
-        printf("Long section begin\n");
+    SECTION("Flags constructor") {
         Gameobject g1;
         Gameobject g2;
         Gameobject g3;
         Gameobject g4;
-        Collider& c1 = g1.AddComponent<Collider>(g1, false, false);
-        Collider& c2 = g2.AddComponent<Collider>(g2, true, true);
-        Collider& c3 = g3.AddComponent<Collider>(g3, true, false);
-        Collider& c4 = g4.AddComponent<Collider>(g4, false, true);
+        Collider& c1 = g1.AddComponent<Collider>(g1);
+        Collider& c2 = g2.AddComponent<Collider>(g2, Collider::FIXED | Collider::TRIGGER);
+        Collider& c3 = g3.AddComponent<Collider>(g3, Collider::TRIGGER);
+        Collider& c4 = g4.AddComponent<Collider>(g4, Collider::FIXED);
 
-        REQUIRE(c1.isTrigger == false);
-        REQUIRE(c2.isTrigger == true);
-        REQUIRE(c3.isTrigger == true);
-        REQUIRE(c4.isTrigger == false);
+        REQUIRE(c1.IsTrigger() == false);
+        REQUIRE(c2.IsTrigger() == true);
+        REQUIRE(c3.IsTrigger() == true);
+        REQUIRE(c4.IsTrigger() == false);
         
-        REQUIRE(c1.isFixed == false);
-        REQUIRE(c2.isFixed == true);
-        REQUIRE(c3.isFixed == false);
-        REQUIRE(c4.isFixed == true);
-
-        printf("Long section end\n");
+        REQUIRE(c1.IsFixed() == false);
+        REQUIRE(c2.IsFixed() == true);
+        REQUIRE(c3.IsFixed() == false);
+        REQUIRE(c4.IsFixed() == true);
     }
 
     printf("Deleting\n");
@@ -94,13 +91,13 @@ TEST_CASE("Collider integration: new collisions", "[collider]") {
     Gameobject& a = Instantiate<Gameobject>();
     a.name = "new coll Object A";
     a.AddComponent<Transform>(Position(0, 0), Size(10, 10), 0);
-    Collider& cA = a.AddComponent<Collider>(a, false, true);
+    Collider& cA = a.AddComponent<Collider>(a, Collider::FIXED);
     cA.collisionSignal.connect<&addCollision>();
 
     Gameobject& b = Instantiate<Gameobject>();
     b.name = "new coll Object B";
     b.AddComponent<Transform>(Position(3, 3), Size(10, 10), 0);
-    Collider& cB = b.AddComponent<Collider>(b, false, true);
+    Collider& cB = b.AddComponent<Collider>(b, Collider::FIXED);
     cB.collisionSignal.connect<&addCollision>();
 
     a.Start();
@@ -144,13 +141,13 @@ TEST_CASE("Collider integration: ending collisions", "[collider]") {
     Gameobject& a = Instantiate<Gameobject>();
     a.name = "ending coll Object A";
     a.AddComponent<Transform>(Position(0, 0), Size(10, 10), 0);
-    Collider& cA = a.AddComponent<Collider>(a, false, true);
+    Collider& cA = a.AddComponent<Collider>(a);
     cA.collisionSignal.connect<&addCollision>();
 
     Gameobject& b = Instantiate<Gameobject>();
     b.name = "ending coll Object B";
     b.AddComponent<Transform>(Position(3, 3), Size(10, 10), 0);
-    Collider& cB = b.AddComponent<Collider>(b, false, true);
+    Collider& cB = b.AddComponent<Collider>(b);
     cB.collisionSignal.connect<&addCollision>();
 
     a.Start();
@@ -233,8 +230,10 @@ TEST_CASE("Collider integration: One trigger unfixed; one nontrigger unfixed col
     g2.AddComponent<Transform>(p2, Size(50, 50), 0);
 
     // Add colliders
-    g1.AddComponent<Collider>(g1, true, false);
+    g1.AddComponent<Collider>(g1, Collider::TRIGGER);
     g2.AddComponent<Collider>(g2);
+
+    printf("Colliders added\n");
 
     g1.Start();
     g2.Start();

@@ -8,12 +8,11 @@
 
 using namespace Fastboi;
 
-Collider::Collider(Gameobject& gameobject) : Collider(gameobject, false, false) { };
+Collider::Collider(Gameobject& go) : Collider(go, 0) { };
 
-Collider::Collider(Gameobject& gameobject, bool isTrigger, bool isFixed)
+Collider::Collider(Gameobject& gameobject, uint_fast8_t flags)
  : gameobject(gameobject)
- , isTrigger(isTrigger)
- , isFixed(isFixed) {
+ , flags(flags) {
     Fastboi::RegisterCollider(this);
 };
 
