@@ -3,6 +3,7 @@
 #include "FastboiCore.h"
 #include "Application.h"
 #include "Camera.h"
+#include "Rect.h"
 #include "SDL/SDL.h"
 #include <memory>
 #include <type_traits>
@@ -26,7 +27,7 @@ namespace Fastboi {
         }
 
         template<FillType fill>
-        void Render_Rect(const SDL_FRect& rect) {
+        void Render_Rect(const RectF& rect) {
             if constexpr (fill == FillType::FILLED) {
                 SDL_RenderFillRectF(gRenderer, &rect);
             } else {
@@ -70,9 +71,9 @@ namespace Fastboi {
 
         void Render_Line(const Position& worldA, const Position& worldB);
 
-        void Render_Texture(const Transform& transform, const Texture* texture, const SDL_Rect& cutout);
+        void Render_Texture(const Transform& transform, const Texture* texture, const Rect& cutout);
 
-        inline void Render_Texture(const std::unique_ptr<Transform>& transform, const Texture* texture, const SDL_Rect& cutout) {
+        inline void Render_Texture(const std::unique_ptr<Transform>& transform, const Texture* texture, const Rect& cutout) {
             Render_Texture(*transform, texture, cutout);
         }
 
@@ -82,7 +83,7 @@ namespace Fastboi {
             Render_Texture(*transform, texture);
         }
 
-        void Render_TextureTarget(const Texture* src, const Texture* dest, const SDL_Rect& destRect);
+        void Render_TextureTarget(const Texture* src, const Texture* dest, const Rect& destRect);
 
         inline void SetColor(uint8_t r, uint8_t g, uint8_t b, uint8_t a) {
             SDL_SetRenderDrawColor(gRenderer, r, g, b, a);

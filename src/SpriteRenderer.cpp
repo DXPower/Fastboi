@@ -1,6 +1,6 @@
 #include "SpriteRenderer.h"
 
-SpriteRenderer::SpriteRenderer(Gameobject& gameobject, RenderData data, const char* textureName, const SDL_Rect& cutout)
+SpriteRenderer::SpriteRenderer(Gameobject& gameobject, RenderData data, const char* textureName, const Rect& cutout)
     : Renderer(gameobject, data)
     , texture(Fastboi::Resources::GetTexture(textureName))
     , cutout(cutout) {

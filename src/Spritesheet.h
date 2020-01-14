@@ -13,14 +13,14 @@ struct Spritesheet final {
         const uint32_t ticksNecessary;
         float ticksMultiplier;
 
-        SDL_Rect window;
+        Rect window;
         uint8_t currentIteration;
 
         Animation(const Veci& origin, const Vec<int>& windowSize, const Vecb& count, uint32_t ticksNecessary)
         : origin(origin)
         , count(count)
         , ticksNecessary(ticksNecessary)
-        , window((SDL_Rect) { 0, 0, windowSize.x, windowSize.y }) 
+        , window(Rect(0, 0, windowSize.x, windowSize.y)) 
         , currentIteration(0)
         , ticksMultiplier(1.f)
         { };

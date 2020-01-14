@@ -10,6 +10,7 @@
 #include "RepeatRenderer.h"
 #include "VelocityComp.h"
 #include "RectUI.h"
+#include "Rect.h"
 
 #include "circular_vector.h"
 
@@ -91,7 +92,7 @@ PlayerActor::PlayerActor(const Position& p) : Gameobject("Player") {
     AddComponent<ColorComp>();
     GetComponent<ColorComp>().set(255, 100, 0, 255);
 
-    AddComponent<SpriteRenderer>(*this, RenderData(RenderOrder::UNITS), "Player", (SDL_Rect) { 0, 0, 41, 42 });
+    AddComponent<SpriteRenderer>(*this, RenderData(RenderOrder::UNITS), "Player", Rect(0, 0, 41, 42));
 
     using PlayerSpritesheet = Spritesheet<int>;
     using Animation = PlayerSpritesheet::Animation;

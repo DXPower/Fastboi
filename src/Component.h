@@ -23,7 +23,7 @@ template<class Component_t, typename ... Args>
 struct Component final : ComponentBase {
     std::unique_ptr<Component_t> component;
 
-    Component(Args... args) { 
+    Component(Args&&... args) { 
         component = std::make_unique<Component_t>(std::forward<Args>(args)...);
     };
 

@@ -63,8 +63,7 @@ void RepeatRenderer::RenderRepeatTexture(const Size& newSize) {
             Vec<int> rectOrigin(drawOrigin.x + (ix * tileSize.x), drawOrigin.y + (iy * tileSize.y));
             Vec<int> rectSize(tileSize.x, tileSize.y);
 
-            SDL_Rect drawRect { rectOrigin.x, rectOrigin.y, rectSize.x, rectSize.y };
-
+            Rect drawRect(rectOrigin.x, rectOrigin.y, rectSize.x, rectSize.y);
             Rendering::Render_TextureTarget(baseTexture, repeatTexture, drawRect);
         }
     }

@@ -14,9 +14,8 @@ void Rendering::Render_Line(const Position& worldA, const Position& worldB) {
     SDL_RenderDrawLineF(gRenderer, screenA.x, screenA.y, screenB.x, screenB.y);
 }
 
-void Rendering::Render_Texture(const Transform& transform, const Texture* texture, const SDL_Rect& cutout) {
+void Rendering::Render_Texture(const Transform& transform, const Texture* texture, const Rect& cutout) {
     Position screenPos = Fastboi::camera.WorldToScreenPos(GetLeftCorner(transform));
-
     SDL_FRect dest { screenPos.x, screenPos.y, transform.size.x, transform.size.y };
 
     if (transform.GetRotation() == 0.f)
@@ -28,10 +27,10 @@ void Rendering::Render_Texture(const Transform& transform, const Texture* textur
 
 void Rendering::Render_Texture(const Transform& transform, const Texture* texture) {
     Vec<int> size(GetTextureSize(texture)); // Get texture size
-    Render_Texture(transform, texture, (SDL_Rect) { 0, 0, size.x, size.y });
+    Render_Texture(transform, texture, Rect(0, 0, size.x, size.y));
 }
 
-void Rendering::Render_TextureTarget(const Texture* src, const Texture* dest, const SDL_Rect& destRect) {
+void Rendering::Render_TextureTarget(const Texture* src, const Texture* dest, const Rect& destRect) {
     SDL_SetRenderTarget(gRenderer, ccast_tx(dest)); // Target the destination texture
 
     Vec<int> srcSize(GetTextureSize(src)); // Get size of src texture
