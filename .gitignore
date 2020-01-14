@@ -2,8 +2,8 @@
 out/obj/*.*
 out/obj/Slowboi/*.*
 out/test/*.*
+out/test/Slowboi/*.*
 out/test/test/*.*
-out/Slowboi/*.*
 
 *.exe
 

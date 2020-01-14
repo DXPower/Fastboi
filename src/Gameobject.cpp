@@ -16,6 +16,7 @@ Gameobject::~Gameobject() {
 
     isDestroying = true;
     
+    printf("Destroying gameobject...\n");
     transform.reset();
     renderer.reset();
     collider.reset();

@@ -156,7 +156,7 @@ void Fastboi::Collision::NarrowPhase(
         for (auto cb = std::next(ca, 1); cb != potentialCollisions.end(); cb++) {
             if (*ca == *cb) continue;
             if (Collision_t::CollisionData coll = AreCollidersIntersectng(**ca, **cb); coll.collided) {
-               collisions.AddCollision({ *ca, *cb, coll });
+               collisions.AddCollision({ **ca, **cb, coll });
             }
         }
     }
@@ -172,32 +172,32 @@ void Fastboi::Collision::ResolveColliders(
     for (const Collision_t& collision : collisions.Get()) {
         tuple<Velocity, Velocity> finalVelocities = ResolveCollision(collision);
 
-        AdvanceTransform(*(collision.a->gameobject->transform), get<0>(finalVelocities));
-        AdvanceTransform(*(collision.b->gameobject->transform), get<1>(finalVelocities));
+        AdvanceTransform(*collision.a.gameobject.transform, get<0>(finalVelocities));
+        AdvanceTransform(*collision.b.gameobject.transform, get<1>(finalVelocities));
     }
 }
 
 //TODO: Profile performance between separate DispatchCollisions() and merging it into ResolveColliders
 void Fastboi::Collision::DispatchCollisions(const Collisions_t& collisions) {
     for (const Collision_t& collision : collisions.Get()) {
-        if (collision.a->isDeleted || collision.b->isDeleted) continue;
+        if (collision.a.isDeleted || collision.b.isDeleted) continue;
         
-        collision.a->Collide(*collision.b);
-        collision.b->Collide(*collision.a);
+        collision.a.Collide(collision.b);
+        collision.b.Collide(collision.a);
     }
 }
 
 tuple<Velocity, Velocity> Fastboi::Collision::ResolveCollision(const Collision_t& collision) {
     tuple<Velocity, Velocity> finalVelocities;
 
-    if (collision.a->isTrigger || collision.b->isTrigger) return finalVelocities; // Triggers do not affect velocities at all
+    if (collision.a.isTrigger || collision.b.isTrigger) return finalVelocities; // Triggers do not affect velocities at all
 
-    if (!collision.a->isFixed) {
+    if (!collision.a.isFixed) {
         get<0>(finalVelocities) = -collision.data.penetration;
     } else
         get<0>(finalVelocities) = Velocity::zero();
 
-    if (!collision.b->isFixed)
+    if (!collision.b.isFixed)
         get<1>(finalVelocities) = collision.data.penetration;
     else
         get<1>(finalVelocities) = Velocity::zero();
@@ -231,27 +231,3 @@ std::size_t ColliderPairKey::Hash::operator()(const ColliderPairKey& cp) const {
     return std::min(a, b) ^ std::max(a, b);
 }
 
-// VelocityComponent* cav = (*ca)->velocityComponent;
-// VelocityComponent* cbv = (*cb)->velocityComponent;
-
-// if (cav != nullptr && cbv != nullptr) {
-//     // Advance both transforms
-//     Transform ta = AdvanceTransform(*(*ca)->gameobject->transform, cav->velocity);
-//     Transform tb = AdvanceTransform(*(*cb)->gameobject->transform, cbv->velocity);
-
-//     const Vertices_t vertsA = (*ca)->CalculateVertices(ta);
-//     const Vertices_t vertsB = (*cb)->CalculateVertices(tb);
-
-//     collision = AreShapesIntersecting(vertsA, vertsB);
-// } else if (cav != nullptr) {
-//     // Advance only colliderA
-//     Transform ta = AdvanceTransform(*(*ca)->gameobject->transform, cav->velocity);
-
-//     const Vertices_t vertsA = (*ca)->CalculateVertices(ta);
-//     const Vertices_t& vertsB = (*cb)->GetVertices();
-
-//     collision = AreShapesIntersecting(vertsA, vertsB);
-// } else if (cbv != nullptr) {
-//     // Advance only colliderB
-
-// }

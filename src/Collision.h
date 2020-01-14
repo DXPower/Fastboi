@@ -37,8 +37,8 @@ namespace Fastboi {
                 Vecf penetration;
             };
 
-            Collider* a;
-            Collider* b;
+            Collider& a;
+            Collider& b;
             CollisionData data;
         };
 

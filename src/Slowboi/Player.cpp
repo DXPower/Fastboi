@@ -103,8 +103,8 @@ void Player::Update() {
 
 void Player::Collision(const CollisionEvent& e) const {
     if (e.type == CollisionEvent::BEGIN) {
-        printf("Player collided with: %s\n", e.collider.gameobject->name);
+        printf("Player collided with: %s\n", e.collider.gameobject.name);
     } else if (e.type == CollisionEvent::END) {
-        printf("Player ended collision with: %s\n", e.collider.gameobject->name);
+        printf("Player ended collision with: %s\n", e.collider.gameobject.name);
     }
 }

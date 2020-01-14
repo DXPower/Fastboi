@@ -8,9 +8,9 @@
 
 using namespace Fastboi;
 
-Collider::Collider(Gameobject* gameobject) : Collider(gameobject, false, false) { };
+Collider::Collider(Gameobject& gameobject) : Collider(gameobject, false, false) { };
 
-Collider::Collider(Gameobject* gameobject, bool isTrigger, bool isFixed)
+Collider::Collider(Gameobject& gameobject, bool isTrigger, bool isFixed)
  : gameobject(gameobject)
  , isTrigger(isTrigger)
  , isFixed(isFixed) {
@@ -54,7 +54,7 @@ void Collider::Update() {
 }
 
 const circular_vector<Position>& Collider::GetVertices() const {
-    return gameobject->transform->GetVertices();
+    return gameobject.transform->GetVertices();
 }
 
 void Collider::Collide(const Collider& collider) {

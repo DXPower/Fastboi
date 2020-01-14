@@ -15,11 +15,6 @@ struct VelocityComponent;
 
 struct Collider {
     private:
-    /**
-     * Because physics is on a separate thread from updates, a collision is only allowed to trigger any updates during an
-     * update tick. We must keep track of what our current collisions are, as well as and collisions that happened
-     * outside the update tick.
-    **/
     std::vector<const Collider*> currentCollisions;
     std::vector<const Collider*> pendingCollisions;
 
@@ -28,11 +23,11 @@ struct Collider {
     
     public:
     Fastboi::Signal<void(const Fastboi::CollisionEvent&)> collisionSignal;
-    Gameobject* gameobject;
+    Gameobject& gameobject;
     bool isTrigger, isFixed;
 
-    Collider(Gameobject* gameobject);
-    Collider(Gameobject* gameobject, bool isTrigger, bool isFixed);
+    Collider(Gameobject& gameobject);
+    Collider(Gameobject& gameobject, bool isTrigger, bool isFixed);
     virtual ~Collider();
     
     void Start();

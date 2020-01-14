@@ -11,7 +11,7 @@ TEST_CASE("Colliders", "[collider]") {
     Gameobject go;
     printf("Getting shared ptrs\n");
     Transform& transform =  go.AddComponent<Transform>(Position(0, 0), Size(10, 10), 0);
-    Collider& collider = go.AddComponent<Collider>(&go);
+    Collider& collider = go.AddComponent<Collider>(go);
     
     go.Start();
 
@@ -57,10 +57,10 @@ TEST_CASE("Colliders", "[collider]") {
         Gameobject g2;
         Gameobject g3;
         Gameobject g4;
-        Collider& c1 = g1.AddComponent<Collider>(&g1, false, false);
-        Collider& c2 = g2.AddComponent<Collider>(&g2, true, true);
-        Collider& c3 = g3.AddComponent<Collider>(&g3, true, false);
-        Collider& c4 = g4.AddComponent<Collider>(&g4, false, true);
+        Collider& c1 = g1.AddComponent<Collider>(g1, false, false);
+        Collider& c2 = g2.AddComponent<Collider>(g2, true, true);
+        Collider& c3 = g3.AddComponent<Collider>(g3, true, false);
+        Collider& c4 = g4.AddComponent<Collider>(g4, false, true);
 
         REQUIRE(c1.isTrigger == false);
         REQUIRE(c2.isTrigger == true);
@@ -83,7 +83,7 @@ std::vector<std::string> collisions;
 void addCollision(const Fastboi::CollisionEvent& collision) {
     printf("Collison detected!\n");
     if (collision.type == Fastboi::CollisionEvent::BEGIN) {
-        collisions.push_back(collision.collider.gameobject->name);
+        collisions.push_back(collision.collider.gameobject.name);
     } else if (collision.type == Fastboi::CollisionEvent::END) {
         printf("Collision end!\n");
         collisions.pop_back();
@@ -91,154 +91,163 @@ void addCollision(const Fastboi::CollisionEvent& collision) {
 }
 
 TEST_CASE("Collider integration: new collisions", "[collider]") {
-    Gameobject* a = Instantiate<Gameobject>();
-    a->name = "Object A";
-    a->AddComponent<Transform>(Position(0, 0), Size(10, 10), 0);
-    Collider& cA = a->AddComponent<Collider>(a, false, true);
+    Gameobject& a = Instantiate<Gameobject>();
+    a.name = "new coll Object A";
+    a.AddComponent<Transform>(Position(0, 0), Size(10, 10), 0);
+    Collider& cA = a.AddComponent<Collider>(a, false, true);
     cA.collisionSignal.connect<&addCollision>();
 
-    Gameobject* b = Instantiate<Gameobject>();
-    b->name = "Object B";
-    b->AddComponent<Transform>(Position(3, 3), Size(10, 10), 0);
-    Collider& cB = b->AddComponent<Collider>(b, false, true);
+    Gameobject& b = Instantiate<Gameobject>();
+    b.name = "new coll Object B";
+    b.AddComponent<Transform>(Position(3, 3), Size(10, 10), 0);
+    Collider& cB = b.AddComponent<Collider>(b, false, true);
     cB.collisionSignal.connect<&addCollision>();
 
-    a->Start();
-    b->Start();
+    a.Start();
+    b.Start();
 
     Fastboi::Physics();
 
-    a->Update();
-    b->Update();
+    a.Update();
+    b.Update();
 
     SECTION("One tick gives one collision") {
         REQUIRE(collisions.size() == 2);
-        REQUIRE(contains(collisions, "Object A"));
-        REQUIRE(contains(collisions, "Object B"));
+        REQUIRE(contains(collisions, "new coll Object A"));
+        REQUIRE(contains(collisions, "new coll Object B"));
         
         SECTION("Two ticks still gives one collision") {
             Fastboi::Physics();
-            a->Update();
-            b->Update();
+            a.Update();
+            b.Update();
 
             REQUIRE(collisions.size() == 2);
-            REQUIRE(contains(collisions, "Object A"));
-            REQUIRE(contains(collisions, "Object B"));
-            Destroy(a);
-            Destroy(b);
+            REQUIRE(contains(collisions, "new coll Object A"));
+            REQUIRE(contains(collisions, "new coll Object B"));
+            Fastboi::Tick();
         }
     }
 
     collisions.clear();
+
     Destroy(a);
     Destroy(b);
+
+    Fastboi::Tick();
+
+    printf("Destroyed new collision testers\n");
 }
 
 TEST_CASE("Collider integration: ending collisions", "[collider]") {
     collisions.clear();
 
-    Gameobject* a = Instantiate<Gameobject>();
-    a->name = "Object A";
-    a->AddComponent<Transform>(Position(0, 0), Size(10, 10), 0);
-    Collider& cA = a->AddComponent<Collider>(a, false, true);
+    Gameobject& a = Instantiate<Gameobject>();
+    a.name = "ending coll Object A";
+    a.AddComponent<Transform>(Position(0, 0), Size(10, 10), 0);
+    Collider& cA = a.AddComponent<Collider>(a, false, true);
     cA.collisionSignal.connect<&addCollision>();
 
-    Gameobject* b = Instantiate<Gameobject>();
-    b->name = "Object B";
-    b->AddComponent<Transform>(Position(3, 3), Size(10, 10), 0);
-    Collider& cB = b->AddComponent<Collider>(b, false, true);
+    Gameobject& b = Instantiate<Gameobject>();
+    b.name = "ending coll Object B";
+    b.AddComponent<Transform>(Position(3, 3), Size(10, 10), 0);
+    Collider& cB = b.AddComponent<Collider>(b, false, true);
     cB.collisionSignal.connect<&addCollision>();
 
-    a->Start();
-    b->Start();
+    a.Start();
+    b.Start();
 
     Fastboi::Physics();
-    a->Update();
-    b->Update();
+    a.Update();
+    b.Update();
 
-    a->transform->position += 50;
+    a.transform->position += 50;
     // cA->TransformChanged(*a->transform);
 
     Fastboi::Physics();
-    a->Update();
-    b->Update();
+    a.Update();
+    b.Update();
     
     Fastboi::Physics();
-    a->Update();
-    b->Update();
+    a.Update();
+    b.Update();
 
     Fastboi::Physics();
-    a->Update();
-    b->Update();
+    a.Update();
+    b.Update();
 
     REQUIRE(collisions.size() == 0);
 
     Destroy(a);
     Destroy(b);
 
+    Fastboi::Tick();
     collisions.clear();
 }
 
 TEST_CASE("Collider integration: Two unfixed nontrigger colliders", "[collider]") {
-    Gameobject* g1 = Instantiate<Gameobject>();
-    Gameobject* g2 = Instantiate<Gameobject>();
+    Gameobject& g1 = Instantiate<Gameobject>();
+    Gameobject& g2 = Instantiate<Gameobject>();
 
-    g1->name = "Object 1";
-    g2->name = "Object 2";
+    g1.name = "Object 1";
+    g2.name = "Object 2";
 
     constexpr Position p1(0, 0);
     constexpr Position p2(3, 3);
 
     // Add transforms
-    g1->AddComponent<Transform>(p1, Size(50, 50), 0);
-    g2->AddComponent<Transform>(p2, Size(50, 50), 0);
+    g1.AddComponent<Transform>(p1, Size(50, 50), 0);
+    g2.AddComponent<Transform>(p2, Size(50, 50), 0);
 
     // Add colliders
-    g1->AddComponent<Collider>(g1);
-    g2->AddComponent<Collider>(g2);
+    g1.AddComponent<Collider>(g1);
+    g2.AddComponent<Collider>(g2);
 
-    g1->Start();
-    g2->Start();
+    g1.Start();
+    g2.Start();
 
     Fastboi::Physics();
-    g1->Update();
-    g2->Update();
+    g1.Update();
+    g2.Update();
 
-    REQUIRE(g1->transform->position != p1);
-    REQUIRE(g2->transform->position != p2);
+    REQUIRE(g1.transform->position != p1);
+    REQUIRE(g2.transform->position != p2);
 
     Destroy(g1);
     Destroy(g2);
+
+    Fastboi::Tick();
 }
 
 TEST_CASE("Collider integration: One trigger unfixed; one nontrigger unfixed colliders", "[collider]") {
-    Gameobject* g1 = Instantiate<Gameobject>(); // g1 is the unfixed trigger
-    Gameobject* g2 = Instantiate<Gameobject>(); // g2 is the unfixed nontrigger
+    Gameobject& g1 = Instantiate<Gameobject>(); // g1 is the unfixed trigger
+    Gameobject& g2 = Instantiate<Gameobject>(); // g2 is the unfixed nontrigger
 
-    g1->name = "Object 1";
-    g2->name = "Object 2";
+    g1.name = "Object 1";
+    g2.name = "Object 2";
 
     constexpr Position p1(0, 0);
     constexpr Position p2(3, 3);
 
     // Add transforms
-    g1->AddComponent<Transform>(p1, Size(50, 50), 0);
-    g2->AddComponent<Transform>(p2, Size(50, 50), 0);
+    g1.AddComponent<Transform>(p1, Size(50, 50), 0);
+    g2.AddComponent<Transform>(p2, Size(50, 50), 0);
 
     // Add colliders
-    g1->AddComponent<Collider>(g1, true, false);
-    g2->AddComponent<Collider>(g2);
+    g1.AddComponent<Collider>(g1, true, false);
+    g2.AddComponent<Collider>(g2);
 
-    g1->Start();
-    g2->Start();
+    g1.Start();
+    g2.Start();
 
     Fastboi::Physics();
-    g1->Update();
-    g2->Update();
+    g1.Update();
+    g2.Update();
 
-    REQUIRE(g1->transform->position == p1);
-    REQUIRE(g2->transform->position == p2);
+    REQUIRE(g1.transform->position == p1);
+    REQUIRE(g2.transform->position == p2);
 
     Destroy(g1);
     Destroy(g2);
+
+    Fastboi::Tick();
 }

@@ -46,7 +46,7 @@ struct Gameobject {
     decltype(auto) GetComponent() const;
 
     template<class T>
-    bool HasComponent();
+    bool HasComponent() const;
 
     template<class T>
     void RemoveComponent();
@@ -92,7 +92,7 @@ decltype(auto) Gameobject::GetComponent() const {
 
 
 template<class T>
-bool Gameobject::HasComponent() {
+bool Gameobject::HasComponent() const {
     if constexpr (std::is_same_v<T, Transform>) {
         return (bool) transform;
     } else if constexpr (std::is_base_of_v<Renderer, T>) {

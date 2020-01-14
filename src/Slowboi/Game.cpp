@@ -63,18 +63,18 @@ Bullet::Bullet(const Position& p, const Velocity& v) : Gameobject("Bullet") {
     AddComponent<ColorShiftComp>(this);
 
     AddComponent<BoxColorRenderer>(*this, RenderData(RenderOrder::PARTICLES));
-    Collider& collider = AddComponent<Collider>(this, true, false);
+    Collider& collider = AddComponent<Collider>(*this, true, false);
     collider.collisionSignal.connect<&Bullet::Hit>(this);
 
     printf("New bullet actor!\n");
 }
 
 void Bullet::Hit(const Fastboi::CollisionEvent& e) {
-    if (e.collider.isTrigger || e.collider.gameobject->HasComponent<Player>()) return;
+    if (e.collider.isTrigger || e.collider.gameobject.HasComponent<Player>()) return;
 
     Fastboi::camera.SetTarget(*(new Transform(*transform)), CameraTarget::OWNING);
 
-    Fastboi::Destroy(this);
+    Fastboi::Destroy(*this);
 }
 
 PlayerActor::PlayerActor(const Position& p) : Gameobject("Player") {
@@ -85,7 +85,7 @@ PlayerActor::PlayerActor(const Position& p) : Gameobject("Player") {
     transform->size = Size(41.f, 42.f);
 
     printf("Making collider...\n");
-    Collider& collider = AddComponent<Collider>(this);
+    Collider& collider = AddComponent<Collider>(*this);
     printf("Collider made\n");
 
     AddComponent<ColorComp>();
@@ -131,7 +131,7 @@ Brick::Brick(const Position& position)
     printf("Transform made.\n");
 
     AddComponent<RepeatRenderer>(*this, RenderData(RenderOrder::GROUND), "Brick", Size(80.f, 80.f));
-    AddComponent<Collider>(this, false, true);
+    AddComponent<Collider>(*this, false, true);
 
     expandListener.signal->connect<&Brick::Expand>(this);
 

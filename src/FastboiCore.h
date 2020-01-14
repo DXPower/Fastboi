@@ -21,7 +21,7 @@ namespace Fastboi {
         return *(static_cast<GO*>(RegisterGameobject(o).get()));
     }
 
-    void Destroy(Gameobject* go);
+    void Destroy(Gameobject& go);
 
     void Tick();
     void Render();

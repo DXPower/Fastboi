@@ -32,10 +32,10 @@ std::vector<Gameobject*> gosToDelete; // When an object is deleted, gameobjects 
 std::map<RenderOrder, std::vector<Renderer*>> renderers;
 std::unordered_set<Collider*> colliders;
 
-void Fastboi::Destroy(Gameobject* go) {
-    go->Destroy();
+void Fastboi::Destroy(Gameobject& go) {
+    go.Destroy();
 
-    UnregisterGameobject(go);
+    UnregisterGameobject(&go);
 }
 
 void Fastboi::Tick() {
