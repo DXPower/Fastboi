@@ -9,8 +9,6 @@ namespace Slowboi {
 
 
     struct Bullet final : public Gameobject {
-        const Player* p = nullptr;
-
         Bullet(const Position& p, const Velocity& v);
         ~Bullet() { };
         

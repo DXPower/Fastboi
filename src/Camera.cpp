@@ -21,6 +21,7 @@ Camera::~Camera() {
 }
 
 void Camera::SetTarget(const Transform& target, CameraTarget type) { 
+    printf("Setting target as %s\n", type == CameraTarget::OWNING ? "OWNING" : "WATCHING");
     if (this->type == CameraTarget::OWNING)
         delete this->target;
     

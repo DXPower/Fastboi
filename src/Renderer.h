@@ -11,12 +11,12 @@ struct Renderer {
     bool isDeleted = false;
 
     public:
-    Gameobject* gameobject;
+    Gameobject& gameobject;
     RenderData data;
 
     public:
-    Renderer(Gameobject* go);
-    Renderer(Gameobject* go, RenderData data);
+    Renderer(Gameobject& go);
+    Renderer(Gameobject& go, RenderData data);
     virtual ~Renderer();
 
     virtual void Start() { isStarted = true; };

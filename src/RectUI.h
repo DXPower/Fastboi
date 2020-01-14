@@ -13,8 +13,8 @@ struct RectUI final : public Renderer {
     Fastboi::Input::TargetedClickListener clickListener;
     
     public:
-    RectUI(Gameobject* go);
-    RectUI(Gameobject* go, int z);
+    RectUI(Gameobject& go);
+    RectUI(Gameobject& go, int z);
 
     void Start() override;
     void Render() override;

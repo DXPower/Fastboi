@@ -31,7 +31,6 @@ void Player::Fire(const ClickEvent& event) const {
         Vecf d = (Fastboi::camera.ScreenToWorldPos(event.pos) - gameobject->transform->position).normalized();
 
         Slowboi::Bullet& bullet = Instantiate<Slowboi::Bullet>(gameobject->transform->position, d * speed);
-        bullet.p = this;
 
         Fastboi::SetCamera(Camera(*bullet.transform, CameraTarget::WATCHING));
     } else if (event.type == ClickEvent::UP) {

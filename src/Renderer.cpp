@@ -2,9 +2,9 @@
 #include "FastboiCore.h"
 #include "Gameobject.h"
 
-Renderer::Renderer(Gameobject* go) : Renderer(go, { RenderOrder::GROUND, 0 }) { }
+Renderer::Renderer(Gameobject& go) : Renderer(go, { RenderOrder::GROUND, 0 }) { }
 
-Renderer::Renderer(Gameobject* go, RenderData data) : gameobject(go), data(data) {
+Renderer::Renderer(Gameobject& go, RenderData data) : gameobject(go), data(data) {
     Fastboi::RegisterRenderer(this);
 }
 

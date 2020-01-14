@@ -40,7 +40,7 @@ struct Gameobject {
     void Destroy();
     
     template<class T, typename... Args>
-    decltype(auto) AddComponent(Args... args);
+    decltype(auto) AddComponent(Args&&... args);
 
     template<class T>
     decltype(auto) GetComponent() const;
@@ -53,7 +53,7 @@ struct Gameobject {
 };
 
 template<class T, typename... Args>
-decltype(auto) Gameobject::AddComponent(Args... args) {
+decltype(auto) Gameobject::AddComponent(Args&&... args) {
     using namespace std;
 
     // Special cases for transform and render due to their special treatmeant in Gameobject:: above
@@ -68,8 +68,6 @@ decltype(auto) Gameobject::AddComponent(Args... args) {
 
         //. Component<T, Args...> creates a Component that instantiates T, with T's arguments forwarded by forward<Args>
         components.emplace(type_index(typeid(T)), make_unique<Component<T, Args...>>(forward<Args>(args)...));
-
-        
     }
 
     return (GetComponent<T>());

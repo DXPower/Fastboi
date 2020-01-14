@@ -5,8 +5,7 @@
 struct BoxColorRenderer final : public Renderer {
     const ColorComp* color;
 
-    BoxColorRenderer();
-    BoxColorRenderer(Gameobject* go, RenderData data);
+    BoxColorRenderer(Gameobject& go, RenderData data);
     ~BoxColorRenderer();
 
     void Start() override;

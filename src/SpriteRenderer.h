@@ -11,7 +11,7 @@ struct SpriteRenderer final : public Renderer {
      * @param textureName Key used by Fastboi::Resources to load texture
      * @param cutout Rectangle of texture to render
     **/
-    SpriteRenderer(Gameobject* gameobject, RenderData data, const char* textureName, const SDL_Rect& cutout);
+    SpriteRenderer(Gameobject& gameobject, RenderData data, const char* textureName, const SDL_Rect& cutout);
     ~SpriteRenderer();
 
     void Render() override;

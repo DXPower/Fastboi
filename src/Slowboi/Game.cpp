@@ -62,7 +62,7 @@ Bullet::Bullet(const Position& p, const Velocity& v) : Gameobject("Bullet") {
 
     AddComponent<ColorShiftComp>(this);
 
-    AddComponent<BoxColorRenderer>(this, RenderData(RenderOrder::PARTICLES));
+    AddComponent<BoxColorRenderer>(*this, RenderData(RenderOrder::PARTICLES));
     Collider& collider = AddComponent<Collider>(this, true, false);
     collider.collisionSignal.connect<&Bullet::Hit>(this);
 
@@ -72,8 +72,7 @@ Bullet::Bullet(const Position& p, const Velocity& v) : Gameobject("Bullet") {
 void Bullet::Hit(const Fastboi::CollisionEvent& e) {
     if (e.collider.isTrigger || e.collider.gameobject->HasComponent<Player>()) return;
 
-    if (p != nullptr)
-        Fastboi::SetCamera(Camera(*p->gameobject->transform, CameraTarget::WATCHING));
+    Fastboi::camera.SetTarget(*(new Transform(*transform)), CameraTarget::OWNING);
 
     Fastboi::Destroy(this);
 }
@@ -92,7 +91,7 @@ PlayerActor::PlayerActor(const Position& p) : Gameobject("Player") {
     AddComponent<ColorComp>();
     GetComponent<ColorComp>().set(255, 100, 0, 255);
 
-    AddComponent<SpriteRenderer>(this, RenderData(RenderOrder::UNITS), "Player", (SDL_Rect) { 0, 0, 41, 42 });
+    AddComponent<SpriteRenderer>(*this, RenderData(RenderOrder::UNITS), "Player", (SDL_Rect) { 0, 0, 41, 42 });
 
     using PlayerSpritesheet = Spritesheet<int>;
     using Animation = PlayerSpritesheet::Animation;
@@ -131,7 +130,7 @@ Brick::Brick(const Position& position)
     transform->size = Size(200.f, 200.f);
     printf("Transform made.\n");
 
-    AddComponent<RepeatRenderer>(this, RenderData(RenderOrder::GROUND), "Brick", Size(80.f, 80.f));
+    AddComponent<RepeatRenderer>(*this, RenderData(RenderOrder::GROUND), "Brick", Size(80.f, 80.f));
     AddComponent<Collider>(this, false, true);
 
     expandListener.signal->connect<&Brick::Expand>(this);
@@ -156,5 +155,5 @@ void Brick::Expand(const Fastboi::KeyEvent& e) {
 UISquare::UISquare(const Position& p, const Size& s, const ColorComp& color, int zindex) {
     AddComponent<Transform>(p, s, 0);
     AddComponent<ColorComp>(color.r, color.g, color.b, color.a);
-    AddComponent<RectUI>(this, zindex);
+    AddComponent<RectUI>(*this, zindex);
 }

@@ -3,7 +3,7 @@
 
 using namespace Fastboi;
 
-RepeatRenderer::RepeatRenderer(Gameobject* gameobject, RenderData data, const char* textureName, const Size& tileSize)
+RepeatRenderer::RepeatRenderer(Gameobject& gameobject, RenderData data, const char* textureName, const Size& tileSize)
 : Renderer(gameobject, data)
 , baseTexture(Fastboi::Resources::GetTexture(textureName))
 , repeatTexture(nullptr)
@@ -12,21 +12,21 @@ RepeatRenderer::RepeatRenderer(Gameobject* gameobject, RenderData data, const ch
 void RepeatRenderer::Start() {
     Renderer::Start();
     
-    observer = &gameobject->AddComponent<ChangeObserver<Size>>(&gameobject->transform->size);
+    observer = &gameobject.AddComponent<ChangeObserver<Size>>(&gameobject.transform->size);
     observer->signal.connect<&RepeatRenderer::RenderRepeatTexture>(this);     
 
-    RenderRepeatTexture(gameobject->transform->size);                               
+    RenderRepeatTexture(gameobject.transform->size);                               
 }
 
 RepeatRenderer::~RepeatRenderer() {
     printf("Destroying repeat renderer.");
 
     SDL_DestroyTexture(repeatTexture);
-    gameobject->RemoveComponent<ChangeObserver<Size>>();
+    gameobject.RemoveComponent<ChangeObserver<Size>>();
 }
 
 void RepeatRenderer::Render() {
-    Rendering::Render_Texture(gameobject->transform, repeatTexture);
+    Rendering::Render_Texture(gameobject.transform, repeatTexture);
 }
 
 void RepeatRenderer::RecreateRepeatTexture() {
@@ -39,13 +39,13 @@ void RepeatRenderer::RecreateRepeatTexture() {
     SDL_QueryTexture(baseTexture, &format, &access, &w, &h);
     repeatTexture = Rendering::CreateTexture(format
                                            , SDL_TEXTUREACCESS_TARGET
-                                           , gameobject->transform->size);
+                                           , gameobject.transform->size);
 }
 
 void RepeatRenderer::RenderRepeatTexture(const Size& newSize) {
     RecreateRepeatTexture(); // The texture needs to be as big as the new size
 
-    const Size& size = gameobject->transform->size; // Using Size& size instead of newSize for cache locality
+    const Size& size = gameobject.transform->size; // Using Size& size instead of newSize for cache locality
 
     // Count tiles in each direction. +1 because we are guarenteeing that one tile is exactly centered,
     //   meaning there is always an odd number of tiles in each direction.

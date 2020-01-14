@@ -83,6 +83,6 @@ namespace Fastboi {
     struct GameobjectDeleteEvent final {
         using Signal_t_g = void(const GameobjectDeleteEvent&);
 
-        const Gameobject* go;
+        const Gameobject& go;
     };
 };
