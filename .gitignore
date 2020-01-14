@@ -1,0 +1,15 @@
+# out files
+out/obj/*.*
+out/obj/Slowboi/*.*
+out/test/*.*
+out/test/test/*.*
+out/Slowboi/*.*
+
+*.exe
+
+# lib/dll files
+*.dll
+lib/*
+
+# config files
+sdl2-config
