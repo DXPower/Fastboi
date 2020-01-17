@@ -1,0 +1,76 @@
+
+/**
+ * \fn void Fastboi::Destroy(Gameobject& go)
+ * \brief Flags the Gameobject to be destroyed at the end of the frame, and no more updates will occur on this object.
+ * 
+ * Sets the \b isDeleted flag of the gameobject, its collider, and its renderer, preventing them from receiving any
+ * more updates for the rest of the frame. Any objects with <b>isDeleted == true</b> will be deleted from memory at
+ * the end of the frame.
+ * 
+ * In examples/FastboiCore.cpp: \n
+ * \dontinclude examples/FastboiCore.cpp
+ * \skip "Example Destroy"
+ * \skip Gameobject
+ * \until Fastboi::Destroy
+**/
+
+/**
+ * \fn GO& Fastboi::Instantiate(Args... args)
+ * \brief Instatiates gameobject of type \b GO with arguments \b args. \b GO must publicly extend Gameobject.
+ * 
+ * In examples/FastboiCore.cpp: \n
+ * \dontinclude examples/FastboiCore.cpp
+ * \skip "Example Instantiate"
+ * \skipline Gameobject
+ * \skipline Bullet
+*/
+
+/**
+ * \fn void Fastboi::Render()
+ * \brief Sorts renderers by RenderOrder and then by z-index.
+ * Higher z-index gets rendered above lower z-index
+**/
+
+/**
+ * \fn void Fastboi::Tick()
+ * \brief Three stages: Call \b  Start() on new gameobjects, Call \b  Update() on all gameobjects, dstor all \b  Destroy()'ed gameobjects
+ * 
+ * \b  Start() is always called at the beginning of the frame, before Update() \n
+ * \b  Update() is called every frame, unless that object has been \b  Destroy()'ed \n
+ * \b  dstor called of the Gameobject, its renderer, collider, and any components at end of frame if that Gameobject has been \b  Destroy()'ed \n
+**/
+
+/**
+ * \fn const std::unique_ptr<Gameobject>& Fastboi::RegisterGameobject(Gameobject* go)
+ * \brief Registers a Gameobject to be managed by Fastboi.
+ * 
+ * Creating a Gameobject with Instantiate() will call RegisterGameobject for you.
+ * You should not delete a Gameobject managed by Fastboi.
+*/
+
+
+/**
+ * \fn void Fastboi::UnregisterGameobject(Gameobject* go)
+ * \brief Stops Fastboi's management of a Gameobject. <b>Does not delete or call dstor.</b>
+*/
+
+/**
+ * \fn void Fastboi::RegisterRenderer(Renderer* r)
+ * \brief Registers a renderer to be rendered on every call to \b Fastboi::Render(). This causes \b Renderer::Render() to
+ * be called every frame. Done automatically in \b Renderer::Renderer().
+*/
+
+/**
+ * \fn void Fastboi::UnregisterRenderer(Renderer* r)
+ * \brief Unregisters a renderer with Fastboi. Done automatically in \b Renderer::~Renderer().
+*/
+
+/**
+ * \fn void Fastboi::RegisterCollider(Collider* r)
+ * \brief Registers a collider with Fastboi to be accessed by Fastboi::Physics().
+*/
+
+/**
+ * \fn void Fastboi::UnregisterCollider(Collider* r)
+ * \brief Unregisters a collider with Fastboi to no longer accessed by Fastboi::Physics().
+*/

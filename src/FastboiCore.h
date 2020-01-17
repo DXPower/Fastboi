@@ -8,11 +8,10 @@ struct Gameobject;
 struct Renderer;
 
 namespace Fastboi {
-    class CameraBase;
-
     extern float tickDelta;
     extern float physicsDelta;
 
+    // Instatiates gameobject of type GO with arguments args
     template<class GO, typename... Args>
     GO& Instantiate(Args... args) {
         static_assert(std::is_base_of_v<Gameobject, GO>);
@@ -21,6 +20,7 @@ namespace Fastboi {
         return *(static_cast<GO*>(RegisterGameobject(o).get()));
     }
 
+
     void Destroy(Gameobject& go);
 
     void Tick();
@@ -28,8 +28,6 @@ namespace Fastboi {
     void Physics();
 
     void GameLoop();
-    void StartGameobjects();
-
     void Quit();
 
     const std::unique_ptr<Gameobject>& RegisterGameobject(Gameobject* go);

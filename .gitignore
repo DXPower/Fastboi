@@ -13,3 +13,7 @@ lib/*
 
 # config files
 sdl2-config
+
+# doxygen
+dox/html/
+dox/latex/

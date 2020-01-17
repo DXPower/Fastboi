@@ -1,5 +1,6 @@
 #include "Application.h"
 #include "FastboiCore.h"
+#include "Resources.h"
 #include "Game.h"
 #include <iostream>
 
@@ -17,7 +18,7 @@ int main(int argc, char* args[]) {
         Slowboi::InitGame();
         // Fastboi::StartGameobjects();
         Fastboi::GameLoop();
-        Fastboi::Quit();
+        Fastboi::Resources::Cleanup();
     }
 
     Application::Cleanup();

@@ -6,6 +6,7 @@
 #include "Gameobject.h"
 #include "Input.h"
 #include "Renderer.h"
+#include "Rendering.h"
 #include "Resources.h"
 #include "SDL/SDL.h"
 #include "Timer.h"
@@ -19,8 +20,9 @@
 #define GREEN 0, 255, 0, 255
 #define BLUE 0, 0, 255, 255
 
-using namespace Application;
 using namespace Fastboi;
+
+bool quit = false;
 
 float Fastboi::tickDelta = 0.0f;
 float Fastboi::physicsDelta = 0.0f;
@@ -60,8 +62,8 @@ void Fastboi::Tick() {
 }
 
 void Fastboi::Render() {
-    SDL_SetRenderDrawColor(gRenderer, WHITE);
-    SDL_RenderClear(gRenderer);
+    SDL_SetRenderDrawColor(Rendering::gRenderer, WHITE);
+    SDL_RenderClear(Rendering::gRenderer);
 
     const static auto sortByZ = [](const Renderer* a, const Renderer* b) -> bool {
         return a->data.zindex < b->data.zindex;
@@ -76,10 +78,13 @@ void Fastboi::Render() {
         }        
     }
 
-    SDL_RenderPresent(gRenderer);
+    SDL_RenderPresent(Rendering::gRenderer);
 }
 
-
+/**
+ * \brief Apply velocities, prune potential collisions, detect collisions, 
+ * resolve post-collision positions, and dispatch events
+**/
 void Fastboi::Physics() {
     Collision::PotentialCollisions_t potentialCollisions;
     Collision::Collisions_t collisions;
@@ -91,15 +96,20 @@ void Fastboi::Physics() {
     Collision::DispatchCollisions(collisions);
 }
 
-void Fastboi::StartGameobjects() {
-    // for (Gameobject* go : gameobjects) {
-    //     printf("Calling %s: %p\n", go->name, go);
-    //     go->Start();
-    // }
-
-    // printf("All called!\n");
+// Once Fastboi::GameLoop() has ended, clean up all resources.
+void Cleanup() {
+    gameobjects.clear();
+    gosToAdd.clear();
+    gosToDelete.clear();
+    renderers.clear();
+    colliders.clear();
 }
 
+/**
+ * \brief Starts an infinite loop that calls Input::PollEvents(), Fastboi::Tick(), Fastboi::Physics(), and Fastboi::Render()
+ * 
+ * Only intended to be called by main
+**/
 void Fastboi::GameLoop() {
     // Timing constants
     constexpr int TICK_FREQUENCY = 120;
@@ -119,7 +129,7 @@ void Fastboi::GameLoop() {
     tickTimer.tick(); // Initial tick because the time between SDL start and Fastboi::GameLoop is quite long
     physicsTimer.tick();
 
-    while (!Application::quit) {
+    while (!quit) {
         tickTimer.tick();
         physicsTimer.tick();
 
@@ -144,13 +154,22 @@ void Fastboi::GameLoop() {
         
         if (flags & (SDL_WINDOW_INPUT_FOCUS)) Render();
     }
+
+    printf("Cleaning up!\n");
+    Cleanup();
 }
 
+/**
+ * \brief Quits Fastboi by ending Fastboi::GameLoop() before the beginning of the next loop.
+ * <b>Deletes all Gameobjects managed by Fastboi</b>.
+*/
 void Fastboi::Quit() {
-    Resources::Cleanup();
+    quit = true;
 }
 
+// Registers a Gameobject to be managed by Fastboi. Use Destroy() to delete.
 const std::unique_ptr<Gameobject>& Fastboi::RegisterGameobject(Gameobject* go) {
+    printf("New object!");
     gosToAdd.push_back(std::move(std::unique_ptr<Gameobject>(go)));
 
     return gosToAdd.back();
@@ -165,13 +184,10 @@ void Fastboi::RegisterRenderer(Renderer* r) {
     printf("New renderer!");
     
     RenderOrder order = r->GetOrder();
-
-    // if (renderers.find(order) == renderers.end())
-    //     renderers.emplace(order);
-
     renderers[order].push_back(r);
 }
 
+//! Helper function used by Renderer::SetOrder(). This should not be directly called.
 void Fastboi::ChangeRenderOrder(Renderer* r, RenderOrder old, RenderOrder _new) {
     // Add renderer to new layer before removing to avoid it disappearing for a frame
     renderers[_new].push_back(r);
@@ -195,3 +211,8 @@ void Fastboi::UnregisterCollider(Collider* c) {
     printf("Dead collider!");
     colliders.erase(c);
 }
+
+/**
+ * @example FastboiCore.cpp
+ * Shows examples of Instantiating and Destroying gameobjects.
+**/

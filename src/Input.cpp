@@ -59,7 +59,7 @@ void Input::PollEvents() {
     while (SDL_PollEvent(&event)) {
         switch (event.type) {
             case SDL_QUIT:
-                Application::quit = true;
+                Fastboi::Quit();
                 break;
             case SDL_KEYDOWN: {
                 SDL_KeyboardEvent sdl_keyEvent = event.key;
