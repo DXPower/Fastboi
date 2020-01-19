@@ -1,33 +1,35 @@
 #pragma once
 
 #include "RenderOrder.h"
-#include "FastboiCore.h"
 
-struct Gameobject;
+namespace Fastboi {
+    struct Gameobject;
+    void Render();
 
-struct Renderer {
-    private:
-    bool isStarted = false;
-    bool isDeleted = false;
+    struct Renderer {
+        private:
+        bool isStarted = false;
+        bool isDeleted = false;
 
-    public:
-    Gameobject& gameobject;
-    RenderData data;
+        public:
+        Gameobject& gameobject;
+        RenderData data;
 
-    public:
-    Renderer(Gameobject& go);
-    Renderer(Gameobject& go, RenderData data);
-    virtual ~Renderer();
+        public:
+        Renderer(Gameobject& go);
+        Renderer(Gameobject& go, RenderData data);
+        virtual ~Renderer();
 
-    virtual void Start() { isStarted = true; };
-    virtual void Render() = 0;
-    void Destroy() { isDeleted = true; };
+        virtual void Start() { isStarted = true; };
+        virtual void Render() = 0;
+        void Destroy() { isDeleted = true; };
 
-    RenderOrder GetOrder() const;
-    void SetOrder(RenderOrder order);
+        RenderOrder GetOrder() const;
+        void SetOrder(RenderOrder order);
 
-    int GetZ() const;
-    void SetZ(int z);
+        int GetZ() const;
+        void SetZ(int z);
 
-    friend void Fastboi::Render();
+        friend void Fastboi::Render();
+    };
 };

@@ -2,11 +2,13 @@
 
 #include <Vec.h>
 
-using Velocity = Vecf;
+namespace Fastboi {
+    namespace Components {
+        struct VelocityComponent {
+            Velocity velocity;
 
-struct VelocityComponent {
-    Velocity velocity;
-
-    VelocityComponent(const Velocity& v) : velocity(v) { };
-    VelocityComponent() : VelocityComponent(Velocity::zero()) { };
+            VelocityComponent(const Velocity& v) : velocity(v) { };
+            VelocityComponent() : VelocityComponent(Velocity::zero()) { };
+        };
+    };
 };

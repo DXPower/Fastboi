@@ -2,6 +2,8 @@
 #include <algorithm>
 #include <vector>
 
+using namespace Fastboi;
+
 Transform::Transform() : Transform(Position::zero(), Size::zero(), 0) { }
 Transform::Transform(Position pos) : Transform(pos, Size::zero(), 0) { }
 Transform::Transform(Position pos, Size size, double rot) : position(pos), size(size), rotation(rot), shape(nullptr) {

@@ -5,6 +5,7 @@
 #include "Input.h"
 
 using namespace Fastboi;
+using namespace Fastboi::Components;
 
 RectUI::RectUI(Gameobject& go) : Renderer(go, { RenderOrder::UI, 0 }) { }
 RectUI::RectUI(Gameobject& go, int z) : Renderer(go, { RenderOrder::UI, z }) { }

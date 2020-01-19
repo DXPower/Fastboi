@@ -1,13 +1,18 @@
 #pragma once
-#include "Renderer.h"
+
+#include "Fastboi.h"
 #include "ColorComp.h"
 
-struct BoxColorRenderer final : public Renderer {
-    const ColorComp* color;
+namespace Fastboi {
+    namespace Components {
+        struct BoxColorRenderer final : public Fastboi::Renderer {
+            const ColorComp* color;
 
-    BoxColorRenderer(Gameobject& go, RenderData data);
-    ~BoxColorRenderer();
+            BoxColorRenderer(Fastboi::Gameobject& go, RenderData data);
+            ~BoxColorRenderer();
 
-    void Start() override;
-    void Render() override;
+            void Start() override;
+            void Render() override;
+        };
+    };
 };

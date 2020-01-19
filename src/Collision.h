@@ -10,11 +10,12 @@
 #include <vector>
 #include "circular_vector.h"
 
-struct Collider;
-struct Transform;
-struct Gameobject;
-
 namespace Fastboi {
+    struct Collider;
+    struct Gameobject;
+    struct Transform;
+
+    
     namespace Collision {
         struct ColliderPairKey {
             Collider* a;

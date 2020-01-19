@@ -2,6 +2,8 @@
 #include "FastboiCore.h"
 #include "Gameobject.h"
 
+using namespace Fastboi;
+
 Renderer::Renderer(Gameobject& go) : Renderer(go, { RenderOrder::GROUND, 0 }) { }
 
 Renderer::Renderer(Gameobject& go, RenderData data) : gameobject(go), data(data) {

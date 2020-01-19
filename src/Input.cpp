@@ -1,6 +1,6 @@
 #include "Input.h"
 #include <algorithm>
-#include "Application.h"
+#include "FastboiCore.h"
 #include <memory>
 #include "SDL/SDL.h"
 #include "Renderer.h"

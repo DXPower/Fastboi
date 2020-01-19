@@ -8,7 +8,7 @@ include targets.env
 CC=clang
 CXX=clang++
 CFLAGS = -std=c11
-CXXFLAGS = -std=c++17 -m64 -march=x86-64 -Wfatal-errors -W -Wdelete-abstract-non-virtual-dtor -Wno-unused-parameter -Wno-format -Xclang -flto-visibility-public-std 
+CXXFLAGS = -std=c++17 -m64 -march=x86-64 -Wfatal-errors -W -Wdelete-abstract-non-virtual-dtor -Wno-unused-parameter -Wno-format -Xclang -flto-visibility-public-std -frelaxed-template-template-args 
 CXX_LINKS = -L./lib/ -lSDL2main -lSDL2 -lSDL2_image
 # DEBUGFLAGS = -g -D DEBUG
 DEFINES = -D SDL_MAIN_HANDLED -D WINDOWS

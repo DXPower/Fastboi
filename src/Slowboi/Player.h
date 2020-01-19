@@ -3,28 +3,35 @@
 #include "Fastboi.h"
 #include "Spritesheet.h"
 
-struct Player final {
-    private:
-    VelocityComponent* velocityComp;
-    Spritesheet<int>* spritesheet;
+using namespace Fastboi;
+using namespace Components;
 
-    Fastboi::Input::KeyListener spacebarListener;
-    Fastboi::Input::ClickListener clickListener;
-    
-    Vecf lastDirection;
-    Vecf facingDirection;
+namespace Slowboi {
+    namespace Components {
+        struct Player final {
+            private:
+            VelocityComponent* velocityComp;
+            Spritesheet<int>* spritesheet;
 
-    public:
-    Gameobject* gameobject;
-    float_t speed = 500.0f;
+            Input::KeyListener spacebarListener;
+            Input::ClickListener clickListener;
+            
+            Vecf lastDirection;
+            Vecf facingDirection;
 
-    Player(Gameobject* go);
-    ~Player();
+            public:
+            Gameobject* gameobject;
+            float_t speed = 500.0f;
 
-    void Spacebar(const Fastboi::KeyEvent& e) const;
-    void VelocityChanged(const Velocity& velocity) const;
-    void Fire(const Fastboi::ClickEvent& event) const;
-    void Start();
-    void Update();
-    void Collision(const Fastboi::CollisionEvent& e) const;
+            Player(Gameobject* go);
+            ~Player();
+
+            void Spacebar(const KeyEvent& e) const;
+            void VelocityChanged(const Velocity& velocity) const;
+            void Fire(const ClickEvent& event) const;
+            void Start();
+            void Update();
+            void Collision(const CollisionEvent& e) const;
+        };
+    };
 };

@@ -2,6 +2,8 @@
 #include "Collider.h"
 #include "FastboiCore.h"
 
+using namespace Fastboi;
+
 Gameobject::Gameobject() : Gameobject("") { }
 
 Gameobject::Gameobject(const char* name)

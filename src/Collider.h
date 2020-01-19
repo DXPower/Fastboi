@@ -9,54 +9,60 @@
 #include <vector>
 #include <memory>
 
-struct Gameobject;
-struct Transform;
-struct VelocityComponent;
 
-struct Collider {
-    private:
-    std::vector<const Collider*> currentCollisions;
-    std::vector<const Collider*> pendingCollisions;
+namespace Fastboi {
+    struct Gameobject;
+    struct Transform;
 
-    bool isStarted = false;
-    bool isDeleted = false;
-    uint_fast8_t flags;
-    
-    public:
-    enum {
-        TRIGGER = 1 // Trigger means any collision will not affect either itself or other's positions, but still triggers event. (Like a tripwire)
-        , FIXED = 2 // Fixed means any collision will not affect its own position, but still can affect another's position. (Like a wall)
+    namespace Components {
+        struct VelocityComponent;
     };
 
-    Fastboi::Signal<void(const Fastboi::CollisionEvent&)> collisionSignal;
-    Gameobject& gameobject;
+    struct Collider {
+        private:
+        std::vector<const Collider*> currentCollisions;
+        std::vector<const Collider*> pendingCollisions;
 
-    Collider(Gameobject& gameobject);
-    Collider(Gameobject& gameobject, uint_fast8_t flags);
-    virtual ~Collider();
-    
-    void Start();
-    void Update();
-    inline void Destroy() { isDeleted = true; };
+        bool isStarted = false;
+        bool isDeleted = false;
+        uint_fast8_t flags;
+        
+        public:
+        enum {
+            TRIGGER = 1 // Trigger means any collision will not affect either itself or other's positions, but still triggers event. (Like a tripwire)
+            , FIXED = 2 // Fixed means any collision will not affect its own position, but still can affect another's position. (Like a wall)
+        };
 
-    const circular_vector<Position>& GetVertices() const; 
+        Fastboi::Signal<void(const Fastboi::CollisionEvent&)> collisionSignal;
+        Gameobject& gameobject;
 
-    inline bool IsTrigger() const { return flags & TRIGGER; };
-    inline bool IsFixed() const { return flags & FIXED; };  
-    inline void SetFlags(uint_fast8_t flags) { this->flags = flags; };
+        Collider(Gameobject& gameobject);
+        Collider(Gameobject& gameobject, uint_fast8_t flags);
+        virtual ~Collider();
+        
+        void Start();
+        void Update();
+        inline void Destroy() { isDeleted = true; };
 
-    private:
-    void Collide(const Collider& collider);
-    void GetNewAndEndingCollisions(std::vector<const Collider*>& newCs, std::vector<const Collider*>& endingCs);
+        const circular_vector<Position>& GetVertices() const; 
 
-    using Colliders_t = Fastboi::Collision::Colliders_t;
-    using PotentialCollisions_t = Fastboi::Collision::PotentialCollisions_t;
-    using Collisions_t = Fastboi::Collision::Collisions_t;
-    using Collision_t = Fastboi::Collision::Collision_t;
+        inline bool IsTrigger() const { return flags & TRIGGER; };
+        inline bool IsFixed() const { return flags & FIXED; };  
+        inline void SetFlags(uint_fast8_t flags) { this->flags = flags; };
 
-    friend void Fastboi::Collision::BroadPhase(const Colliders_t&, PotentialCollisions_t&);
-    friend void Fastboi::Collision::NarrowPhase(const PotentialCollisions_t&, Collisions_t&);
-    friend void Fastboi::Collision::ResolveColliders(const Colliders_t&, const Collisions_t&);
-    friend std::tuple<Velocity, Velocity> Fastboi::Collision::ResolveCollision(const Collision_t&);
-    friend void Fastboi::Collision::DispatchCollisions(const Collisions_t&);
+        private:
+        void Collide(const Collider& collider);
+        void GetNewAndEndingCollisions(std::vector<const Collider*>& newCs, std::vector<const Collider*>& endingCs);
+
+        using Colliders_t = Fastboi::Collision::Colliders_t;
+        using PotentialCollisions_t = Fastboi::Collision::PotentialCollisions_t;
+        using Collisions_t = Fastboi::Collision::Collisions_t;
+        using Collision_t = Fastboi::Collision::Collision_t;
+
+        friend void Fastboi::Collision::BroadPhase(const Colliders_t&, PotentialCollisions_t&);
+        friend void Fastboi::Collision::NarrowPhase(const PotentialCollisions_t&, Collisions_t&);
+        friend void Fastboi::Collision::ResolveColliders(const Colliders_t&, const Collisions_t&);
+        friend std::tuple<Velocity, Velocity> Fastboi::Collision::ResolveCollision(const Collision_t&);
+        friend void Fastboi::Collision::DispatchCollisions(const Collisions_t&);
+    };
 };

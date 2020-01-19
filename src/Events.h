@@ -5,10 +5,10 @@
 #include "Transform.h"
 #include <Vec.h>
 
-struct Collider;
-struct Gameobject;
-
 namespace Fastboi {
+    struct Collider;
+    struct Gameobject;
+    
     using Nano::Signal;
 
     struct KeyEvent final {

@@ -1,13 +1,15 @@
 #pragma once
 
-#include "Collider.h"
+#include <memory>
 #include "RenderOrder.h"
 #include <type_traits>
 
-struct Gameobject;
-struct Renderer;
 
 namespace Fastboi {
+    struct Collider;
+    struct Gameobject;
+    struct Renderer;
+    
     extern float tickDelta;
     extern float physicsDelta;
 

@@ -2,6 +2,7 @@
 #include "circular_vector.h"
 
 using namespace Fastboi;
+using namespace Components;
 
 RepeatRenderer::RepeatRenderer(Gameobject& gameobject, RenderData data, const char* textureName, const Size& tileSize)
 : Renderer(gameobject, data)

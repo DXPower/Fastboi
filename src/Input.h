@@ -6,7 +6,9 @@
 #include <unordered_map>
 #include <memory>
 
-struct Renderer;
+namespace Fastboi {
+    struct Renderer;
+};
 
 namespace Fastboi {
     namespace Input {

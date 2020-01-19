@@ -3,6 +3,8 @@
 #include <limits>
 #include "Transform.h"
 
+using namespace Fastboi;
+
 Shape::Shape(const Transform& t) : transform(t) {
     lastPos = transform.position;
     lastSize = transform.size;
@@ -10,8 +12,7 @@ Shape::Shape(const Transform& t) : transform(t) {
 }
 
 const circular_vector<Position>& Shape::GetVertices() {
-    if (
-           lastPos      != transform.position
+    if (   lastPos      != transform.position
         || lastSize     != transform.size
         || lastRotation != transform.rotation
     ) {

@@ -1,7 +1,7 @@
 #include "BoxColorRenderer.h"
-#include "Gameobject.h"
-#include "ColorComp.h"
-#include "Rendering.h"
+
+using namespace Fastboi;
+using namespace Fastboi::Components;
 
 BoxColorRenderer::BoxColorRenderer(Gameobject& go, RenderData data) : Renderer(go, data) {
     printf("Box color renderer made!\n");
@@ -18,6 +18,6 @@ void BoxColorRenderer::Start() {
 }
 
 void BoxColorRenderer::Render() {
-    Fastboi::Rendering::SetColor(color->r, color->g, color->b, color->a);
-    Fastboi::Rendering::Render_Rect<Fastboi::Rendering::FILLED>(gameobject.transform);
+    Rendering::SetColor(color->r, color->g, color->b, color->a);
+    Rendering::Render_Rect<Rendering::FILLED>(gameobject.transform);
 }

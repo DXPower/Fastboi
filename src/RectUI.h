@@ -5,19 +5,23 @@
 #include "Input.h"
 #include <memory>
 
-struct ColorComp;
+namespace Fastboi {
+    namespace Components {
+        struct ColorComp;
 
-struct RectUI final : public Renderer {
-    private:
-    const ColorComp* color;
-    Fastboi::Input::TargetedClickListener clickListener;
-    
-    public:
-    RectUI(Gameobject& go);
-    RectUI(Gameobject& go, int z);
+        struct RectUI final : public Fastboi::Renderer {
+            private:
+            const ColorComp* color;
+            Fastboi::Input::TargetedClickListener clickListener;
+            
+            public:
+            RectUI(Fastboi::Gameobject& go);
+            RectUI(Fastboi::Gameobject& go, int z);
 
-    void Start() override;
-    void Render() override;
+            void Start() override;
+            void Render() override;
 
-    void Click(const Fastboi::TargetedClickEvent& e);
+            void Click(const Fastboi::TargetedClickEvent& e);
+        };
+    };
 };

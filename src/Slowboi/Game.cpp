@@ -1,21 +1,13 @@
 #include "Fastboi.h"
 #include "Game.h"
 #include "Player.h"
-#include <iostream>
-#include "ColorComp.h"
-#include "BoxColorRenderer.h"
-#include "SpriteRenderer.h"
-#include "Spritesheet.h"
-#include "ChangeObserver.h"
-#include "RepeatRenderer.h"
-#include "VelocityComp.h"
-#include "RectUI.h"
-#include "Rect.h"
+#include "FastboiComps.h"
 
 #include "circular_vector.h"
 
 using namespace Slowboi;
 using namespace Fastboi;
+using namespace Fastboi::Components;
 
 void LoadResources() {
     Fastboi::Resources::LoadImage("Player", "penguin.png");
@@ -71,7 +63,7 @@ Bullet::Bullet(const Position& p, const Velocity& v) : Gameobject("Bullet") {
 }
 
 void Bullet::Hit(const Fastboi::CollisionEvent& e) {
-    if (e.collider.IsTrigger() || e.collider.gameobject.HasComponent<Player>()) return;
+    if (e.collider.IsTrigger() || e.collider.gameobject.HasComponent<Components::Player>()) return;
 
     Fastboi::camera.SetTarget(*(new Transform(*transform)), CameraTarget::OWNING);
 
@@ -94,14 +86,12 @@ PlayerActor::PlayerActor(const Position& p) : Gameobject("Player") {
 
     AddComponent<SpriteRenderer>(*this, RenderData(RenderOrder::UNITS), "Player", Rect(0, 0, 41, 42));
 
-    using PlayerSpritesheet = Spritesheet<int>;
+    using PlayerSpritesheet = Spritesheet<>;
     using Animation = PlayerSpritesheet::Animation;
 
     printf("Adding spritesheet...");
     PlayerSpritesheet& spritesheet = AddComponent<PlayerSpritesheet>(this);
     PlayerSpritesheet* spritesheetP = GetComponent<PlayerSpritesheet*>();
-    printf("This: %p, spritesheet go: %p\n", this, spritesheet.gameobject);
-    printf("This: %p, spritesheet go: %p\n", this, spritesheetP->gameobject);
     printf("Adding animations...");
 
     for (uint8_t i = 0; i < 8; i++) {
@@ -117,7 +107,7 @@ PlayerActor::PlayerActor(const Position& p) : Gameobject("Player") {
     spritesheet.SetCurrentAnimation(-1);
     printf("Current animation set\n");
     printf("Adding player\n");
-    Player& player = AddComponent<Player>(this);
+    Slowboi::Components::Player& player = AddComponent<Slowboi::Components::Player>(this);
 
     printf("New player actor!\n");
 }

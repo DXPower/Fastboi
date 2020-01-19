@@ -1,12 +1,16 @@
 #pragma once
 #include "Fastboi.h"
+#include "FastboiComps.h"
 
-struct ColorComp;
-struct Player;
+using namespace Fastboi;
+using namespace Fastboi::Components;
 
 namespace Slowboi {
-    void InitGame();
+    namespace Components {
+        struct Player;
+    };
 
+    void InitGame();
 
     struct Bullet final : public Gameobject {
         Bullet(const Position& p, const Velocity& v);

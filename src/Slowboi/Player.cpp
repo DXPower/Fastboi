@@ -6,6 +6,7 @@
 #include "SDL/SDL.h"
 
 using namespace Fastboi;
+using namespace Slowboi::Components;
 
 Player::Player(Gameobject* go)
  : gameobject(go)

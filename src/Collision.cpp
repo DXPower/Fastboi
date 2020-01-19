@@ -25,65 +25,69 @@ Position ToPosition(const gjk_vec2& v) {
 
 using Simplex = std::list<Position>;
 
-// EPA - Expanding Polytype Algorithm
-namespace EPA {
-    struct EdgeData {
-        float distance;
-        Vecf normal;
-        Simplex::iterator index;
+namespace Fastboi {
+    namespace Collision {
+    // EPA - Expanding Polytype Algorithm
+        namespace EPA {
+            struct EdgeData {
+                float distance;
+                Vecf normal;
+                Simplex::iterator index;
 
-        EdgeData(float dist, Vecf norm, const Simplex::iterator& index) : distance(dist), normal(norm), index(index) { };
-    };
+                EdgeData(float dist, Vecf norm, const Simplex::iterator& index) : distance(dist), normal(norm), index(index) { };
+            };
 
-    constexpr float TOLERANCE = 0.005f;
+            constexpr float TOLERANCE = 0.005f;
 
-    EdgeData FindClosestEdge(Simplex& s) {
-        EdgeData closest(0.f, Vecf::zero(), s.begin());
-        closest.distance = std::numeric_limits<decltype(closest.distance)>::max();
+            EdgeData FindClosestEdge(Simplex& s) {
+                EdgeData closest(0.f, Vecf::zero(), s.begin());
+                closest.distance = std::numeric_limits<decltype(closest.distance)>::max();
 
-        for (auto ait = s.begin(); ait != s.end(); ait++) {
-            auto bit = std::next(ait, 1);
-            if (bit == s.end()) bit = s.begin();
+                for (auto ait = s.begin(); ait != s.end(); ait++) {
+                    auto bit = std::next(ait, 1);
+                    if (bit == s.end()) bit = s.begin();
 
-            // Get next two points
-            const Position a = *ait; // Note: Position of A is also equal to vector from origin to A (OA)
-            const Position b = *bit;
-            Vecf edge = b - a;
+                    // Get next two points
+                    const Position a = *ait; // Note: Position of A is also equal to vector from origin to A (OA)
+                    const Position b = *bit;
+                    Vecf edge = b - a;
 
-            Vecf normal = Vecf::tripleProduct(edge, a, edge).normalized(); // Get vector from edge towards origin
-            double dist = abs(Vecf::dotProduct(normal, a)); // Get distance from origin to edge
+                    Vecf normal = Vecf::tripleProduct(edge, a, edge).normalized(); // Get vector from edge towards origin
+                    double dist = abs(Vecf::dotProduct(normal, a)); // Get distance from origin to edge
 
-            if (normal.magnitude2() >= TOLERANCE) {
-                if (dist < closest.distance) {
-                    closest = EdgeData(dist, normal, bit);
+                    if (normal.magnitude2() >= TOLERANCE) {
+                        if (dist < closest.distance) {
+                            closest = EdgeData(dist, normal, bit);
+                        }
+                    }
                 }
+
+                return closest;
+            }
+
+            Vecf GetPenetration(Simplex& simplex, gjk_vec2* vertsA, size_t countA, gjk_vec2* vertsB, size_t countB) {
+                Vecf penetration;
+
+                while (true) {
+                    // Find new support point in direction of the normal of the closest edge
+                    EdgeData closestEdge = FindClosestEdge(simplex);
+                    Position supportPoint = ToPosition(support(vertsA, countA, vertsB, countB, ToGJKV(closestEdge.normal)));
+                    // Check if distance from origin is along e.normal
+                    double d = Vecf::dotProduct(supportPoint, closestEdge.normal);
+
+                    if (abs(d - closestEdge.distance) <= TOLERANCE) {
+                        penetration = closestEdge.normal * d;
+                        break;
+                    } else {
+                        simplex.insert(closestEdge.index, supportPoint); // Split the edge into two with the support point in the middle
+                    }
+                }
+
+                return penetration;
             }
         }
-
-        return closest;
-    }
-
-    Vecf GetPenetration(Simplex& simplex, gjk_vec2* vertsA, size_t countA, gjk_vec2* vertsB, size_t countB) {
-        Vecf penetration;
-
-        while (true) {
-            // Find new support point in direction of the normal of the closest edge
-            EdgeData closestEdge = FindClosestEdge(simplex);
-            Position supportPoint = ToPosition(support(vertsA, countA, vertsB, countB, ToGJKV(closestEdge.normal)));
-            // Check if distance from origin is along e.normal
-            double d = Vecf::dotProduct(supportPoint, closestEdge.normal);
-
-            if (abs(d - closestEdge.distance) <= TOLERANCE) {
-                penetration = closestEdge.normal * d;
-                break;
-            } else {
-                simplex.insert(closestEdge.index, supportPoint); // Split the edge into two with the support point in the middle
-            }
-        }
-
-        return penetration;
-    }
-}
+    };
+};
 
 Collision_t::CollisionData Fastboi::Collision::AreShapesIntersecting(
       const circular_vector<Position>& shapeA
@@ -127,8 +131,8 @@ Collision_t::CollisionData Fastboi::Collision::AreCollidersIntersectng(
 
 void Fastboi::Collision::ApplyVelocities(const std::vector<std::unique_ptr<Gameobject>>& gameobjects) {
     for (const std::unique_ptr<Gameobject>& go : gameobjects) {
-        if (go->HasComponent<VelocityComponent>()) {
-            AdvanceTransform(*go->transform, go->GetComponent<VelocityComponent>().velocity * Fastboi::physicsDelta);
+        if (go->HasComponent<Components::VelocityComponent>()) {
+            AdvanceTransform(*go->transform, go->GetComponent<Components::VelocityComponent>().velocity * Fastboi::physicsDelta);
         }
     }
 }
