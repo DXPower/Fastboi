@@ -14,21 +14,21 @@ namespace Slowboi {
 
     struct Bullet final : public Gameobject {
         Bullet(const Position& p, const Velocity& v);
-        ~Bullet() { };
+        ~Bullet() = default;
         
         void Hit(const Fastboi::CollisionEvent& e);
     };
 
     struct PlayerActor final : public Gameobject {
         PlayerActor(const Position& p);
-        ~PlayerActor() { };
+        ~PlayerActor() = default;
     };
 
     struct Brick final : public Gameobject {
         Fastboi::Input::KeyListener expandListener;
 
         Brick(const Position& p);
-        ~Brick();
+        ~Brick() = default;
 
         void Expand(const Fastboi::KeyEvent& e);
     };

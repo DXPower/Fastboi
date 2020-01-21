@@ -3,6 +3,9 @@
 #include "src/BoxColorRenderer.h"
 
 using namespace Slowboi;
+using namespace Fastboi;
+using namespace Slowboi::Componenets;
+using namespace Fastboi::Components;
 
 "Example Instantiate";
 Gameobject& go = Fastboi::Instantiate<Gameobject>();

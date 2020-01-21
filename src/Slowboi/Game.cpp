@@ -91,7 +91,6 @@ PlayerActor::PlayerActor(const Position& p) : Gameobject("Player") {
 
     printf("Adding spritesheet...");
     PlayerSpritesheet& spritesheet = AddComponent<PlayerSpritesheet>(this);
-    PlayerSpritesheet* spritesheetP = GetComponent<PlayerSpritesheet*>();
     printf("Adding animations...");
 
     for (uint8_t i = 0; i < 8; i++) {
@@ -127,10 +126,6 @@ Brick::Brick(const Position& position)
     expandListener.signal->connect<&Brick::Expand>(this);
 
     printf("Brick made\n");
-}
-
-Brick::~Brick() {
-    printf("Brick destroyed.\n");
 }
 
 void Brick::Expand(const Fastboi::KeyEvent& e) {

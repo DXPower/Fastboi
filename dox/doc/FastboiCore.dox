@@ -1,5 +1,16 @@
 
 /**
+ * \fn GO& Fastboi::Instantiate(Args... args)
+ * \brief Instatiates gameobject of type \b GO with arguments \b args. \b GO must publicly extend Gameobject.
+ * 
+ * In examples/FastboiCore.cpp: \n
+ * \dontinclude examples/FastboiCore.cpp
+ * \skip "Example Instantiate"
+ * \skipline Gameobject
+ * \skipline Bullet
+**/
+
+/**
  * \fn void Fastboi::Destroy(Gameobject& go)
  * \brief Flags the Gameobject to be destroyed at the end of the frame, and no more updates will occur on this object.
  * 
@@ -15,15 +26,9 @@
 **/
 
 /**
- * \fn GO& Fastboi::Instantiate(Args... args)
- * \brief Instatiates gameobject of type \b GO with arguments \b args. \b GO must publicly extend Gameobject.
- * 
- * In examples/FastboiCore.cpp: \n
- * \dontinclude examples/FastboiCore.cpp
- * \skip "Example Instantiate"
- * \skipline Gameobject
- * \skipline Bullet
-*/
+ * \fn auto Fastboi::ToRect(const R& rect)
+ * \brief Converts an SDL_Rect or SDL_FRect to Rect and RectF respectively.
+ */
 
 /**
  * \fn void Fastboi::Render()

@@ -1,0 +1,80 @@
+/**
+ * @struct Fastboi::Gameobject
+ * @brief The core "unit" of Fastboi. Gameobject lifespan is managed by Fastboi, and component lifespan is managed
+ * by the gameobject.
+ * 
+ * Specific gameobjects, such as a Player or Bullet, should be publicly extended from Gameobject. Added functions will
+ * not have access to Gameobject::Start() or Gameobject::Update(). For this functionality, you must add a Component.
+ * 
+ * When extended Gameobject, all the required components should be added in the ctor of the derived class.
+ * Thus, once Start() is called on all the components, it is guarenteed that any component codependencies are satisfied.
+ * 
+ * In examples/Gameobject.cpp
+ * @dontinclude examples/Gameobject.cpp
+ * @skip "Example Gameobject"
+ * @skip struct
+ * @until };
+ */
+/**
+ * @fn void Gameobject::Start()
+ * @brief This function is called at the beginning of the first frame after instantiation. This calls all
+ * child components' ComponentBase::Start().
+ * 
+ * Start() is guarenteed to be called after the ctor and before Gameobject::Update(). Thusly, all components required
+ * for the function of a Gameobject should be added in the ctor using Gamobject::AddComponent().
+*/
+
+/**
+ * @fn void Gameobject::Update()
+ * @brief This function is called every frame after instantiation. This calls all
+ * child components' ComponentBase::Update().
+ * 
+ * Update() is guarenteed to be called after Gameobject::Start and before Gameobject::Destroy(). Thusly, all components required
+ * for the function of a Gameobject should be added in the ctor using Gamobject::AddComponent().
+*/
+
+/**
+ * @fn T& Fastboi::Gameobject::AddComponent(Args&&... args)
+ * @brief Adds component of type \b T (with args \b args ) to the control of the gameobject. T::Start() and 
+ * T::Update() are called if they are available.
+ * 
+ * T::Start() will be immediately called is the gameobject has already been started.
+ * 
+ * In examples/Gameobject.cpp:
+ * @dontinclude examples/Gameobject.cpp
+ * @skip "Example AddComponent"
+ * @skip Gameobject
+ * @until go.AddComponent<BoxColorRenderer>
+ * 
+ * @tparam T The type of component to be constructed
+ * @param args The arguments to be perfectly forwarded to the ctor of @b T.  
+ * @return @b T& Reference to the component just created.
+ */
+
+/**
+ * @fn T& Fastboi::Gameobject::GetComponent()
+ * @brief Gets component of type \b T.
+ * 
+ * in examples/Gameobject.cpp:
+ * @dontinclude examples/Gameobject.cpp
+ * @skip "Example GetComponent"
+ * @skip Gameobject
+ * @until ColorComp&
+ * 
+ * @tparam T The type of component to get
+ * @return @b T& Reference to the component
+ */
+
+/**
+ * @fn T& Fastboi::Gameobject::HasComponent()
+ * @brief Checks if the gameobject has a component of type @b T.
+ * 
+ * @tparam T The type of component to check for
+*/
+
+/**
+ * @fn T& Fastboi::Gameobject::RemoveComponent()
+ * @brief Removes component of type @b T.
+ * 
+ * @tparam T The type of component to remove
+*/
