@@ -1,0 +1,49 @@
+/**
+ * @struct Fastboi::Camera
+ * @brief Defines the viewport of Fastboi rendering. It does this by keeping track of a transform in either an owning
+ * or watching manner.
+ * 
+ * The camera only uses the position of the transform for its viewport calculations.
+ */
+
+/**
+ * @fn Fastboi::~Camera
+ * @brief Deletes the transform from memory iff <b>type == Camera::OWNING</b>
+ */
+/**
+ * @fn Fastboi::Camera Fastboi::Camera::Camera(const Transform& target, CameraTarget type)
+ * 
+ * @param target The transform to focus on
+ * @param type Determines the owning behavior over the target transform. If <b>type == Camera::OWNING</b>, then
+ * the <b>transform will be deleted</b> from memory upon destruction of the camera, or on Camera::SetTarget(). 
+ * If <b>type == Camera::WATCHING</b>, then the transform will @b not be deleted.
+ * 
+ */
+
+/**
+ * @fn Position Camera::ScreenToWorldPos(const Position& screenPos) const
+ * @brief Converts a given position relative to the screen (top-left corner) to its equivalent in the world. 
+ */
+
+/**
+ * @fn Position Camera::WorldToScreenPos(const Position& worldPos) const
+ * @brief Converts a given world positiontoits equivalent position relative to the screen (top-left corner)
+ */
+
+/**
+ * @fn bool Camera::IsPointVisible(const Position& worldPos) const
+ * @brief Returns whether a given point is visible in the camera's viewport.
+ */
+/**
+ * @fn void Fastboi::SetCamera(Camera&& camera)
+ * @brief Sets the global camera
+ * @param camera This is moved into Fastboi::camera
+ */
+
+/**
+ * @var Fastboi::Camera Fastboi::camera
+ * @brief The global camera object.
+ * 
+ * This is defaulted to a nullptr for target. Trying to render anything in the world or get the targe will cause
+ * a crash, as there are no checks for nullptr.
+ */

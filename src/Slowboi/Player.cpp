@@ -33,7 +33,7 @@ void Player::Fire(const ClickEvent& event) const {
 
         Slowboi::Bullet& bullet = Instantiate<Slowboi::Bullet>(gameobject->transform->position, d * speed);
 
-        Fastboi::SetCamera(Camera(*bullet.transform, CameraTarget::WATCHING));
+        Fastboi::SetCamera(Camera(*bullet.transform, Camera::WATCHING));
     } else if (event.type == ClickEvent::UP) {
         // printf("Fire up! %i %i\n", event.pos.x, event.pos.y);
     }

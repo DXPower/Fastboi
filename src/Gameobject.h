@@ -22,6 +22,7 @@ namespace Fastboi {
         // Mapping type to components. (Lookup only available at compile time)
         std::unordered_map<std::type_index, std::unique_ptr<ComponentBase>> components;
 
+        /** @deprecated **/
         Fastboi::Signal<Fastboi::GameobjectDeleteEvent::Signal_t_g> deleteSignal;
 
         // Transform,  Renderer, Collider are core but act like components, so we store them separately.

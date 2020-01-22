@@ -9,21 +9,22 @@ namespace Fastboi {
     class Camera;
     extern Camera camera;
 
-    // This determines whether the Camera should destroy its holding Transform when it itself is destroyed
-    enum class CameraTarget {
-        OWNING,
-        WATCHING
-    };
-
     void SetCamera(Camera&& camera);
 
-    class Camera final {
-        protected:
+    struct Camera final {
+        // This determines whether the Camera should destroy its holding Transform when it itself is destroyed
+        enum CameraTarget {
+            OWNING,
+            WATCHING
+        };
+        
+        private:
         const Transform* target;
         CameraTarget type;
         mutable Vec<int> window;
 
         public:
+
         Camera();
         Camera(const Transform& target, CameraTarget type);
         ~Camera();

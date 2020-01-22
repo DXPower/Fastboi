@@ -38,7 +38,7 @@ void Slowboi::InitGame() {
 
     printf("Game initiated\n");
 
-    SetCamera(Camera(*player.transform, CameraTarget::WATCHING));
+    SetCamera(Camera(*player.transform, Camera::WATCHING));
 }
 
 Bullet::Bullet(const Position& p, const Velocity& v) : Gameobject("Bullet") {
@@ -65,7 +65,7 @@ Bullet::Bullet(const Position& p, const Velocity& v) : Gameobject("Bullet") {
 void Bullet::Hit(const Fastboi::CollisionEvent& e) {
     if (e.collider.IsTrigger() || e.collider.gameobject.HasComponent<Components::Player>()) return;
 
-    Fastboi::camera.SetTarget(*(new Transform(*transform)), CameraTarget::OWNING);
+    Fastboi::camera.SetTarget(*(new Transform(*transform)), Camera::OWNING);
 
     Fastboi::Destroy(*this);
 }
