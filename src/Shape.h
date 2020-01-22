@@ -22,7 +22,7 @@ namespace Fastboi {
         Shape(const Transform& transform);
         virtual ~Shape() { };
 
-        const circular_vector<Position>& GetVertices();
+        const circular_vector<Position>& GetVertices(); // Lazy: Vertices are calculated/retrieved from cache on request
         virtual circular_vector<Position> CalculateVertices() const = 0;
 
         bool ContainsPoint(const Position& p);

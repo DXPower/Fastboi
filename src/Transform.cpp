@@ -13,11 +13,6 @@ Transform::Transform(Position pos, Size size, double rot) : position(pos), size(
 Transform::Transform(const Transform& copy) : Transform(copy.position, copy.size, copy.rotation) { }
 Transform::Transform(Transform&& copy) : Transform(copy.position, copy.size, copy.rotation) { }
 
-Transform::~Transform() {
-    if (shape != nullptr)
-        delete shape;
-}
-
 Transform& Transform::operator=(const Transform& copy) {
     position = copy.position;
     size = copy.size;

@@ -6,10 +6,10 @@
 #include "Vec.h"
 
 namespace Fastboi {
-    struct Transform {
+    struct Transform final {
         private:
         bool rotated = false;
-        Shape* shape;
+        std::unique_ptr<Shape> shape;
 
         public:
         Position position;
@@ -22,7 +22,7 @@ namespace Fastboi {
         Transform(const Transform& copy); // Copy constructor
         Transform(Transform&& copy); // Move constructor
 
-        ~Transform();
+        ~Transform() = default;
 
         Transform& operator=(const Transform& copy); // Copy assignment
         Transform& operator=(Transform&& copy); // Move assignment
@@ -46,9 +46,6 @@ namespace Fastboi {
     void Transform::SetShape() {
         static_assert(std::is_base_of_v<Shape, S>);
 
-        if (shape != nullptr)
-            delete shape;
-
-        shape = new S(*this);
+        shape = std::make_unique<S>(*this);
     };
 };
