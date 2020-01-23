@@ -11,7 +11,11 @@ void Fastboi::SetCamera(Camera&& cam) {
 
 Camera::Camera() : target(nullptr), type(CameraTarget::WATCHING) { };
 
-Camera::Camera(const Transform& target, CameraTarget type) : target(&target), type(type) {
+Camera::Camera(const Transform& target, CameraTarget type) : target(&target), type(type), zoom(1.f) {
+    Application::GetWindowSize(&window.x, &window.y);    
+};
+
+Camera::Camera(const Transform& target, CameraTarget type, float zoom) : target(&target), type(type), zoom(zoom) {
     Application::GetWindowSize(&window.x, &window.y);    
 };
 
@@ -34,11 +38,11 @@ const Transform& Camera::GetTarget() const {
 };
 
 Position Camera::WorldToScreenPos(const Position& worldPos) const {
-    return worldPos - target->position + (Vecf) (window / 2);
+    return (worldPos - target->position) * zoom + (Vecf) (window / 2);
 };
 
 Position Camera::ScreenToWorldPos(const Position& screenPos) const {
-    return  screenPos + target->position - (Vecf) (window / 2);
+    return  (screenPos - (Vecf) (window / 2)) / zoom + target->position; 
 };
 
 bool Camera::IsPointVisible(const Position& worldPos) const {

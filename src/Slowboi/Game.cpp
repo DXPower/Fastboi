@@ -38,7 +38,7 @@ void Slowboi::InitGame() {
 
     printf("Game initiated\n");
 
-    SetCamera(Camera(*player.transform, Camera::WATCHING));
+    SetCamera(Camera(*player.transform, Camera::WATCHING, 1.5f));
 }
 
 Bullet::Bullet(const Position& p, const Velocity& v) : Gameobject("Bullet") {

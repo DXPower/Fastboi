@@ -20,10 +20,15 @@ namespace Fastboi {
         using std::is_same_v;
         using Application::gRenderer;
 
-        
-        // Gets left corner of a transform (assuming transform.position is center), ignoring rotation
         inline Position GetLeftCorner(const Transform& transform) {
             return transform.position - (transform.size / 2);
+        }
+        
+        // Gets left corner of a transform (assuming transform.position is center), ignoring rotation
+        inline RectF WorldTransformToScreenRect(const Transform& t) {
+            Position screenLeftCorner = Fastboi::camera.WorldToScreenPos(GetLeftCorner(t));
+
+            return RectF(screenLeftCorner.x, screenLeftCorner.y, t.size.x * camera.zoom, t.size.y * camera.zoom);
         }
 
         template<FillType fill>
@@ -37,8 +42,7 @@ namespace Fastboi {
 
         template<FillType fill>
         void Render_Rect(const Transform& transform) {
-            Position screenPos = Fastboi::camera.WorldToScreenPos(GetLeftCorner(transform));
-            SDL_FRect rect{ screenPos.x, screenPos.y, transform.size.x, transform.size.y };
+            RectF rect = WorldTransformToScreenRect(transform);
 
             if constexpr (fill == FillType::FILLED) {
                 SDL_RenderFillRectF(gRenderer, &rect);
@@ -55,8 +59,8 @@ namespace Fastboi {
         template<FillType fill>
         void RenderScreen_Rect(const Transform& transform) {
             Position leftCorner = GetLeftCorner(transform);
-            SDL_FRect rect{ leftCorner.x, leftCorner.y, transform.size.x, transform.size.y};
-            
+            SDL_FRect rect = { leftCorner.x, leftCorner.y, transform.size.x, transform.size.y };
+
             if constexpr (fill == FillType::FILLED) {
                 SDL_RenderFillRectF(gRenderer, &rect);
             } else {

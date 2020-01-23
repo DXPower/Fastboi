@@ -6,21 +6,40 @@
 #include "SDL/SDL.h"
 
 using namespace Fastboi;
+using namespace Input;
 using namespace Slowboi::Components;
 
 Player::Player(Gameobject* go)
  : gameobject(go)
- , spacebarListener(SDL_SCANCODE_SPACE)
+ , spacebarListener(KeyListener(SDL_SCANCODE_SPACE))
+ , zoomIn(KeyListener(SDL_SCANCODE_UP))
+ , zoomOut(KeyListener(SDL_SCANCODE_DOWN))
  , lastDirection(Vecf(0, 1)) {
 
     printf("Connecting player...\n\n");
     spacebarListener.signal->connect<&Player::Spacebar>(this);
     clickListener.signal->connect<&Player::Fire>(this);
+
+    zoomIn.signal->connect<&Player::ChangeZoom>(this);
+    zoomOut.signal->connect<&Player::ChangeZoom>(this);
 }
 
 Player::~Player() {
     gameobject->RemoveComponent<Spritesheet<int>>();
     gameobject->RemoveComponent<VelocityComponent>();
+}
+
+void Player::ChangeZoom(const KeyEvent& e) const {
+    // if (e.type == KeyEvent::DOWN) {
+    //     switch (e.key) {
+    //         case SDL_SCANCODE_UP:
+    //             Fastboi::camera.zoom += 0.25f;
+    //             break;
+    //         case SDL_SCANCODE_DOWN:
+    //             Fastboi::camera.zoom -= 0.25f;
+    //             break;
+    //     }
+    // }
 }
 
 void Player::Spacebar(const KeyEvent& e) const {
@@ -29,11 +48,16 @@ void Player::Spacebar(const KeyEvent& e) const {
 
 void Player::Fire(const ClickEvent& event) const {
     if (event.type == ClickEvent::DOWN) {
+        // Position screenPos = Fastboi::camera.WorldToScreenPos(gameobject->transform->position);
+        Fastboi::Instantiate<UISquare>(event.pos, Size(25, 25), ColorComp(100, 0, 100, 255), 50);
+
+
         Vecf d = (Fastboi::camera.ScreenToWorldPos(event.pos) - gameobject->transform->position).normalized();
 
         Slowboi::Bullet& bullet = Instantiate<Slowboi::Bullet>(gameobject->transform->position, d * speed);
 
-        Fastboi::SetCamera(Camera(*bullet.transform, Camera::WATCHING));
+        Fastboi::camera.SetTarget(*gameobject->transform, Camera::WATCHING);
+        // Fastboi::SetCamera(Camera(*bullet.transform, Camera::WATCHING));
     } else if (event.type == ClickEvent::UP) {
         // printf("Fire up! %i %i\n", event.pos.x, event.pos.y);
     }
@@ -100,6 +124,11 @@ void Player::Update() {
     }
 
     velocityComp->velocity = direction.normalized() * speed;
+
+    if (Input::IsKeyDown(SDL_SCANCODE_UP))
+        Fastboi::camera.zoom += 0.01f;
+    else if (Input::IsKeyDown(SDL_SCANCODE_DOWN))
+        Fastboi::camera.zoom -= 0.01f;
 }
 
 void Player::Collision(const CollisionEvent& e) const {

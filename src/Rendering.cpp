@@ -15,8 +15,9 @@ void Rendering::Render_Line(const Position& worldA, const Position& worldB) {
 }
 
 void Rendering::Render_Texture(const Transform& transform, const Texture* texture, const Rect& cutout) {
-    Position screenPos = Fastboi::camera.WorldToScreenPos(GetLeftCorner(transform));
-    SDL_FRect dest { screenPos.x, screenPos.y, transform.size.x, transform.size.y };
+    RectF dest = WorldTransformToScreenRect(transform);
+    // Position screenPos = Fastboi::camera.WorldToScreenPos(GetLeftCorner(transform));
+    // SDL_FRect dest { screenPos.x, screenPos.y, transform.size.x, transform.size.y };
 
     if (transform.GetRotation() == 0.f)
         SDL_RenderCopyF(gRenderer, ccast_tx(texture), &cutout, &dest);

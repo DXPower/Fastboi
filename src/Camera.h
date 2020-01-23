@@ -24,9 +24,11 @@ namespace Fastboi {
         mutable Vec<int> window;
 
         public:
+        float zoom = 1.f;
 
         Camera();
         Camera(const Transform& target, CameraTarget type);
+        Camera(const Transform& target, CameraTarget type, float zoom);
         ~Camera();
         
         void SetTarget(const Transform& target, CameraTarget type);

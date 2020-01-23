@@ -4,7 +4,7 @@
 #include "Spritesheet.h"
 
 using namespace Fastboi;
-using namespace Components;
+using namespace Fastboi::Components;
 
 namespace Slowboi {
     namespace Components {
@@ -15,6 +15,8 @@ namespace Slowboi {
 
             Input::KeyListener spacebarListener;
             Input::ClickListener clickListener;
+
+            Input::KeyListener zoomIn, zoomOut;
             
             Vecf lastDirection;
             Vecf facingDirection;
@@ -26,6 +28,7 @@ namespace Slowboi {
             Player(Gameobject* go);
             ~Player();
 
+            void ChangeZoom(const KeyEvent& e) const;
             void Spacebar(const KeyEvent& e) const;
             void VelocityChanged(const Velocity& velocity) const;
             void Fire(const ClickEvent& event) const;
