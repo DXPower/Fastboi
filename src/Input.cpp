@@ -1,9 +1,11 @@
 #include "Input.h"
 #include <algorithm>
+#include "Application.h"
 #include "FastboiCore.h"
 #include <memory>
 #include "SDL/SDL.h"
 #include "Renderer.h"
+#include "Timer.h"
 #include "Transform.h"
 #include <unordered_map>
 
@@ -15,6 +17,10 @@ const uint8_t* keyboardState;
 std::vector<KeyListener*> keyListeners;
 std::vector<ClickListener*> untargetedClickListeners;
 std::vector<TargetedClickListener*> targetedClickListeners;
+
+Signal<WindowResizeEvent::Signal_t_g> Input::resizeSignal;
+
+void CheckCombinations();
 
 auto tclCompare = [](const TargetedClickListener* left, const TargetedClickListener* right) {
     if (left->renderer->GetOrder() == right->renderer->GetOrder()) {
@@ -61,6 +67,27 @@ void Input::PollEvents() {
             case SDL_QUIT:
                 Fastboi::Quit();
                 break;
+            case SDL_WINDOWEVENT: {
+                switch (event.window.event) {
+                    case SDL_WINDOWEVENT_RESIZED: {
+                        
+                        // This is an awful hack to fix SDL automatically resizing the window when entering fullscreen
+                        // for the FIRST time... It basically captures the event from the automatic resize then sets the
+                        // display mode AGAIN.
+                        if (Application::IsFullscreen()) {
+                            SDL_DisplayMode dm;
+                            SDL_GetDisplayMode(SDL_GetWindowDisplayIndex(Application::gWindow), 0, &dm);
+                            SDL_SetWindowDisplayMode(Application::gWindow, &dm);
+                        }
+
+                        printf("Window resize event! %i %i\n", event.window.data1, event.window.data2);
+                        Application::WindowSizeChanged(Vec<int>(event.window.data1, event.window.data2));
+                    }
+                    break;
+                }
+
+                break;
+            }
             case SDL_KEYDOWN: {
                 SDL_KeyboardEvent sdl_keyEvent = event.key;
 
@@ -109,6 +136,23 @@ void Input::PollEvents() {
     }
 
     keyboardState = SDL_GetKeyboardState(NULL);
+
+    CheckCombinations();
+}
+
+void CheckCombinations() {
+    bool lalt = IsKeyDown(SDL_SCANCODE_LALT);
+    bool enter = IsKeyDown(SDL_SCANCODE_RETURN);
+
+    static Timer timer;
+
+    if (lalt && enter) {
+        printf("Timer: %f\n", timer.elapsed_seconds);
+        if (timer.timeSinceLastTick() > 1) {
+            timer.tick();
+            Application::ToggleFullscreen();
+        }
+    }
 }
 
 bool Input::IsKeyDown(uint8_t key) {

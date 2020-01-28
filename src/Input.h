@@ -12,6 +12,8 @@ namespace Fastboi {
 
 namespace Fastboi {
     namespace Input {
+        extern Signal<WindowResizeEvent::Signal_t_g> resizeSignal;
+
         //! Follows RAII. When this goes out of scope, the signal and all connections are disconnected.
         struct ClickListener {
             using EventSignature = ClickEvent::Signal_t_g;

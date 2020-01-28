@@ -2,6 +2,7 @@
 #include "circular_vector.h"
 
 using namespace Fastboi;
+using namespace Fastboi::Rendering;
 using namespace Components;
 
 RepeatRenderer::RepeatRenderer(Gameobject& gameobject, RenderData data, const char* textureName, const Size& tileSize)
@@ -14,7 +15,9 @@ void RepeatRenderer::Start() {
     Renderer::Start();
     
     observer = &gameobject.AddComponent<ChangeObserver<Size>>(&gameobject.transform->size);
-    observer->signal.connect<&RepeatRenderer::RenderRepeatTexture>(this);     
+    observer->signal.connect<&RepeatRenderer::RenderRepeatTexture>(this);  
+
+    Input::resizeSignal.connect<&RepeatRenderer::WindowSizeChanged>(this);   
 
     RenderRepeatTexture(gameobject.transform->size);                               
 }
@@ -22,25 +25,32 @@ void RepeatRenderer::Start() {
 RepeatRenderer::~RepeatRenderer() {
     printf("Destroying repeat renderer.");
 
-    SDL_DestroyTexture(repeatTexture);
+    Input::resizeSignal.disconnect<&RepeatRenderer::WindowSizeChanged>(this);   
     gameobject.RemoveComponent<ChangeObserver<Size>>();
 }
 
 void RepeatRenderer::Render() {
     Rendering::Render_Texture(gameobject.transform, repeatTexture);
+    // Vec<int> r, b;
+    // SDL_QueryTexture(repeatTexture, nullptr, nullptr, &r.x, &r.y);
+    // SDL_QueryTexture(baseTexture, nullptr, nullptr, &b.x, &b.y);
+    // printf("Repeat texture: %p %i %i, Base texture: %p %i %i\n", &r, r.x, r.y, &b, b.x, b.y);
 }
 
 void RepeatRenderer::RecreateRepeatTexture() {
     uint32_t format = 0;
     int access, w, h;
 
-    if (repeatTexture != nullptr)
-        SDL_DestroyTexture(repeatTexture);
+    // if (repeatTexture != nullptr)
+    //     SDL_DestroyTexture(repeatTexture);
 
-    SDL_QueryTexture(baseTexture, &format, &access, &w, &h);
-    repeatTexture = Rendering::CreateTexture(format
-                                           , SDL_TEXTUREACCESS_TARGET
-                                           , gameobject.transform->size);
+    // SDL_QueryTexture(baseTexture, &format, &access, &w, &h);
+    // repeatTexture = Rendering::CreateTexture(format
+                                        //    , SDL_TEXTUREACCESS_TARGET
+                                        //    , gameobject.transform->size);
+    // repeatTexture = Rendering::Texture(gameobject.transform->size, SDL_TEXTUREACCESS_TARGET, format); 
+
+    repeatTexture.Recreate(gameobject.transform->size, SDL_TEXTUREACCESS_TARGET, baseTexture.GetFormat());                                       
 }
 
 void RepeatRenderer::RenderRepeatTexture(const Size& newSize) {
@@ -68,4 +78,8 @@ void RepeatRenderer::RenderRepeatTexture(const Size& newSize) {
             Rendering::Render_TextureTarget(baseTexture, repeatTexture, drawRect);
         }
     }
+}
+
+void RepeatRenderer::WindowSizeChanged(const Fastboi::WindowResizeEvent& e) {
+    RenderRepeatTexture(gameobject.transform->size);
 }

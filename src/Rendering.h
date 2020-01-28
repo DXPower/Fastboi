@@ -8,9 +8,9 @@
 #include <memory>
 #include <type_traits>
 
-using Texture = SDL_Texture;
-
 namespace Fastboi {
+    struct Texture;
+
     namespace Rendering {
         enum FillType {
             FILLED,
@@ -75,28 +75,22 @@ namespace Fastboi {
 
         void Render_Line(const Position& worldA, const Position& worldB);
 
-        void Render_Texture(const Transform& transform, const Texture* texture, const Rect& cutout);
+        void Render_Texture(const Transform& transform, const Texture& texture, const Rect& cutout);
 
-        inline void Render_Texture(const std::unique_ptr<Transform>& transform, const Texture* texture, const Rect& cutout) {
+        inline void Render_Texture(const std::unique_ptr<Transform>& transform, const Texture& texture, const Rect& cutout) {
             Render_Texture(*transform, texture, cutout);
         }
 
-        void Render_Texture(const Transform& transform, const Texture* texture);
+        void Render_Texture(const Transform& transform, const Texture& texture);
 
-        inline void Render_Texture(const std::unique_ptr<Transform>& transform, const Texture* texture) {
+        inline void Render_Texture(const std::unique_ptr<Transform>& transform, const Texture& texture) {
             Render_Texture(*transform, texture);
         }
 
-        void Render_TextureTarget(const Texture* src, const Texture* dest, const Rect& destRect);
+        void Render_TextureTarget(const Texture& src, const Texture& dest, const Rect& destRect);
 
         inline void SetColor(uint8_t r, uint8_t g, uint8_t b, uint8_t a) {
             SDL_SetRenderDrawColor(gRenderer, r, g, b, a);
         }
-
-        inline Texture* CreateTexture(uint32_t format, SDL_TextureAccess access, Size size) {
-            return SDL_CreateTexture(gRenderer, format, access, (int) size.x, (int) size.y);
-        }
-
-        Vec<int> GetTextureSize(const Texture* texture);
     }
 }

@@ -85,4 +85,10 @@ namespace Fastboi {
 
         const Gameobject& go;
     };
+
+    struct WindowResizeEvent final {
+        using Signal_t_g = void (const WindowResizeEvent&);
+
+        const Vec<int> size;
+    };
 };

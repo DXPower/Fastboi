@@ -5,7 +5,7 @@
 namespace Fastboi {
     namespace Components {
         struct SpriteRenderer final : public Fastboi::Renderer {
-            Texture* texture;
+            const Texture& texture;
             Rect cutout;
 
             /**

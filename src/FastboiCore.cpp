@@ -150,7 +150,7 @@ void Fastboi::GameLoop() {
             Fastboi::physicsDelta = -PHYSICS_TIME;
         }
 
-        uint32_t flags = SDL_GetWindowFlags(Application::window);
+        uint32_t flags = SDL_GetWindowFlags(Application::gWindow);
         
         if (flags & (SDL_WINDOW_INPUT_FOCUS)) Render();
     }

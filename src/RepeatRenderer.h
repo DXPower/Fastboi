@@ -9,8 +9,8 @@ namespace Fastboi {
             private:
             ChangeObserver<Size>* observer;
             public:
-            Texture* baseTexture;
-            Texture* repeatTexture;
+            const Texture& baseTexture;
+            Texture repeatTexture;
             Size tileSize;
             
             RepeatRenderer(Gameobject& gameobject, RenderData data, const char* textureName, const Size& tileSize);
@@ -22,6 +22,7 @@ namespace Fastboi {
             private:
             void RecreateRepeatTexture();
             void RenderRepeatTexture(const Size& newSize);
+            void WindowSizeChanged(const Fastboi::WindowResizeEvent& e);
         };
     };
 };

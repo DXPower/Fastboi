@@ -130,7 +130,7 @@ Brick::Brick(const Position& position)
 
 void Brick::Expand(const Fastboi::KeyEvent& e) {
     printf("Space pressed! Expanding and rotating...\n");
-    // transform->size += 20.f;
+    transform->size += 5.f;
     transform->SetRotation(transform->rotation + 10.f);
 
     if (transform->size.x >=800.f) {

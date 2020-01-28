@@ -5,23 +5,29 @@ using namespace Fastboi;
 
 Fastboi::Camera Fastboi::camera;
 
-void Fastboi::SetCamera(Camera&& cam) {
-    Fastboi::camera = std::move(cam);
+void Fastboi::SetCamera(const Camera& cam) {
+    printf("Setting camera...\n");
+    Fastboi::camera.~Camera(); // Destroy the camera in-place, without memory deallocation
+    std::memcpy(&Fastboi::camera, &cam, sizeof(Camera)); // Do byte-by-byte copy because we can't use operator=, due to window being ref
 }
 
 Camera::Camera() : target(nullptr), type(CameraTarget::WATCHING) { };
 
 Camera::Camera(const Transform& target, CameraTarget type) : target(&target), type(type), zoom(1.f) {
-    Application::GetWindowSize(&window.x, &window.y);    
+    // Application::GetWindowSize(&window.x, &window.y);    
 };
 
 Camera::Camera(const Transform& target, CameraTarget type, float zoom) : target(&target), type(type), zoom(zoom) {
-    Application::GetWindowSize(&window.x, &window.y);    
+    // Application::GetWindowSize(&window.x, &window.y);    
 };
 
 Camera::~Camera() {
-    if (type == CameraTarget::OWNING)
+    printf("Deleting camera...\n");
+
+    if (type == CameraTarget::OWNING) {
+        printf("Deleting target...\n");
         delete target;
+    }
 }
 
 void Camera::SetTarget(const Transform& target, CameraTarget type) { 

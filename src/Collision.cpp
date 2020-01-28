@@ -5,6 +5,7 @@
 #include <functional>
 #include "Gameobject.h"
 #include <limits>
+#include <stdint.h>
 #include "VelocityComp.h"
 
 using namespace Fastboi;
@@ -68,7 +69,10 @@ namespace Fastboi {
             Vecf GetPenetration(Simplex& simplex, gjk_vec2* vertsA, size_t countA, gjk_vec2* vertsB, size_t countB) {
                 Vecf penetration;
 
-                while (true) {
+                // This prevents an extremely rare case where this iterates infinitely
+                constexpr uint_fast8_t maxIter = 255;  
+                uint_fast8_t iter = 0;
+                while (iter != maxIter) {
                     // Find new support point in direction of the normal of the closest edge
                     EdgeData closestEdge = FindClosestEdge(simplex);
                     Position supportPoint = ToPosition(support(vertsA, countA, vertsB, countB, ToGJKV(closestEdge.normal)));

@@ -2,6 +2,7 @@
 
 #include "Gameobject.h"
 #include "Vec.h"
+#include "Application.h"
 #include <memory>
 #include <type_traits>
 
@@ -9,7 +10,7 @@ namespace Fastboi {
     class Camera;
     extern Camera camera;
 
-    void SetCamera(Camera&& camera);
+    void SetCamera(const Camera& camera);
 
     struct Camera final {
         // This determines whether the Camera should destroy its holding Transform when it itself is destroyed
@@ -20,8 +21,8 @@ namespace Fastboi {
         
         private:
         const Transform* target;
+        const Vec<int>& window = Application::GetWindowSize();
         CameraTarget type;
-        mutable Vec<int> window;
 
         public:
         float zoom = 1.f;
