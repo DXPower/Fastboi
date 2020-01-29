@@ -10,6 +10,7 @@
 #include "Resources.h"
 #include "SDL/SDL.h"
 #include "Timer.h"
+#include <thread>
 #include <unordered_set>
 #include <list>
 #include <map>
@@ -62,23 +63,46 @@ void Fastboi::Tick() {
 }
 
 void Fastboi::Render() {
-    SDL_SetRenderDrawColor(Rendering::gRenderer, WHITE);
-    SDL_RenderClear(Rendering::gRenderer);
+    Timer renderTimer;
+    constexpr int TICK_FREQUENCY = 120;
+    constexpr float TICK_TIME = 1.0f / TICK_FREQUENCY;
+    
+    float renderDelta = 0;
 
-    const static auto sortByZ = [](const Renderer* a, const Renderer* b) -> bool {
-        return a->data.zindex < b->data.zindex;
-    };
+    while (!quit) {
+        Input::PollEvents();
+        renderTimer.tick();
+        renderDelta += renderTimer.elapsed_seconds;
 
-    for (auto& [order, range] : renderers) {
-        for (Renderer* r : range) {
-            if (r->isStarted && !r->isDeleted) {
-                std::sort(range.begin(), range.end(), sortByZ);
-                r->Render();
-            }
-        }        
+        if (!std::isgreater(renderDelta, TICK_TIME)) continue;
+
+        renderDelta = -TICK_TIME;
+
+        // printf("Attempting render...\n");
+        uint32_t flags = SDL_GetWindowFlags(Application::gWindow);
+        if (!(flags & (SDL_WINDOW_INPUT_FOCUS))) {
+            continue;
+        }
+
+        SDL_SetRenderDrawColor(Rendering::gRenderer, WHITE);
+        SDL_RenderClear(Rendering::gRenderer);
+
+        const static auto sortByZ = [](const Renderer* a, const Renderer* b) -> bool {
+            return a->data.zindex < b->data.zindex;
+        };
+
+        for (auto& [order, range] : renderers) {
+            for (Renderer* r : range) {
+                if (r->isStarted && !r->isDeleted) {
+                    // printf("Rendering %s\n", r->gameobject.name);
+                    std::sort(range.begin(), range.end(), sortByZ);
+                    r->Render();
+                }
+            }        
+        }
+
+        SDL_RenderPresent(Rendering::gRenderer);
     }
-
-    SDL_RenderPresent(Rendering::gRenderer);
 }
 
 /**
@@ -105,12 +129,7 @@ void Cleanup() {
     colliders.clear();
 }
 
-/**
- * \brief Starts an infinite loop that calls Input::PollEvents(), Fastboi::Tick(), Fastboi::Physics(), and Fastboi::Render()
- * 
- * Only intended to be called by main
-**/
-void Fastboi::GameLoop() {
+void TickPhysicsThread() {
     // Timing constants
     constexpr int TICK_FREQUENCY = 120;
     constexpr float TICK_TIME = 1.0f / TICK_FREQUENCY;
@@ -129,6 +148,8 @@ void Fastboi::GameLoop() {
     tickTimer.tick(); // Initial tick because the time between SDL start and Fastboi::GameLoop is quite long
     physicsTimer.tick();
 
+    printf("Entering tick/physics loop\n");
+
     while (!quit) {
         tickTimer.tick();
         physicsTimer.tick();
@@ -138,7 +159,6 @@ void Fastboi::GameLoop() {
 
         // Cap tick rate with a blocking if
         if (std::isgreater(Fastboi::tickDelta, TICK_TIME)) {
-            Input::PollEvents();
             Tick();
 
             Fastboi::tickDelta = -TICK_TIME; // Reset the framerate clock
@@ -148,12 +168,25 @@ void Fastboi::GameLoop() {
             Physics();
 
             Fastboi::physicsDelta = -PHYSICS_TIME;
-        }
+        }  
+    }  
+}
 
-        uint32_t flags = SDL_GetWindowFlags(Application::gWindow);
-        
-        if (flags & (SDL_WINDOW_INPUT_FOCUS)) Render();
-    }
+/**
+ * \brief Starts an infinite loop that calls Input::PollEvents(), Fastboi::Tick(), Fastboi::Physics(), and Fastboi::Render()
+ * 
+ * Only intended to be called by main
+**/
+void Fastboi::GameLoop() {
+    printf("Ticking...\n");
+    Input::PollEvents();
+    Tick();
+
+    printf("Ticked!\n");
+    std::thread bgThread(TickPhysicsThread);
+
+    Render();
+    bgThread.join();
 
     printf("Cleaning up!\n");
     Cleanup();

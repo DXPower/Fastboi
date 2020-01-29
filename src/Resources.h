@@ -1,5 +1,6 @@
 #pragma once
 
+#include <mutex>
 #include "Vec.h"
 
 struct SDL_Surface;
@@ -18,6 +19,7 @@ namespace Fastboi {
         Vec<int> size;
         int access;
         uint32_t format;
+
         mutable SDL_Texture* sdl_texture;
 
         public:

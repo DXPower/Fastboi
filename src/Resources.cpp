@@ -74,6 +74,7 @@ void CopyTexture(const Texture& src, Texture& dest) {
     Rect rect(0, 0, src.GetSize().x, src.GetSize().y);
 
     SDL_SetRenderTarget(Application::gRenderer, dest.GetSDL_Texture());
+
     SDL_RenderCopy(Application::gRenderer, src.GetSDL_Texture(), &rect, &rect);
     SDL_SetRenderTarget(Application::gRenderer, nullptr);
 }

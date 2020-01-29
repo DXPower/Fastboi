@@ -7,7 +7,8 @@ namespace Fastboi {
     namespace Components {
         struct RepeatRenderer final : Fastboi::Renderer {
             private:
-            ChangeObserver<Size>* observer;
+            Size lastSize;
+
             public:
             const Texture& baseTexture;
             Texture repeatTexture;
@@ -20,8 +21,7 @@ namespace Fastboi {
             void Render() override;
 
             private:
-            void RecreateRepeatTexture();
-            void RenderRepeatTexture(const Size& newSize);
+            void CreateRepeatTexture(const Size& newSize);
             void WindowSizeChanged(const Fastboi::WindowResizeEvent& e);
         };
     };

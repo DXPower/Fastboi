@@ -25,10 +25,11 @@ Gameobject::~Gameobject() {
 }
 
 void Gameobject::Start() {
-    printf("Starting %s\n", name);
+    printf("Starting %s...", name);
     if (renderer) {
         renderer->Start();
     }
+    printf("Started renderer\n");
 
     if (collider) {
         collider->Start();
@@ -39,6 +40,7 @@ void Gameobject::Start() {
     }
 
     isStarted = true;
+    printf("Started!\n");
 }
 
 void Gameobject::Update() {

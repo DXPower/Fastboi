@@ -27,8 +27,8 @@ bool Application::InitApplication() {
     Application::gWindow = SDL_CreateWindow("Slowboi"
                                          , SDL_WINDOWPOS_CENTERED
                                          , SDL_WINDOWPOS_CENTERED
-                                         , 1920, 1080
-                                         , SDL_WINDOW_FULLSCREEN | SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL);
+                                         , 900, 800
+                                         , SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL);
 
     if (Application::gWindow == nullptr) {
         SDL_Quit();

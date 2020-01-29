@@ -3,6 +3,7 @@
 #include <memory>
 #include "RenderOrder.h"
 #include <type_traits>
+#include <thread>
 
 
 namespace Fastboi {
@@ -12,6 +13,9 @@ namespace Fastboi {
     
     extern float tickDelta;
     extern float physicsDelta;
+
+    // extern std::thread renderingThread;
+    // extern std::thread tickPhysicsThread;
 
     // Instatiates gameobject of type GO with arguments args
     template<class GO, typename... Args>
