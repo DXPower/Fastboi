@@ -9,6 +9,7 @@
 #include "Rendering.h"
 #include "Resources.h"
 #include "SDL/SDL.h"
+#include "Texture.h"
 #include "Timer.h"
 #include <thread>
 #include <unordered_set>
@@ -34,6 +35,9 @@ std::vector<Gameobject*> gosToDelete; // When an object is deleted, gameobjects 
 
 std::map<RenderOrder, std::vector<Renderer*>> renderers;
 std::unordered_set<Collider*> colliders;
+
+std::thread::id renderingThreadID;
+std::thread::id updateThreadID;
 
 void Fastboi::Destroy(Gameobject& go) {
     go.Destroy();
@@ -71,6 +75,8 @@ void Fastboi::Render() {
 
     while (!quit) {
         Input::PollEvents();
+        Texture::CreateQueuedTextures();
+
         renderTimer.tick();
         renderDelta += renderTimer.elapsed_seconds;
 
@@ -178,17 +184,17 @@ void TickPhysicsThread() {
  * Only intended to be called by main
 **/
 void Fastboi::GameLoop() {
-    printf("Ticking...\n");
     Input::PollEvents();
     Tick();
 
-    printf("Ticked!\n");
     std::thread bgThread(TickPhysicsThread);
+
+    updateThreadID = bgThread.get_id();
+    renderingThreadID = std::this_thread::get_id();
 
     Render();
     bgThread.join();
 
-    printf("Cleaning up!\n");
     Cleanup();
 }
 
@@ -243,6 +249,22 @@ void Fastboi::RegisterCollider(Collider* c) {
 void Fastboi::UnregisterCollider(Collider* c) {
     printf("Dead collider!");
     colliders.erase(c);
+}
+
+std::thread::id Fastboi::GetRenderingThreadID() {
+    return renderingThreadID;
+}
+
+std::thread::id Fastboi::GetUpdateThreadID() {
+    return updateThreadID;
+}
+
+bool Fastboi::IsRenderingThread() {
+    return std::this_thread::get_id() == GetRenderingThreadID();
+}
+
+bool Fastboi::IsUpdateThread() {
+    return std::this_thread::get_id() == GetUpdateThreadID();
 }
 
 /**

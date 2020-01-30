@@ -8,4 +8,5 @@
 #include "Rendering.h"
 #include "Renderer.h"
 #include "Resources.h"
+#include "Texture.h"
 #include "VelocityComp.h"

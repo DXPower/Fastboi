@@ -26,7 +26,7 @@ namespace Slowboi {
 
     struct Brick final : public Gameobject {
         Fastboi::Input::KeyListener expandListener;
-
+        
         Brick(const Position& p);
         ~Brick() = default;
 

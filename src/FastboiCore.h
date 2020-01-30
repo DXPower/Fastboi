@@ -14,9 +14,6 @@ namespace Fastboi {
     extern float tickDelta;
     extern float physicsDelta;
 
-    // extern std::thread renderingThread;
-    // extern std::thread tickPhysicsThread;
-
     // Instatiates gameobject of type GO with arguments args
     template<class GO, typename... Args>
     GO& Instantiate(Args... args) {
@@ -45,4 +42,10 @@ namespace Fastboi {
 
     void RegisterCollider(Collider* c);
     void UnregisterCollider(Collider* c);
+
+    std::thread::id GetRenderingThreadID();
+    std::thread::id GetUpdateThreadID();
+
+    bool IsRenderingThread();
+    bool IsUpdateThread();
 };

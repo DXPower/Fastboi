@@ -125,6 +125,26 @@ Brick::Brick(const Position& position)
 
     expandListener.signal->connect<&Brick::Expand>(this);
 
+    // struct Recreater {
+    //     Gameobject& go;
+    //     Recreater(Gameobject& go) : go(go) { };
+
+    //     int timer = 0;
+
+    //     void Update() {
+    //         if (timer++ == 100) {
+    //             RepeatRenderer& rr = go.GetComponent<RepeatRenderer>();
+    //             printf("RR texture ptr before: %p\n", rr.repeatTexture.GetSDL_Texture());
+    //             // rr.repeatTexture.Recreate(go.transform->size, SDL_TEXTUREACCESS_TARGET, rr.repeatTexture.GetFormat());
+    //             rr.CreateRepeatTexture(rr.gameobject.transform->size);
+    //             printf("RR texture ptr after: %p\n", rr.repeatTexture.GetSDL_Texture());
+    //             timer = 0;
+    //         }
+    //     }
+    // };
+
+    // AddComponent<Recreater>(*this);
+
     printf("Brick made\n");
 }
 

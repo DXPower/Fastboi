@@ -2,6 +2,7 @@
 #include "Input.h"
 #include <mutex>
 #include "Resources.h"
+#include "Texture.h"
 #include "Utility.h"
 
 using namespace Fastboi;
