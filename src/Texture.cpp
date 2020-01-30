@@ -112,6 +112,9 @@ std::shared_future<SDL_Texture*> Texture::CreateSDL_Texture(const Vec<int>& size
 }
 
 void Texture::CreateQueuedTextures() {
+    if (texturesToCreate.size() == 0) return;
+
+    Fastboi::Print("Getting textureCreationMutex");
     std::lock_guard<std::mutex> lock(textureCreationMtx);
 
     while (texturesToCreate.size() != 0) {
@@ -123,6 +126,7 @@ void Texture::CreateQueuedTextures() {
 
         texturesToCreate.pop();
     }
+    Fastboi::Print("Releasing textureCreationMutex");
 }
 
 void CopyTexture(const Texture& src, Texture& dest) {

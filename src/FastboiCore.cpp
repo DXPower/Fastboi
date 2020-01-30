@@ -49,7 +49,7 @@ void Fastboi::Destroy(Gameobject& go) {
 }
 
 void Fastboi::Tick() {
-    renderingMtx.lock();
+    std::lock_guard<std::mutex> lock(renderingMtx);
 
     for (std::unique_ptr<Gameobject>& go : gosToAdd) {
         go->Start();
@@ -68,7 +68,6 @@ void Fastboi::Tick() {
         }));
     }
 
-    renderingMtx.unlock();
     gosToDelete.clear();
 }
 
