@@ -5,6 +5,7 @@
 #include "Collision.h"
 #include "Gameobject.h"
 #include "Input.h"
+#include <mutex>
 #include "Renderer.h"
 #include "Rendering.h"
 #include "Resources.h"
@@ -39,6 +40,8 @@ std::unordered_set<Collider*> colliders;
 std::thread::id renderingThreadID;
 std::thread::id updateThreadID;
 
+std::mutex renderingMtx;
+
 void Fastboi::Destroy(Gameobject& go) {
     go.Destroy();
 
@@ -46,6 +49,8 @@ void Fastboi::Destroy(Gameobject& go) {
 }
 
 void Fastboi::Tick() {
+    renderingMtx.lock();
+
     for (std::unique_ptr<Gameobject>& go : gosToAdd) {
         go->Start();
         gameobjects.push_back(std::move(go));
@@ -63,6 +68,7 @@ void Fastboi::Tick() {
         }));
     }
 
+    renderingMtx.unlock();
     gosToDelete.clear();
 }
 
@@ -93,6 +99,8 @@ void Fastboi::Render() {
         SDL_SetRenderDrawColor(Rendering::gRenderer, WHITE);
         SDL_RenderClear(Rendering::gRenderer);
 
+        renderingMtx.lock();
+
         const static auto sortByZ = [](const Renderer* a, const Renderer* b) -> bool {
             return a->data.zindex < b->data.zindex;
         };
@@ -100,13 +108,13 @@ void Fastboi::Render() {
         for (auto& [order, range] : renderers) {
             for (Renderer* r : range) {
                 if (r->isStarted && !r->isDeleted) {
-                    // printf("Rendering %s\n", r->gameobject.name);
                     std::sort(range.begin(), range.end(), sortByZ);
                     r->Render();
                 }
             }        
         }
 
+        renderingMtx.unlock();
         SDL_RenderPresent(Rendering::gRenderer);
     }
 }
@@ -140,41 +148,27 @@ void TickPhysicsThread() {
     constexpr int TICK_FREQUENCY = 120;
     constexpr float TICK_TIME = 1.0f / TICK_FREQUENCY;
     
-    constexpr int PHYSICS_FREQUENCY = 120;
-    constexpr float PHYSICS_TIME = 1.0f / PHYSICS_FREQUENCY;
-    
     // System timing
     static Timer tickTimer;
-    static Timer physicsTimer;
-    SDL_Event event;
 
     Fastboi::tickDelta = -TICK_TIME;
-    Fastboi::tickDelta = -PHYSICS_TIME;
 
     tickTimer.tick(); // Initial tick because the time between SDL start and Fastboi::GameLoop is quite long
-    physicsTimer.tick();
-
-    printf("Entering tick/physics loop\n");
 
     while (!quit) {
         tickTimer.tick();
-        physicsTimer.tick();
 
         Fastboi::tickDelta += tickTimer.elapsed_seconds;
-        Fastboi::physicsDelta += physicsTimer.elapsed_seconds;
+        Fastboi::physicsDelta += tickTimer.elapsed_seconds;
 
         // Cap tick rate with a blocking if
         if (std::isgreater(Fastboi::tickDelta, TICK_TIME)) {
+            Physics();
             Tick();
 
-            Fastboi::tickDelta = -TICK_TIME; // Reset the framerate clock
+            Fastboi::tickDelta = -TICK_TIME;
+            Fastboi::physicsDelta = -TICK_TIME;
         }
-
-        if (std::isgreater(Fastboi::physicsDelta, PHYSICS_TIME)) {
-            Physics();
-
-            Fastboi::physicsDelta = -PHYSICS_TIME;
-        }  
     }  
 }
 
@@ -208,19 +202,19 @@ void Fastboi::Quit() {
 
 // Registers a Gameobject to be managed by Fastboi. Use Destroy() to delete.
 const std::unique_ptr<Gameobject>& Fastboi::RegisterGameobject(Gameobject* go) {
-    printf("New object!");
+    Print("New object!");
     gosToAdd.push_back(std::move(std::unique_ptr<Gameobject>(go)));
 
     return gosToAdd.back();
 }
 
 void Fastboi::UnregisterGameobject(Gameobject* go) {
-    printf("Dead object!");
+    Print("Dead object!");
     gosToDelete.push_back(go);
 }
 
 void Fastboi::RegisterRenderer(Renderer* r) {
-    printf("New renderer!");
+    Print("New renderer!");
     
     RenderOrder order = r->GetOrder();
     renderers[order].push_back(r);
@@ -236,18 +230,18 @@ void Fastboi::ChangeRenderOrder(Renderer* r, RenderOrder old, RenderOrder _new) 
 }
 
 void Fastboi::UnregisterRenderer(Renderer* r) {
-    printf("Dead renderer!");
+    Print("Dead renderer!");
     std::vector<Renderer*>& range = renderers[r->GetOrder()];
     range.erase(std::find(range.begin(), range.end(), r));
 }
 
 void Fastboi::RegisterCollider(Collider* c) {
-    printf("New collider! %p\n", c);
+    Print("New collider! %p\n", c);
     colliders.emplace(c);
 }
 
 void Fastboi::UnregisterCollider(Collider* c) {
-    printf("Dead collider!");
+    Print("Dead collider!");
     colliders.erase(c);
 }
 

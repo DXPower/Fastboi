@@ -13,8 +13,8 @@ Gameobject::Gameobject(const char* name)
  , name(name) { };
 
 Gameobject::~Gameobject() {
-    Fastboi::GameobjectDeleteEvent delEvent{*this};
-    deleteSignal.fire(delEvent);
+    // Fastboi::GameobjectDeleteEvent delEvent{*this};
+    // deleteSignal.fire(delEvent);
 
     isDestroying = true;
     
@@ -62,4 +62,6 @@ void Gameobject::Destroy() {
 
     if (collider)
         collider->Destroy();
+
+    Fastboi::Print("Gameobejct destroyed\n");
 }

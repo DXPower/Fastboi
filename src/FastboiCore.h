@@ -1,6 +1,7 @@
 #pragma once
 
 #include <memory>
+#include <mutex>
 #include "RenderOrder.h"
 #include <type_traits>
 #include <thread>
@@ -48,4 +49,13 @@ namespace Fastboi {
 
     bool IsRenderingThread();
     bool IsUpdateThread();
+
+    template<typename ...Args>
+    void Print(const char* fmt, Args... args) {
+        static std::mutex printMutex;
+
+        printMutex.lock();
+        printf(fmt, std::forward<Args>(args)...);
+        printMutex.unlock();
+    }
 };

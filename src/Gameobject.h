@@ -55,6 +55,7 @@ namespace Fastboi {
         void Destroy();
 
         friend void Fastboi::Destroy(Gameobject&);
+        friend void Fastboi::Tick();
     };
 
     template<class T, typename... Args>

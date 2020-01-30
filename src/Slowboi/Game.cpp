@@ -65,7 +65,7 @@ Bullet::Bullet(const Position& p, const Velocity& v) : Gameobject("Bullet") {
 void Bullet::Hit(const Fastboi::CollisionEvent& e) {
     if (e.collider.IsTrigger() || e.collider.gameobject.HasComponent<Components::Player>()) return;
 
-    Fastboi::camera.SetTarget(*(new Transform(*transform)), Camera::OWNING);
+    // Fastboi::camera.SetTarget(*(new Transform(*transform)), Camera::OWNING);
 
     Fastboi::Destroy(*this);
 }
@@ -125,25 +125,22 @@ Brick::Brick(const Position& position)
 
     expandListener.signal->connect<&Brick::Expand>(this);
 
-    // struct Recreater {
-    //     Gameobject& go;
-    //     Recreater(Gameobject& go) : go(go) { };
+    struct AutoExpander {
+        Gameobject& go;
+        AutoExpander(Gameobject& go) : go(go) { };
 
-    //     int timer = 0;
+        int timer = 0;
 
-    //     void Update() {
-    //         if (timer++ == 100) {
-    //             RepeatRenderer& rr = go.GetComponent<RepeatRenderer>();
-    //             printf("RR texture ptr before: %p\n", rr.repeatTexture.GetSDL_Texture());
-    //             // rr.repeatTexture.Recreate(go.transform->size, SDL_TEXTUREACCESS_TARGET, rr.repeatTexture.GetFormat());
-    //             rr.CreateRepeatTexture(rr.gameobject.transform->size);
-    //             printf("RR texture ptr after: %p\n", rr.repeatTexture.GetSDL_Texture());
-    //             timer = 0;
-    //         }
-    //     }
-    // };
+        void Update() {
+            if (timer++ == 2) {
+                timer = 0;
+                go.transform->size += 1.f;
+                go.transform->SetRotation(go.transform->rotation + 1.f);
+            }
+        }
+    };
 
-    // AddComponent<Recreater>(*this);
+    // AddComponent<AutoExpander>(*this);
 
     printf("Brick made\n");
 }
