@@ -14,6 +14,10 @@ BoxColorRenderer::~BoxColorRenderer() {
 void BoxColorRenderer::Start() {
     Renderer::Start();
 
+    if (!Reqs::HasRequiredComponents(gameobject)) {
+        Application::ThrowRuntimeException("BoxColorRenderer missing components!", Application::REQUIREMENTS_NOT_FULFILLED);
+    }
+
     color = &gameobject.GetComponent<ColorComp>();
 }
 

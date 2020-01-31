@@ -1,5 +1,6 @@
 #pragma once
 
+#include "ComponentReqs.h"
 #include "Collider.h"
 #include "Events.h"
 #include "Gameobject.h"

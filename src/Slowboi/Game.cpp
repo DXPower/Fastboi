@@ -2,6 +2,7 @@
 #include "Game.h"
 #include "Player.h"
 #include "FastboiComps.h"
+#include "RequiresTest.h"
 
 #include "circular_vector.h"
 
@@ -53,6 +54,8 @@ void Slowboi::InitGame() {
 
     Instantiate<UISquare>(Position(200, 200), Size(150, 150), ColorComp(255, 0, 0, 255), 0).name = "4";
     Instantiate<UISquare>(Position(200, 200), Size(50, 50), ColorComp(0, 255, 0, 255), 4).name = "5";
+
+    Instantiate<RequiresTest>();
 
     printf("Game initiated\n");
 

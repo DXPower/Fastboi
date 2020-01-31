@@ -6,6 +6,8 @@
 namespace Fastboi {
     namespace Components {
         struct BoxColorRenderer final : public Fastboi::Renderer {
+            using Reqs = RequiredComponents<Transform, ColorComp>;
+
             const ColorComp* color;
 
             BoxColorRenderer(Fastboi::Gameobject& go, RenderData data);
