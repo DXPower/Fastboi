@@ -14,6 +14,24 @@ void LoadResources() {
     Fastboi::Resources::LoadImage("Brick", "brick.png");
 }
 
+Fastboi::Input::KeyListener pauseListener(SDL_SCANCODE_ESCAPE);
+
+void TogglePause(const Fastboi::KeyEvent& e) {
+    if (e.type == KeyEvent::DOWN) {
+        if (Fastboi::IsPaused())
+            Fastboi::Unpause();
+        else
+            Fastboi::Pause();
+    }
+}
+
+// void GlobalKeyPress(const Fastboi::KeyEvent& e) {
+//     if (e.key == SDL_SCANCODE_ESCAPE && e.type == KeyEvent::DOWN) {
+//         Fastboi::Print("Toggle Pausing!\n");
+//         TogglePause();
+//     }
+// }
+
 void Slowboi::InitGame() {
     circular_vector<int> cvec;
     cvec = { 1, 2, 3, 4, 5, 6 };
@@ -39,6 +57,8 @@ void Slowboi::InitGame() {
     printf("Game initiated\n");
 
     SetCamera(Camera(*player.transform, Camera::WATCHING, 1.5f));
+
+    pauseListener.signal->connect<&TogglePause>();
 }
 
 Bullet::Bullet(const Position& p, const Velocity& v) : Gameobject("Bullet") {

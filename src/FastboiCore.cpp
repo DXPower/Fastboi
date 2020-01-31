@@ -26,6 +26,7 @@
 using namespace Fastboi;
 
 bool quit = false;
+bool paused = false;
 
 float Fastboi::tickDelta = 0.0f;
 float Fastboi::physicsDelta = 0.0f;
@@ -157,16 +158,18 @@ void TickPhysicsThread() {
     while (!quit) {
         tickTimer.tick();
 
-        Fastboi::tickDelta += tickTimer.elapsed_seconds;
-        Fastboi::physicsDelta += tickTimer.elapsed_seconds;
+        if (!paused) {
+            Fastboi::tickDelta += tickTimer.elapsed_seconds;
+            Fastboi::physicsDelta += tickTimer.elapsed_seconds;
 
-        // Cap tick rate with a blocking if
-        if (std::isgreater(Fastboi::tickDelta, TICK_TIME)) {
-            Physics();
-            Tick();
+            // Cap tick rate with a blocking if
+            if (std::isgreater(Fastboi::tickDelta, TICK_TIME)) {
+                Physics();
+                Tick();
 
-            Fastboi::tickDelta = -TICK_TIME;
-            Fastboi::physicsDelta = -TICK_TIME;
+                Fastboi::tickDelta = -TICK_TIME;
+                Fastboi::physicsDelta = -TICK_TIME;
+            }
         }
     }  
 }
@@ -189,6 +192,28 @@ void Fastboi::GameLoop() {
     bgThread.join();
 
     Cleanup();
+}
+
+/**
+ * @brief Pauses the update loop of Fastboi. This halts all Instantiation, Destruction, Start(), Update(),
+ * and physics calculations of gameobjects and colliders. * 
+ */
+void Fastboi::Pause() {
+    paused = true;
+}
+
+/**
+ * @brief Resumes the update loop of Fastboi.
+ */
+void Fastboi::Unpause() {
+    paused = false;
+}
+
+/**
+ * @brief Gets the current paused state of Fastboi.
+ */
+bool Fastboi::IsPaused() {
+    return paused;
 }
 
 /**

@@ -9,12 +9,12 @@ SDL_Window* Application::gWindow = nullptr;
 SDL_Surface* Application::windowSurface = nullptr;
 // bool Application::quit = false;
 
-int windowX = 900;
-int windowY = 800;
+const int smallWindowX = 900;
+const int smallWindowY = 800;
 
 bool isFullscreen = true;
 
-Fastboi::Vec<int> window(windowX, windowY);
+Fastboi::Vec<int> window(1920, 1080);
 
 bool Application::InitApplication() {
     SDL_Rect rect;
@@ -27,8 +27,8 @@ bool Application::InitApplication() {
     Application::gWindow = SDL_CreateWindow("Slowboi"
                                          , SDL_WINDOWPOS_CENTERED
                                          , SDL_WINDOWPOS_CENTERED
-                                         , 900, 800
-                                         , SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL);
+                                         , window.x, window.y
+                                         , SDL_WINDOW_FULLSCREEN | SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL);
 
     if (Application::gWindow == nullptr) {
         SDL_Quit();
@@ -53,8 +53,6 @@ bool Application::InitApplication() {
         std::cout << "Could not initialize PNG" << std::endl;
         return false;
     }
-
-    
 
     std::cout << "Application started" << std::endl;
 
@@ -94,10 +92,10 @@ void Application::ToggleFullscreen() {
     } else {
         SDL_SetWindowFullscreen(Application::gWindow, 0);
         SDL_SetWindowResizable(gWindow, SDL_TRUE);
-        SDL_SetWindowSize(gWindow, windowX, windowY);
+        SDL_SetWindowSize(gWindow, smallWindowX, smallWindowY);
         SDL_SetWindowPosition(gWindow, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
 
-        WindowSizeChanged(Fastboi::Vec<int>(windowX, windowY));
+        WindowSizeChanged(Fastboi::Vec<int>(smallWindowX, smallWindowY));
     }
 
     isFullscreen = !isFullscreen;

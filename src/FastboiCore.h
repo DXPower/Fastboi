@@ -32,6 +32,10 @@ namespace Fastboi {
     void Physics();
 
     void GameLoop();
+
+    void Pause();
+    void Unpause();
+    bool IsPaused();
     void Quit();
 
     const std::unique_ptr<Gameobject>& RegisterGameobject(Gameobject* go);
