@@ -3,12 +3,13 @@
 using namespace Fastboi;
 
 namespace Slowboi {
-    struct Button final : public Gameobject {
-        Input::TargetedClickListener clickListener;
+    void Button(Gameobject& go, const Position& pos, const Size& size);
+    // struct Button final : public Gameobject {
+    //     Input::TargetedClickListener clickListener;
 
-        Button(const Position& pos, const Size& size);
+    //     Button(const Position& pos, const Size& size);
 
-        private:
-        void Click(const TargetedClickEvent& e) const;
-    };
+    //     private:
+    //     void Click(const TargetedClickEvent& e) const;
+    // };
 }

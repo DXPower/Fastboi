@@ -16,14 +16,21 @@ namespace Fastboi {
     extern float physicsDelta;
 
     // Instatiates gameobject of type GO with arguments args
-    template<class GO, typename... Args>
-    GO& Instantiate(Args... args) {
-        static_assert(std::is_base_of_v<Gameobject, GO>);
+    template<auto InitFunc, typename... Args>
+    Gameobject& Instantiate(Args&&... args) {
+        Gameobject* o = new Gameobject();
+        InitFunc(*o, std::forward<Args>(args)...);
 
-        GO* o = new GO(std::forward<Args>(args)...);
-        return *(static_cast<GO*>(RegisterGameobject(o).get()));
+        return *RegisterGameobject(o);
     }
 
+    template<class T, typename... Args>
+    Gameobject& Instantiate(Args&&... args) {
+        static_assert(std::is_same_v<T, Gameobject>);
+        Gameobject* o = new Gameobject(std::forward<Args>(args)...);
+
+        return *RegisterGameobject(o);
+    }
 
     void Destroy(Gameobject& go);
 

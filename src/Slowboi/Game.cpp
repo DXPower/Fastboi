@@ -47,77 +47,71 @@ void Slowboi::InitGame() {
 
     using namespace Fastboi;
 
-    PlayerActor& player = Instantiate<PlayerActor>(Position(500.f, 500.f));
-    Brick& brick = Instantiate<Brick>(Position(700.f, 700.f));
+    Instantiate<&Slowboi::Bullet>(Position(500, 500), Size(526, 53));
 
-    Instantiate<UISquare>(Position(00, 0), Size(50, 50), ColorComp(0, 0, 255, 255), 2).name = "1";
-    Instantiate<UISquare>(Position(50, 0), Size(50, 50), ColorComp(0, 255, 0, 255), 1).name = "2";
-    Instantiate<UISquare>(Position(100, 0), Size(50, 50), ColorComp(255, 0, 0, 255), 0).name = "3";
+    Gameobject& player = Instantiate<&PlayerGO>(Position(500.f, 500.f));
+    Instantiate<Brick>(Position(900, 800));
 
-    Instantiate<UISquare>(Position(200, 200), Size(150, 150), ColorComp(255, 0, 0, 255), 0).name = "4";
-    Instantiate<UISquare>(Position(200, 200), Size(50, 50), ColorComp(0, 255, 0, 255), 4).name = "5";
+    Instantiate<UISquare>(Position(00, 0), Size(50, 50), ColorComp(0, 0, 255, 255), 2);
+    Instantiate<UISquare>(Position(50, 0), Size(50, 50), ColorComp(0, 255, 0, 255), 1);
+    Instantiate<UISquare>(Position(100, 0), Size(50, 50), ColorComp(255, 0, 0, 255), 0);
 
-    Instantiate<RequiresTest>();
+    Instantiate<UISquare>(Position(200, 200), Size(150, 150), ColorComp(255, 0, 0, 255), 0);
+    Instantiate<UISquare>(Position(200, 200), Size(50, 50), ColorComp(0, 255, 0, 255), 4);
 
-    Instantiate<Button>(Position(500, 60), Size(526, 53));
+    Gameobject& rt = Instantiate<RequiresTest>();
+    rt.transform->position = Position(400, 400);
 
-    printf("Game initiated\n");
+    Gameobject& anon = Instantiate<Gameobject>("Anonymous GO");
+    anon.AddComponent<Transform>(Position(50, 500), Size(75, 90), 45);
+    anon.AddComponent<ColorComp>(255, 0, 255, 255);
+    anon.AddComponent<BoxColorRenderer>(anon, RenderData(RenderOrder::GROUND));
+    anon.AddComponent<Collider>(anon, Collider::FIXED);
 
     SetCamera(Camera(*player.transform, Camera::WATCHING, 1.5f));
 
     pauseListener.signal.connect<&TogglePause>();
 }
 
-Bullet::Bullet(const Position& p, const Velocity& v) : Gameobject("Bullet") {
-    AddComponent<Transform>();
-    transform->position = p;
-    transform->size = Size(30.f, 10.f);
+void Slowboi::Bullet(Gameobject& go, const Position& p, const Velocity& v) {
+    go.name = "Bullet";
 
-    AddComponent<VelocityComponent>(v);
+    go.AddComponent<Transform>(p, Size(30, 10), 0);
+    go.AddComponent<VelocityComponent>(v);
 
-    printf("Making bullet with position: %f %f, velocity %f %f\n", p.x, p.y, v.x, v.y);
+    go.AddComponent<ColorComp>(0, 0, 255, 255);
+    go.AddComponent<ColorShiftComp>(&go);
 
-    AddComponent<ColorComp>();
-    GetComponent<ColorComp>().set(0, 0, 255, 255);
+    go.AddComponent<BoxColorRenderer>(go, RenderData(RenderOrder::PARTICLES));
 
-    AddComponent<ColorShiftComp>(this);
+    struct BulletHit {
+        Gameobject& go;
 
-    AddComponent<BoxColorRenderer>(*this, RenderData(RenderOrder::PARTICLES));
-    Collider& collider = AddComponent<Collider>(*this, Collider::TRIGGER);
-    collider.collisionSignal.connect<&Bullet::Hit>(this);
+        BulletHit(Gameobject& go) : go(go) { };
+        
+        void Hit(const CollisionEvent& e) {
+            if (!e.collider.IsTrigger() && !e.collider.gameobject.HasComponent<Slowboi::Components::Player>()) {
+                Fastboi::Destroy(go);
+            }
+        }
+    };
 
-    printf("New bullet actor!\n");
+    BulletHit& bh = go.AddComponent<BulletHit>(go);
+    Collider& coll = go.AddComponent<Collider>(go, Collider::TRIGGER);
+    coll.collisionSignal.connect<&BulletHit::Hit>(bh);
 }
 
-void Bullet::Hit(const Fastboi::CollisionEvent& e) {
-    if (e.collider.IsTrigger() || e.collider.gameobject.HasComponent<Components::Player>()) return;
+void Slowboi::PlayerGO(Gameobject& go, const Position& p) {
+    go.AddComponent<Transform>(p, Size(41, 42), 0);
+    go.AddComponent<Collider>(go);
 
-    // Fastboi::camera.SetTarget(*(new Transform(*transform)), Camera::OWNING);
-
-    Fastboi::Destroy(*this);
-}
-
-PlayerActor::PlayerActor(const Position& p) : Gameobject("Player") {
-    printf("Creating player\n");
-    AddComponent<Transform>();
-    printf("Transform added\n");
-    transform->position = p;
-    transform->size = Size(41.f, 42.f);
-
-    printf("Making collider...\n");
-    Collider& collider = AddComponent<Collider>(*this);
-    printf("Collider made\n");
-
-    AddComponent<ColorComp>();
-    GetComponent<ColorComp>().set(255, 100, 0, 255);
-
-    AddComponent<SpriteRenderer>(*this, RenderData(RenderOrder::UNITS), "Player", Rect(0, 0, 41, 42));
+    go.AddComponent<SpriteRenderer>(go, RenderData(RenderOrder::UNITS), "Player", Rect(0, 0, 41, 42));
 
     using PlayerSpritesheet = Spritesheet<>;
     using Animation = PlayerSpritesheet::Animation;
 
     printf("Adding spritesheet...");
-    PlayerSpritesheet& spritesheet = AddComponent<PlayerSpritesheet>(this);
+    PlayerSpritesheet& spritesheet = go.AddComponent<PlayerSpritesheet>(&go);
     printf("Adding animations...");
 
     for (uint8_t i = 0; i < 8; i++) {
@@ -133,57 +127,38 @@ PlayerActor::PlayerActor(const Position& p) : Gameobject("Player") {
     spritesheet.SetCurrentAnimation(-1);
     printf("Current animation set\n");
     printf("Adding player\n");
-    Slowboi::Components::Player& player = AddComponent<Slowboi::Components::Player>(this);
-
-    printf("New player actor!\n");
+    Slowboi::Components::Player& player = go.AddComponent<Slowboi::Components::Player>(&go);
 }
 
-Brick::Brick(const Position& position)
- : Gameobject("Brick")
- , expandListener(Input::KeyListener(SDL_SCANCODE_SPACE)) {
-    printf("Creating brick...\n");
-    AddComponent<Transform>();
-    transform->position = position;
-    transform->size = Size(200.f, 200.f);
-    printf("Transform made.\n");
+void Slowboi::Brick(Gameobject& go, const Position& p) {
+    go.name = "Brick";
 
-    AddComponent<RepeatRenderer>(*this, RenderData(RenderOrder::GROUND), "Brick", Size(80.f, 80.f));
-    AddComponent<Collider>(*this, Collider::FIXED);
+    go.AddComponent<Transform>(p, Size(200, 200), 0);
+    
+    go.AddComponent<RepeatRenderer>(go, RenderData(RenderOrder::GROUND), "Brick", Size(80, 80));
+    go.AddComponent<Collider>(go, Collider::FIXED);
 
-    expandListener.signal.connect<&Brick::Expand>(this);
-
-    struct AutoExpander {
+    struct Expander {
         Gameobject& go;
-        AutoExpander(Gameobject& go) : go(go) { };
+        Input::KeyListener expandListener = Input::KeyListener(SDL_SCANCODE_SPACE);
 
-        int timer = 0;
+        Expander(Gameobject& go) : go(go) {
+            expandListener.signal.connect<&Expander::Expand>(this);
+        };
 
-        void Update() {
-            if (timer++ == 2) {
-                timer = 0;
-                go.transform->size += 1.f;
-                go.transform->SetRotation(go.transform->rotation + 1.f);
+        void Expand(const KeyEvent& e) {
+            if (e.type == KeyEvent::DOWN) {
+                go.transform->size += 5.f;
+                go.transform->SetRotation(go.transform->rotation + 10.f);
             }
         }
     };
 
-    // AddComponent<AutoExpander>(*this);
-
-    printf("Brick made\n");
+    go.AddComponent<Expander>(go);
 }
 
-void Brick::Expand(const Fastboi::KeyEvent& e) {
-    printf("Space pressed! Expanding and rotating...\n");
-    transform->size += 5.f;
-    transform->SetRotation(transform->rotation + 10.f);
-
-    if (transform->size.x >=800.f) {
-        delete this;
-    }
-}
-
-UISquare::UISquare(const Position& p, const Size& s, const ColorComp& color, int zindex) {
-    AddComponent<Transform>(p, s, 0);
-    AddComponent<ColorComp>(color.r, color.g, color.b, color.a);
-    AddComponent<RectUI>(*this, zindex);
+void Slowboi::UISquare(Gameobject& go, const Position& p, const Size& s, const ColorComp& color, int zindex) {
+    go.AddComponent<Transform>(p, s, 0);
+    go.AddComponent<ColorComp>(color.r, color.g, color.b, color.a);
+    go.AddComponent<RectUI>(go, zindex);
 }

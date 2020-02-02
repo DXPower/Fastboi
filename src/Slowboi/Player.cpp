@@ -48,16 +48,12 @@ void Player::Spacebar(const KeyEvent& e) const {
 
 void Player::Fire(const ClickEvent& event) const {
     if (event.type == ClickEvent::DOWN) {
-        // Position screenPos = Fastboi::camera.WorldToScreenPos(gameobject->transform->position);
-        Fastboi::Instantiate<UISquare>(event.pos, Size(25, 25), ColorComp(100, 0, 100, 255), 50);
-
+        // Fastboi::Instantiate<UISquare>(event.pos, Size(25, 25), ColorComp(100, 0, 100, 255), 50);
 
         Vecf d = (Fastboi::camera.ScreenToWorldPos(event.pos) - gameobject->transform->position).normalized();
 
-        Slowboi::Bullet& bullet = Instantiate<Slowboi::Bullet>(gameobject->transform->position, d * speed);
-
+        Gameobject& bullet = Instantiate<Slowboi::Bullet>(gameobject->transform->position, d * speed);
         Fastboi::camera.SetTarget(*gameobject->transform, Camera::WATCHING);
-        // Fastboi::SetCamera(Camera(*bullet.transform, Camera::WATCHING));
     } else if (event.type == ClickEvent::UP) {
         // printf("Fire up! %i %i\n", event.pos.x, event.pos.y);
     }

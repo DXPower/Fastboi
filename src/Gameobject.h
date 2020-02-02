@@ -11,7 +11,7 @@
 #include "FastboiCore.h"
 
 namespace Fastboi {
-    struct Gameobject {
+    struct Gameobject final {
         private:
         bool isDestroying = false;
         bool isStarted = false;

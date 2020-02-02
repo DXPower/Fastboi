@@ -2,19 +2,28 @@
 #include "UITexture.h"
 
 using namespace Slowboi;
+using namespace Fastboi;
+using namespace Input;
 
-Button::Button(const Position& p, const Size& s) : Gameobject() {
-    Transform& t = AddComponent<Transform>(p, s, 0);
-    Components::UITexture& r = AddComponent<Components::UITexture>(*this, "Button");
+struct ButtonClickComp {
+    Gameobject& go;
 
-    clickListener.signal.connect<&Button::Click>(this);
-    clickListener.Init(&t, &r);
-}
+    ButtonClickComp(Gameobject& go) : go(go) { };
 
-void Button::Click(const TargetedClickEvent& e) const {
-    if (e.type == ClickEvent::DOWN) {
-        transform->size -= 5.f;
-    } else if (e.type == ClickEvent::UP) {
-        transform->size += 5.f;
+    void Click(const ClickEvent& e) {
+        if (e.type == ClickEvent::DOWN) {
+            go.transform->size -= 5.f;
+        } else if (e.type == ClickEvent::UP) {
+            go.transform->size += 5.f;
+        }
     }
+};
+
+void Button(Gameobject& go, const Position& p, const Size& s) {
+    Transform& t = go.AddComponent<Transform>(p, s, 0);
+    Components::UITexture& r = go.AddComponent<Components::UITexture>(go, "Button");
+    ButtonClickComp& bcc = go.AddComponent<ButtonClickComp>(go);
+
+    ClickListener& cl = go.AddComponent<ClickListener>();
+    cl.signal.connect<&ButtonClickComp::Click>(&bcc);
 }

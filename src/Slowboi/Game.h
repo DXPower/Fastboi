@@ -12,29 +12,21 @@ namespace Slowboi {
 
     void InitGame();
 
-    struct Bullet final : public Gameobject {
-        Bullet(const Position& p, const Velocity& v);
-        ~Bullet() = default;
+    void Bullet(Gameobject& go, const Position& p, const Velocity& v);
+    void Brick(Gameobject& go, const Position& p);
+    void UISquare(Gameobject& go, const Position& p, const Size& s, const ColorComp& color, int zindex);
+    void PlayerGO(Gameobject& go, const Position& p);
+    // struct Brick final : public Gameobject {
+    //     Fastboi::Input::KeyListener expandListener;
         
-        void Hit(const Fastboi::CollisionEvent& e);
-    };
+    //     Brick(const Position& p);
+    //     ~Brick() = default;
 
-    struct PlayerActor final : public Gameobject {
-        PlayerActor(const Position& p);
-        ~PlayerActor() = default;
-    };
-
-    struct Brick final : public Gameobject {
-        Fastboi::Input::KeyListener expandListener;
-        
-        Brick(const Position& p);
-        ~Brick() = default;
-
-        void Expand(const Fastboi::KeyEvent& e);
-    };
+    //     void Expand(const Fastboi::KeyEvent& e);
+    // };
     
-    struct UISquare final : public Gameobject {
-        UISquare(const Position& p, const Size& s, const ColorComp& color, int zindex);
-        ~UISquare() { };
-    };
+    // struct UISquare final : public Gameobject {
+    //     UISquare(const Position& p, const Size& s, const ColorComp& color, int zindex);
+    //     ~UISquare() { };
+    // };
 }

@@ -6,11 +6,7 @@
 
 using namespace Fastboi;
 
-struct RequiresTest final : public Gameobject {
-    using Reqs = RequiredComponents<Fastboi::Components::BoxColorRenderer, Transform>;
-
-    RequiresTest();
-};
+void RequiresTest(Gameobject& go);
 
 struct RedShifter final {
     using Reqs = RequiredComponents<Fastboi::Components::ColorComp>;
@@ -19,6 +15,18 @@ struct RedShifter final {
     Fastboi::Components::ColorComp* color;
 
     RedShifter(Gameobject& go);
+
+    void Start();
+    void Update();
+};
+
+struct SizeOnRed final {
+    using Reqs = RequiredComponents<Transform, Fastboi::Components::ColorComp>;
+
+    const Gameobject& go;
+    Fastboi::Components::ColorComp* color;
+
+    SizeOnRed(Gameobject& go);
 
     void Start();
     void Update();

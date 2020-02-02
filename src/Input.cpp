@@ -78,10 +78,12 @@ void Input::PollEvents() {
                             SDL_DisplayMode dm;
                             SDL_GetDisplayMode(SDL_GetWindowDisplayIndex(Application::gWindow), 0, &dm);
                             SDL_SetWindowDisplayMode(Application::gWindow, &dm);
+                            printf("Window resize event fix-attempt! %i %i\n", dm.w, dm.h);
+                            Application::WindowSizeChanged(Vec<int>(dm.w, dm.h));
+                        } else {
+                            printf("Window resize event! %i %i\n", event.window.data1, event.window.data2);
+                            Application::WindowSizeChanged(Vec<int>(event.window.data1, event.window.data2));
                         }
-
-                        printf("Window resize event! %i %i\n", event.window.data1, event.window.data2);
-                        Application::WindowSizeChanged(Vec<int>(event.window.data1, event.window.data2));
                     }
                     break;
                 }
@@ -181,10 +183,6 @@ void TargetedClickListener::Init(const Transform* t, const Renderer* r) {
 
     targetedClickListeners.push_back(this);
 }
-
-// bool TargetedClickListener::operator==(const TargetedClickListener& other) const {
-//     return transform == other.transform && std::addressof(signal) == std::addressof(other.signal);
-// }
 
 KeyListener::KeyListener(uint32_t key)
  : key(key) {
