@@ -7,7 +7,6 @@
 
 using namespace Fastboi;
 
-
 struct TextureData {
     Vec<int> size;
     int access;

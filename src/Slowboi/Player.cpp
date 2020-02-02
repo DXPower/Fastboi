@@ -17,11 +17,11 @@ Player::Player(Gameobject* go)
  , lastDirection(Vecf(0, 1)) {
 
     printf("Connecting player...\n\n");
-    spacebarListener.signal->connect<&Player::Spacebar>(this);
-    clickListener.signal->connect<&Player::Fire>(this);
+    spacebarListener.signal.connect<&Player::Spacebar>(this);
+    clickListener.signal.connect<&Player::Fire>(this);
 
-    zoomIn.signal->connect<&Player::ChangeZoom>(this);
-    zoomOut.signal->connect<&Player::ChangeZoom>(this);
+    zoomIn.signal.connect<&Player::ChangeZoom>(this);
+    zoomOut.signal.connect<&Player::ChangeZoom>(this);
 }
 
 Player::~Player() {

@@ -31,6 +31,25 @@ void Rendering::Render_Texture(const Transform& transform, const Texture& textur
     Render_Texture(transform, texture, Rect(0, 0, size.x, size.y));
 }
 
+void Rendering::RenderScreen_Texture(const Transform& transform, const Texture& texture, const Rect& cutout) {
+    Position leftCorner = GetLeftCorner(transform);
+    RectF dest = RectF(leftCorner.x, leftCorner.y, transform.size.x, transform.size.y);
+
+    if (transform.GetRotation() == 0.f)
+        SDL_RenderCopyF(gRenderer, texture.GetSDL_Texture(), &cutout, &dest);
+    else {
+        SDL_RenderCopyExF(gRenderer, texture.GetSDL_Texture(), &cutout, &dest, transform.GetRotation(), nullptr, SDL_FLIP_NONE);
+    }
+}
+
+void Rendering::RenderScreen_Texture(const Transform& transform, const Texture& texture) {
+    const Vec<int>& size = texture.GetSize();
+    RenderScreen_Texture(transform, texture, Rect(0, 0, size.x, size.y));
+}
+
+
+
+
 void Rendering::Render_TextureTarget(const Texture& src, const Texture& dest, const Rect& destRect) {
     SDL_SetRenderTarget(gRenderer, dest.GetSDL_Texture()); // Target the destination texture
 

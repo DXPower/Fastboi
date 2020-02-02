@@ -17,7 +17,7 @@ namespace Fastboi {
         //! Follows RAII. When this goes out of scope, the signal and all connections are disconnected.
         struct ClickListener {
             using EventSignature = ClickEvent::Signal_t_g;
-            std::unique_ptr<Signal<EventSignature>> signal;
+            mutable Signal<EventSignature> signal;
 
             ClickListener();
             ~ClickListener();
@@ -29,7 +29,7 @@ namespace Fastboi {
             const Renderer* renderer; // Used to determine button press if there is overlap
 
             using EventSignature = TargetedClickEvent::Signal_t_g;
-            std::unique_ptr<Signal<EventSignature>> signal;
+            mutable Signal<EventSignature> signal;
             
             TargetedClickListener();
             ~TargetedClickListener();
@@ -40,7 +40,7 @@ namespace Fastboi {
             **/
             void Init(const Transform* transform, const Renderer* renderer);
 
-            bool operator==(const TargetedClickListener& other) const;
+            // bool operator==(const TargetedClickListener& other) const;
         };
 
         //! Follows RAII. When this goes out of scope, the signal and all connections are disconnected.
@@ -48,7 +48,7 @@ namespace Fastboi {
             uint32_t key;
 
             using EventSignature = KeyEvent::Signal_t_g;
-            std::unique_ptr<Signal<EventSignature>> signal;
+            mutable Signal<EventSignature> signal;
 
             KeyListener(uint32_t key);
             ~KeyListener();

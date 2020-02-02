@@ -45,7 +45,7 @@ bool DispatchTargetedClick(const ClickEvent& e) {
         std::sort(targets.begin(), targets.end(), tclCompare);
 
         TargetedClickEvent te(*targets[0]->transform, e.type, e.button, e.clicks, e.pos);
-        targets[0]->signal->fire(te);
+        targets[0]->signal.fire(te);
 
         return true;
     }
@@ -55,7 +55,7 @@ bool DispatchTargetedClick(const ClickEvent& e) {
 
 void DispatchUntargetedClick(const ClickEvent& e) {
     for (const ClickListener* cl : untargetedClickListeners) {
-        cl->signal->fire(e);
+        cl->signal.fire(e);
     }
 }
 
@@ -97,7 +97,7 @@ void Input::PollEvents() {
 
                 for (const KeyListener* listener : keyListeners) {
                     if (listener->key == k.key)
-                        listener->signal->fire(k);
+                        listener->signal.fire(k);
                 }
 
                 break;
@@ -159,7 +159,7 @@ bool Input::IsKeyDown(uint8_t key) {
     return keyboardState[key] == 1;
 }
 
-ClickListener::ClickListener() : signal(std::make_unique<Signal<EventSignature>>()) {
+ClickListener::ClickListener() {
     untargetedClickListeners.push_back(this);
 }
 
@@ -169,7 +169,6 @@ ClickListener::~ClickListener() {
 
 TargetedClickListener::TargetedClickListener()
  : transform(nullptr)
- , signal(std::make_unique<Signal<EventSignature>>())
 { };
 
 TargetedClickListener::~TargetedClickListener() {
@@ -183,14 +182,12 @@ void TargetedClickListener::Init(const Transform* t, const Renderer* r) {
     targetedClickListeners.push_back(this);
 }
 
-bool TargetedClickListener::operator==(const TargetedClickListener& other) const {
-    return transform == other.transform && signal == other.signal;
-}
+// bool TargetedClickListener::operator==(const TargetedClickListener& other) const {
+//     return transform == other.transform && std::addressof(signal) == std::addressof(other.signal);
+// }
 
 KeyListener::KeyListener(uint32_t key)
- : key(key)
- , signal(std::make_unique<Signal<EventSignature>>()) {
-
+ : key(key) {
      keyListeners.push_back(this);
 }
 

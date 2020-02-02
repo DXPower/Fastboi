@@ -1,6 +1,7 @@
 #include "Fastboi.h"
 #include "Game.h"
 #include "Player.h"
+#include "Button.h"
 #include "FastboiComps.h"
 #include "RequiresTest.h"
 
@@ -13,6 +14,7 @@ using namespace Fastboi::Components;
 void LoadResources() {
     Fastboi::Resources::LoadImage("Player", "penguin.png");
     Fastboi::Resources::LoadImage("Brick", "brick.png");
+    Fastboi::Resources::LoadImage("Button", "button.png");
 }
 
 Fastboi::Input::KeyListener pauseListener(SDL_SCANCODE_ESCAPE);
@@ -57,11 +59,13 @@ void Slowboi::InitGame() {
 
     Instantiate<RequiresTest>();
 
+    Instantiate<Button>(Position(500, 60), Size(526, 53));
+
     printf("Game initiated\n");
 
     SetCamera(Camera(*player.transform, Camera::WATCHING, 1.5f));
 
-    pauseListener.signal->connect<&TogglePause>();
+    pauseListener.signal.connect<&TogglePause>();
 }
 
 Bullet::Bullet(const Position& p, const Velocity& v) : Gameobject("Bullet") {
@@ -146,7 +150,7 @@ Brick::Brick(const Position& position)
     AddComponent<RepeatRenderer>(*this, RenderData(RenderOrder::GROUND), "Brick", Size(80.f, 80.f));
     AddComponent<Collider>(*this, Collider::FIXED);
 
-    expandListener.signal->connect<&Brick::Expand>(this);
+    expandListener.signal.connect<&Brick::Expand>(this);
 
     struct AutoExpander {
         Gameobject& go;

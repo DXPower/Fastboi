@@ -87,6 +87,18 @@ namespace Fastboi {
             Render_Texture(*transform, texture);
         }
 
+        void RenderScreen_Texture(const Transform& transform, const Texture& texture, const Rect& cutout);
+
+        inline void RenderScreen_Texture(const std::unique_ptr<Transform>& transform, const Texture& texture, const Rect& cutout) {
+            RenderScreen_Texture(*transform, texture, cutout);
+        }
+
+        void RenderScreen_Texture(const Transform& transform, const Texture& texture);
+
+        inline void RenderScreen_Texture(const std::unique_ptr<Transform>& transform, const Texture& texture) {
+            RenderScreen_Texture(*transform, texture);
+        }
+
         void Render_TextureTarget(const Texture& src, const Texture& dest, const Rect& destRect);
 
         inline void SetColor(uint8_t r, uint8_t g, uint8_t b, uint8_t a) {
