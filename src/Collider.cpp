@@ -25,6 +25,8 @@ void Collider::Start() {
 }
 
 void Collider::Update() {
+    if (!isEnabled) return;
+
     std::vector<const Collider*> newCollisions;
     std::vector<const Collider*> endingCollisions;
 
@@ -72,4 +74,13 @@ void Collider::GetNewAndEndingCollisions(std::vector<const Collider*>& newCs, st
     std::set_difference(currentCollisions.begin(), currentCollisions.end(),
                         pendingCollisions.begin(), pendingCollisions.end(),
                         std::back_inserter(endingCs));
+}
+
+void Collider::SetEnabled(bool f) {
+    if (!f) {
+        pendingCollisions.clear();
+        currentCollisions.clear();
+    }
+
+    isEnabled = f;
 }

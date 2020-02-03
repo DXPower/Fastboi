@@ -2,23 +2,6 @@
 
 #include <cstring>
 
-#define GenHasFunction(CheckerName, CheckFunction) \
-template <typename _T> \
-class CheckerName \
-{ \
-    private: \
-    struct yes { }; \
-    struct no { }; \
- \
-    template <typename C> static yes test(decltype(&C::CheckFunction)) ; \
-    template <typename C> static no test(...); \
- \
-    public: \
-    enum { value = static_cast<int>(std::is_same_v<decltype(test<_T>(0)), yes>) }; \
-}
-
-#define HasFunction(CheckerName, CheckType) CheckerName<CheckType>::value
-
 inline size_t hash_cstring(const char* p) {
    size_t result = 0;
    constexpr size_t prime = 31;

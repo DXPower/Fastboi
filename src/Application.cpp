@@ -105,12 +105,14 @@ bool Application::IsFullscreen() {
     return isFullscreen;
 }
 
-void Application::ThrowRuntimeException(const char* err, Exception code) {
+void Application::ThrowRuntimeException(const char* err, Exception code) __attribute__ ((noreturn)) {
     printf("Runtime exception thrown. Code %i: %s\n", code, err);
     std::exit(code);
+    __builtin_unreachable();
 }
 
-void Application::ThrowRuntimeException(Exception code) {
+void Application::ThrowRuntimeException(Exception code) __attribute__ ((noreturn)) {
     printf("Runtime exception thrown. Code %i\n", code);
     std::exit(code);
+    __builtin_unreachable();
 }

@@ -1,14 +1,15 @@
 #pragma once
 #include "Collider.h"
 #include "Component.h"
-#include "Renderer.h"
-#include <type_traits>
-#include <unordered_map>
-#include <memory>
-#include "Transform.h"
-#include "Vec.h"
 #include "Events.h"
 #include "FastboiCore.h"
+#include <memory>
+#include <unordered_map>
+#include "Renderer.h"
+#include "Transform.h"
+#include <type_traits>
+#include "Vec.h"
+#include "VelocityComp.h"
 
 namespace Fastboi {
     struct Gameobject final {
@@ -16,6 +17,7 @@ namespace Fastboi {
         bool isDestroying = false;
         bool isStarted = false;
         bool isDeleted = false;
+        bool isEnabled = true;
 
         public:
         const char* name;
@@ -50,6 +52,23 @@ namespace Fastboi {
 
         template<class T>
         void RemoveComponent();
+
+        void SetEnabled(bool f);
+        inline void Enable() { SetEnabled(true); };
+        inline void Disable() { SetEnabled(false); };
+        inline bool IsEnabled() const { return isEnabled; };
+
+        template<class T>
+        void SetComponentEnabled(bool f);
+
+        template<class T>
+        void EnableComponent() { SetComponentEnabled<T>(true); };
+        
+        template<class T>
+        void DisableComponent() { SetComponentEnabled<T>(false); };
+
+        template<class T>
+        bool IsComponentEnabled() const;
 
         private:
         void Destroy();
@@ -128,6 +147,42 @@ namespace Fastboi {
         } else {
             std::type_index typekey = std::type_index(typeid(T));
             components.erase(typekey);
+        }
+    }
+
+    template<class T>
+    void Gameobject::SetComponentEnabled(bool f) {
+        static_assert(!std::is_same_v<Transform, T> && !std::is_same_v<Renderer, T>);
+
+        using namespace Fastboi::Components;
+
+        if constexpr (std::is_same_v<Collider, T>) {
+            if (collider)
+                collider->SetEnabled(f);
+            else
+                Application::ThrowRuntimeException(Application::COMPONENT_NO_EXIST);
+        } else if constexpr (std::is_same_v<VelocityComp, T>) {
+            return GetComponent<VelocityComp>().SetEnabled(f);
+        } else {
+            std::type_index typekey = std::type_index(typeid(T));
+            components.at(typekey)->enabled = f;
+        }
+    }
+
+    template<class T>
+    bool Gameobject::IsComponentEnabled() const {
+        static_assert(!std::is_same_v<Transform, T> && !std::is_same_v<Renderer, T>);
+
+        if constexpr (std::is_same_v<Collider, T>) {
+            if (collider)
+                return collider->IsEnabled();
+            else
+                Application::ThrowRuntimeException(Application::COMPONENT_NO_EXIST);
+        } else if constexpr (std::is_same_v<VelocityComp, T>) {
+            return GetComponent<VelocityComp>().IsEnabled();
+        } else {
+            std::type_index typekey = std::type_index(typeid(T));
+            return components.at(typekey)->enabled;
         }
     }
 }

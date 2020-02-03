@@ -3,12 +3,19 @@
 #include <Vec.h>
 
 namespace Fastboi {
-    namespace Components {
-        struct VelocityComponent {
-            Velocity velocity;
+    struct VelocityComp {
+        private:
+        bool isEnabled = true;
 
-            VelocityComponent(const Velocity& v) : velocity(v) { };
-            VelocityComponent() : VelocityComponent(Velocity::zero()) { };
-        };
+        public:
+        Velocity velocity;
+
+        VelocityComp(const Velocity& v) : velocity(v) { };
+        VelocityComp() : VelocityComp(Velocity::zero()) { };
+
+        inline void SetEnabled(bool f) { isEnabled = f; };
+        inline void Enable() { SetEnabled(true); };
+        inline void Disable() { SetEnabled(false); };
+        inline bool IsEnabled() const { return isEnabled; };
     };
 };

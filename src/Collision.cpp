@@ -135,8 +135,9 @@ Collision_t::CollisionData Fastboi::Collision::AreCollidersIntersectng(
 
 void Fastboi::Collision::ApplyVelocities(const std::vector<std::unique_ptr<Gameobject>>& gameobjects) {
     for (const std::unique_ptr<Gameobject>& go : gameobjects) {
-        if (go->HasComponent<Components::VelocityComponent>()) {
-            AdvanceTransform(*go->transform, go->GetComponent<Components::VelocityComponent>().velocity * Fastboi::physicsDelta);
+        if (go->HasComponent<VelocityComp>()) {
+            const VelocityComp& vc = go->GetComponent<VelocityComp>();
+            AdvanceTransform(*go->transform, vc.IsEnabled() * vc.velocity * Fastboi::physicsDelta);
         }
     }
 }
@@ -146,7 +147,7 @@ void Fastboi::Collision::BroadPhase(
     , PotentialCollisions_t& potentialCollisions
 ) {
     for (Collider* collider : colliders) {
-        if (collider->isStarted && !collider->isDeleted) {
+        if (collider->isStarted && collider->isEnabled && !collider->isDeleted) {
             potentialCollisions.push_back(collider);
         }
     }

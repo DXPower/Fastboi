@@ -14,15 +14,14 @@ namespace Fastboi {
     struct Gameobject;
     struct Transform;
 
-    namespace Components {
-        struct VelocityComponent;
-    };
+    struct VelocityComp;
 
     struct Collider {
         private:
         std::vector<const Collider*> currentCollisions;
         std::vector<const Collider*> pendingCollisions;
 
+        bool isEnabled = true;
         bool isStarted = false;
         bool isDeleted = false;
         uint_fast8_t flags;
@@ -49,6 +48,11 @@ namespace Fastboi {
         inline bool IsTrigger() const { return flags & TRIGGER; };
         inline bool IsFixed() const { return flags & FIXED; };  
         inline void SetFlags(uint_fast8_t flags) { this->flags = flags; };
+
+        void SetEnabled(bool f);
+        inline void Enable() { SetEnabled(true); };
+        inline void Disable() { SetEnabled(false); };
+        inline bool IsEnabled() const { return isEnabled; };
 
         private:
         void Collide(const Collider& collider);

@@ -44,7 +44,7 @@ void Gameobject::Start() {
 }
 
 void Gameobject::Update() {
-    if (!isDeleted) {
+    if (isEnabled && !isDeleted) {
         if (collider) 
             collider->Update();
             
@@ -64,4 +64,14 @@ void Gameobject::Destroy() {
         collider->Destroy();
 
     Fastboi::Print("Gameobejct destroyed\n");
+}
+
+void Gameobject::SetEnabled(bool f) {
+    isEnabled = f;
+
+    if (HasComponent<VelocityComp>())
+        GetComponent<VelocityComp>().SetEnabled(f);
+
+    if (collider)
+        collider->SetEnabled(f);
 }

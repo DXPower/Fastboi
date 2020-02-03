@@ -10,25 +10,25 @@ namespace Slowboi {
     namespace Components {
         struct Player final {
             private:
-            VelocityComponent* velocityComp;
+            VelocityComp* velocityComp;
             Spritesheet<int>* spritesheet;
 
             Input::KeyListener spacebarListener;
             Input::ClickListener clickListener;
 
-            Input::KeyListener zoomIn, zoomOut;
+            Input::KeyListener enableGO, enableCollider;
             
             Vecf lastDirection;
             Vecf facingDirection;
 
             public:
-            Gameobject* gameobject;
+            Gameobject& gameobject;
             float_t speed = 500.0f;
 
-            Player(Gameobject* go);
+            Player(Gameobject& go);
             ~Player();
 
-            void ChangeZoom(const KeyEvent& e) const;
+            void EnablePressed(const KeyEvent& e) const;
             void Spacebar(const KeyEvent& e) const;
             void VelocityChanged(const Velocity& velocity) const;
             void Fire(const ClickEvent& event) const;

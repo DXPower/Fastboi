@@ -6,7 +6,6 @@
 #include <type_traits>
 #include <thread>
 
-
 namespace Fastboi {
     struct Collider;
     struct Gameobject;

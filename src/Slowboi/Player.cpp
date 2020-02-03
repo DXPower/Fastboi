@@ -9,59 +9,56 @@ using namespace Fastboi;
 using namespace Input;
 using namespace Slowboi::Components;
 
-Player::Player(Gameobject* go)
+Player::Player(Gameobject& go)
  : gameobject(go)
  , spacebarListener(KeyListener(SDL_SCANCODE_SPACE))
- , zoomIn(KeyListener(SDL_SCANCODE_UP))
- , zoomOut(KeyListener(SDL_SCANCODE_DOWN))
+ , enableGO(KeyListener(SDL_SCANCODE_E))
+ , enableCollider(KeyListener(SDL_SCANCODE_C))
  , lastDirection(Vecf(0, 1)) {
-
     printf("Connecting player...\n\n");
     spacebarListener.signal.connect<&Player::Spacebar>(this);
     clickListener.signal.connect<&Player::Fire>(this);
 
-    zoomIn.signal.connect<&Player::ChangeZoom>(this);
-    zoomOut.signal.connect<&Player::ChangeZoom>(this);
+    enableGO.signal.connect<&Player::EnablePressed>(this);
+    enableCollider.signal.connect<&Player::EnablePressed>(this);
 }
 
 Player::~Player() {
-    gameobject->RemoveComponent<Spritesheet<int>>();
-    gameobject->RemoveComponent<VelocityComponent>();
+    gameobject.RemoveComponent<Spritesheet<int>>();
+    gameobject.RemoveComponent<VelocityComp>();
 }
 
-void Player::ChangeZoom(const KeyEvent& e) const {
-    // if (e.type == KeyEvent::DOWN) {
-    //     switch (e.key) {
-    //         case SDL_SCANCODE_UP:
-    //             Fastboi::camera.zoom += 0.25f;
-    //             break;
-    //         case SDL_SCANCODE_DOWN:
-    //             Fastboi::camera.zoom -= 0.25f;
-    //             break;
-    //     }
-    // }
+void Player::EnablePressed(const KeyEvent& e) const {
+    Fastboi::Print("Enable pressed!\n");
+
+    if (e.type == KeyEvent::DOWN) {
+        if (e.key == SDL_SCANCODE_E)
+            gameobject.SetEnabled(!gameobject.IsEnabled());
+        else if (e.key == SDL_SCANCODE_C)
+            gameobject.SetComponentEnabled<Collider>(!gameobject.IsComponentEnabled<Collider>());
+    }
 }
 
 void Player::Spacebar(const KeyEvent& e) const {
-    Instantiate<Slowboi::Bullet>(gameobject->transform->position, facingDirection.normalized() * speed);
+    Instantiate<Slowboi::Bullet>(gameobject.transform->position, facingDirection.normalized() * speed);
 }
 
 void Player::Fire(const ClickEvent& event) const {
     if (event.type == ClickEvent::DOWN) {
         // Fastboi::Instantiate<UISquare>(event.pos, Size(25, 25), ColorComp(100, 0, 100, 255), 50);
 
-        Vecf d = (Fastboi::camera.ScreenToWorldPos(event.pos) - gameobject->transform->position).normalized();
+        Vecf d = (Fastboi::camera.ScreenToWorldPos(event.pos) - gameobject.transform->position).normalized();
 
-        Gameobject& bullet = Instantiate<Slowboi::Bullet>(gameobject->transform->position, d * speed);
-        Fastboi::camera.SetTarget(*gameobject->transform, Camera::WATCHING);
+        Gameobject& bullet = Instantiate<Slowboi::Bullet>(gameobject.transform->position, d * speed);
+        Fastboi::camera.SetTarget(*gameobject.transform, Camera::WATCHING);
     } else if (event.type == ClickEvent::UP) {
         // printf("Fire up! %i %i\n", event.pos.x, event.pos.y);
     }
 }
 
 void Player::Start() {
-    spritesheet = &gameobject->AddComponent<Spritesheet<int>>(gameobject);
-    velocityComp = &gameobject->AddComponent<VelocityComponent>();
+    spritesheet = &gameobject.GetComponent<Spritesheet<int>>();
+    velocityComp = &gameobject.AddComponent<VelocityComp>();
 }
 
 void Player::Update() {
@@ -84,7 +81,7 @@ void Player::Update() {
     }
 
     if (lastDirection != direction) {
-        int dirKey = -1;
+        int dirKey = 0;
 
         if (direction != Vecf::zero()) {
             if (direction.x == 0 && direction.y == 1) dirKey = 1;
@@ -98,8 +95,6 @@ void Player::Update() {
 
             spritesheet->SetCurrentAnimation(dirKey);
         } else {
-            int dirKey;
-
             if (lastDirection.x == 0 && lastDirection.y == 1) dirKey = 1;
             else if (lastDirection.x == 1 && lastDirection.y == 1) dirKey = 2;
             else if (lastDirection.x == 1 && lastDirection.y == 0) dirKey = 3;

@@ -23,7 +23,7 @@ ColorComp& color = go.GetComponent<ColorComp>();
 struct Bullet final : public Gameobject {
     Bullet() {
         AddComponent<Transform>(Position(0, 0), Size(100, 20));
-        AddComponent<VelocityComponent>(Velocity(50, 0));
+        AddComponent<VelocityComp>(Velocity(50, 0));
         AddComponent<ColorComp>(0, 0, 0, 255);
         AddComponent<BoxColorRenderer>(*this, Fastboi::RenderOrder::PARTICLES);
 

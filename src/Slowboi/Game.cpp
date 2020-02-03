@@ -47,7 +47,7 @@ void Slowboi::InitGame() {
 
     using namespace Fastboi;
 
-    Instantiate<&Slowboi::Bullet>(Position(500, 500), Size(526, 53));
+    Instantiate<Slowboi::Bullet>(Position(500, 500), Size(526, 53));
 
     Gameobject& player = Instantiate<&PlayerGO>(Position(500.f, 500.f));
     Instantiate<Brick>(Position(900, 800));
@@ -77,7 +77,7 @@ void Slowboi::Bullet(Gameobject& go, const Position& p, const Velocity& v) {
     go.name = "Bullet";
 
     go.AddComponent<Transform>(p, Size(30, 10), 0);
-    go.AddComponent<VelocityComponent>(v);
+    go.AddComponent<VelocityComp>(v);
 
     go.AddComponent<ColorComp>(0, 0, 255, 255);
     go.AddComponent<ColorShiftComp>(&go);
@@ -127,7 +127,7 @@ void Slowboi::PlayerGO(Gameobject& go, const Position& p) {
     spritesheet.SetCurrentAnimation(-1);
     printf("Current animation set\n");
     printf("Adding player\n");
-    Slowboi::Components::Player& player = go.AddComponent<Slowboi::Components::Player>(&go);
+    Slowboi::Components::Player& player = go.AddComponent<Slowboi::Components::Player>(go);
 }
 
 void Slowboi::Brick(Gameobject& go, const Position& p) {
