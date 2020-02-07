@@ -1,3 +1,5 @@
+#pragma once
+
 #include <future>
 #include <optional>
 #include "Vec.h"

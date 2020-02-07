@@ -1,32 +1,36 @@
 #pragma once
+#include "Application.h"
+#include "ctti/type_id.hpp"
 #include "Collider.h"
 #include "Component.h"
 #include "Events.h"
-#include "FastboiCore.h"
 #include <memory>
 #include <unordered_map>
 #include "Renderer.h"
+#include <stack>
 #include "Transform.h"
 #include <type_traits>
 #include "Vec.h"
 #include "VelocityComp.h"
 
 namespace Fastboi {
+    void Tick();
+    void Destroy(Gameobject&);
+
     struct Gameobject final {
         private:
         bool isDestroying = false;
         bool isStarted = false;
         bool isDeleted = false;
         bool isEnabled = true;
+        bool componentsLock = false;
+
+        uint64_t rendererTypeHash = 0;
 
         public:
         const char* name;
+        std::unordered_map<uint64_t, std::unique_ptr<ComponentBase>> components;
         // Mapping type to components. (Lookup only available at compile time)
-        std::unordered_map<std::type_index, std::unique_ptr<ComponentBase>> components;
-
-        /** @deprecated **/
-        Fastboi::Signal<Fastboi::GameobjectDeleteEvent::Signal_t_g> deleteSignal;
-
         // Transform,  Renderer, Collider are core but act like components, so we store them separately.
         // Additionally, because Collider and Renderer can be base classes, this allows for someone to get the
         // component via base class
@@ -36,7 +40,12 @@ namespace Fastboi {
 
         Gameobject();
         Gameobject(const char* name);
+        Gameobject(const Gameobject& copy) = delete;
+        Gameobject(const Gameobject&& copy) = delete;
         virtual ~Gameobject();
+
+        Gameobject& operator=(const Gameobject& copy) = delete;
+        Gameobject& operator=(const Gameobject&& copy) = delete;
 
         void Start();
         void Update();
@@ -45,7 +54,10 @@ namespace Fastboi {
         T& AddComponent(Args&&... args);
 
         template<class T>
-        T& GetComponent() const;
+        T& GetComponent();
+
+        template<class T>
+        const T& GetComponent() const;
 
         template<class T>
         bool HasComponent() const;
@@ -71,11 +83,18 @@ namespace Fastboi {
         bool IsComponentEnabled() const;
 
         private:
-        void Destroy();
+        std::stack<decltype(components)::value_type> componentsToAdd;
+        std::stack<decltype(components)::key_type> componentsToRemove;
 
-        friend void Fastboi::Destroy(Gameobject&);
+        void Destroy();
+        void AddComponentsOnStack();
+        void RemoveComponentsOnStack();
+
         friend void Fastboi::Tick();
+        friend void Fastboi::Destroy(Gameobject&);
     };
+
+    
 
     template<class T, typename... Args>
     T& Gameobject::AddComponent(Args&&... args) {
@@ -84,38 +103,45 @@ namespace Fastboi {
         // Special cases for transform and render due to their special treatmeant in Gameobject:: above
         if constexpr (is_same_v<T, Transform>) {
             transform = make_unique<Transform>(forward<Args>(args)...);
-        } else if constexpr (is_base_of_v<Renderer, T>) { // Support for multiple Renderers, using is_base_of instead
+        } else if constexpr (is_base_of_v<Renderer, T>) {
             renderer = make_unique<T>(forward<Args>(args)...);
-            // renderer->Start();
-        } else if constexpr (is_base_of_v<Collider, T>) {
-            collider = make_unique<T>(forward<Args>(args)...);
-            // collider->Start();
+            rendererTypeHash = ctti::type_id<T>().hash();
+        } else if constexpr (is_same_v<Collider, T>) {
+            collider = make_unique<Collider>(forward<Args>(args)...);
         } else {
-            type_index typekey = type_index(typeid(T));
+            constexpr uint64_t typekey = ctti::type_id<T>().hash();
 
             //. Component<T, Args...> creates a Component that instantiates T, with T's arguments forwarded by forward<Args>
-            const auto [it, _] = components.emplace(typekey, make_unique<Component<T, Args...>>(forward<Args>(args)...));
-            
-            // Run ComponentBase::Start() if the gameobject has already started
-            if (isStarted) {
-                Fastboi::Print("Auto-starting component due to isStarted == true\n");
-                (*it).second->Start();
-            }
+            if (isStarted || componentsLock) {
+                componentsToAdd.emplace(typekey, make_unique<Component<T, Args...>>(forward<Args>(args)...));
+                return (*static_cast<T*>(componentsToAdd.top().second->Retrieve()));
+            } else
+                components.emplace(typekey, make_unique<Component<T, Args...>>(forward<Args>(args)...));
         }
 
         return (GetComponent<T>());
     }
 
     template<class T>
-    T& Gameobject::GetComponent() const {
+    T& Gameobject::GetComponent() {
+        return const_cast<T&>(const_cast<const Gameobject*>(this)->GetComponent<T>());
+    }
+
+    template<class T>
+    const T& Gameobject::GetComponent() const {
+        if (!HasComponent<T>())
+            Application::ThrowRuntimeException("Attempt to get nonexistant component!", 
+                Application::COMPONENT_NO_EXIST,
+                ctti::type_id<T>().name().str().c_str());
+            
         if constexpr (std::is_same_v<T, Transform>) {
             return *transform;
         } else if constexpr (std::is_base_of_v<Renderer, T>) {
             return *static_cast<T*>(renderer.get());
         } else if constexpr (std::is_base_of_v<Collider, T>) {
-            return *static_cast<T*>(collider.get());
+            return *collider;
         } else {
-            std::type_index typekey = std::type_index(typeid(T)); 
+            constexpr uint64_t typekey = ctti::type_id<T>().hash();
             return *static_cast<T*>(components.at(typekey)->Retrieve());
         }
     }
@@ -125,11 +151,11 @@ namespace Fastboi {
         if constexpr (std::is_same_v<T, Transform>) {
             return (bool) transform;
         } else if constexpr (std::is_base_of_v<Renderer, T>) {
-            return (bool) renderer;
+            return renderer && rendererTypeHash == ctti::type_id<T>().hash();
         } else if constexpr (std::is_base_of_v<Collider, T>) {
             return (bool) collider;
         } else {
-            std::type_index typekey = std::type_index(typeid(T));
+            constexpr uint64_t typekey = ctti::type_id<T>().hash();
             return components.find(typekey) != components.end();
         }
     }
@@ -142,19 +168,18 @@ namespace Fastboi {
             transform.reset();
         } else if constexpr (std::is_base_of_v<Renderer, T>) {
             renderer.reset();
+            rendererTypeHash = 0;
         } else if constexpr (std::is_base_of_v<Collider, T>) {
             collider.reset();
         } else {
-            std::type_index typekey = std::type_index(typeid(T));
-            components.erase(typekey);
+            constexpr uint64_t typekey = ctti::type_id<T>().hash();
+            componentsToRemove.push(typekey);
         }
     }
 
     template<class T>
     void Gameobject::SetComponentEnabled(bool f) {
         static_assert(!std::is_same_v<Transform, T> && !std::is_same_v<Renderer, T>);
-
-        using namespace Fastboi::Components;
 
         if constexpr (std::is_same_v<Collider, T>) {
             if (collider)
@@ -164,7 +189,7 @@ namespace Fastboi {
         } else if constexpr (std::is_same_v<VelocityComp, T>) {
             return GetComponent<VelocityComp>().SetEnabled(f);
         } else {
-            std::type_index typekey = std::type_index(typeid(T));
+            constexpr uint64_t typekey = ctti::type_id<T>().hash();
             components.at(typekey)->enabled = f;
         }
     }
@@ -181,7 +206,7 @@ namespace Fastboi {
         } else if constexpr (std::is_same_v<VelocityComp, T>) {
             return GetComponent<VelocityComp>().IsEnabled();
         } else {
-            std::type_index typekey = std::type_index(typeid(T));
+            constexpr uint64_t typekey = ctti::type_id<T>().hash();
             return components.at(typekey)->enabled;
         }
     }

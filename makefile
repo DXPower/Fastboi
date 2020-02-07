@@ -8,9 +8,9 @@ include targets.env
 CC=clang
 CXX=clang++
 CFLAGS = -std=c11
-CXXFLAGS = -std=c++17 -m64 -march=x86-64 -Wfatal-errors -W -Wdelete-abstract-non-virtual-dtor -Wno-unused-parameter -Wno-format -Xclang -flto-visibility-public-std -frelaxed-template-template-args 
+CXXFLAGS = -std=c++17 -O0 -m64 -march=x86-64 -Wfatal-errors -W -Wdelete-abstract-non-virtual-dtor -Wno-unused-parameter -Wno-format -Xclang -flto-visibility-public-std -frelaxed-template-template-args 
 CXX_LINKS = -L./lib/ -lSDL2main -lSDL2 -lSDL2_image
-# DEBUGFLAGS = -g -D DEBUG
+DEBUGFLAGS = -ggdb -D DEBUG
 DEFINES = -D SDL_MAIN_HANDLED -D WINDOWS
 
 OBJDIR := out/obj
@@ -23,6 +23,7 @@ POSTCOMPILE_TEST = mv -f $(TESTDIR)/$*.Td $(TESTDIR)/$*.d && touch $@
 
 COMPILE.c = $(CC) $(DEFINES) $(DEPFLAGS) $(CFLAGS) -c
 COMPILE.cpp = $(CXX) $(DEFINES) $(DEPFLAGS) $(CXXFLAGS) -c
+COMPILE.d.cpp = $(CXX) $(DEFINES) $(DEBUGFLAGS)
 
 COMPILE_TEST.c = $(CC) $(DEFINES) $(TESTDEPFLAGS) $(CFLAGS) -c
 COMPILE_TEST.cpp = $(CXX) $(DEFINES) $(TESTDEPFLAGS) $(CXXFLAGS) -c
@@ -72,19 +73,14 @@ all:
 
 	@printf "\nDone\n"
 
-# debug:
-# 	@$(MAKE) mygame_debug
-# 	@$(MAKE) link
-
-# 	@printf "\nDebug build Done\n"
-
 mygame: $(APP_OBJS)
 
-# mygame_debug: $(APP_OBJS_DEBUG)
+debug:
+	$(COMPILE.d.cpp) $(CXXFLAGS) $(APP_SRC) -Isrc/ -Isrc/Slowboi/ -Iinc/ -o $(EXE_NAME).d.exe $(CXX_LINKS) -Wno-deprecated
 
 link:
 	clang++ -Xclang -flto-visibility-public-std -o $(EXE_NAME).exe out/obj/*.o out/obj/Slowboi/*.o $(CXX_LINKS)
-
+ 
 link_test:
 	clang++ -Xclang -flto-visibility-public-std -o test.exe out/test/*.o out/test/Slowboi/*.o out/test/test/*.o $(CXX_LINKS)
 

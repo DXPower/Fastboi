@@ -1,5 +1,6 @@
 #include "Shape.h"
 #include <algorithm>
+#include <cmath>
 #include <limits>
 #include "Transform.h"
 
@@ -31,7 +32,7 @@ int_fast8_t GetPointSide(const Position& a, const Position& b, const Position& p
     float dir = (p.x - a.x) * (b.y - a.y) - (p.y - a.y) * (b.x - a.x);
 
     if (abs(dir) > std::numeric_limits<float>::epsilon())
-        if (signbit(dir))
+        if (std::signbit(dir))
             return -1;
         else
             return 1;

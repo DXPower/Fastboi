@@ -30,10 +30,10 @@ namespace Fastboi {
             private:
             uint8_t count = 0;
             ColorComp* color;
-            const Gameobject* gameobject;
+            Gameobject* gameobject;
 
             public:
-            constexpr ColorShiftComp(const Gameobject* go) : gameobject(go), color(nullptr) { };
+            constexpr ColorShiftComp(Gameobject* go) : gameobject(go), color(nullptr) { };
 
             void Start() {
                 color = &gameobject->GetComponent<ColorComp>();

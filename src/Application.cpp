@@ -14,7 +14,7 @@ const int smallWindowY = 800;
 
 bool isFullscreen = true;
 
-Fastboi::Vec<int> window(1920, 1080);
+Fastboi::Vec<int> window(smallWindowX, smallWindowY);
 
 bool Application::InitApplication() {
     SDL_Rect rect;
@@ -28,7 +28,7 @@ bool Application::InitApplication() {
                                          , SDL_WINDOWPOS_CENTERED
                                          , SDL_WINDOWPOS_CENTERED
                                          , window.x, window.y
-                                         , SDL_WINDOW_FULLSCREEN | SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL);
+                                         , SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL);
 
     if (Application::gWindow == nullptr) {
         SDL_Quit();
@@ -105,13 +105,19 @@ bool Application::IsFullscreen() {
     return isFullscreen;
 }
 
-void Application::ThrowRuntimeException(const char* err, Exception code) __attribute__ ((noreturn)) {
+void Application::ThrowRuntimeException(const char* err, Exception code, const char* msg) {
+    printf("Runtime exception thrown. Code %i: %s %s\n", code, err, msg);
+    std::exit(code);
+    __builtin_unreachable();
+}
+
+void Application::ThrowRuntimeException(const char* err, Exception code) {
     printf("Runtime exception thrown. Code %i: %s\n", code, err);
     std::exit(code);
     __builtin_unreachable();
 }
 
-void Application::ThrowRuntimeException(Exception code) __attribute__ ((noreturn)) {
+void Application::ThrowRuntimeException(Exception code) {
     printf("Runtime exception thrown. Code %i\n", code);
     std::exit(code);
     __builtin_unreachable();

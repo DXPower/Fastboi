@@ -33,7 +33,6 @@ void SizeOnRed::Start() {
         Application::ThrowRuntimeException("SizeOnRed reqs not met\n", Application::REQUIREMENTS_NOT_FULFILLED);
 
     color = &go.GetComponent<Components::ColorComp>();
-
 }
 
 void SizeOnRed::Update() {

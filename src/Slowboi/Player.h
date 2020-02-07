@@ -10,8 +10,8 @@ namespace Slowboi {
     namespace Components {
         struct Player final {
             private:
-            VelocityComp* velocityComp;
-            Spritesheet<int>* spritesheet;
+            VelocityComp* velocityComp = nullptr;
+            Spritesheet<int>* spritesheet = nullptr;
 
             Input::KeyListener spacebarListener;
             Input::ClickListener clickListener;

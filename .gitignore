@@ -6,6 +6,8 @@ out/test/Slowboi/*.*
 out/test/test/*.*
 
 *.exe
+*.ilk
+*.pdb
 
 # lib/dll files
 *.dll
@@ -17,3 +19,7 @@ sdl2-config
 # doxygen
 dox/html/
 dox/latex/
+
+# vscode
+.vscode/
+workspace.code-workspace

@@ -106,7 +106,7 @@ void Player::Update() {
 
             spritesheet->SetCurrentAnimation(-dirKey);
         }
-
+        
         lastDirection = direction;
 
         if (direction != Vecf::zero()) {

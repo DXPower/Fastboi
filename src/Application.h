@@ -25,6 +25,7 @@ namespace Application {
     const Fastboi::Vec<int>& GetWindowSize();
     void WindowSizeChanged(const Fastboi::Vec<int>& newSize);
 
+    void ThrowRuntimeException(const char* err, Exception code, const char* msg) __attribute__((noreturn));
     void ThrowRuntimeException(const char* err, Exception code) __attribute__((noreturn));
     void ThrowRuntimeException(Exception code) __attribute__((noreturn));
 }

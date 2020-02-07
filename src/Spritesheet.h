@@ -70,9 +70,20 @@ namespace Fastboi {
             , currentAnimation(AnimationKey())
             , paused(false) { };
 
-            ~Spritesheet() { };
+            ~Spritesheet() {
+                printf("Spritesheet destroyed!\n");
+            };
 
             void Start() {
+                using Reqs = RequiredComponents<SpriteRenderer>;
+
+                if (!Reqs::HasRequiredComponents(*gameobject)) {
+                    Application::ThrowRuntimeException(
+                        "Spritesheet missing reqs:", 
+                        Application::REQUIREMENTS_NOT_FULFILLED,
+                        Reqs::GetMissingNamesString(*gameobject).c_str());
+                }
+
                 renderer = &gameobject->GetComponent<SpriteRenderer>();
 
                 UpdateWindow();

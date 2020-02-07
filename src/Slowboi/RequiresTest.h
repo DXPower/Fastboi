@@ -11,7 +11,7 @@ void RequiresTest(Gameobject& go);
 struct RedShifter final {
     using Reqs = RequiredComponents<Fastboi::Components::ColorComp>;
 
-    const Gameobject& go;
+    Gameobject& go;
     Fastboi::Components::ColorComp* color;
 
     RedShifter(Gameobject& go);
@@ -24,7 +24,7 @@ struct SizeOnRed final {
     using Reqs = RequiredComponents<Transform, Fastboi::Components::ColorComp>;
 
     const Gameobject& go;
-    Fastboi::Components::ColorComp* color;
+    const Fastboi::Components::ColorComp* color;
 
     SizeOnRed(Gameobject& go);
 

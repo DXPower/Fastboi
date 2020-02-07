@@ -11,9 +11,13 @@
 using namespace Fastboi;
 using namespace Fastboi::Collision;
 
-extern "C" {
+#ifndef DEBUG
+    extern "C" {
+        #include "gjk.h"
+    }
+#else
     #include "gjk.h"
-}
+#endif
 
 gjk_vec2 ToGJKV(const Position& p) {
     return (gjk_vec2) { p.x, p.y };
@@ -38,7 +42,7 @@ namespace Fastboi {
                 EdgeData(float dist, Vecf norm, const Simplex::iterator& index) : distance(dist), normal(norm), index(index) { };
             };
 
-            constexpr float TOLERANCE = 0.005f;
+            constexpr float TOLERANCE = 0.1f;
 
             EdgeData FindClosestEdge(Simplex& s) {
                 EdgeData closest(0.f, Vecf::zero(), s.begin());

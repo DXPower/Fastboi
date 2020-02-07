@@ -1,19 +1,23 @@
 #pragma once
 
+#include "Gameobject.h"
 #include <memory>
 #include <mutex>
 #include "RenderOrder.h"
 #include <type_traits>
 #include <thread>
+#include <vector>
 
 namespace Fastboi {
     struct Collider;
-    struct Gameobject;
     struct Renderer;
     
     extern float tickDelta;
     extern float physicsDelta;
 
+    const std::unique_ptr<Gameobject>& RegisterGameobject(Gameobject* go);
+    void UnregisterGameobject(Gameobject* go);
+    
     // Instatiates gameobject of type GO with arguments args
     template<auto InitFunc, typename... Args>
     Gameobject& Instantiate(Args&&... args) {
@@ -43,9 +47,6 @@ namespace Fastboi {
     void Unpause();
     bool IsPaused();
     void Quit();
-
-    const std::unique_ptr<Gameobject>& RegisterGameobject(Gameobject* go);
-    void UnregisterGameobject(Gameobject* go);
 
     void RegisterRenderer(Renderer* r);
     void ChangeRenderOrder(Renderer* r, RenderOrder old, RenderOrder _new);

@@ -127,11 +127,14 @@ void Fastboi::Physics() {
     Collision::PotentialCollisions_t potentialCollisions;
     Collision::Collisions_t collisions;
 
+    std::lock_guard lock(renderingMtx);
+
     Collision::ApplyVelocities(gameobjects);
     Collision::BroadPhase(colliders, potentialCollisions);
     Collision::NarrowPhase(potentialCollisions, collisions);
     Collision::ResolveColliders(colliders, collisions);
     Collision::DispatchCollisions(collisions);
+
 }
 
 // Once Fastboi::GameLoop() has ended, clean up all resources.
@@ -153,7 +156,7 @@ void TickPhysicsThread() {
 
     Fastboi::tickDelta = -TICK_TIME;
 
-    tickTimer.tick(); // Initial tick because the time between SDL start and Fastboi::GameLoop is quite long
+    tickTimer.tick(); // Initial tick because the time between app start and this line is quite long
 
     while (!quit) {
         tickTimer.tick();
@@ -227,7 +230,7 @@ void Fastboi::Quit() {
 // Registers a Gameobject to be managed by Fastboi. Use Destroy() to delete.
 const std::unique_ptr<Gameobject>& Fastboi::RegisterGameobject(Gameobject* go) {
     Print("New object!");
-    gosToAdd.push_back(std::move(std::unique_ptr<Gameobject>(go)));
+    gosToAdd.emplace_back(go);
 
     return gosToAdd.back();
 }
@@ -242,6 +245,7 @@ void Fastboi::RegisterRenderer(Renderer* r) {
     
     RenderOrder order = r->GetOrder();
     renderers[order].push_back(r);
+    Print("Renderer name: %s\n", r->gameobject.name);
 }
 
 //! Helper function used by Renderer::SetOrder(). This should not be directly called.

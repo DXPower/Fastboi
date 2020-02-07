@@ -46,7 +46,13 @@ namespace Fastboi {
             component = std::make_unique<Component_t>(std::forward<Args>(args)...);
         };
 
-        ~Component() { };
+        ~Component() = default;
+
+        Component& operator=(const Component&& copy) {
+            component = std::move(copy.component);
+        }
+
+        Component& operator=(const Component& copy) = delete;
 
         // Checker functions so we know whether we can call Update or Start on the component
         GenHasFunction(HasUpdate, Update);

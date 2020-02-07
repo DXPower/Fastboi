@@ -88,7 +88,7 @@ namespace Fastboi {
             }
 
             pair_iterator operator+(typename std::vector<T>::size_type offset) const {
-                return pair_iterator(v, std::min(i + offset, v->size());)
+                return pair_iterator(v, std::min(i + offset, v->size()));
             }
         };
     };
