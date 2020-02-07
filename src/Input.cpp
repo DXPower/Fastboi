@@ -35,7 +35,7 @@ bool DispatchTargetedClick(const ClickEvent& e) {
 
     // Get all the transform targets which are under the mouse
     for (const TargetedClickListener* tcl : targetedClickListeners) {
-        if (tcl->transform->ContainsPoint(e.pos)) {
+        if (tcl->transform != nullptr && tcl->transform->ContainsPoint(e.pos)) {
             targets.push_back(tcl);
         }
     }
@@ -98,7 +98,7 @@ void Input::PollEvents() {
                 const KeyEvent k = KeyEvent(sdl_keyEvent.keysym.scancode, KeyEvent::KeyEventType::DOWN);
 
                 for (const KeyListener* listener : keyListeners) {
-                    if (listener->key == k.key)
+                    if (listener->IsListeningToKey(k.key))
                         listener->signal.fire(k);
                 }
 
@@ -169,26 +169,33 @@ ClickListener::~ClickListener() {
     untargetedClickListeners.erase(std::find(untargetedClickListeners.begin(), untargetedClickListeners.end(), this));
 }
 
-TargetedClickListener::TargetedClickListener()
- : transform(nullptr)
-{ };
+TargetedClickListener::TargetedClickListener() : TargetedClickListener(nullptr, nullptr) { };
+TargetedClickListener::TargetedClickListener(const Transform& t, const Renderer& r) : TargetedClickListener(&t, &r) { };
+TargetedClickListener::TargetedClickListener(const Transform* t, const Renderer* r) : transform(t), renderer(r) {
+	targetedClickListeners.push_back(this);
+}
 
 TargetedClickListener::~TargetedClickListener() {
     targetedClickListeners.erase(std::find(targetedClickListeners.begin(), targetedClickListeners.end(), this));
 }
 
-void TargetedClickListener::Init(const Transform* t, const Renderer* r) {
-    transform = t;
-    renderer = r;
+void TargetedClickListener::Init(const Transform& t, const Renderer& r) {
+    transform = &t;
+    renderer = &r;
 
     targetedClickListeners.push_back(this);
 }
 
-KeyListener::KeyListener(uint32_t key)
- : key(key) {
-     keyListeners.push_back(this);
+
+KeyListener::KeyListener(uint32_t key) : KeyListener({ key }) { }
+KeyListener::KeyListener(std::initializer_list<uint32_t> list) : keys(list) {
+	keyListeners.push_back(this);
 }
 
 KeyListener::~KeyListener() {
     keyListeners.erase(std::find(keyListeners.begin(), keyListeners.end(), this));
+}
+
+bool KeyListener::IsListeningToKey(uint32_t key) const {
+	return std::find(keys.begin(), keys.end(), key) != keys.end();
 }

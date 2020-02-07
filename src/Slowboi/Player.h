@@ -16,7 +16,7 @@ namespace Slowboi {
             Input::KeyListener spacebarListener;
             Input::ClickListener clickListener;
 
-            Input::KeyListener enableGO, enableCollider;
+            Input::KeyListener enableListener;
             
             Vecf lastDirection;
             Vecf facingDirection;

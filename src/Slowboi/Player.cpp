@@ -12,20 +12,39 @@ using namespace Slowboi::Components;
 Player::Player(Gameobject& go)
  : gameobject(go)
  , spacebarListener(KeyListener(SDL_SCANCODE_SPACE))
- , enableGO(KeyListener(SDL_SCANCODE_E))
- , enableCollider(KeyListener(SDL_SCANCODE_C))
+ , enableListener(KeyListener({ SDL_SCANCODE_E, SDL_SCANCODE_C }))
  , lastDirection(Vecf(0, 1)) {
     printf("Connecting player...\n\n");
     spacebarListener.signal.connect<&Player::Spacebar>(this);
     clickListener.signal.connect<&Player::Fire>(this);
 
-    enableGO.signal.connect<&Player::EnablePressed>(this);
-    enableCollider.signal.connect<&Player::EnablePressed>(this);
+    enableListener.signal.connect<&Player::EnablePressed>(this);
 }
 
 Player::~Player() {
     gameobject.RemoveComponent<Spritesheet<int>>();
     gameobject.RemoveComponent<VelocityComp>();
+}
+
+void Player::Start() {
+    gameobject.GetComponent<Collider>().collisionSignal.connect<&Player::Collision>(this);
+    velocityComp = &gameobject.AddComponent<VelocityComp>();
+
+    using PlayerSpritesheet = Spritesheet<>;
+    using Animation = PlayerSpritesheet::Animation;
+
+    spritesheet = &gameobject.AddComponent<Spritesheet<int>>(gameobject);
+
+    for (uint8_t i = 0; i < 8; i++) {
+        constexpr uint32_t ticksWalking = 1;
+        constexpr uint32_t ticksStanding = 40;
+        constexpr uint32_t height = 42;
+
+        spritesheet->AddAnimation(i + 1, Animation(Veci(0, i * 42), Vec<int>(41, 42), Vecb(8, 1), ticksWalking));
+        spritesheet->AddAnimation(-i - 1, Animation(Veci(0, i * 42), Vec<int>(41, 42), Vecb(4, 1), ticksStanding));
+    }
+
+    spritesheet->SetCurrentAnimation(-1);
 }
 
 void Player::EnablePressed(const KeyEvent& e) const {
@@ -54,11 +73,6 @@ void Player::Fire(const ClickEvent& event) const {
     } else if (event.type == ClickEvent::UP) {
         // printf("Fire up! %i %i\n", event.pos.x, event.pos.y);
     }
-}
-
-void Player::Start() {
-    spritesheet = &gameobject.GetComponent<Spritesheet<int>>();
-    velocityComp = &gameobject.AddComponent<VelocityComp>();
 }
 
 void Player::Update() {

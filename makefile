@@ -103,6 +103,9 @@ clean:
 	rm -f out/test/test/*
 	rm -f ${EXE_NAME}.exe
 	rm -f ${EXE_NAME}.d.exe
+	rm -f ${EXE_NAME}.d.exe
+	rm -f ${EXE_NAME}.ijk
+	rm -f ${EXE_NAME}.pdb
 	rm -f test.exe
 	rm -f ${EXE_NAME}.out
 	rm -f ${EXE_NAME}.d.out

@@ -49,7 +49,7 @@ namespace Fastboi {
                 }
             };
 
-            Fastboi::Gameobject* gameobject;
+            Fastboi::Gameobject& gameobject;
             SpriteRenderer* renderer;
             bool paused;
 
@@ -64,27 +64,25 @@ namespace Fastboi {
             }
 
             public:
-            Spritesheet(Fastboi::Gameobject* gameobject)
+            Spritesheet(Gameobject& gameobject)
             : gameobject(gameobject)
             , renderer(nullptr)
             , currentAnimation(AnimationKey())
             , paused(false) { };
 
-            ~Spritesheet() {
-                printf("Spritesheet destroyed!\n");
-            };
+            ~Spritesheet() = default;
 
             void Start() {
                 using Reqs = RequiredComponents<SpriteRenderer>;
 
-                if (!Reqs::HasRequiredComponents(*gameobject)) {
+                if (!Reqs::HasRequiredComponents(gameobject)) {
                     Application::ThrowRuntimeException(
                         "Spritesheet missing reqs:", 
                         Application::REQUIREMENTS_NOT_FULFILLED,
-                        Reqs::GetMissingNamesString(*gameobject).c_str());
+                        Reqs::GetMissingNamesString(gameobject).c_str());
                 }
 
-                renderer = &gameobject->GetComponent<SpriteRenderer>();
+                renderer = &gameobject.GetComponent<SpriteRenderer>();
 
                 UpdateWindow();
             }

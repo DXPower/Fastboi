@@ -11,12 +11,6 @@ using namespace Slowboi;
 using namespace Fastboi;
 using namespace Fastboi::Components;
 
-void LoadResources() {
-    Fastboi::Resources::LoadImage("Player", "penguin.png");
-    Fastboi::Resources::LoadImage("Brick", "brick.png");
-    Fastboi::Resources::LoadImage("Button", "button.png");
-}
-
 Fastboi::Input::KeyListener pauseListener(SDL_SCANCODE_ESCAPE);
 
 void TogglePause(const Fastboi::KeyEvent& e) {
@@ -26,6 +20,12 @@ void TogglePause(const Fastboi::KeyEvent& e) {
         else
             Fastboi::Pause();
     }
+}
+
+void LoadResources() {
+    Fastboi::Resources::LoadImage("Player", "penguin.png");
+    Fastboi::Resources::LoadImage("Brick", "brick.png");
+    Fastboi::Resources::LoadImage("Button", "button.png");
 }
 
 void Slowboi::InitGame() {
@@ -55,18 +55,7 @@ void Slowboi::InitGame() {
     SetCamera(Camera(*player.transform, Camera::WATCHING, 1.5f));
 
     pauseListener.signal.connect<&TogglePause>();
-
-    for (auto& [typekey, comp] : player.components) {
-        printf("Printing end-init player typekey of %s\n", player.name);
-        printf("End init typekey: %lX\n", typekey);
-    }
-    
-    for (auto& [typekey, comp] : brick.components) {
-        printf("Printing end-init brick typekey of %s\n", brick.name);
-        printf("End init typekey: %lX\n", typekey);
-    }
 }
-
 
 struct BulletHit {
     Gameobject& go;
@@ -102,30 +91,7 @@ void Slowboi::PlayerGO(Gameobject& go, const Position& p) {
     go.AddComponent<Transform>(p, Size(41, 42), 0);
     go.AddComponent<Collider>(go);
 
-    // go.AddComponent<WireframeRenderer>(go, RenderData(RenderOrder::UNITS));
     go.AddComponent<SpriteRenderer>(go, RenderData(RenderOrder::UNITS), "Player", Rect(0, 0, 41, 42));
-
-    using PlayerSpritesheet = Spritesheet<>;
-    using Animation = PlayerSpritesheet::Animation;
-
-    printf("Adding spritesheet...");
-    PlayerSpritesheet& spritesheet = go.AddComponent<PlayerSpritesheet>(&go);
-    printf("Adding animations...");
-
-    for (uint8_t i = 0; i < 8; i++) {
-        constexpr uint32_t ticksWalking = 1;
-        constexpr uint32_t ticksStanding = 40;
-        constexpr uint32_t height = 42;
-
-        spritesheet.AddAnimation(i + 1, Animation(Veci(0, i * 42), Vec<int>(41, 42), Vecb(8, 1), ticksWalking));
-        spritesheet.AddAnimation(-i - 1, Animation(Veci(0, i * 42), Vec<int>(41, 42), Vecb(4, 1), ticksStanding));
-    }
-    printf("Added\n");
-
-    spritesheet.SetCurrentAnimation(-1);
-    printf("Current animation set\n");
-    printf("Adding player\n");
-
     Slowboi::Components::Player& player = go.AddComponent<Slowboi::Components::Player>(go);
 }
 
@@ -154,7 +120,8 @@ void Slowboi::Brick(Gameobject& go, const Position& p) {
 
     go.AddComponent<Transform>(p, Size(200, 200), 0);
     
-    go.AddComponent<RepeatRenderer>(go, RenderData(RenderOrder::GROUND), "Brick", Size(80, 80));
+    // go.AddComponent<RepeatRenderer>(go, RenderData(RenderOrder::GROUND), "Brick", Size(80, 80));
+    go.AddComponent<WireframeRenderer>(go, RenderData(RenderOrder::UI));
     go.AddComponent<Collider>(go, Collider::FIXED);
 
     go.AddComponent<Expander>(go);

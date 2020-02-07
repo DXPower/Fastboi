@@ -16,7 +16,7 @@ void RectUI::Start() {
     color = &gameobject.GetComponent<ColorComp>();
 
     clickListener.signal.connect<&RectUI::Click>(this);
-    clickListener.Init(gameobject.transform.get(), this);
+    clickListener.Init(*gameobject.transform, *this);
 }
 
 void RectUI::Render() {

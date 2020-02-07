@@ -1,10 +1,12 @@
 #pragma once
 
-#include "stdint.h"
 #include "Events.h"
+#include <initializer_list>
+#include <memory>
+#include "stdint.h"
 #include "Transform.h"
 #include <unordered_map>
-#include <memory>
+#include <vector>
 
 namespace Fastboi {
     struct Renderer;
@@ -31,27 +33,35 @@ namespace Fastboi {
             using EventSignature = TargetedClickEvent::Signal_t_g;
             mutable Signal<EventSignature> signal;
             
+            private:
+            TargetedClickListener(const Transform* t, const Renderer* r);
+
+            public:
             TargetedClickListener();
+            TargetedClickListener(const Transform& transform, const Renderer& renderer);
             ~TargetedClickListener();
 
             /**
              * @param transform - A click within bounds of this transform fires the signal
              * @param renderer - Used to determine which listener receives the click event in case multiple overlap
             **/
-            void Init(const Transform* transform, const Renderer* renderer);
+            void Init(const Transform& transform, const Renderer& renderer);
 
             // bool operator==(const TargetedClickListener& other) const;
         };
 
         //! Follows RAII. When this goes out of scope, the signal and all connections are disconnected.
         struct KeyListener {
-            uint32_t key;
+            std::vector<uint32_t> keys;
 
             using EventSignature = KeyEvent::Signal_t_g;
             mutable Signal<EventSignature> signal;
 
             KeyListener(uint32_t key);
+            KeyListener(std::initializer_list<uint32_t> keys);
             ~KeyListener();
+
+            bool IsListeningToKey(uint32_t key) const;
         };
 
         void PollEvents();

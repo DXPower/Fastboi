@@ -11,6 +11,11 @@ WireframeRenderer::~WireframeRenderer() {
 };
 
 void WireframeRenderer::Render() {
-    Rendering::SetColor(50, 255, 0, 255);
-    Rendering::Render_Rect<Rendering::FILLED>(gameobject.transform);
+    Rendering::SetColor(0, 0, 255, 255);
+    
+    auto& vertices = gameobject.transform->GetVertices();
+
+    for (auto pit = vertices.pair_begin(); pit != vertices.pair_end(); pit++) {
+        Rendering::Render_Line(*pit.first, *pit.second);
+    }
 }
