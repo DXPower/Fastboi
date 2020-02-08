@@ -10,13 +10,10 @@ namespace Fastboi {
             public:
             uint8_t r, g, b, a;
 
-            constexpr ColorComp() : r(0), g(0), b(0), a(0) {
-
-            };
-
-            constexpr ColorComp(uint8_t r, uint8_t g, uint8_t b, uint8_t a) : r(r), g(g), b(b), a(a) {
-
-            };
+            constexpr ColorComp() : ColorComp(0, 0, 0, 0) { };
+            constexpr ColorComp(const Gameobject&) : ColorComp() { };
+            constexpr ColorComp(uint8_t r, uint8_t g, uint8_t b, uint8_t a) : r(r), g(g), b(b), a(a) { };
+            constexpr ColorComp(const Gameobject&, uint8_t r, uint8_t g, uint8_t b, uint8_t a) : ColorComp(r, g, b, a) { };
 
             void set(uint8_t r, uint8_t g, uint8_t b, uint8_t a) {
                 this->r = r;
@@ -30,14 +27,14 @@ namespace Fastboi {
             private:
             uint8_t count = 0;
             ColorComp* color;
-            Gameobject* gameobject;
+            Gameobject& gameobject;
 
             public:
-            constexpr ColorShiftComp(Gameobject* go) : gameobject(go), color(nullptr) { };
+            constexpr ColorShiftComp(Gameobject& go) : gameobject(go), color(nullptr) { };
 
             void Start() {
-                color = &gameobject->GetComponent<ColorComp>();
-                const Transform& t = gameobject->GetComponent<Transform>();
+                color = &gameobject.GetComponent<ColorComp>();
+                const Transform& t = gameobject.GetComponent<Transform>();
             }
 
             void Update() {

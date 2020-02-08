@@ -33,7 +33,7 @@ void Player::Start() {
     using PlayerSpritesheet = Spritesheet<>;
     using Animation = PlayerSpritesheet::Animation;
 
-    spritesheet = &gameobject.AddComponent<Spritesheet<int>>(gameobject);
+    spritesheet = &gameobject.AddComponent<Spritesheet<int>>();
 
     for (uint8_t i = 0; i < 8; i++) {
         constexpr uint32_t ticksWalking = 1;

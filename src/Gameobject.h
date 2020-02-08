@@ -104,19 +104,19 @@ namespace Fastboi {
         if constexpr (is_same_v<T, Transform>) {
             transform = make_unique<Transform>(forward<Args>(args)...);
         } else if constexpr (is_base_of_v<Renderer, T>) {
-            renderer = make_unique<T>(forward<Args>(args)...);
+            renderer = make_unique<T>(*this, forward<Args>(args)...);
             rendererTypeHash = ctti::type_id<T>().hash();
         } else if constexpr (is_same_v<Collider, T>) {
-            collider = make_unique<Collider>(forward<Args>(args)...);
+            collider = make_unique<Collider>(*this, forward<Args>(args)...);
         } else {
             constexpr uint64_t typekey = ctti::type_id<T>().hash();
 
             //. Component<T, Args...> creates a Component that instantiates T, with T's arguments forwarded by forward<Args>
             if (isStarted || componentsLock) {
-                componentsToAdd.emplace(typekey, make_unique<Component<T, Args...>>(forward<Args>(args)...));
+                componentsToAdd.emplace(typekey, make_unique<Component<T, Args...>>(*this, forward<Args>(args)...));
                 return (*static_cast<T*>(componentsToAdd.top().second->Retrieve()));
             } else
-                components.emplace(typekey, make_unique<Component<T, Args...>>(forward<Args>(args)...));
+                components.emplace(typekey, make_unique<Component<T, Args...>>(*this, forward<Args>(args)...));
         }
 
         return (GetComponent<T>());

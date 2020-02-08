@@ -49,8 +49,8 @@ void Slowboi::InitGame() {
     Gameobject& anon = Instantiate<Gameobject>("Anonymous GO");
     anon.AddComponent<Transform>(Position(50, 500), Size(75, 90), 45);
     anon.AddComponent<ColorComp>(255, 0, 255, 255);
-    anon.AddComponent<BoxColorRenderer>(anon, RenderData(RenderOrder::GROUND));
-    anon.AddComponent<Collider>(anon, Collider::FIXED);
+    anon.AddComponent<BoxColorRenderer>(RenderData(RenderOrder::GROUND));
+    anon.AddComponent<Collider>(Collider::FIXED);
 
     SetCamera(Camera(*player.transform, Camera::WATCHING, 1.5f));
 
@@ -76,12 +76,12 @@ void Slowboi::Bullet(Gameobject& go, const Position& p, const Velocity& v) {
     go.AddComponent<VelocityComp>(v);
 
     go.AddComponent<ColorComp>(0, 0, 255, 255);
-    go.AddComponent<ColorShiftComp>(&go);
+    go.AddComponent<ColorShiftComp>();
 
-    go.AddComponent<BoxColorRenderer>(go, RenderData(RenderOrder::PARTICLES));
+    go.AddComponent<BoxColorRenderer>(RenderData(RenderOrder::PARTICLES));
 
-    BulletHit& bh = go.AddComponent<BulletHit>(go);
-    Collider& coll = go.AddComponent<Collider>(go, Collider::TRIGGER);
+    BulletHit& bh = go.AddComponent<BulletHit>();
+    Collider& coll = go.AddComponent<Collider>(Collider::TRIGGER);
     coll.collisionSignal.connect<&BulletHit::Hit>(bh);
 }
 
@@ -89,10 +89,10 @@ void Slowboi::PlayerGO(Gameobject& go, const Position& p) {
     go.name = "Player";
 
     go.AddComponent<Transform>(p, Size(41, 42), 0);
-    go.AddComponent<Collider>(go);
+    go.AddComponent<Collider>();
 
-    go.AddComponent<SpriteRenderer>(go, RenderData(RenderOrder::UNITS), "Player", Rect(0, 0, 41, 42));
-    Slowboi::Components::Player& player = go.AddComponent<Slowboi::Components::Player>(go);
+    go.AddComponent<SpriteRenderer>(RenderData(RenderOrder::UNITS), "Player", Rect(0, 0, 41, 42));
+    Slowboi::Components::Player& player = go.AddComponent<Slowboi::Components::Player>();
 }
 
 struct Expander {
@@ -121,14 +121,14 @@ void Slowboi::Brick(Gameobject& go, const Position& p) {
     go.AddComponent<Transform>(p, Size(200, 200), 0);
     
     // go.AddComponent<RepeatRenderer>(go, RenderData(RenderOrder::GROUND), "Brick", Size(80, 80));
-    go.AddComponent<WireframeRenderer>(go, RenderData(RenderOrder::UI));
-    go.AddComponent<Collider>(go, Collider::FIXED);
+    go.AddComponent<WireframeRenderer>(RenderData(RenderOrder::UI));
+    go.AddComponent<Collider>(Collider::FIXED);
 
-    go.AddComponent<Expander>(go);
+    go.AddComponent<Expander>();
 }
 
 void Slowboi::UISquare(Gameobject& go, const Position& p, const Size& s, const ColorComp& color, int zindex) {
     go.AddComponent<Transform>(p, s, 0);
     go.AddComponent<ColorComp>(color.r, color.g, color.b, color.a);
-    go.AddComponent<RectUI>(go, zindex);
+    go.AddComponent<RectUI>(zindex);
 }

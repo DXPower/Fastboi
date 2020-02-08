@@ -42,8 +42,8 @@ namespace Fastboi {
     struct Component final : ComponentBase {
         std::unique_ptr<Component_t> component;
 
-        Component(Args&&... args) { 
-            component = std::make_unique<Component_t>(std::forward<Args>(args)...);
+        Component(Gameobject& go, Args&&... args) { 
+            component = std::make_unique<Component_t>(go, std::forward<Args>(args)...);
         };
 
         ~Component() = default;
