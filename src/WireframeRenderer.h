@@ -8,6 +8,7 @@ namespace Fastboi {
             WireframeRenderer(Gameobject& go, RenderData rd);
             ~WireframeRenderer();
 
+            void Start();
             void Render();
         };
     }

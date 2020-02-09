@@ -78,19 +78,19 @@ void Player::Fire(const ClickEvent& event) const {
 void Player::Update() {
     Vecf direction(0, 0);
 
-    if (Input::IsKeyDown(SDL_SCANCODE_W)) {
+    if (Input::IsKeyDown(SDL_SCANCODE_W, SDL_SCANCODE_UP)) {
         direction.y -= 1;
     }
 
-    if (Input::IsKeyDown(SDL_SCANCODE_S)) {
+    if (Input::IsKeyDown(SDL_SCANCODE_S, SDL_SCANCODE_DOWN)) {
         direction.y += 1;
     }
 
-    if (Input::IsKeyDown(SDL_SCANCODE_D)) {
+    if (Input::IsKeyDown(SDL_SCANCODE_D, SDL_SCANCODE_RIGHT)) {
         direction.x += 1;
     }
 
-    if (Input::IsKeyDown(SDL_SCANCODE_A)) {
+    if (Input::IsKeyDown(SDL_SCANCODE_A, SDL_SCANCODE_LEFT)) {
         direction.x -= 1;
     }
 
@@ -130,9 +130,9 @@ void Player::Update() {
 
     velocityComp->velocity = direction.normalized() * speed;
 
-    if (Input::IsKeyDown(SDL_SCANCODE_UP))
+    if (Input::IsKeyDown(SDL_SCANCODE_I))
         Fastboi::camera.zoom += 0.01f;
-    else if (Input::IsKeyDown(SDL_SCANCODE_DOWN))
+    else if (Input::IsKeyDown(SDL_SCANCODE_O))
         Fastboi::camera.zoom -= 0.01f;
 }
 

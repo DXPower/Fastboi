@@ -157,8 +157,8 @@ void CheckCombinations() {
     }
 }
 
-bool Input::IsKeyDown(uint8_t key) {
-    return keyboardState[key] == 1;
+const uint8_t* Input::GetKeyboardState() {
+    return keyboardState;
 }
 
 ClickListener::ClickListener() {

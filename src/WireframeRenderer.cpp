@@ -1,4 +1,5 @@
 #include "WireframeRenderer.h"
+#include "ColorComp.h"
 
 using namespace Fastboi;
 using namespace Fastboi::Components;
@@ -10,8 +11,19 @@ WireframeRenderer::~WireframeRenderer() {
     printf("Destroying wireframe renderer!\n");
 };
 
+void WireframeRenderer::Start() {
+    Renderer::Start();
+
+    using Reqs = RequiredComponents<Transform, ColorComp>;
+
+    if (!Reqs::HasRequiredComponents(gameobject))
+        Application::ThrowRuntimeException("WireframeRenderer missing reqs!", 
+                                        Application::REQUIREMENTS_NOT_FULFILLED,
+                                        Reqs::GetMissingNamesString(gameobject).c_str());
+}
+
 void WireframeRenderer::Render() {
-    Rendering::SetColor(0, 0, 255, 255);
+    Rendering::SetColor(gameobject.GetComponent<ColorComp>());
     
     auto& vertices = gameobject.transform->GetVertices();
 

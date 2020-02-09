@@ -65,6 +65,21 @@ namespace Fastboi {
         };
 
         void PollEvents();
-        bool IsKeyDown(uint8_t key);
+        const uint8_t* GetKeyboardState(); 
+
+        template<typename... I>
+        bool IsKeyDown(I... keys) {
+            static_assert((std::is_convertible_v<I, uint8_t> && ...));
+            static_assert(sizeof...(I) > 1);
+
+            return (IsKeyDown(keys) || ...);
+        }
+        
+        template<typename I>
+        bool IsKeyDown(I key) {
+            static_assert((std::is_convertible_v<I, uint8_t>));
+
+            return GetKeyboardState()[key] == 1;
+        }
     };
 }

@@ -69,6 +69,16 @@ struct BulletHit {
     }
 };
 
+struct Spinner {
+    Gameobject& go;
+
+    Spinner(Gameobject& go) : go(go) { };
+
+    void Update() {
+        go.transform->SetRotation(go.transform->rotation + 10);
+    }
+};
+
 void Slowboi::Bullet(Gameobject& go, const Position& p, const Velocity& v) {
     go.name = "Bullet";
 
@@ -78,11 +88,15 @@ void Slowboi::Bullet(Gameobject& go, const Position& p, const Velocity& v) {
     go.AddComponent<ColorComp>(0, 0, 255, 255);
     go.AddComponent<ColorShiftComp>();
 
-    go.AddComponent<BoxColorRenderer>(RenderData(RenderOrder::PARTICLES));
+    // go.AddComponent<BoxColorRenderer>(RenderData(RenderOrder::PARTICLES));
+    go.AddComponent<WireframeRenderer>(RenderData(RenderOrder::PARTICLES));
 
     BulletHit& bh = go.AddComponent<BulletHit>();
     Collider& coll = go.AddComponent<Collider>(Collider::TRIGGER);
     coll.collisionSignal.connect<&BulletHit::Hit>(bh);
+
+    printf("Bullet go addr: %p\n", &go);
+    go.AddComponent<Spinner>();
 }
 
 void Slowboi::PlayerGO(Gameobject& go, const Position& p) {
@@ -120,8 +134,7 @@ void Slowboi::Brick(Gameobject& go, const Position& p) {
 
     go.AddComponent<Transform>(p, Size(200, 200), 0);
     
-    // go.AddComponent<RepeatRenderer>(go, RenderData(RenderOrder::GROUND), "Brick", Size(80, 80));
-    go.AddComponent<WireframeRenderer>(RenderData(RenderOrder::UI));
+    go.AddComponent<RepeatRenderer>(RenderData(RenderOrder::GROUND), "Brick", Size(80, 80));
     go.AddComponent<Collider>(Collider::FIXED);
 
     go.AddComponent<Expander>();
