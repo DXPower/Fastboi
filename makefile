@@ -48,17 +48,17 @@ DEPENDS := $(patsubst src/%.c,out/obj/%.d,$(DEPENDS))
 
 -include $(DEPENDS)
 
-$(OBJDIR)/%.o : src/%.c Makefile
+$(OBJDIR)/%.o : src/%.c
 	$(COMPILE.c) $(APP_INC) $(OUTPUT_OPTION) $<
 
-$(OBJDIR)/%.o : src/%.cpp Makefile
+$(OBJDIR)/%.o : src/%.cpp
 	$(COMPILE.cpp) $(APP_INC) $(OUTPUT_OPTION) $<
 
-$(TESTDIR)/%.o : src/%.c Makefile
+$(TESTDIR)/%.o : src/%.c
 	$(COMPILE_TEST.c) $(APP_INC) $(OUTPUT_OPTION) $<
 	$(POSTCOMPILE_TEST)
 
-$(TESTDIR)/%.o : src/%.cpp Makefile
+$(TESTDIR)/%.o : src/%.cpp
 	$(COMPILE_TEST.cpp) $(APP_INC) $(OUTPUT_OPTION) $<
 	$(POSTCOMPILE_TEST)
 
@@ -67,11 +67,10 @@ $(TESTDIR)/%.o : src/%.cpp Makefile
 # 	$(POSTCOMPILE)
 
 all:
-	# @echo $(DEPENDS)
 	@$(MAKE) mygame
 	@$(MAKE) link
-
-	@printf "\nDone\n"
+	
+	@echo Done
 
 mygame: $(APP_OBJS)
 
@@ -96,18 +95,9 @@ test:
 # include $(wildcard $(DEPFILES))
 
 clean:
-	rm -f out/obj/*.*
-	rm -f out/obj/Slowboi/*
-	rm -f out/test/*.*
-	rm -f out/test/Slowboi/*
-	rm -f out/test/test/*
-	rm -f ${EXE_NAME}.exe
-	rm -f ${EXE_NAME}.d.exe
-	rm -f ${EXE_NAME}.d.exe
-	rm -f ${EXE_NAME}.ijk
-	rm -f ${EXE_NAME}.pdb
-	rm -f test.exe
-	rm -f ${EXE_NAME}.out
-	rm -f ${EXE_NAME}.d.out
-	rm -f makefile_old
-	rm -f source_old.env
+	del /f /q /s out\obj\*.*
+	del /f /q /s out\test\*.*
+	del /f /q /s ${EXE_NAME}.exe 2>nul
+	del /f /q /s ${EXE_NAME}.d.exe 2>nul
+	del /f /q /s ${EXE_NAME}.d.exe 2>nul
+	del /f /q /s test.exe 2>nul

@@ -3,6 +3,7 @@
 #include "FastboiCore.h"
 #include "Application.h"
 #include "Camera.h"
+#include "ColorComp.h"
 #include "Rect.h"
 #include "SDL/SDL.h"
 #include <memory>
@@ -103,6 +104,10 @@ namespace Fastboi {
 
         inline void SetColor(uint8_t r, uint8_t g, uint8_t b, uint8_t a) {
             SDL_SetRenderDrawColor(gRenderer, r, g, b, a);
+        }
+
+        inline void SetColor(const Components::ColorComp& color) {
+            SetColor(color.r, color.g, color.b, color.a);
         }
     }
 }

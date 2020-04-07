@@ -8,126 +8,55 @@
 #include <stdint.h>
 #include "VelocityComp.h"
 
+#define CUTE_C2_IMPLEMENTATION
+#include "cute_c2.h"
+
 using namespace Fastboi;
 using namespace Fastboi::Collision;
 
-#ifndef DEBUG
-    extern "C" {
-        #include "gjk.h"
-    }
-#else
-    #include "gjk.h"
-#endif
-
-gjk_vec2 ToGJKV(const Position& p) {
-    return (gjk_vec2) { p.x, p.y };
+c2v toC2V(const Position& p) {
+    return (c2v) { p.x, p.y };
 }
-
-Position ToPosition(const gjk_vec2& v) {
-    return Position(v.x, v.y);
-}
-
-
-using Simplex = std::list<Position>;
-
-namespace Fastboi {
-    namespace Collision {
-    // EPA - Expanding Polytype Algorithm
-        namespace EPA {
-            struct EdgeData {
-                float distance;
-                Vecf normal;
-                Simplex::iterator index;
-
-                EdgeData(float dist, Vecf norm, const Simplex::iterator& index) : distance(dist), normal(norm), index(index) { };
-            };
-
-            constexpr float TOLERANCE = 0.1f;
-
-            EdgeData FindClosestEdge(Simplex& s) {
-                EdgeData closest(0.f, Vecf::zero(), s.begin());
-                closest.distance = std::numeric_limits<decltype(closest.distance)>::max();
-
-                for (auto ait = s.begin(); ait != s.end(); ait++) {
-                    auto bit = std::next(ait, 1);
-                    if (bit == s.end()) bit = s.begin();
-
-                    // Get next two points
-                    const Position a = *ait; // Note: Position of A is also equal to vector from origin to A (OA)
-                    const Position b = *bit;
-                    Vecf edge = b - a;
-
-                    Vecf normal = Vecf::tripleProduct(edge, a, edge).normalized(); // Get vector from edge towards origin
-                    double dist = abs(Vecf::dotProduct(normal, a)); // Get distance from origin to edge
-
-                    if (normal.magnitude2() >= TOLERANCE) {
-                        if (dist < closest.distance) {
-                            closest = EdgeData(dist, normal, bit);
-                        }
-                    }
-                }
-
-                return closest;
-            }
-
-            Vecf GetPenetration(Simplex& simplex, gjk_vec2* vertsA, size_t countA, gjk_vec2* vertsB, size_t countB) {
-                Vecf penetration;
-
-                // This prevents an extremely rare case where this iterates infinitely
-                constexpr uint_fast8_t maxIter = 255;  
-                uint_fast8_t iter = 0;
-                while (iter != maxIter) {
-                    // Find new support point in direction of the normal of the closest edge
-                    EdgeData closestEdge = FindClosestEdge(simplex);
-                    Position supportPoint = ToPosition(support(vertsA, countA, vertsB, countB, ToGJKV(closestEdge.normal)));
-                    // Check if distance from origin is along e.normal
-                    double d = Vecf::dotProduct(supportPoint, closestEdge.normal);
-
-                    if (abs(d - closestEdge.distance) <= TOLERANCE) {
-                        penetration = closestEdge.normal * d;
-                        break;
-                    } else {
-                        simplex.insert(closestEdge.index, supportPoint); // Split the edge into two with the support point in the middle
-                    }
-                }
-
-                return penetration;
-            }
-        }
-    };
-};
 
 Collision_t::CollisionData Fastboi::Collision::AreShapesIntersecting(
       const circular_vector<Position>& shapeA
     , const circular_vector<Position>& shapeB
 ) {
-    gjk_vec2* verticesA = new gjk_vec2[shapeA.size()];
-    gjk_vec2* verticesB = new gjk_vec2[shapeB.size()];
+    if (shapeA.size() > C2_MAX_POLYGON_VERTS || shapeB.size() > C2_MAX_POLYGON_VERTS) {
+        Application::ThrowRuntimeException("Too many vertices through GJK algorithm", Application::GJK_TOO_MANY_VERTICES);
+    }
+
+    c2Poly polyA = { (int) shapeA.size(), {}, {} }; 
+    c2Poly polyB = { (int) shapeB.size(), {}, {} };
 
     for (circular_vector<Position>::size_type i = 0; i < shapeA.size(); i++) {
-        verticesA[i] = ToGJKV(shapeA[i]);
+        polyA.verts[i] = toC2V(shapeA[i]);
     } 
     
     for (circular_vector<Position>::size_type i = 0; i < shapeB.size(); i++) {
-        verticesB[i] = ToGJKV(shapeB[i]);
+        polyB.verts[i] = toC2V(shapeB[i]);
+    } 
+
+    c2MakePoly(&polyA);
+    c2MakePoly(&polyB);
+
+    c2Manifold manifold;
+    c2PolytoPolyManifold(&polyA, nullptr, &polyB, nullptr, &manifold);
+
+    if (manifold.count == 0)
+        return { false, Vecf::zero() };
+    else {
+        float maxDepth = std::numeric_limits<float>::lowest();
+
+        for (int i = 0; i < manifold.count; i++) {
+            if (manifold.depths[i] > maxDepth)
+                maxDepth = manifold.depths[i];
+        }
+
+        Vecf penetration = Vecf(manifold.n.x, manifold.n.y) * maxDepth;
+
+        return { true, penetration };
     }
-
-    gjk_vec2 terminationSimplex[3];
-    bool intersecting = gjk(verticesA, shapeA.size(), verticesB, shapeB.size(), terminationSimplex);
-
-    std::list<Position> simplex;
-
-    for (Simplex::size_type i = 0; i < sizeof(terminationSimplex) / sizeof(terminationSimplex[0]); i++) {
-        simplex.emplace_back(ToPosition(terminationSimplex[i]));
-    }
-
-    Vecf penetration = !intersecting ? Vecf::zero()
-                                     : EPA::GetPenetration(simplex, verticesA, shapeA.size(), verticesB, shapeB.size());
-
-    delete[] verticesA;
-    delete[] verticesB;
-    
-    return { intersecting, penetration };
 }
 
 Collision_t::CollisionData Fastboi::Collision::AreCollidersIntersectng(
