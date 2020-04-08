@@ -7,7 +7,6 @@ SpriteRenderer::SpriteRenderer(Gameobject& gameobject, RenderData data, const ch
     : Renderer(gameobject, data)
     , texture(Resources::GetTexture(textureName))
     , cutout(cutout) {
-    printf("Sprite renderer made\n");
 }
 
 SpriteRenderer::~SpriteRenderer() { }

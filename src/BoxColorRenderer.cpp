@@ -3,9 +3,7 @@
 using namespace Fastboi;
 using namespace Fastboi::Components;
 
-BoxColorRenderer::BoxColorRenderer(Gameobject& go, RenderData data) : Renderer(go, data) {
-    printf("Box color renderer made!\n");
-}
+BoxColorRenderer::BoxColorRenderer(Gameobject& go, RenderData data) : Renderer(go, data) { }
 
 BoxColorRenderer::~BoxColorRenderer() {
 

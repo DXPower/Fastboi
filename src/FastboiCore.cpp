@@ -229,23 +229,23 @@ void Fastboi::Quit() {
 
 // Registers a Gameobject to be managed by Fastboi. Use Destroy() to delete.
 const std::unique_ptr<Gameobject>& Fastboi::RegisterGameobject(Gameobject* go) {
-    Print("New object!");
+    // Print("New object!");
     gosToAdd.emplace_back(go);
 
     return gosToAdd.back();
 }
 
 void Fastboi::UnregisterGameobject(Gameobject* go) {
-    Print("Dead object!");
+    // Print("Dead object!");
     gosToDelete.push_back(go);
 }
 
 void Fastboi::RegisterRenderer(Renderer* r) {
-    Print("New renderer!");
+    // Print("New renderer!");
     
     RenderOrder order = r->GetOrder();
     renderers[order].push_back(r);
-    Print("Renderer name: %s\n", r->gameobject.name);
+    // Print("Renderer name: %s\n", r->gameobject.name);
 }
 
 //! Helper function used by Renderer::SetOrder(). This should not be directly called.
@@ -258,18 +258,18 @@ void Fastboi::ChangeRenderOrder(Renderer* r, RenderOrder old, RenderOrder _new) 
 }
 
 void Fastboi::UnregisterRenderer(Renderer* r) {
-    Print("Dead renderer!");
+    // Print("Dead renderer!");
     std::vector<Renderer*>& range = renderers[r->GetOrder()];
     range.erase(std::find(range.begin(), range.end(), r));
 }
 
 void Fastboi::RegisterCollider(Collider* c) {
-    Print("New collider! %p\n", c);
+    // Print("New collider! %p\n", c);
     colliders.emplace(c);
 }
 
 void Fastboi::UnregisterCollider(Collider* c) {
-    Print("Dead collider!");
+    // Print("Dead collider!");
     colliders.erase(c);
 }
 

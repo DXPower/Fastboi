@@ -69,7 +69,7 @@ void Player::Fire(const ClickEvent& event) const {
         Vecf d = (Fastboi::camera.ScreenToWorldPos(event.pos) - gameobject.transform->position).normalized();
 
         Gameobject& bullet = Instantiate<Slowboi::Bullet>(gameobject.transform->position, d * speed);
-        Fastboi::camera.SetTarget(*gameobject.transform, Camera::WATCHING);
+        // Fastboi::camera.SetTarget(*gameobject.transform, Camera::WATCHING);
     } else if (event.type == ClickEvent::UP) {
         // printf("Fire up! %i %i\n", event.pos.x, event.pos.y);
     }
@@ -138,8 +138,6 @@ void Player::Update() {
 
 void Player::Collision(const CollisionEvent& e) const {
     if (e.type == CollisionEvent::BEGIN) {
-        printf("Player collided with: %s\n", e.collider.gameobject.name);
     } else if (e.type == CollisionEvent::END) {
-        printf("Player ended collision with: %s\n", e.collider.gameobject.name);
     }
 }

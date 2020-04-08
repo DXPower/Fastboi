@@ -1,6 +1,7 @@
 #include "Gameobject.h"
 #include "Collider.h"
 #include "FastboiCore.h"
+#include "GameobjectAllocator.h"
 
 using namespace Fastboi;
 
@@ -13,50 +14,34 @@ Gameobject::Gameobject(const char* name)
  , name(name) { };
 
 Gameobject::~Gameobject() {
-    // Fastboi::GameobjectDeleteEvent delEvent{*this};
-    // deleteSignal.fire(delEvent);
-
     isDestroying = true;
     
-    printf("Destroying gameobject...\n");
     transform.reset();
     renderer.reset();
     collider.reset();
 }
 
 void Gameobject::Start() {
-    printf("Starting %s...", name);
     if (renderer) {
         renderer->Start();
     }
-    printf("Started renderer\n");
 
     if (collider) {
         collider->Start();
     }
 
-    printf("Started collider\n");
-    
     componentsLock = true;
 
-    printf("Addr of components: %p\n", &components);
     auto compsPtr = &components;
     
     for (auto& [typekey, comp] : components) {
-        printf("Printing type key of starting comp...\n");
-        printf("Hash: %lX.\n", typekey);
-        printf("Comp ptr: %p.\n", comp.get());
-        printf("Comp ptr ptr: %p.\n", comp->Retrieve());
-        
         comp->Start();
-        Fastboi::Print("Started boi\n");
     }
 
     AddComponentsOnStack();
 
     componentsLock = false;
     isStarted = true;
-    printf("Started comps!\n");
 }
 
 void Gameobject::Update() {
@@ -111,8 +96,6 @@ void Gameobject::Destroy() {
 
     if (collider)
         collider->Destroy();
-
-    Fastboi::Print("Gameobejct destroyed\n");
 }
 
 void Gameobject::SetEnabled(bool f) {
@@ -123,4 +106,15 @@ void Gameobject::SetEnabled(bool f) {
 
     if (collider)
         collider->SetEnabled(f);
+}
+
+
+Fastboi::GameobjectAllocator allocator(4);
+
+void* Gameobject::operator new(std::size_t size) {
+    return static_cast<void*>(allocator.Allocate());
+}
+
+void Gameobject::operator delete(void* ptr, size_t size) {
+    return allocator.Deallocate(ptr);
 }

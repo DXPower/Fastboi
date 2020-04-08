@@ -89,35 +89,29 @@ void Texture::Recreate(const Vec<int>& size, int access, uint32_t format) {
 }
 
 std::shared_future<SDL_Texture*> Texture::CreateSDL_Texture(const Vec<int>& size, int access, uint32_t format) {
-    printf("Creating SDL texture...\n");
     std::promise<SDL_Texture*>* prom = new std::promise<SDL_Texture*>();
     std::shared_future<SDL_Texture*> fut(prom->get_future());
     
     // SDL_Texture must always be made/handled by Rendering thread. This is the quick-way out.
     if (Fastboi::IsRenderingThread()) {
-        printf("Creating texture in rendering thread\n");
         prom->set_value(SDL_CreateTexture(Application::gRenderer, format, access, size.x, size.y));
         delete prom;
     } else {
-        printf("Creating texture in other thread\n");
         // Else, if called on separate thread, we need to enqueue it to be made by rendering thread
         TextureData td { size, access, format, prom };
         std::lock_guard<std::mutex> lock(textureCreationMtx);
         texturesToCreate.push(td);
     }
 
-    printf("Returning future\n");
     return fut;
 }
 
 void Texture::CreateQueuedTextures() {
     if (texturesToCreate.size() == 0) return;
 
-    Fastboi::Print("Getting textureCreationMutex");
     std::lock_guard<std::mutex> lock(textureCreationMtx);
 
     while (texturesToCreate.size() != 0) {
-        printf("Creating texture from queue...\n");
         TextureData& td = texturesToCreate.front();
 
         td.prom->set_value(SDL_CreateTexture(Application::gRenderer, td.format, td.access, td.size.x, td.size.y));
@@ -125,7 +119,6 @@ void Texture::CreateQueuedTextures() {
 
         texturesToCreate.pop();
     }
-    Fastboi::Print("Releasing textureCreationMutex");
 }
 
 void CopyTexture(const Texture& src, Texture& dest) {

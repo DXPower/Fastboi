@@ -95,7 +95,6 @@ void Slowboi::Bullet(Gameobject& go, const Position& p, const Velocity& v) {
     Collider& coll = go.AddComponent<Collider>(Collider::TRIGGER);
     coll.collisionSignal.connect<&BulletHit::Hit>(bh);
 
-    printf("Bullet go addr: %p\n", &go);
     go.AddComponent<Spinner>();
 }
 

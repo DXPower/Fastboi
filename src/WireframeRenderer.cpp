@@ -4,12 +4,8 @@
 using namespace Fastboi;
 using namespace Fastboi::Components;
 
-WireframeRenderer::WireframeRenderer(Gameobject& go, RenderData rd) : Renderer(go, rd) {
-    printf("Creating wireframe renderer!\n");
-};
-WireframeRenderer::~WireframeRenderer() {
-    printf("Destroying wireframe renderer!\n");
-};
+WireframeRenderer::WireframeRenderer(Gameobject& go, RenderData rd) : Renderer(go, rd) { };
+WireframeRenderer::~WireframeRenderer() { };
 
 void WireframeRenderer::Start() {
     Renderer::Start();
