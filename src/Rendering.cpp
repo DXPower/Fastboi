@@ -51,12 +51,18 @@ void Rendering::RenderScreen_Texture(const Transform& transform, const Texture& 
 
 
 void Rendering::Render_TextureTarget(const Texture& src, const Texture& dest, const Rect& destRect) {
-    SDL_SetRenderTarget(gRenderer, dest.GetSDL_Texture()); // Target the destination texture
+    // SDL_SetRenderTarget(gRenderer, dest.GetSDL_Texture()); // Target the destination texture
 
     Vec<int> srcSize = src.GetSize();
     SDL_Rect srcRect { 0, 0, srcSize.x, srcSize.y };
 
-    SDL_RenderCopy(gRenderer, src.GetSDL_Texture(), &srcRect, &destRect);
+    Render_TextureTarget(src, dest, destRect, ToRect(srcRect));
+}
+
+void Rendering::Render_TextureTarget(const Texture& src, const Texture& dest, const Rect& destRect, const Rect& cutout) {
+    SDL_SetRenderTarget(gRenderer, dest.GetSDL_Texture()); // Target the destination texture
+
+    SDL_RenderCopy(gRenderer, src.GetSDL_Texture(), &cutout, &destRect);
 
     SDL_SetRenderTarget(gRenderer, nullptr); // Reset render target to be default (gRenderer)
 }

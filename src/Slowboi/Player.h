@@ -23,7 +23,7 @@ namespace Slowboi {
 
             public:
             Gameobject& gameobject;
-            float_t speed = 500.0f;
+            float_t speed = 300.0f;
 
             Player(Gameobject& go);
             ~Player();

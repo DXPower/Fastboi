@@ -1,5 +1,6 @@
 #pragma once
 #include <cstdio>
+#include <vector>
 
 namespace Fastboi {
     struct Gameobject;
@@ -10,13 +11,39 @@ namespace Fastboi {
 
         std::size_t chunksPerBlock;
         Chunk* allocChunk = nullptr;
-
-        Block* AllocateBlock();
+        Chunk* unstartedHead = nullptr;
+        Block* blockHead = nullptr;
+        Block* blockTail = nullptr;
+        
 
         public:
         GameobjectAllocator(std::size_t chunksPerBlock) : chunksPerBlock(chunksPerBlock) { };
 
         void* Allocate();
         void Deallocate(void* del);
+        void StartAll();
+
+
+        private:
+        void MarkUnstarted(Chunk& chunk);
+        Block* AllocateBlock();
+
+        public:
+        class iterator {
+            Block* block;
+            std::size_t cn = 0;
+
+            public:
+            iterator(Block* block) : block(block) { };
+
+            iterator operator++(int _);
+            Gameobject& operator*() const;
+
+            bool operator==(const iterator& other) const { return block == other.block; };
+            bool operator!=(const iterator& other) const { return !(*this == other); };
+        };
+        
+        iterator GO_Begin() { return iterator(blockHead); };
+        iterator GO_End() { return iterator(nullptr); };
     };
 }

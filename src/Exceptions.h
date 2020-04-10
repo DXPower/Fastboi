@@ -6,6 +6,7 @@ namespace Application {
         , COMPONENT_NO_EXIST = 2
         , COMPONENT_ALREADY_EXISTS = 3
         , REQUIREMENTS_NOT_FULFILLED = 4
-        , GJK_TOO_MANY_VERTICES
+        , GJK_TOO_MANY_VERTICES = 5
+        , DEALLOCATE_UNSTARTED_GO = 6
     };
 }

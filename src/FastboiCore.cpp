@@ -31,9 +31,7 @@ bool paused = false;
 float Fastboi::tickDelta = 0.0f;
 float Fastboi::physicsDelta = 0.0f;
 
-std::vector<std::unique_ptr<Gameobject>> gameobjects;
-std::vector<std::unique_ptr<Gameobject>> gosToAdd;
-std::vector<Gameobject*> gosToDelete; // When an object is deleted, gameobjects still owns the pointer. Use non-owning ptr here.
+std::vector<Gameobject*> gosToDelete; // Need to keep track of the objects we delete
 
 std::map<RenderOrder, std::vector<Renderer*>> renderers;
 std::unordered_set<Collider*> colliders;
@@ -52,21 +50,20 @@ void Fastboi::Destroy(Gameobject& go) {
 void Fastboi::Tick() {
     std::lock_guard<std::mutex> lock(renderingMtx);
 
-    for (std::unique_ptr<Gameobject>& go : gosToAdd) {
-        go->Start();
-        gameobjects.push_back(std::move(go));
+    extern GameobjectAllocator gameobjectAllocator;
+    gameobjectAllocator.StartAll();
+
+    for (auto it = gameobjectAllocator.GO_Begin(); it != gameobjectAllocator.GO_End(); it++) {
+        Gameobject& go = *it;
+
+        if (!go.isStarted) continue;
+
+        go.Update();
     }
 
-    gosToAdd.clear();
-
-    for (const std::unique_ptr<Gameobject>& go : gameobjects) {
-        go->Update();
-    }
-
-    for (const Gameobject* go : gosToDelete) {
-        gameobjects.erase(std::remove_if(gameobjects.begin(), gameobjects.end(), [&](const std::unique_ptr<Gameobject>& u) {
-            return go == u.get();
-        }));
+    for (Gameobject* go : gosToDelete) {
+        go->~Gameobject();
+        gameobjectAllocator.Deallocate(static_cast<void*>(go));
     }
 
     gosToDelete.clear();
@@ -80,7 +77,10 @@ void Fastboi::Render() {
     float renderDelta = 0;
 
     while (!quit) {
+        renderingMtx.lock();
         Input::PollEvents();
+        renderingMtx.unlock();
+
         Texture::CreateQueuedTextures();
 
         renderTimer.tick();
@@ -129,7 +129,7 @@ void Fastboi::Physics() {
 
     std::lock_guard lock(renderingMtx);
 
-    Collision::ApplyVelocities(gameobjects);
+    Collision::ApplyVelocities();
     Collision::BroadPhase(colliders, potentialCollisions);
     Collision::NarrowPhase(potentialCollisions, collisions);
     Collision::ResolveColliders(colliders, collisions);
@@ -139,8 +139,6 @@ void Fastboi::Physics() {
 
 // Once Fastboi::GameLoop() has ended, clean up all resources.
 void Cleanup() {
-    gameobjects.clear();
-    gosToAdd.clear();
     gosToDelete.clear();
     renderers.clear();
     colliders.clear();
@@ -227,13 +225,15 @@ void Fastboi::Quit() {
     quit = true;
 }
 
-// Registers a Gameobject to be managed by Fastboi. Use Destroy() to delete.
-const std::unique_ptr<Gameobject>& Fastboi::RegisterGameobject(Gameobject* go) {
-    // Print("New object!");
-    gosToAdd.emplace_back(go);
+// // Registers a Gameobject to be managed by Fastboi. Use Destroy() to delete.
+// Gameobject& Fastboi::RegisterGameobject(Gameobject* go) {
+//     // Print("New object!");
+//     // gosToAdd.emplace_back(go);
 
-    return gosToAdd.back();
-}
+//     gameobjects.push_back(go);
+
+//     return *gameobjects.back();
+// }
 
 void Fastboi::UnregisterGameobject(Gameobject* go) {
     // Print("Dead object!");

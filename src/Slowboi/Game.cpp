@@ -2,6 +2,7 @@
 #include "Game.h"
 #include "Player.h"
 #include "Button.h"
+#include "GroundBG.h"
 #include "FastboiComps.h"
 #include "RequiresTest.h"
 
@@ -26,6 +27,7 @@ void LoadResources() {
     Fastboi::Resources::LoadImage("Player", "penguin.png");
     Fastboi::Resources::LoadImage("Brick", "brick.png");
     Fastboi::Resources::LoadImage("Button", "button.png");
+    Fastboi::Resources::LoadImage("Spritemap", "spritemap.png");
 }
 
 void Slowboi::InitGame() {
@@ -51,6 +53,9 @@ void Slowboi::InitGame() {
     anon.AddComponent<ColorComp>(255, 0, 255, 255);
     anon.AddComponent<BoxColorRenderer>(RenderData(RenderOrder::GROUND));
     anon.AddComponent<Collider>(Collider::FIXED);
+
+    std::vector<Rect> grassSprites = { Rect(36, 36, 8, 8) };
+    Gameobject& grass = Instantiate<&Slowboi::GroundBG>(Position(200, 200), Size(500, 500), Resources::GetTexture("Spritemap"), Size(50, 50), grassSprites);
 
     SetCamera(Camera(*player.transform, Camera::WATCHING, 1.5f));
 
@@ -79,8 +84,14 @@ struct Spinner {
     }
 };
 
+static int bulletCount = 0;
+
 void Slowboi::Bullet(Gameobject& go, const Position& p, const Velocity& v) {
-    go.name = "Bullet";
+    char* buffer = new char[20];
+    sprintf(buffer, "Bullet %i", bulletCount);
+    bulletCount++;
+
+    go.name = buffer;
 
     go.AddComponent<Transform>(p, Size(30, 10), 0);
     go.AddComponent<VelocityComp>(v);

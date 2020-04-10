@@ -1,7 +1,6 @@
 #include "Gameobject.h"
 #include "Collider.h"
 #include "FastboiCore.h"
-#include "GameobjectAllocator.h"
 
 using namespace Fastboi;
 
@@ -109,12 +108,12 @@ void Gameobject::SetEnabled(bool f) {
 }
 
 
-Fastboi::GameobjectAllocator allocator(4);
+// Fastboi::GameobjectAllocator allocator(4);
 
-void* Gameobject::operator new(std::size_t size) {
-    return static_cast<void*>(allocator.Allocate());
-}
+// void* Gameobject::operator new(std::size_t size) {
+//     return static_cast<void*>(allocator.Allocate());
+// }
 
-void Gameobject::operator delete(void* ptr, size_t size) {
-    return allocator.Deallocate(ptr);
-}
+// void Gameobject::operator delete(void* ptr, size_t size) {
+//     return allocator.Deallocate(ptr);
+// }

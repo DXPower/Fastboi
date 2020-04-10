@@ -30,8 +30,6 @@ namespace Fastboi {
             };
         };
 
-        
-
         struct Collision_t {
             struct CollisionData {
                 bool collided;
@@ -67,7 +65,7 @@ namespace Fastboi {
             , const Vertices_t& shapeB
         );
 
-        void ApplyVelocities(const std::vector<std::unique_ptr<Gameobject>>& gameobjects);
+        void ApplyVelocities();
         void BroadPhase(const Colliders_t& colliders, PotentialCollisions_t& potentialCollisions);
         void NarrowPhase(const PotentialCollisions_t& potentialCollisions, Collisions_t& collisions);
         void ResolveColliders(const Colliders_t& allColliders, const Collisions_t& collisions);

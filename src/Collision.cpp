@@ -4,6 +4,7 @@
 #include "FastboiCore.h"
 #include <functional>
 #include "Gameobject.h"
+#include "GameobjectAllocator.h"
 #include <limits>
 #include <stdint.h>
 #include "VelocityComp.h"
@@ -66,11 +67,18 @@ Collision_t::CollisionData Fastboi::Collision::AreCollidersIntersectng(
     return AreShapesIntersecting(colliderA.GetVertices(), colliderB.GetVertices());
 }
 
-void Fastboi::Collision::ApplyVelocities(const std::vector<std::unique_ptr<Gameobject>>& gameobjects) {
-    for (const std::unique_ptr<Gameobject>& go : gameobjects) {
-        if (go->HasComponent<VelocityComp>()) {
-            const VelocityComp& vc = go->GetComponent<VelocityComp>();
-            AdvanceTransform(*go->transform, vc.IsEnabled() * vc.velocity * Fastboi::physicsDelta);
+namespace Fastboi {
+    extern GameobjectAllocator gameobjectAllocator;
+}
+
+void Fastboi::Collision::ApplyVelocities() {
+
+    for (auto it = gameobjectAllocator.GO_Begin(); it != gameobjectAllocator.GO_End(); it++) {
+        const Gameobject& go = *it;
+
+        if (go.isStarted && go.HasComponent<VelocityComp>()) {
+            const VelocityComp& vc = go.GetComponent<VelocityComp>();
+            AdvanceTransform(*go.transform, vc.IsEnabled() * vc.velocity * Fastboi::physicsDelta);
         }
     }
 }

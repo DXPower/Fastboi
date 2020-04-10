@@ -82,8 +82,8 @@ namespace Fastboi {
         template<class T>
         bool IsComponentEnabled() const;
 
-        static void* operator new(std::size_t size);
-        static void operator delete(void* ptr, size_t size);
+        // static void* operator new(std::size_t size);
+        // static void operator delete(void* ptr, size_t size);
 
         private:
         std::stack<decltype(components)::value_type> componentsToAdd;
@@ -94,6 +94,7 @@ namespace Fastboi {
         void RemoveComponentsOnStack();
 
         friend void Fastboi::Tick();
+        friend void Fastboi::Collision::ApplyVelocities();
         friend void Fastboi::Destroy(Gameobject&);
     };
 

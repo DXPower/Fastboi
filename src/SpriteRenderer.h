@@ -4,7 +4,7 @@
 
 namespace Fastboi {
     namespace Components {
-        struct SpriteRenderer final : public Fastboi::Renderer {
+        struct SpriteRenderer : public Fastboi::Renderer {
             const Texture& texture;
             Rect cutout;
 
@@ -14,6 +14,7 @@ namespace Fastboi {
              * @param cutout Rectangle of texture to render
             **/
             SpriteRenderer(Fastboi::Gameobject& gameobject, Fastboi::RenderData data, const char* textureName, const Rect& cutout);
+            SpriteRenderer(Fastboi::Gameobject& gameobject, Fastboi::RenderData data, const Texture& texture, const Rect& cutout);
             ~SpriteRenderer();
 
             void Render() override;

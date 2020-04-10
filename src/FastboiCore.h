@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Gameobject.h"
+#include "GameobjectAllocator.h"
 #include <memory>
 #include <mutex>
 #include "RenderOrder.h"
@@ -15,24 +16,32 @@ namespace Fastboi {
     extern float tickDelta;
     extern float physicsDelta;
 
-    const std::unique_ptr<Gameobject>& RegisterGameobject(Gameobject* go);
+    Gameobject& RegisterGameobject(Gameobject* go);
     void UnregisterGameobject(Gameobject* go);
     
     // Instatiates gameobject of type GO with arguments args
     template<auto InitFunc, typename... Args>
     Gameobject& Instantiate(Args&&... args) {
-        Gameobject* o = new Gameobject();
+        extern GameobjectAllocator gameobjectAllocator;
+        
+        Gameobject* allocation = reinterpret_cast<Gameobject*>(gameobjectAllocator.Allocate());
+        Gameobject* o = new (allocation) Gameobject();
+
         InitFunc(*o, std::forward<Args>(args)...);
 
-        return *RegisterGameobject(o);
+        return *o;
     }
 
     template<class T, typename... Args>
     Gameobject& Instantiate(Args&&... args) {
         static_assert(std::is_same_v<T, Gameobject>);
-        Gameobject* o = new Gameobject(std::forward<Args>(args)...);
 
-        return *RegisterGameobject(o);
+        extern GameobjectAllocator gameobjectAllocator;
+
+        Gameobject* allocation = reinterpret_cast<Gameobject*>(gameobjectAllocator.Allocate());
+        Gameobject* o = new (allocation) Gameobject(std::forward<Args>(args)...);
+
+        return *o;
     }
 
     void Destroy(Gameobject& go);

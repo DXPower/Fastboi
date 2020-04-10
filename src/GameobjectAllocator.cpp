@@ -5,16 +5,30 @@
 
 using namespace Fastboi;
 
+namespace Fastboi {
+    extern GameobjectAllocator gameobjectAllocator;
+}
+
+GameobjectAllocator Fastboi::gameobjectAllocator = GameobjectAllocator(10);
+
 struct GameobjectAllocator::Chunk {
     Gameobject allocation; // Must keep this as first member
-    Chunk* nextStart; // Used to keep track of all gameobjects that need to be started
+    void* nextStart; // Used to keep track of all gameobjects that need to be started. Equal to address of itself if started.
 
     static void Init(Chunk& chunk, Chunk* alloc) {
-        printf("Initting Chunk location...: %p\n", &chunk);
+        std::memset((void*) &chunk, 0, sizeof(Chunk));
+
         *reinterpret_cast<Chunk**>(&chunk.allocation) = alloc; // First memory in the chunk is now the allocation pointer to the next chunk
         chunk.nextStart = nullptr;
+    }
 
-        printf("Chunk location: %p\n", &chunk);
+    bool IsStarted() const {
+        printf("IsStarted: nextStart = %p, addr = %p\n", nextStart, &nextStart);
+        return nextStart == &nextStart;
+    }
+
+    void MarkStarted() {
+        nextStart = &nextStart;
     }
 };
 
@@ -30,41 +44,99 @@ void* GameobjectAllocator::Allocate() {
         allocChunk = &AllocateBlock()->chunks;
     }
 
+    printf("Allocating chunk at: %p\n", allocChunk);
     void* ret = static_cast<void*>(allocChunk);
-    printf("Return chunk: %p\n", ret);
     allocChunk = *reinterpret_cast<Chunk**>(ret);
 
+    MarkUnstarted(*reinterpret_cast<Chunk*>(ret));
+
+    printf("Return chunk: %p\n", ret);
     return ret;
 }
 
 void GameobjectAllocator::Deallocate(void* go) {
     printf("Deallocating chunk: %p\n", go);
-    // Chunk* chunk = reinterpret_cast<Chunk*>(go);
-    *reinterpret_cast<Chunk**>(go) = allocChunk;
+    Chunk* const prev = allocChunk;
     allocChunk = reinterpret_cast<Chunk*>(go);
+    
+    // The gameobject is started if the nextStart field points to itself
+    if (!allocChunk->IsStarted()) {
+        Application::ThrowRuntimeException("Attempt to deallocate unstarted gameobject", Application::DEALLOCATE_UNSTARTED_GO);
+    }
+
+    Chunk::Init(*allocChunk, prev);
+    printf("Deallocated chunk\n", go);
+}
+
+void GameobjectAllocator::MarkUnstarted(Chunk& chunk) {
+    chunk.nextStart = unstartedHead;
+    unstartedHead = &chunk;
+}
+
+void GameobjectAllocator::StartAll() {
+    Chunk* next;
+
+
+    while (unstartedHead != nullptr) {
+        reinterpret_cast<Gameobject*>(unstartedHead)->Start();
+
+        next = reinterpret_cast<Chunk*>(unstartedHead->nextStart);
+
+        unstartedHead->MarkStarted();
+        printf("nextStart = %p. Addr = %p\n", unstartedHead->nextStart, &(unstartedHead->nextStart));
+        unstartedHead = next;
+    }
 }
 
 GameobjectAllocator::Block* GameobjectAllocator::AllocateBlock() {
-    printf("Creating block...\n");
+    printf("Allocating block...\n");
     const size_t blockSize = sizeof(Block::nextBlock) + sizeof(Block::numChunks) + (sizeof(Chunk) * chunksPerBlock);
-    printf("Block size: %lu Chunk Size: %lu\n", blockSize, sizeof(Chunk));
     Block* block = reinterpret_cast<Block*>(std::malloc(blockSize));
-    printf("Block addr: %p\n", block);
+
+    if (blockHead != nullptr) {
+        blockTail->nextBlock = block;
+        blockTail = block;
+    } else {
+        blockHead = block;
+        blockTail = block;
+    }
 
     block->nextBlock = nullptr;
     block->numChunks = chunksPerBlock;
     Chunk* chunks = &block->chunks;
 
     for (size_t i = 0; i < chunksPerBlock - 1; i++) {
-        printf("Getting chunk i = %lu\n", i);
         Chunk& chunk = chunks[i];
-        printf("Got chunk adr = %p\n", &(chunks[i]));
 
         Chunk::Init(chunk, &chunks[i + 1]);
     }
 
     Chunk::Init(chunks[chunksPerBlock - 1], nullptr);
 
+    printf("Allocated block...\n");
     return block;
 }
 
+#define likely(x)       __builtin_expect((x),1)
+#define unlikely(x)     __builtin_expect((x),0)
+
+GameobjectAllocator::iterator GameobjectAllocator::iterator::operator++(int _) {
+    if (unlikely(block == nullptr)) return *this;
+
+    if (likely(cn != block->numChunks - 1)) {
+        cn++;
+    } else {
+        block = block->nextBlock;
+        cn = 0;
+    }
+
+    return *this;
+}
+
+Gameobject& GameobjectAllocator::iterator::operator*() const {
+    Chunk* chunks = &block->chunks; // The chunks of the block are contiguous starting at the chunks variable.
+    return reinterpret_cast<Gameobject&>(chunks[cn]);
+}
+
+#undef likely
+#undef unlikely

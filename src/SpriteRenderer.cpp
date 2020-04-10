@@ -9,6 +9,12 @@ SpriteRenderer::SpriteRenderer(Gameobject& gameobject, RenderData data, const ch
     , cutout(cutout) {
 }
 
+SpriteRenderer::SpriteRenderer(Gameobject& gameobject, RenderData data, const Texture& texture, const Rect& cutout)
+    : Renderer(gameobject, data)
+    , texture(texture)
+    , cutout(cutout) {
+}
+
 SpriteRenderer::~SpriteRenderer() { }
 
 void SpriteRenderer::Render() {
