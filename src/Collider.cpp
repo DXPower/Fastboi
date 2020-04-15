@@ -17,6 +17,7 @@ Collider::Collider(Gameobject& gameobject, uint_fast8_t flags)
 };
 
 Collider::~Collider() {
+    CleanHangingCollisions();
     Fastboi::UnregisterCollider(this);
 }
 
@@ -27,14 +28,14 @@ void Collider::Start() {
 void Collider::Update() {
     if (!isEnabled) return;
 
-    std::vector<const Collider*> newCollisions;
-    std::vector<const Collider*> endingCollisions;
+    std::vector<Collider*> newCollisions;
+    std::vector<Collider*> endingCollisions;
 
     GetNewAndEndingCollisions(newCollisions, endingCollisions);
 
     #define contains(container, val) (std::find(container.begin(), container.end(), val) != container.end())
 
-    for (const Collider* c : newCollisions) {
+    for (Collider* c : newCollisions) {
         if (!contains(currentCollisions, c)) {
             // New collision, trigger begin event
             CollisionEvent e(*c, CollisionEvent::BEGIN);
@@ -44,7 +45,7 @@ void Collider::Update() {
 
     #undef contains
 
-    for (const Collider* c : endingCollisions) {
+    for (Collider* c : endingCollisions) {
         // Ending collision, trigger end event
         CollisionEvent e(*c, CollisionEvent::END);
         collisionSignal.fire(e);
@@ -52,17 +53,18 @@ void Collider::Update() {
 
     currentCollisions = pendingCollisions;
     pendingCollisions.clear();
+
 }
 
 const circular_vector<Position>& Collider::GetVertices() const {
     return gameobject.transform->GetVertices();
 }
 
-void Collider::Collide(const Collider& collider) {
+void Collider::Collide(Collider& collider) {
     pendingCollisions.push_back(&collider);
 }
 
-void Collider::GetNewAndEndingCollisions(std::vector<const Collider*>& newCs, std::vector<const Collider*>& endingCs) {
+void Collider::GetNewAndEndingCollisions(std::vector<Collider*>& newCs, std::vector<Collider*>& endingCs) {
     // Prerequisite for std::set_difference
     std::sort(currentCollisions.begin(), currentCollisions.end());
     std::sort(pendingCollisions.begin(), pendingCollisions.end());
@@ -74,6 +76,24 @@ void Collider::GetNewAndEndingCollisions(std::vector<const Collider*>& newCs, st
     std::set_difference(currentCollisions.begin(), currentCollisions.end(),
                         pendingCollisions.begin(), pendingCollisions.end(),
                         std::back_inserter(endingCs));
+}
+
+void Collider::CleanHangingCollisions() {
+    #define curs c->currentCollisions 
+    #define pens c->pendingCollisions 
+
+    for (Collider* c : currentCollisions) {
+        curs.erase(std::remove(curs.begin(), curs.end(), this), curs.end());
+        pens.erase(std::remove(pens.begin(), pens.end(), this), pens.end());
+    }
+
+    for (Collider* c : pendingCollisions) {
+        curs.erase(std::remove(curs.begin(), curs.end(), this), curs.end());
+        pens.erase(std::remove(pens.begin(), pens.end(), this), pens.end());
+    }
+
+    #undef curs
+    #undef pens
 }
 
 void Collider::SetEnabled(bool f) {

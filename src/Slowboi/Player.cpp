@@ -78,6 +78,10 @@ void Player::Fire(const ClickEvent& event) const {
 void Player::Update() {
     Vecf direction(0, 0);
 
+    if (Input::IsKeyDown(SDL_SCANCODE_SPACE)) {
+        Spacebar(KeyEvent(SDL_SCANCODE_SPACE, KeyEvent::DOWN));
+    }
+
     if (Input::IsKeyDown(SDL_SCANCODE_W, SDL_SCANCODE_UP)) {
         direction.y -= 1;
     }

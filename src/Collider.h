@@ -16,10 +16,10 @@ namespace Fastboi {
 
     struct VelocityComp;
 
-    struct Collider {
+    struct Collider final {
         private:
-        std::vector<const Collider*> currentCollisions;
-        std::vector<const Collider*> pendingCollisions;
+        std::vector<Collider*> currentCollisions;
+        std::vector<Collider*> pendingCollisions;
 
         bool isEnabled = true;
         bool isStarted = false;
@@ -37,7 +37,7 @@ namespace Fastboi {
 
         Collider(Gameobject& gameobject);
         Collider(Gameobject& gameobject, uint_fast8_t flags);
-        virtual ~Collider();
+        ~Collider();
         
         void Start();
         void Update();
@@ -55,8 +55,9 @@ namespace Fastboi {
         inline bool IsEnabled() const { return isEnabled; };
 
         private:
-        void Collide(const Collider& collider);
-        void GetNewAndEndingCollisions(std::vector<const Collider*>& newCs, std::vector<const Collider*>& endingCs);
+        void Collide(Collider& collider);
+        void GetNewAndEndingCollisions(std::vector<Collider*>& newCs, std::vector<Collider*>& endingCs);
+        void CleanHangingCollisions();
 
         using Colliders_t = Fastboi::Collision::Colliders_t;
         using PotentialCollisions_t = Fastboi::Collision::PotentialCollisions_t;

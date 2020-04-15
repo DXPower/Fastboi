@@ -9,7 +9,7 @@ namespace Fastboi {
     extern GameobjectAllocator gameobjectAllocator;
 }
 
-GameobjectAllocator Fastboi::gameobjectAllocator = GameobjectAllocator(10);
+GameobjectAllocator Fastboi::gameobjectAllocator = GameobjectAllocator(3);
 
 struct GameobjectAllocator::Chunk {
     Gameobject allocation; // Must keep this as first member
@@ -23,7 +23,6 @@ struct GameobjectAllocator::Chunk {
     }
 
     bool IsStarted() const {
-        printf("IsStarted: nextStart = %p, addr = %p\n", nextStart, &nextStart);
         return nextStart == &nextStart;
     }
 
@@ -33,29 +32,36 @@ struct GameobjectAllocator::Chunk {
 };
 
 // Used only for defining the locations of variables inside the malloced creation in AllocateBlock
+#pragma pack(push, 1)
 struct GameobjectAllocator::Block {
     Block* nextBlock;
     size_t numChunks;
     Chunk chunks; // Chunks begin immediately here in memory.
+
+    constexpr static std::size_t GetMemBaseSize() {
+        return sizeof(nextBlock) + sizeof(chunks);
+    }
+
+    static std::size_t  GetMemSize(std::size_t chunksPerBlock) {
+        return GetMemBaseSize() + (sizeof(Chunk) * chunksPerBlock);
+    }
 };
+#pragma pack(pop)
 
 void* GameobjectAllocator::Allocate() {
     if (allocChunk == nullptr) {
         allocChunk = &AllocateBlock()->chunks;
     }
 
-    printf("Allocating chunk at: %p\n", allocChunk);
     void* ret = static_cast<void*>(allocChunk);
     allocChunk = *reinterpret_cast<Chunk**>(ret);
 
     MarkUnstarted(*reinterpret_cast<Chunk*>(ret));
 
-    printf("Return chunk: %p\n", ret);
     return ret;
 }
 
 void GameobjectAllocator::Deallocate(void* go) {
-    printf("Deallocating chunk: %p\n", go);
     Chunk* const prev = allocChunk;
     allocChunk = reinterpret_cast<Chunk*>(go);
     
@@ -65,7 +71,6 @@ void GameobjectAllocator::Deallocate(void* go) {
     }
 
     Chunk::Init(*allocChunk, prev);
-    printf("Deallocated chunk\n", go);
 }
 
 void GameobjectAllocator::MarkUnstarted(Chunk& chunk) {
@@ -83,15 +88,12 @@ void GameobjectAllocator::StartAll() {
         next = reinterpret_cast<Chunk*>(unstartedHead->nextStart);
 
         unstartedHead->MarkStarted();
-        printf("nextStart = %p. Addr = %p\n", unstartedHead->nextStart, &(unstartedHead->nextStart));
         unstartedHead = next;
     }
 }
 
 GameobjectAllocator::Block* GameobjectAllocator::AllocateBlock() {
-    printf("Allocating block...\n");
-    const size_t blockSize = sizeof(Block::nextBlock) + sizeof(Block::numChunks) + (sizeof(Chunk) * chunksPerBlock);
-    Block* block = reinterpret_cast<Block*>(std::malloc(blockSize));
+    Block* block = reinterpret_cast<Block*>(std::malloc(Block::GetMemSize(chunksPerBlock)));
 
     if (blockHead != nullptr) {
         blockTail->nextBlock = block;
@@ -113,7 +115,6 @@ GameobjectAllocator::Block* GameobjectAllocator::AllocateBlock() {
 
     Chunk::Init(chunks[chunksPerBlock - 1], nullptr);
 
-    printf("Allocated block...\n");
     return block;
 }
 
