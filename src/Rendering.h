@@ -22,7 +22,7 @@ namespace Fastboi {
         using Application::gRenderer;
 
         inline Position GetLeftCorner(const Transform& transform) {
-            return transform.position - (transform.size / 2);
+            return transform.position - (transform.size / 2.f);
         }
         
         // Gets left corner of a transform (assuming transform.position is center), ignoring rotation

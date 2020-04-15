@@ -78,4 +78,7 @@ namespace Fastboi {
         printf(fmt, std::forward<Args>(args)...);
         printMutex.unlock();
     }
+
+    std::size_t GetCacheLineSize();
+    std::size_t GetCacheSize();
 };

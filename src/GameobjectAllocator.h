@@ -17,7 +17,7 @@ namespace Fastboi {
         
 
         public:
-        GameobjectAllocator(std::size_t chunksPerBlock) : chunksPerBlock(chunksPerBlock) { };
+        GameobjectAllocator();
 
         void* Allocate();
         void Deallocate(void* del);

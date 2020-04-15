@@ -1,6 +1,6 @@
 #include "GameobjectAllocator.h"
+#include "FastboiCore.h"
 #include "Gameobject.h"
-#include <variant>
 #include <vector>
 
 using namespace Fastboi;
@@ -9,7 +9,7 @@ namespace Fastboi {
     extern GameobjectAllocator gameobjectAllocator;
 }
 
-GameobjectAllocator Fastboi::gameobjectAllocator = GameobjectAllocator(3);
+GameobjectAllocator Fastboi::gameobjectAllocator = GameobjectAllocator();
 
 struct GameobjectAllocator::Chunk {
     Gameobject allocation; // Must keep this as first member
@@ -47,6 +47,14 @@ struct GameobjectAllocator::Block {
     }
 };
 #pragma pack(pop)
+
+GameobjectAllocator::GameobjectAllocator() {
+    const std::size_t blockTotSize = Fastboi::GetCacheSize() / 4;
+    const std::size_t chunksSpace = blockTotSize - Block::GetMemBaseSize();
+    
+    chunksPerBlock = chunksSpace / sizeof(Chunk);
+    printf("Chunks per block: %lu\n", chunksPerBlock);
+}
 
 void* GameobjectAllocator::Allocate() {
     if (allocChunk == nullptr) {
@@ -115,6 +123,7 @@ GameobjectAllocator::Block* GameobjectAllocator::AllocateBlock() {
 
     Chunk::Init(chunks[chunksPerBlock - 1], nullptr);
 
+    printf("Size of block: %lu bytes\n", Block::GetMemSize(chunksPerBlock));
     return block;
 }
 

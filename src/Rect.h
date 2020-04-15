@@ -14,7 +14,7 @@ namespace Fastboi {
     };
 
     struct RectF final : SDL_FRect {
-        RectF(int x, int y, int w, int h) {
+        RectF(float x, float y, float w, float h) {
             this->x = x;
             this->y = y;
             this->w = w;

@@ -17,6 +17,10 @@
 #include <list>
 #include <map>
 
+extern "C" {
+    #include "CacheLineSize.h"
+}
+
 #define WHITE 255, 255, 255, 255
 #define BLACK 0, 0, 0, 255
 #define RED 255, 0, 0, 255
@@ -30,6 +34,8 @@ bool paused = false;
 
 float Fastboi::tickDelta = 0.0f;
 float Fastboi::physicsDelta = 0.0f;
+
+std::size_t cacheLineSize;
 
 std::vector<Gameobject*> gosToDelete; // Need to keep track of the objects we delete
 
@@ -88,6 +94,7 @@ void Fastboi::Render() {
 
         if (!std::isgreater(renderDelta, TICK_TIME)) continue;
 
+        printf("Render: %f\n", renderDelta);
         renderDelta = -TICK_TIME;
 
         // printf("Attempting render...\n");
@@ -168,8 +175,12 @@ void TickPhysicsThread() {
                 Physics();
                 Tick();
 
+                if (tickDelta > 0.008335)
+                    printf("tick: %f\n", tickDelta);
+
                 Fastboi::tickDelta = -TICK_TIME;
                 Fastboi::physicsDelta = -TICK_TIME;
+
             }
         }
     }  
@@ -181,6 +192,11 @@ void TickPhysicsThread() {
  * Only intended to be called by main
 **/
 void Fastboi::GameLoop() {
+    cacheLineSize = CacheLineSize();
+    GetCacheSize();
+
+    printf("Cache Line Size detected: %lu bytes\n", cacheLineSize);
+
     Input::PollEvents();
     Tick();
 
@@ -194,6 +210,16 @@ void Fastboi::GameLoop() {
 
     Cleanup();
 }
+
+std::size_t Fastboi::GetCacheLineSize() {
+    return cacheLineSize;
+}
+
+std::size_t Fastboi::GetCacheSize() {
+   return 100 * 1024; // Assuming 100kb of L2 cache for now.
+}
+
+
 
 /**
  * @brief Pauses the update loop of Fastboi. This halts all Instantiation, Destruction, Start(), Update(),
