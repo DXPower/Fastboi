@@ -3,9 +3,9 @@
 using namespace Fastboi;
 using namespace Components;
 
-UITexture::UITexture(Gameobject& go, const char* textureName)
- : Renderer(go, RenderOrder::UI), texture(Resources::GetTexture(textureName)) { }
+UITexture::UITexture(GORef&& go, const char* textureName)
+ : Renderer(std::forward<GORef>(go), RenderOrder::UI), texture(Resources::GetTexture(textureName)) { }
 
 void UITexture::Render() {
-    Rendering::RenderScreen_Texture(gameobject.transform, texture);
+    Rendering::RenderScreen_Texture(gameobject().transform, texture);
 }

@@ -1,9 +1,11 @@
 #pragma once
 
 #include "RenderOrder.h"
+#include "GORef.h"
 
 namespace Fastboi {
     struct Gameobject;
+
     void Render();
 
     struct Renderer {
@@ -12,12 +14,12 @@ namespace Fastboi {
         bool isDeleted = false;
 
         public:
-        Gameobject& gameobject;
+        GORef gameobject;
         RenderData data;
 
         public:
-        Renderer(Gameobject& go);
-        Renderer(Gameobject& go, RenderData data);
+        Renderer(GORef&& go);
+        Renderer(GORef&& go, RenderData data);
         virtual ~Renderer();
 
         virtual void Start() { isStarted = true; };

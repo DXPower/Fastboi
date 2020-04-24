@@ -10,7 +10,7 @@ namespace Fastboi {
 
             const ColorComp* color;
 
-            BoxColorRenderer(Fastboi::Gameobject& go, RenderData data);
+            BoxColorRenderer(GORef&& go, RenderData data);
             ~BoxColorRenderer();
 
             void Start() override;

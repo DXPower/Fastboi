@@ -22,13 +22,13 @@ namespace Slowboi {
             Vecf facingDirection;
 
             public:
-            Gameobject& gameobject;
+            GORef gameobject;
             float_t speed = 300.0f;
 
-            Player(Gameobject& go);
+            Player(GORef&& go);
             ~Player();
 
-            void EnablePressed(const KeyEvent& e) const;
+            void EnablePressed(const KeyEvent& e);
             void Spacebar(const KeyEvent& e) const;
             void VelocityChanged(const Velocity& velocity) const;
             void Fire(const ClickEvent& event) const;

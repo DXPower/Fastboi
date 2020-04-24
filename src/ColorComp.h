@@ -1,8 +1,6 @@
 #pragma once
-#include "Component.h"
+#include "Fastboi.h"
 #include "stdint.h"
-#include "memory"
-#include "Gameobject.h"
 
 namespace Fastboi {
     namespace Components {
@@ -11,9 +9,9 @@ namespace Fastboi {
             uint8_t r, g, b, a;
 
             constexpr ColorComp() : ColorComp(0, 0, 0, 0) { };
-            constexpr ColorComp(const Gameobject&) : ColorComp() { };
+            constexpr ColorComp(const GORef&&) : ColorComp() { };
             constexpr ColorComp(uint8_t r, uint8_t g, uint8_t b, uint8_t a) : r(r), g(g), b(b), a(a) { };
-            constexpr ColorComp(const Gameobject&, uint8_t r, uint8_t g, uint8_t b, uint8_t a) : ColorComp(r, g, b, a) { };
+            constexpr ColorComp(const GORef&&, uint8_t r, uint8_t g, uint8_t b, uint8_t a) : ColorComp(r, g, b, a) { };
 
             void set(uint8_t r, uint8_t g, uint8_t b, uint8_t a) {
                 this->r = r;
@@ -27,14 +25,14 @@ namespace Fastboi {
             private:
             uint8_t count = 0;
             ColorComp* color;
-            Gameobject& gameobject;
+            GORef gameobject;
 
             public:
-            constexpr ColorShiftComp(Gameobject& go) : gameobject(go), color(nullptr) { };
+            constexpr ColorShiftComp(GORef&& go) : gameobject(go), color(nullptr) { };
 
             void Start() {
-                color = &gameobject.GetComponent<ColorComp>();
-                const Transform& t = gameobject.GetComponent<Transform>();
+                color = &gameobject().GetComponent<ColorComp>();
+                const Transform& t = gameobject().GetComponent<Transform>();
             }
 
             void Update() {

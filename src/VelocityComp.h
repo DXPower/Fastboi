@@ -10,8 +10,8 @@ namespace Fastboi {
         public:
         Velocity velocity;
 
-        VelocityComp(const Gameobject&, const Velocity& v) : velocity(v) { };
-        VelocityComp(const Gameobject& go) : VelocityComp(go, Velocity::zero()) { };
+        VelocityComp(const GORef&&, const Velocity& v) : velocity(v) { };
+        VelocityComp(const GORef&& go) : VelocityComp(std::forward<const GORef>(go), Velocity::zero()) { };
 
         inline void SetEnabled(bool f) { isEnabled = f; };
         inline void Enable() { SetEnabled(true); };

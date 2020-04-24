@@ -9,32 +9,32 @@ void RequiresTest(Gameobject& go) {
     go.AddComponent<SizeOnRed>();
 }
 
-RedShifter::RedShifter(Gameobject& go) : go(go) {
+RedShifter::RedShifter(GORef&& go) : go(go) {
     Fastboi::Print("RedShifter made!\n");
 }
 
 void RedShifter::Start() {
     Fastboi::Print("Checking requirements...\n");
 
-    if (!Reqs::HasRequiredComponents(go))
+    if (!Reqs::HasRequiredComponents(go()))
         Application::ThrowRuntimeException("RedShifter requirements not fulfilled\n", Application::REQUIREMENTS_NOT_FULFILLED);
 
-    color = &go.GetComponent<Components::ColorComp>();
+    color = &go().GetComponent<Components::ColorComp>();
 }
 
 void RedShifter::Update() {
     color->r += 1;
 }
 
-SizeOnRed::SizeOnRed(Gameobject& go) : go(go) { }
+SizeOnRed::SizeOnRed(GORef&& go) : go(go) { }
 
 void SizeOnRed::Start() {
-    if (!Reqs::HasRequiredComponents(go))
+    if (!Reqs::HasRequiredComponents(go()))
         Application::ThrowRuntimeException("SizeOnRed reqs not met\n", Application::REQUIREMENTS_NOT_FULFILLED);
 
-    color = &go.GetComponent<Components::ColorComp>();
+    color = &go().GetComponent<Components::ColorComp>();
 }
 
 void SizeOnRed::Update() {
-    go.transform->size.x = color->r;
+    go().transform->size.x = color->r;
 }

@@ -63,24 +63,24 @@ void Slowboi::InitGame() {
 }
 
 struct BulletHit {
-    Gameobject& go;
+    GORef go;
 
-    BulletHit(Gameobject& go) : go(go) { };
+    BulletHit(GORef&& go) : go(go) { };
     
     void Hit(const CollisionEvent& e) {
         if (!e.collider.IsTrigger() && !e.collider.gameobject.HasComponent<Slowboi::Components::Player>()) {
-            Fastboi::Destroy(go);
+            Fastboi::Destroy(go());
         }
     }
 };
 
 struct Spinner {
-    Gameobject& go;
+    GORef go;
 
-    Spinner(Gameobject& go) : go(go) { };
+    Spinner(GORef&& go) : go(go) { };
 
     void Update() {
-        go.transform->SetRotation(go.transform->rotation + 10);
+        go().transform->SetRotation(go().transform->rotation + 10);
     }
 };
 
@@ -120,10 +120,10 @@ void Slowboi::PlayerGO(Gameobject& go, const Position& p) {
 }
 
 struct Expander {
-    Gameobject& go;
+    GORef go;
     Input::KeyListener expandListener = Input::KeyListener(SDL_SCANCODE_SPACE);
 
-    Expander(Gameobject& go) : go(go) {
+    Expander(GORef&& go) : go(go) {
         expandListener.signal.connect<&Expander::Expand>(this);
     };
 
@@ -133,8 +133,8 @@ struct Expander {
 
     void Expand(const KeyEvent& e) {
         if (e.type == KeyEvent::DOWN) {
-            go.transform->size += 5.f;
-            go.transform->SetRotation(go.transform->rotation + 10.f);
+            go().transform->size += 5.f;
+            go().transform->SetRotation(go().transform->rotation + 10.f);
         }
     }
 };

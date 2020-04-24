@@ -1,12 +1,13 @@
 #include "Renderer.h"
 #include "FastboiCore.h"
 #include "Gameobject.h"
+#include "GORef.h"
 
 using namespace Fastboi;
 
-Renderer::Renderer(Gameobject& go) : Renderer(go, { RenderOrder::GROUND, 0 }) { }
+Renderer::Renderer(GORef&& go) : Renderer(std::forward<GORef>(go), { RenderOrder::GROUND, 0 }) { }
 
-Renderer::Renderer(Gameobject& go, RenderData data) : gameobject(go), data(data) {
+Renderer::Renderer(GORef&& go, RenderData data) : gameobject(go), data(data) {
     Fastboi::RegisterRenderer(this);
 }
 

@@ -4,9 +4,9 @@
 
 using namespace Fastboi;
 
-Gameobject::Gameobject() : Gameobject(nullptr) { }
+Gameobject::Gameobject() : Gameobject("") { }
 
-Gameobject::Gameobject(const char* name)
+Gameobject::Gameobject(const std::string& name)
  : transform(nullptr)
  , renderer(nullptr)
  , collider(nullptr)
@@ -60,6 +60,11 @@ void Gameobject::Update() {
     }
 }
 
+Gameobject& Gameobject::Duplicate() {
+    Gameobject& dup = Instantiate<Gameobject>(name);
+    
+
+}
 
 // The components loop cannot be modified while we are looping through it. Thus, we need to have a buffer-stack to
 // store components we need to add. However, a component can add a component when it is Start()'ed, so we use a

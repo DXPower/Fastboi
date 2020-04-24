@@ -28,18 +28,18 @@ namespace Fastboi {
         uint64_t rendererTypeHash = 0;
 
         public:
-        const char* name;
+        std::string name;
         std::unordered_map<uint64_t, std::unique_ptr<ComponentBase>> components;
         // Mapping type to components. (Lookup only available at compile time)
         // Transform,  Renderer, Collider are core but act like components, so we store them separately.
-        // Additionally, because Collider and Renderer can be base classes, this allows for someone to get the
+        // Additionally, because Renderer can be a base class, this allows for someone to get the
         // component via base class
         std::unique_ptr<Transform> transform;
         std::unique_ptr<Renderer> renderer;
         std::unique_ptr<Collider> collider;
 
         Gameobject();
-        Gameobject(const char* name);
+        Gameobject(const std::string& name);
         Gameobject(const Gameobject& copy) = delete;
         Gameobject(const Gameobject&& copy) = delete;
         virtual ~Gameobject();
@@ -49,6 +49,7 @@ namespace Fastboi {
 
         void Start();
         void Update();
+        Gameobject& Duplicate();
         
         template<class T, typename... Args>
         T& AddComponent(Args&&... args);
@@ -81,9 +82,6 @@ namespace Fastboi {
 
         template<class T>
         bool IsComponentEnabled() const;
-
-        // static void* operator new(std::size_t size);
-        // static void operator delete(void* ptr, size_t size);
 
         private:
         std::stack<decltype(components)::value_type> componentsToAdd;

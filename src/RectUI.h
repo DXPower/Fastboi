@@ -15,8 +15,8 @@ namespace Fastboi {
             Fastboi::Input::TargetedClickListener clickListener;
             
             public:
-            RectUI(Fastboi::Gameobject& go);
-            RectUI(Fastboi::Gameobject& go, int z);
+            RectUI(GORef&& go);
+            RectUI(GORef&& go, int z);
 
             void Start() override;
             void Render() override;

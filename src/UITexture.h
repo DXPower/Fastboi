@@ -5,7 +5,7 @@ namespace Fastboi {
         struct UITexture final : public Renderer {
             const Texture& texture;
 
-            UITexture(Gameobject& go, const char* textureName);
+            UITexture(GORef&& go, const char* textureName);
 
             void Render() override;
         };

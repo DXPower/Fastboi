@@ -13,8 +13,8 @@ namespace Fastboi {
              * @param textureName Key used by Fastboi::Resources to load texture
              * @param cutout Rectangle of texture to render
             **/
-            SpriteRenderer(Fastboi::Gameobject& gameobject, Fastboi::RenderData data, const char* textureName, const Rect& cutout);
-            SpriteRenderer(Fastboi::Gameobject& gameobject, Fastboi::RenderData data, const Texture& texture, const Rect& cutout);
+            SpriteRenderer(GORef&& gameobject, Fastboi::RenderData data, const char* textureName, const Rect& cutout);
+            SpriteRenderer(GORef&& gameobject, Fastboi::RenderData data, const Texture& texture, const Rect& cutout);
             ~SpriteRenderer();
 
             void Render() override;

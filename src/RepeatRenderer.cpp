@@ -5,8 +5,8 @@ using namespace Fastboi;
 using namespace Fastboi::Rendering;
 using namespace Components;
 
-RepeatRenderer::RepeatRenderer(Gameobject& gameobject, RenderData data, const char* textureName, const Size& tileSize)
-: Renderer(gameobject, data)
+RepeatRenderer::RepeatRenderer(GORef&& gameobject, RenderData data, const char* textureName, const Size& tileSize)
+: Renderer(std::forward<GORef>(gameobject), data)
 , baseTexture(Fastboi::Resources::GetTexture(textureName))
 , repeatTexture(nullptr)
 , tileSize(tileSize) { }
@@ -16,7 +16,7 @@ void RepeatRenderer::Start() {
 
     Input::resizeSignal.connect<&RepeatRenderer::WindowSizeChanged>(this);   
 
-    lastSize = gameobject.transform->size;                              
+    lastSize = gameobject().transform->size;                              
 }
 
 RepeatRenderer::~RepeatRenderer() {
@@ -26,18 +26,18 @@ RepeatRenderer::~RepeatRenderer() {
 }
 
 void RepeatRenderer::Render() {
-    if (lastSize != gameobject.transform->size || repeatTexture.GetSDL_Texture() == nullptr) {
-        lastSize = gameobject.transform->size;
+    if (lastSize != gameobject().transform->size || repeatTexture.GetSDL_Texture() == nullptr) {
+        lastSize = gameobject().transform->size;
         CreateRepeatTexture(lastSize);
     }
 
-    Rendering::Render_Texture(gameobject.transform, repeatTexture);
+    Rendering::Render_Texture(gameobject().transform, repeatTexture);
 }
 
 void RepeatRenderer::CreateRepeatTexture(const Size& newSize) {
-    repeatTexture.Recreate(gameobject.transform->size, SDL_TEXTUREACCESS_TARGET, baseTexture.GetFormat());                                       
+    repeatTexture.Recreate(gameobject().transform->size, SDL_TEXTUREACCESS_TARGET, baseTexture.GetFormat());                                       
 
-    const Size& size = gameobject.transform->size; // Using Size& size instead of newSize for cache locality
+    const Size& size = gameobject().transform->size; // Using Size& size instead of newSize for cache locality
 
     // Count tiles in each direction. +1 because we are guarenteeing that one tile is exactly centered,
     //   meaning there is always an odd number of tiles in each direction.
@@ -63,5 +63,5 @@ void RepeatRenderer::CreateRepeatTexture(const Size& newSize) {
 
 void RepeatRenderer::WindowSizeChanged(const Fastboi::WindowResizeEvent& e) {
     printf("Repeat renderer: Window size changed.\n");
-    CreateRepeatTexture(gameobject.transform->size);
+    CreateRepeatTexture(gameobject().transform->size);
 }

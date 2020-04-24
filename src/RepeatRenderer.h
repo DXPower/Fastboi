@@ -14,7 +14,7 @@ namespace Fastboi {
             Texture repeatTexture;
             Size tileSize;
             
-            RepeatRenderer(Gameobject& gameobject, RenderData data, const char* textureName, const Size& tileSize);
+            RepeatRenderer(GORef&& gameobject, RenderData data, const char* textureName, const Size& tileSize);
             ~RepeatRenderer();
 
             void Start() override;

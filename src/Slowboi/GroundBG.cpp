@@ -13,14 +13,14 @@ namespace Slowboi {
 
         bool hasDrawnGround = false;
 
-        GroundRenderer(Gameobject& go, RenderData data, const Texture& spritesheet, const Size& tileSize, const std::vector<Rect>& sprites)
-        : Renderer(go, data)
+        GroundRenderer(GORef&& go, RenderData data, const Texture& spritesheet, const Size& tileSize, const std::vector<Rect>& sprites)
+        : Renderer(std::forward<GORef>(go), data)
         , sprites(sprites), spritesheet(spritesheet), ground(nullptr), tileSize(tileSize)
         { };
 
         void DrawGround() {
             printf("Rendering thread: %i\n", Fastboi::IsRenderingThread());
-            ground.Recreate(gameobject.transform->size, SDL_TEXTUREACCESS_TARGET, spritesheet.GetFormat());
+            ground.Recreate(gameobject().transform->size, SDL_TEXTUREACCESS_TARGET, spritesheet.GetFormat());
             hasDrawnGround = true;
 
             Rect drawRect(0, 0, tileSize.x, tileSize.y);
@@ -53,9 +53,9 @@ namespace Slowboi {
                 DrawGround();
             }
 
-            Rendering::Render_Texture(Transform(gameobject.transform->position, gameobject.transform->size * 2.f, 0), spritesheet);
-            Rendering::Render_Texture(Transform(gameobject.transform->position, gameobject.transform->size * 1.3f, 0), spritesheet);
-            Rendering::Render_Texture(gameobject.transform, ground);
+            Rendering::Render_Texture(Transform(gameobject().transform->position, gameobject().transform->size * 2.f, 0), spritesheet);
+            Rendering::Render_Texture(Transform(gameobject().transform->position, gameobject().transform->size * 1.3f, 0), spritesheet);
+            Rendering::Render_Texture(gameobject().transform, ground);
         }
     };
 }

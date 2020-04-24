@@ -1,10 +1,10 @@
 #pragma once
 
-#include <typeindex>
+#include <GORef.h>
 #include <functional>
-#include <any>
-#include "Utility.h"
 #include <memory>
+#include <typeindex>
+#include "Utility.h"
 
 
 #define GenHasFunction(CheckerName, CheckFunction) \
@@ -32,8 +32,9 @@ namespace Fastboi {
         ComponentBase() : enabled(true) { };
         virtual ~ComponentBase() { };
 
-        virtual void Start() { };
-        virtual void Update() { };
+        virtual void Start() = 0;
+        virtual void Update() = 0;
+        virtual bool Duplicate() = 0;
         
         virtual void* Retrieve() = 0; // void* because we need to be able to return a T from template below
     };
@@ -43,7 +44,7 @@ namespace Fastboi {
         std::unique_ptr<Component_t> component;
 
         Component(Gameobject& go, Args&&... args) { 
-            component = std::make_unique<Component_t>(go, std::forward<Args>(args)...);
+            component = std::make_unique<Component_t>(GORef(go), std::forward<Args>(args)...);
         };
 
         ~Component() = default;
@@ -57,6 +58,7 @@ namespace Fastboi {
         // Checker functions so we know whether we can call Update or Start on the component
         GenHasFunction(HasUpdate, Update);
         GenHasFunction(HasStart, Start);
+        GenHasFunction(HasDuplicate, Duplicate);
 
         void Start() override {
             if constexpr (HasStart<Component_t>::value) {
@@ -74,6 +76,16 @@ namespace Fastboi {
                 ; // Noop
             }
         };
+
+        bool Duplicate() override {
+            if constexpr (HasDuplicate<Component_t>::value) {
+                component->Duplicate();
+
+                return true;
+            } else {
+                return false;
+            }
+        }
 
         void* Retrieve() override {
             return (void*) component.get();

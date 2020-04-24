@@ -49,7 +49,7 @@ namespace Fastboi {
                 }
             };
 
-            Fastboi::Gameobject& gameobject;
+            Fastboi::GORef gameobject;
             SpriteRenderer* renderer;
             bool paused;
 
@@ -64,7 +64,7 @@ namespace Fastboi {
             }
 
             public:
-            Spritesheet(Gameobject& gameobject)
+            Spritesheet(GORef&& gameobject)
             : gameobject(gameobject)
             , renderer(nullptr)
             , currentAnimation(AnimationKey())
@@ -75,14 +75,14 @@ namespace Fastboi {
             void Start() {
                 using Reqs = RequiredComponents<SpriteRenderer>;
 
-                if (!Reqs::HasRequiredComponents(gameobject)) {
+                if (!Reqs::HasRequiredComponents(gameobject())) {
                     Application::ThrowRuntimeException(
                         "Spritesheet missing reqs:", 
                         Application::REQUIREMENTS_NOT_FULFILLED,
-                        Reqs::GetMissingNamesString(gameobject).c_str());
+                        Reqs::GetMissingNamesString(gameobject()).c_str());
                 }
 
-                renderer = &gameobject.GetComponent<SpriteRenderer>();
+                renderer = &gameobject().template GetComponent<SpriteRenderer>();
 
                 UpdateWindow();
             }

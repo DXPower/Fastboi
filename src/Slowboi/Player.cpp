@@ -9,7 +9,7 @@ using namespace Fastboi;
 using namespace Input;
 using namespace Slowboi::Components;
 
-Player::Player(Gameobject& go)
+Player::Player(GORef&& go)
  : gameobject(go)
  , spacebarListener(KeyListener(SDL_SCANCODE_SPACE))
  , enableListener(KeyListener({ SDL_SCANCODE_E, SDL_SCANCODE_C }))
@@ -22,18 +22,18 @@ Player::Player(Gameobject& go)
 }
 
 Player::~Player() {
-    gameobject.RemoveComponent<Spritesheet<int>>();
-    gameobject.RemoveComponent<VelocityComp>();
+    gameobject().RemoveComponent<Spritesheet<int>>();
+    gameobject().RemoveComponent<VelocityComp>();
 }
 
 void Player::Start() {
-    gameobject.GetComponent<Collider>().collisionSignal.connect<&Player::Collision>(this);
-    velocityComp = &gameobject.AddComponent<VelocityComp>();
+    gameobject().GetComponent<Collider>().collisionSignal.connect<&Player::Collision>(this);
+    velocityComp = &gameobject().AddComponent<VelocityComp>();
 
     using PlayerSpritesheet = Spritesheet<>;
     using Animation = PlayerSpritesheet::Animation;
 
-    spritesheet = &gameobject.AddComponent<Spritesheet<int>>();
+    spritesheet = &gameobject().AddComponent<Spritesheet<int>>();
 
     for (uint8_t i = 0; i < 8; i++) {
         constexpr uint32_t ticksWalking = 1;
@@ -47,28 +47,28 @@ void Player::Start() {
     spritesheet->SetCurrentAnimation(-1);
 }
 
-void Player::EnablePressed(const KeyEvent& e) const {
+void Player::EnablePressed(const KeyEvent& e) {
     Fastboi::Print("Enable pressed!\n");
 
     if (e.type == KeyEvent::DOWN) {
         if (e.key == SDL_SCANCODE_E)
-            gameobject.SetEnabled(!gameobject.IsEnabled());
+            gameobject().SetEnabled(!gameobject().IsEnabled());
         else if (e.key == SDL_SCANCODE_C)
-            gameobject.SetComponentEnabled<Collider>(!gameobject.IsComponentEnabled<Collider>());
+            gameobject().SetComponentEnabled<Collider>(!gameobject().IsComponentEnabled<Collider>());
     }
 }
 
 void Player::Spacebar(const KeyEvent& e) const {
-    Instantiate<Slowboi::Bullet>(gameobject.transform->position, facingDirection.normalized() * speed);
+    Instantiate<Slowboi::Bullet>(gameobject().transform->position, facingDirection.normalized() * speed);
 }
 
 void Player::Fire(const ClickEvent& event) const {
     if (event.type == ClickEvent::DOWN) {
         // Fastboi::Instantiate<UISquare>(event.pos, Size(25, 25), ColorComp(100, 0, 100, 255), 50);
 
-        Vecf d = (Fastboi::camera.ScreenToWorldPos(event.pos) - gameobject.transform->position).normalized();
+        Vecf d = (Fastboi::camera.ScreenToWorldPos(event.pos) - gameobject().transform->position).normalized();
 
-        Gameobject& bullet = Instantiate<Slowboi::Bullet>(gameobject.transform->position, d * speed);
+        Gameobject& bullet = Instantiate<Slowboi::Bullet>(gameobject().transform->position, d * speed);
         // Fastboi::camera.SetTarget(*gameobject.transform, Camera::WATCHING);
     } else if (event.type == ClickEvent::UP) {
         // printf("Fire up! %i %i\n", event.pos.x, event.pos.y);
@@ -141,7 +141,7 @@ void Player::Update() {
 }
 
 void Player::Collision(const CollisionEvent& e) const {
-    if (e.type == CollisionEvent::BEGIN) {
-    } else if (e.type == CollisionEvent::END) {
-    }
+    // if (e.type == CollisionEvent::BEGIN) {
+    // } else if (e.type == CollisionEvent::END) {
+    // }
 }

@@ -4,7 +4,7 @@
 using namespace Fastboi;
 using namespace Fastboi::Components;
 
-WireframeRenderer::WireframeRenderer(Gameobject& go, RenderData rd) : Renderer(go, rd) { };
+WireframeRenderer::WireframeRenderer(GORef&& go, RenderData rd) : Renderer(std::forward<GORef>(go), rd) { };
 WireframeRenderer::~WireframeRenderer() { };
 
 void WireframeRenderer::Start() {
@@ -12,16 +12,16 @@ void WireframeRenderer::Start() {
 
     using Reqs = RequiredComponents<Transform, ColorComp>;
 
-    if (!Reqs::HasRequiredComponents(gameobject))
+    if (!Reqs::HasRequiredComponents(gameobject()))
         Application::ThrowRuntimeException("WireframeRenderer missing reqs!", 
                                         Application::REQUIREMENTS_NOT_FULFILLED,
-                                        Reqs::GetMissingNamesString(gameobject).c_str());
+                                        Reqs::GetMissingNamesString(gameobject()).c_str());
 }
 
 void WireframeRenderer::Render() {
-    Rendering::SetColor(gameobject.GetComponent<ColorComp>());
+    Rendering::SetColor(gameobject().GetComponent<ColorComp>());
     
-    auto& vertices = gameobject.transform->GetVertices();
+    auto& vertices = gameobject().transform->GetVertices();
 
     for (auto pit = vertices.pair_begin(); pit != vertices.pair_end(); pit++) {
         Rendering::Render_Line(*pit.first, *pit.second);

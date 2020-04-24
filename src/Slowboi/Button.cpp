@@ -6,18 +6,18 @@ using namespace Fastboi;
 using namespace Input;
 
 struct ButtonClickComp {
-    Gameobject& go;
+    Fastboi::GORef go;
     TargetedClickListener listener;
 
-    ButtonClickComp(Gameobject& go) : go(go), listener(*go.transform, *go.renderer) {
+    ButtonClickComp(Fastboi::GORef&& go) : go(go), listener(*go().transform, *go().renderer) {
         listener.signal.connect<&ButtonClickComp::Click>(this);
     };
 
     void Click(const TargetedClickEvent& e) {
         if (e.type == ClickEvent::DOWN) {
-            go.transform->size -= 5.f;
+            go().transform->size -= 5.f;
         } else if (e.type == ClickEvent::UP) {
-            go.transform->size += 5.f;
+            go().transform->size += 5.f;
         }
     }
 };
