@@ -10,7 +10,7 @@ using namespace Input;
 using namespace Slowboi::Components;
 
 Player::Player(GORef&& go)
- : gameobject(go)
+ : gameobject(std::move(go))
  , spacebarListener(KeyListener(SDL_SCANCODE_SPACE))
  , enableListener(KeyListener({ SDL_SCANCODE_E, SDL_SCANCODE_C }))
  , lastDirection(Vecf(0, 1)) {

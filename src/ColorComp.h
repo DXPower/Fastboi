@@ -28,7 +28,7 @@ namespace Fastboi {
             GORef gameobject;
 
             public:
-            constexpr ColorShiftComp(GORef&& go) : gameobject(go), color(nullptr) { };
+            ColorShiftComp(GORef&& go) : gameobject(std::move(go)), color(nullptr) { };
 
             void Start() {
                 color = &gameobject().GetComponent<ColorComp>();

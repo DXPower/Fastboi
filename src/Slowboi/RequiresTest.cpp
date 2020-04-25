@@ -9,7 +9,7 @@ void RequiresTest(Gameobject& go) {
     go.AddComponent<SizeOnRed>();
 }
 
-RedShifter::RedShifter(GORef&& go) : go(go) {
+RedShifter::RedShifter(GORef&& go) : go(std::move(go)) {
     Fastboi::Print("RedShifter made!\n");
 }
 
@@ -26,7 +26,7 @@ void RedShifter::Update() {
     color->r += 1;
 }
 
-SizeOnRed::SizeOnRed(GORef&& go) : go(go) { }
+SizeOnRed::SizeOnRed(GORef&& go) : go(std::move(go)) { }
 
 void SizeOnRed::Start() {
     if (!Reqs::HasRequiredComponents(go()))

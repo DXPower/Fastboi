@@ -65,7 +65,7 @@ namespace Fastboi {
 
             public:
             Spritesheet(GORef&& gameobject)
-            : gameobject(gameobject)
+            : gameobject(std::move(gameobject))
             , renderer(nullptr)
             , currentAnimation(AnimationKey())
             , paused(false) { };

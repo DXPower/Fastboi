@@ -7,8 +7,8 @@
 using namespace Fastboi;
 using namespace Fastboi::Components;
 
-RectUI::RectUI(GORef&& go) : Renderer(std::forward<GORef>(go), { RenderOrder::UI, 0 }) { }
-RectUI::RectUI(GORef&& go, int z) : Renderer(std::forward<GORef>(go), { RenderOrder::UI, z }) { }
+RectUI::RectUI(GORef&& go) : Renderer(std::move(go), { RenderOrder::UI, 0 }) { }
+RectUI::RectUI(GORef&& go, int z) : Renderer(std::move(go), { RenderOrder::UI, z }) { }
 
 void RectUI::Start() {
     Renderer::Start();

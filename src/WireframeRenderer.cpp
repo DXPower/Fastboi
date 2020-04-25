@@ -4,7 +4,7 @@
 using namespace Fastboi;
 using namespace Fastboi::Components;
 
-WireframeRenderer::WireframeRenderer(GORef&& go, RenderData rd) : Renderer(std::forward<GORef>(go), rd) { };
+WireframeRenderer::WireframeRenderer(GORef&& go, RenderData rd) : Renderer(std::move(go), rd) { };
 WireframeRenderer::~WireframeRenderer() { };
 
 void WireframeRenderer::Start() {

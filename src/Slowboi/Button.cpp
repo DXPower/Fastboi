@@ -9,7 +9,7 @@ struct ButtonClickComp {
     Fastboi::GORef go;
     TargetedClickListener listener;
 
-    ButtonClickComp(Fastboi::GORef&& go) : go(go), listener(*go().transform, *go().renderer) {
+    ButtonClickComp(Fastboi::GORef&& go) : go(std::move(go)), listener(*go().transform, *go().renderer) {
         listener.signal.connect<&ButtonClickComp::Click>(this);
     };
 

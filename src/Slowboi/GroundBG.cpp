@@ -14,7 +14,7 @@ namespace Slowboi {
         bool hasDrawnGround = false;
 
         GroundRenderer(GORef&& go, RenderData data, const Texture& spritesheet, const Size& tileSize, const std::vector<Rect>& sprites)
-        : Renderer(std::forward<GORef>(go), data)
+        : Renderer(std::move(go), data)
         , sprites(sprites), spritesheet(spritesheet), ground(nullptr), tileSize(tileSize)
         { };
 

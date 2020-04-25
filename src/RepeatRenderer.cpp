@@ -6,7 +6,7 @@ using namespace Fastboi::Rendering;
 using namespace Components;
 
 RepeatRenderer::RepeatRenderer(GORef&& gameobject, RenderData data, const char* textureName, const Size& tileSize)
-: Renderer(std::forward<GORef>(gameobject), data)
+: Renderer(std::move(gameobject), data)
 , baseTexture(Fastboi::Resources::GetTexture(textureName))
 , repeatTexture(nullptr)
 , tileSize(tileSize) { }

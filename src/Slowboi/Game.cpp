@@ -65,7 +65,7 @@ void Slowboi::InitGame() {
 struct BulletHit {
     GORef go;
 
-    BulletHit(GORef&& go) : go(go) { };
+    BulletHit(GORef&& go) : go(std::move(go)) { };
     
     void Hit(const CollisionEvent& e) {
         if (!e.collider.IsTrigger() && !e.collider.gameobject.HasComponent<Slowboi::Components::Player>()) {
@@ -77,7 +77,7 @@ struct BulletHit {
 struct Spinner {
     GORef go;
 
-    Spinner(GORef&& go) : go(go) { };
+    Spinner(GORef&& go) : go(std::move(go)) { };
 
     void Update() {
         go().transform->SetRotation(go().transform->rotation + 10);
@@ -123,7 +123,7 @@ struct Expander {
     GORef go;
     Input::KeyListener expandListener = Input::KeyListener(SDL_SCANCODE_SPACE);
 
-    Expander(GORef&& go) : go(go) {
+    Expander(GORef&& go) : go(std::move(go)) {
         expandListener.signal.connect<&Expander::Expand>(this);
     };
 

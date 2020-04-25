@@ -28,6 +28,7 @@ namespace Fastboi {
     // Base component without any template specializations so it can be stored in a container (Namely Gameobject::components)
     struct ComponentBase {
         bool enabled;
+        GORef* internalGORef = nullptr;
 
         ComponentBase() : enabled(true) { };
         virtual ~ComponentBase() { };
@@ -44,7 +45,7 @@ namespace Fastboi {
         std::unique_ptr<Component_t> component;
 
         Component(Gameobject& go, Args&&... args) { 
-            component = std::make_unique<Component_t>(GORef(go), std::forward<Args>(args)...);
+            component = std::make_unique<Component_t>(GORef(go, *this), std::forward<Args>(args)...);
         };
 
         ~Component() = default;

@@ -94,7 +94,7 @@ void Fastboi::Render() {
 
         if (!std::isgreater(renderDelta, TICK_TIME)) continue;
 
-        printf("Render: %f\n", renderDelta);
+        // printf("Render: %f\n", renderDelta);
         renderDelta = -TICK_TIME;
 
         // printf("Attempting render...\n");
@@ -175,8 +175,8 @@ void TickPhysicsThread() {
                 Physics();
                 Tick();
 
-                if (tickDelta > 0.008335)
-                    printf("tick: %f\n", tickDelta);
+                // if (tickDelta > 0.008335)
+                //     printf("tick: %f\n", tickDelta);
 
                 Fastboi::tickDelta = -TICK_TIME;
                 Fastboi::physicsDelta = -TICK_TIME;

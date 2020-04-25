@@ -5,9 +5,9 @@
 
 using namespace Fastboi;
 
-Renderer::Renderer(GORef&& go) : Renderer(std::forward<GORef>(go), { RenderOrder::GROUND, 0 }) { }
+Renderer::Renderer(GORef&& go) : Renderer(std::move(go), { RenderOrder::GROUND, 0 }) { }
 
-Renderer::Renderer(GORef&& go, RenderData data) : gameobject(go), data(data) {
+Renderer::Renderer(GORef&& go, RenderData data) : gameobject(std::move(go)), data(data) {
     Fastboi::RegisterRenderer(this);
 }
 
