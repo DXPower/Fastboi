@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cstddef>
 #include <GORef.h>
 #include <functional>
 #include <memory>
@@ -28,14 +29,16 @@ namespace Fastboi {
     // Base component without any template specializations so it can be stored in a container (Namely Gameobject::components)
     struct ComponentBase {
         bool enabled;
+        bool isDuplicating = false;
         GORef* internalGORef = nullptr;
+
 
         ComponentBase() : enabled(true) { };
         virtual ~ComponentBase() { };
 
         virtual void Start() = 0;
         virtual void Update() = 0;
-        virtual bool Duplicate() = 0;
+        virtual void Duplicate(ComponentBase& out) = 0;
         
         virtual void* Retrieve() = 0; // void* because we need to be able to return a T from template below
     };
@@ -44,9 +47,11 @@ namespace Fastboi {
     struct Component final : ComponentBase {
         std::unique_ptr<Component_t> component;
 
-        Component(Gameobject& go, Args&&... args) { 
+        Component(Gameobject& go, Args&&... args) : ComponentBase() { 
             component = std::make_unique<Component_t>(GORef(go, *this), std::forward<Args>(args)...);
         };
+
+        Component() : ComponentBase(), component(nullptr) { };
 
         ~Component() = default;
 
@@ -59,7 +64,7 @@ namespace Fastboi {
         // Checker functions so we know whether we can call Update or Start on the component
         GenHasFunction(HasUpdate, Update);
         GenHasFunction(HasStart, Start);
-        GenHasFunction(HasDuplicate, Duplicate);
+        // GenHasFunction(HasDuplicate, Duplicate);
 
         void Start() override {
             if constexpr (HasStart<Component_t>::value) {
@@ -78,14 +83,18 @@ namespace Fastboi {
             }
         };
 
-        bool Duplicate() override {
-            if constexpr (HasDuplicate<Component_t>::value) {
-                component->Duplicate();
+        void Duplicate(ComponentBase& out) override {
+            isDuplicating = true;
+            Component<Component_t>& dup = reinterpret_cast<Component<Component_t>&>(out);
 
-                return true;
-            } else {
-                return false;
-            }
+            dup.component.reset(new Component_t(*component));
+            
+            std::ptrdiff_t offset = reinterpret_cast<char*>(internalGORef) - reinterpret_cast<char*>(component.get());
+            printf("Distance: %i\n", offset);
+            dup.internalGORef = reinterpret_cast<GORef*>(dup.component.get() + offset);
+            dup.internalGORef->owningComp = &dup;
+
+            isDuplicating = false;
         }
 
         void* Retrieve() override {

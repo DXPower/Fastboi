@@ -29,9 +29,9 @@ namespace Slowboi {
             ~Player();
 
             void EnablePressed(const KeyEvent& e);
-            void Spacebar(const KeyEvent& e) const;
+            void Spacebar(const KeyEvent& e);
             void VelocityChanged(const Velocity& velocity) const;
-            void Fire(const ClickEvent& event) const;
+            void Fire(const ClickEvent& event);
             void Start();
             void Update();
             void Collision(const CollisionEvent& e) const;

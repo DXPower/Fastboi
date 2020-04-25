@@ -13,6 +13,7 @@ namespace Fastboi {
         public:
         GORef(Gameobject& go);
         GORef(Gameobject& go, ComponentBase& owner);
+        GORef(const GORef& copy);
         GORef(const GORef&& mv);
 
         GORef& operator=(const GORef&& mv) = delete;
@@ -21,7 +22,7 @@ namespace Fastboi {
         inline const Gameobject& operator()() const { return *go; };
         inline Gameobject& operator()() { return *go; };
 
-        private:
-        GORef(const GORef& copy);
+        template<typename T, typename... Args>
+        friend class Component;
     };
 }

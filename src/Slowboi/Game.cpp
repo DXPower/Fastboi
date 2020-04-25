@@ -33,7 +33,7 @@ void LoadResources() {
 void Slowboi::InitGame() {
     LoadResources();
 
-    Instantiate<Slowboi::Bullet>(Position(500, 500), Size(526, 53));
+    // Instantiate<Slowboi::Bullet>(Position(500, 500), Size(526, 53));
 
     Gameobject& player = Instantiate<&PlayerGO>(Position(500.f, 500.f));
     Gameobject& brick = Instantiate<Brick>(Position(900, 800));
@@ -62,18 +62,6 @@ void Slowboi::InitGame() {
     pauseListener.signal.connect<&TogglePause>();
 }
 
-struct BulletHit {
-    GORef go;
-
-    BulletHit(GORef&& go) : go(std::move(go)) { };
-    
-    void Hit(const CollisionEvent& e) {
-        if (!e.collider.IsTrigger() && !e.collider.gameobject.HasComponent<Slowboi::Components::Player>()) {
-            Fastboi::Destroy(go());
-        }
-    }
-};
-
 struct Spinner {
     GORef go;
 
@@ -84,9 +72,23 @@ struct Spinner {
     }
 };
 
+struct BulletHit {
+    GORef go;
+    Slowboi::Components::Player& player;
+
+    BulletHit(GORef&& go, Slowboi::Components::Player& player) : go(std::move(go)), player(player) { };
+    
+    void Hit(const CollisionEvent& e) {
+        if (!e.collider.IsTrigger() && !e.collider.gameobject.HasComponent<Slowboi::Components::Player>()) {
+            go().DuplicateComponent<Spinner>(player.gameobject());
+            Fastboi::Destroy(go());
+        }
+    }
+};
+
 static int bulletCount = 0;
 
-void Slowboi::Bullet(Gameobject& go, const Position& p, const Velocity& v) {
+void Slowboi::Bullet(Gameobject& go, const Position& p, const Velocity& v, Components::Player& player) {
     char* buffer = new char[20];
     sprintf(buffer, "Bullet %i", bulletCount);
     bulletCount++;
@@ -102,7 +104,7 @@ void Slowboi::Bullet(Gameobject& go, const Position& p, const Velocity& v) {
     // go.AddComponent<BoxColorRenderer>(RenderData(RenderOrder::PARTICLES));
     go.AddComponent<WireframeRenderer>(RenderData(RenderOrder::PARTICLES));
 
-    BulletHit& bh = go.AddComponent<BulletHit>();
+    BulletHit& bh = go.AddComponent<BulletHit>(player);
     Collider& coll = go.AddComponent<Collider>(Collider::TRIGGER);
     coll.collisionSignal.connect<&BulletHit::Hit>(bh);
 

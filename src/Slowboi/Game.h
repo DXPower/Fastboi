@@ -12,7 +12,7 @@ namespace Slowboi {
 
     void InitGame();
 
-    void Bullet(Gameobject& go, const Position& p, const Velocity& v);
+    void Bullet(Gameobject& go, const Position& p, const Velocity& v, Components::Player& player);
     void Brick(Gameobject& go, const Position& p);
     void UISquare(Gameobject& go, const Position& p, const Size& s, const ColorComp& color, int zindex);
     void PlayerGO(Gameobject& go, const Position& p);

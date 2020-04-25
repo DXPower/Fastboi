@@ -133,7 +133,7 @@ class Observer : private MT_Policy
     }
 
     Observer() = default;
-    Observer(Observer const&) = delete;
+    Observer(Observer const&) = default;
     Observer& operator= (Observer const&) = delete;
 };
 

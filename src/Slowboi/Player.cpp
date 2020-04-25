@@ -58,17 +58,17 @@ void Player::EnablePressed(const KeyEvent& e) {
     }
 }
 
-void Player::Spacebar(const KeyEvent& e) const {
-    Instantiate<Slowboi::Bullet>(gameobject().transform->position, facingDirection.normalized() * speed);
+void Player::Spacebar(const KeyEvent& e) {
+    Instantiate<Slowboi::Bullet>(gameobject().transform->position, facingDirection.normalized() * speed, *this);
 }
 
-void Player::Fire(const ClickEvent& event) const {
+void Player::Fire(const ClickEvent& event) {
     if (event.type == ClickEvent::DOWN) {
         // Fastboi::Instantiate<UISquare>(event.pos, Size(25, 25), ColorComp(100, 0, 100, 255), 50);
 
         Vecf d = (Fastboi::camera.ScreenToWorldPos(event.pos) - gameobject().transform->position).normalized();
 
-        Gameobject& bullet = Instantiate<Slowboi::Bullet>(gameobject().transform->position, d * speed);
+        Gameobject& bullet = Instantiate<Slowboi::Bullet>(gameobject().transform->position, d * speed, *this);
         // Fastboi::camera.SetTarget(*gameobject.transform, Camera::WATCHING);
     } else if (event.type == ClickEvent::UP) {
         // printf("Fire up! %i %i\n", event.pos.x, event.pos.y);
