@@ -3,7 +3,7 @@
 void RequiresTest(Gameobject& go) {
     go.AddComponent<Transform>(Position(75, 75), Size(250, 100), 0);
     go.AddComponent<Components::ColorComp>();
-    go.AddComponent<Components::BoxColorRenderer>(RenderData(RenderOrder::GROUND));
+    go.AddComponent<Components::BoxColorRenderer>(RenderData(RenderOrder::GROUND, 10));
 
     go.AddComponent<RedShifter>();
     go.AddComponent<SizeOnRed>();

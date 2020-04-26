@@ -24,5 +24,7 @@ namespace Fastboi {
 
         template<typename T, typename... Args>
         friend class Component;
+        
+        friend class Gameobject;
     };
 }

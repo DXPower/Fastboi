@@ -36,8 +36,8 @@ void Player::Start() {
     spritesheet = &gameobject().AddComponent<Spritesheet<int>>();
 
     for (uint8_t i = 0; i < 8; i++) {
-        constexpr uint32_t ticksWalking = 1;
-        constexpr uint32_t ticksStanding = 40;
+        constexpr uint32_t ticksWalking = 10;
+        constexpr uint32_t ticksStanding = 60;
         constexpr uint32_t height = 42;
 
         spritesheet->AddAnimation(i + 1, Animation(Veci(0, i * 42), Vec<int>(41, 42), Vecb(8, 1), ticksWalking));

@@ -67,7 +67,7 @@ namespace Fastboi {
         void RemoveComponent();
 
         template<class T>
-        void DuplicateComponent(Gameobject& dest) const;
+        T& DuplicateComponent(Gameobject& dest) const;
 
         void SetEnabled(bool f);
         inline void Enable() { SetEnabled(true); };
@@ -183,7 +183,7 @@ namespace Fastboi {
     }
 
     template<class T>
-    void Gameobject::DuplicateComponent(Gameobject& dest) const {
+    T& Gameobject::DuplicateComponent(Gameobject& dest) const {
         if (!HasComponent<T>()) {
             Application::ThrowRuntimeException("Attempt to duplicate nonexistant component!", 
                 Application::COMPONENT_NO_EXIST,
@@ -199,7 +199,11 @@ namespace Fastboi {
         constexpr uint64_t typekey = ctti::type_id<T>().hash();
         components.at(typekey)->Duplicate(*destComp);
 
+        destComp->internalGORef->go = &dest;
+
         dest.componentsToAdd.emplace(typekey, destComp);
+
+        return *destComp->component;
     }
 
     template<class T>

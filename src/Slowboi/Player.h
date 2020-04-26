@@ -23,7 +23,7 @@ namespace Slowboi {
 
             public:
             GORef gameobject;
-            float_t speed = 300.0f;
+            float_t speed = 200.0f;
 
             Player(GORef&& go);
             ~Player();

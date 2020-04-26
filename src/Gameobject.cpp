@@ -46,7 +46,7 @@ void Gameobject::Start() {
 void Gameobject::Update() {
     if (isEnabled && !isDeleted) {
         componentsLock = true;
-        AddComponentsOnStack();
+        RemoveComponentsOnStack();
 
         if (collider) 
             collider->Update();
@@ -55,7 +55,7 @@ void Gameobject::Update() {
             comp->Update();
         }
 
-        RemoveComponentsOnStack();
+        AddComponentsOnStack();
         componentsLock = false;
     }
 }

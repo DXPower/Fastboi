@@ -51,7 +51,7 @@ void Slowboi::InitGame() {
     Gameobject& anon = Instantiate<Gameobject>("Anonymous GO");
     anon.AddComponent<Transform>(Position(50, 500), Size(75, 90), 45);
     anon.AddComponent<ColorComp>(255, 0, 255, 255);
-    anon.AddComponent<BoxColorRenderer>(RenderData(RenderOrder::GROUND));
+    anon.AddComponent<BoxColorRenderer>(RenderData(RenderOrder::GROUND, 10));
     anon.AddComponent<Collider>(Collider::FIXED);
 
     std::vector<Rect> grassSprites = { Rect(36, 36, 8, 8) };
@@ -64,11 +64,12 @@ void Slowboi::InitGame() {
 
 struct Spinner {
     GORef go;
+    float speed;
 
-    Spinner(GORef&& go) : go(std::move(go)) { };
+    Spinner(GORef&& go, float speed) : go(std::move(go)), speed(speed) { };
 
     void Update() {
-        go().transform->SetRotation(go().transform->rotation + 10);
+        go().transform->SetRotation(go().transform->rotation + speed);
     }
 };
 
@@ -79,8 +80,15 @@ struct BulletHit {
     BulletHit(GORef&& go, Slowboi::Components::Player& player) : go(std::move(go)), player(player) { };
     
     void Hit(const CollisionEvent& e) {
+        if (e.type == CollisionEvent::END) return;
+
         if (!e.collider.IsTrigger() && !e.collider.gameobject.HasComponent<Slowboi::Components::Player>()) {
-            go().DuplicateComponent<Spinner>(player.gameobject());
+            if (!player.gameobject().HasComponent<Spinner>())
+                go().DuplicateComponent<Spinner>(player.gameobject());
+            
+            if (!e.collider.gameobject.HasComponent<Spinner>())
+                go().DuplicateComponent<Spinner>(e.collider.gameobject).speed = -0.5;
+
             Fastboi::Destroy(go());
         }
     }
@@ -108,7 +116,7 @@ void Slowboi::Bullet(Gameobject& go, const Position& p, const Velocity& v, Compo
     Collider& coll = go.AddComponent<Collider>(Collider::TRIGGER);
     coll.collisionSignal.connect<&BulletHit::Hit>(bh);
 
-    go.AddComponent<Spinner>();
+    go.AddComponent<Spinner>(10);
 }
 
 void Slowboi::PlayerGO(Gameobject& go, const Position& p) {
