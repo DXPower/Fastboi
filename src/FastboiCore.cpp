@@ -28,12 +28,13 @@ extern "C" {
 #define BLUE 0, 0, 255, 255
 
 using namespace Fastboi;
+using namespace std::chrono;
 
 bool quit = false;
 bool paused = false;
 
-float Fastboi::tickDelta = 0.0f;
-float Fastboi::physicsDelta = 0.0f;
+double Fastboi::tickDelta = 0.0;
+double Fastboi::physicsDelta = 0.0;
 
 std::size_t cacheLineSize;
 
@@ -54,7 +55,6 @@ void Fastboi::Destroy(Gameobject& go) {
 }
 
 void Fastboi::Tick() {
-    std::lock_guard<std::mutex> lock(renderingMtx);
 
     extern GameobjectAllocator gameobjectAllocator;
     gameobjectAllocator.StartAll();
@@ -67,6 +67,7 @@ void Fastboi::Tick() {
         go.Update();
     }
 
+    std::lock_guard<std::mutex> lock(renderingMtx);
     for (Gameobject* go : gosToDelete) {
         go->~Gameobject();
         gameobjectAllocator.Deallocate(static_cast<void*>(go));
@@ -78,9 +79,9 @@ void Fastboi::Tick() {
 void Fastboi::Render() {
     Timer renderTimer;
     constexpr int TICK_FREQUENCY = 120;
-    constexpr float TICK_TIME = 1.0f / TICK_FREQUENCY;
+    constexpr std::chrono::duration<double, std::milli> TICK_TIME(1000.0 / TICK_FREQUENCY);
     
-    float renderDelta = 0;
+    std::chrono::duration<double, std::milli> renderDelta(0);
 
     while (!quit) {
         renderingMtx.lock();
@@ -89,15 +90,15 @@ void Fastboi::Render() {
 
         Texture::CreateQueuedTextures();
 
-        renderTimer.tick();
-        renderDelta += renderTimer.elapsed_seconds;
+        if (!(renderTimer.TimeSinceLastTick() > TICK_TIME)) continue;
 
-        if (!std::isgreater(renderDelta, TICK_TIME)) continue;
+        renderDelta = renderTimer.elapsed_seconds;
+        renderTimer.Tick();
 
-        // printf("Render: %f\n", renderDelta);
-        renderDelta = -TICK_TIME;
+        if (renderDelta > (decltype(renderDelta){10}))
+            printf("Render: %f\n", renderDelta);
 
-        // printf("Attempting render...\n");
+        // // printf("Attempting render...\n");
         uint32_t flags = SDL_GetWindowFlags(Application::gWindow);
         if (!(flags & (SDL_WINDOW_INPUT_FOCUS))) {
             continue;
@@ -123,6 +124,7 @@ void Fastboi::Render() {
 
         renderingMtx.unlock();
         SDL_RenderPresent(Rendering::gRenderer);
+        renderDelta = renderDelta.zero();
     }
 }
 
@@ -134,7 +136,7 @@ void Fastboi::Physics() {
     Collision::PotentialCollisions_t potentialCollisions;
     Collision::Collisions_t collisions;
 
-    std::lock_guard lock(renderingMtx);
+    // std::lock_guard lock(renderingMtx);
 
     Collision::ApplyVelocities();
     Collision::BroadPhase(colliders, potentialCollisions);
@@ -154,33 +156,32 @@ void Cleanup() {
 void TickPhysicsThread() {
     // Timing constants
     constexpr int TICK_FREQUENCY = 120;
-    constexpr float TICK_TIME = 1.0f / TICK_FREQUENCY;
+    constexpr std::chrono::duration<double, std::milli> TICK_TIME(1000.0 / TICK_FREQUENCY);
     
     // System timing
     static Timer tickTimer;
 
-    Fastboi::tickDelta = -TICK_TIME;
+    Fastboi::tickDelta = 0;
 
-    tickTimer.tick(); // Initial tick because the time between app start and this line is quite long
+    tickTimer.Tick(); // Initial tick because the time between app start and this line is quite long
 
     while (!quit) {
-        tickTimer.tick();
 
         if (!paused) {
-            Fastboi::tickDelta += tickTimer.elapsed_seconds;
-            Fastboi::physicsDelta += tickTimer.elapsed_seconds;
-
             // Cap tick rate with a blocking if
-            if (std::isgreater(Fastboi::tickDelta, TICK_TIME)) {
+            if (tickTimer.TimeSinceLastTick() > TICK_TIME) {
+                Fastboi::tickDelta = std::chrono::duration_cast<duration<double>>(tickTimer.elapsed_seconds).count();
+                Fastboi::physicsDelta = Fastboi::tickDelta;
+                tickTimer.Tick();
+
                 Physics();
                 Tick();
 
                 // if (tickDelta > 0.008335)
                 //     printf("tick: %f\n", tickDelta);
 
-                Fastboi::tickDelta = -TICK_TIME;
-                Fastboi::physicsDelta = -TICK_TIME;
-
+                Fastboi::tickDelta = 0;
+                Fastboi::physicsDelta = 0;
             }
         }
     }  

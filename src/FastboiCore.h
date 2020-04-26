@@ -13,8 +13,8 @@ namespace Fastboi {
     struct Collider;
     struct Renderer;
     
-    extern float tickDelta;
-    extern float physicsDelta;
+    extern double tickDelta;
+    extern double physicsDelta;
 
     Gameobject& RegisterGameobject(Gameobject* go);
     void UnregisterGameobject(Gameobject* go);

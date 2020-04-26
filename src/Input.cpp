@@ -149,9 +149,9 @@ void CheckCombinations() {
     static Timer timer;
 
     if (lalt && enter) {
-        printf("Timer: %f\n", timer.elapsed_seconds);
-        if (timer.timeSinceLastTick() > 1) {
-            timer.tick();
+        printf("Timer: %f\n", timer.elapsed_seconds.count());
+        if (timer.TimeSinceLastTick() > std::chrono::duration<double, std::centi>(100)) {
+            timer.Tick();
             Application::ToggleFullscreen();
         }
     }

@@ -1,28 +1,27 @@
 #pragma once
 
-#include "SDL/SDL.h"
+#include <chrono>
+
+#define ch std::chrono
 
 namespace Fastboi {
     struct Timer
     {
-        Uint64 previous_ticks{0};
-        float elapsed_seconds{0};
+        ch::steady_clock::time_point lastTick = ch::steady_clock::now();
+        ch::duration<double, std::milli> elapsed_seconds{0};
 
-        void tick()
-        {
-            const Uint64 current_ticks{ SDL_GetPerformanceCounter() };
-            const Uint64 delta{ current_ticks - previous_ticks };
-            previous_ticks = current_ticks;
-            static const Uint64 TICKS_PER_SECOND{ SDL_GetPerformanceFrequency() };
-            elapsed_seconds = delta / static_cast<float>(TICKS_PER_SECOND);
+        void Tick() {
+            auto t2 = ch::steady_clock::now();
+            elapsed_seconds = ch::duration<double, std::milli>(t2 - lastTick);
+            lastTick = t2;
         }
 
-        float timeSinceLastTick()
-        {
-            const Uint64 current_ticks{ SDL_GetPerformanceCounter() };
-            const Uint64 delta{ current_ticks - previous_ticks };
-            static const Uint64 TICKS_PER_SECOND{ SDL_GetPerformanceFrequency() };
-            return delta / static_cast<float>(TICKS_PER_SECOND);
+        decltype(elapsed_seconds) TimeSinceLastTick() {
+            auto t2 = ch::steady_clock::now();
+
+            return ch::duration<double, std::milli>(t2 - lastTick);
         }
     };
 };
+
+#undef ch
