@@ -1,4 +1,5 @@
 #include "Gameobject.h"
+#include "ColorComp.h"
 #include "Collider.h"
 #include "FastboiCore.h"
 
@@ -21,36 +22,48 @@ Gameobject::~Gameobject() {
 }
 
 void Gameobject::Start() {
+    printf("Starting go %s at %p\n", name.c_str(), this);
     if (renderer) {
+        printf("Starting renderer %s\n", name.c_str());
         renderer->Start();
     }
 
     if (collider) {
+        printf("Starting collider %s\n", name.c_str());
         collider->Start();
     }
 
     componentsLock = true;
 
-    auto compsPtr = &components;
-    
     for (auto& [typekey, comp] : components) {
+        printf("Starting comp %s\n", comp->typekey.name().cppstring().c_str());
         comp->Start();
+        printf("Comp started!\n");
     }
 
     AddComponentsOnStack();
 
     componentsLock = false;
     isStarted = true;
+
+    printf("All comps started!\n");
 }
 
 void Gameobject::Update() {
+    // if (name == "Duplicate") {
+    //     printf("Updating dupe!\n");
+
+    //     printf("Renderer started: %i\n", renderer->isStarted);
+    // }
+    
     if (isEnabled && !isDeleted) {
         componentsLock = true;
         RemoveComponentsOnStack();
 
-        if (collider) 
+        if (collider) {
             collider->Update();
-            
+        }
+
         for (auto& [typeKey, comp] : components) {
             comp->Update();
         }
@@ -60,10 +73,44 @@ void Gameobject::Update() {
     }
 }
 
-Gameobject& Gameobject::Duplicate() {
+Gameobject& Gameobject::Duplicate() const {
     Gameobject& dup = Instantiate<Gameobject>(name);
     
+    if (transform)
+        dup.transform = std::make_unique<Transform>(*transform);
 
+    if (collider) {
+        dup.collider = std::make_unique<Collider>(*collider);
+        dup.collider->gameobject.go = &dup;
+    }
+
+    if (renderer) {
+        printf("Duplicating renderer\n");
+        dup.renderer.reset(&renderer->Duplicate());
+        dup.renderer->gameobject.go = &dup;
+        printf("Duped renderer, new one at %p\n", dup.renderer.get());
+    }
+
+    for (const auto& [typekey, comp] : components) {
+        printf("Duplicating component %s\n", comp->typekey.name().cppstring().c_str());
+        ComponentBase& dupComp = comp->CreateEmpty();
+        comp->Duplicate(dupComp, &dup);
+
+        if (typekey == ctti::type_id<Fastboi::Components::ColorShiftComp>().hash()) {
+            auto& maincs = GetComponent<Fastboi::Components::ColorShiftComp>();
+            printf("MAIN ======= addr: %p, goref: %p\n", &maincs, &maincs.gameobject);
+
+            Fastboi::Components::ColorShiftComp& cs = *reinterpret_cast<Fastboi::Components::ColorShiftComp*>(dupComp.Retrieve()); 
+            printf("Internal go ref go: %p. Dup: %p. Owning comp: %p\n", cs.gameobject.go, &dup, cs.gameobject.owningComp);
+            printf("ADDRESS OF SRC: %p, DUPCOMP: %p\n", comp.get(), &dupComp);
+            printf("INT GOREF: %p. ADDRESS OF CS: %p, ADDRESS OF CS GOREF: %p\n", dupComp.internalGORef, &cs, &cs.gameobject);
+        }
+        
+        dup.components.emplace(typekey, std::unique_ptr<ComponentBase>(&dupComp));
+    }
+
+    dup.name = "Duplicate";
+    return dup;
 }
 
 // The components loop cannot be modified while we are looping through it. Thus, we need to have a buffer-stack to

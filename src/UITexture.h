@@ -8,6 +8,10 @@ namespace Fastboi {
             UITexture(GORef&& go, const char* textureName);
 
             void Render() override;
+
+            protected:
+            UITexture(const UITexture& copy) = default;
+            Renderer& Duplicate() const override;
         };
     }
 }

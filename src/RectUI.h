@@ -22,6 +22,10 @@ namespace Fastboi {
             void Render() override;
 
             void Click(const Fastboi::TargetedClickEvent& e);
+            
+            protected:
+            RectUI(const RectUI& copy) = default;
+            Renderer& Duplicate() const override;
         };
     };
 };

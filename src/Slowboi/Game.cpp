@@ -79,15 +79,22 @@ struct BulletHit {
 
     BulletHit(GORef&& go, Slowboi::Components::Player& player) : go(std::move(go)), player(player) { };
     
+    void Start() {
+        go().GetComponent<Collider>().collisionSignal.connect<&BulletHit::Hit>(this);
+    }
+
     void Hit(const CollisionEvent& e) {
         if (e.type == CollisionEvent::END) return;
 
-        if (!e.collider.IsTrigger() && !e.collider.gameobject.HasComponent<Slowboi::Components::Player>()) {
+        if (!e.collider.IsTrigger() && !e.collider.gameobject().HasComponent<Slowboi::Components::Player>()) {
             if (!player.gameobject().HasComponent<Spinner>())
                 go().DuplicateComponent<Spinner>(player.gameobject());
             
-            if (!e.collider.gameobject.HasComponent<Spinner>())
-                go().DuplicateComponent<Spinner>(e.collider.gameobject).speed = -0.5;
+            if (!e.collider.gameobject().HasComponent<Spinner>())
+                go().DuplicateComponent<Spinner>(e.collider.gameobject()).speed = -0.1;
+
+            Gameobject& newBullet = go().Duplicate();
+            newBullet.transform->position = player.gameobject().transform->position;
 
             Fastboi::Destroy(go());
         }
@@ -114,9 +121,8 @@ void Slowboi::Bullet(Gameobject& go, const Position& p, const Velocity& v, Compo
 
     BulletHit& bh = go.AddComponent<BulletHit>(player);
     Collider& coll = go.AddComponent<Collider>(Collider::TRIGGER);
-    coll.collisionSignal.connect<&BulletHit::Hit>(bh);
 
-    go.AddComponent<Spinner>(10);
+    go.AddComponent<Spinner>(2);
 }
 
 void Slowboi::PlayerGO(Gameobject& go, const Position& p) {

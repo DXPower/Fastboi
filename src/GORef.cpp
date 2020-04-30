@@ -18,6 +18,11 @@ GORef::GORef(const GORef&& mv) : go(mv.go), owningComp(mv.owningComp) {
         owningComp->internalGORef = this;
 };
 
+GORef::~GORef() {
+    if (owningComp != nullptr && owningComp->internalGORef == this)
+        owningComp->internalGORef = nullptr;
+}
+
 GORef& GORef::operator=(Gameobject& rebind) {
     go = &rebind;
 

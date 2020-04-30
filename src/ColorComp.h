@@ -1,5 +1,6 @@
 #pragma once
-#include "Fastboi.h"
+#include "GORef.h"
+#include "Transform.h"
 #include "stdint.h"
 
 namespace Fastboi {
@@ -22,15 +23,16 @@ namespace Fastboi {
         };
 
         struct ColorShiftComp final {
-            private:
             uint8_t count = 0;
             ColorComp* color;
-            GORef gameobject;
 
-            public:
+            GORef gameobject;
             ColorShiftComp(GORef&& go) : gameobject(std::move(go)), color(nullptr) { };
 
             void Start() {
+                printf("Got to colorshiftcomp start\n");
+                printf("GO address: %p\n", gameobject.go);
+                printf("Color shift comp, GO name: %s\n", gameobject().name.c_str());
                 color = &gameobject().GetComponent<ColorComp>();
                 const Transform& t = gameobject().GetComponent<Transform>();
             }

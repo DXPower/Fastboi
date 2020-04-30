@@ -2,9 +2,9 @@ This readme will be expanded later, once comments/documentation is more finalize
 
 The Fastboi engine itself only consists of a few parts:
 * FastboiCore
-* Gameobject (+Component)
-* Transform
-* Renderer
+* Gameobject (+Component, GORef)
+* Transform (+Shape)
+* Renderer (virtual) (+Texture)
 * Collider
 * Phyiscs (+VelocityComponent)
 * Camera
@@ -12,16 +12,31 @@ The Fastboi engine itself only consists of a few parts:
 * Resources
 * Events
 
+Some main features:
+* Intuitive development! Any class can become a component (with C++20 concepts coming soon), with no inheritance required!
+     * Currently, all that is required is the constructor have GORef&& be the first argument. This won't be required with C++20.
+* An "Entity-Component-Systems" architecture without Systems (very similar to Unity's component system)
+     * The only "systems" are for physics and rendering.
+* Compile-time component storage and retrieval, ala. gameobject.AddComponent<MyComponent>(Cstor args...);
+* GJK narrow-phase collision algorithm allows for any convex polygonal shape as a collider.
+* No built-in "physics": There is no bouncing, gravity, acceleration, or friction built-in. Physics only handles velocity and collision resolution.
+     * This makes the engine optimal for games with no physics, or even a fine-tuned custom physics for a platformer
+* RAII-style Gameobject reference handling through GORef, allowing for instantaenous switching of a component's owner
+     * This lets any component be easily duplicated or moved using only the default copy constructor!
+
 However, many premade components are provided for ease of use and development. Provided components:
+* BoxColorRenderer
 * SpriteRenderer
 * RepeatRenderer
-* RectUI
+* WireframeRenderer
+* RectUI, UITexture
 * ColorComp
-* BoxColorRenderer
+* Spritesheet
 * ChangeObserver
 
 Also in the repository (For now), is a test game called "Slowboi." This is merely to demonstrate some of the basic capabilities.
 It is rather rudimentary and has no actual gameplay, but that will be added to over time.
+
 
 #Required libraries/DLLs:
 SDL: (SDL2main, SDL2, SDL2_image).a in lib/

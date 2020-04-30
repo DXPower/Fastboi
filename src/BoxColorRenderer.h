@@ -15,6 +15,10 @@ namespace Fastboi {
 
             void Start() override;
             void Render() override;
+            
+            protected:
+            BoxColorRenderer(const BoxColorRenderer& copy) = default;
+            Renderer& Duplicate() const override;
         };
     };
 };

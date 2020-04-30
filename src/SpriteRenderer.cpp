@@ -20,3 +20,7 @@ SpriteRenderer::~SpriteRenderer() { }
 void SpriteRenderer::Render() {
     Rendering::Render_Texture(gameobject().transform, texture, cutout);
 }
+
+Renderer& SpriteRenderer::Duplicate() const {
+    return *(new SpriteRenderer(*this));
+}

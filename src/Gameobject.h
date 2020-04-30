@@ -49,7 +49,7 @@ namespace Fastboi {
 
         void Start();
         void Update();
-        Gameobject& Duplicate();
+        Gameobject& Duplicate() const;
         
         template<class T, typename... Args>
         T& AddComponent(Args&&... args);
@@ -197,9 +197,7 @@ namespace Fastboi {
         Component<T>* destComp = new Component<T>();
         
         constexpr uint64_t typekey = ctti::type_id<T>().hash();
-        components.at(typekey)->Duplicate(*destComp);
-
-        destComp->internalGORef->go = &dest;
+        components.at(typekey)->Duplicate(*destComp, &dest);
 
         dest.componentsToAdd.emplace(typekey, destComp);
 

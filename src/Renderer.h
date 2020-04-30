@@ -22,9 +22,9 @@ namespace Fastboi {
         Renderer(GORef&& go, RenderData data);
         virtual ~Renderer();
 
+        public:
         virtual void Start() { isStarted = true; };
         virtual void Render() = 0;
-        void Destroy() { isDeleted = true; };
 
         RenderOrder GetOrder() const;
         void SetOrder(RenderOrder order);
@@ -32,6 +32,13 @@ namespace Fastboi {
         int GetZ() const;
         void SetZ(int z);
 
+        void Destroy() { isDeleted = true; };
+
+        protected:
+        Renderer(const Renderer& copy);
+        virtual Renderer& Duplicate() const = 0;
+
         friend void Fastboi::Render();
+        friend class Gameobject;
     };
 };

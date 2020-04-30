@@ -4,6 +4,7 @@
 #include "Vec.h"
 #include "Collision.h"
 #include "Events.h"
+#include <GORef.h>
 #include <list>
 #include <unordered_set>
 #include <vector>
@@ -11,7 +12,6 @@
 
 
 namespace Fastboi {
-    struct Gameobject;
     struct Transform;
 
     struct VelocityComp;
@@ -33,10 +33,11 @@ namespace Fastboi {
         };
 
         Fastboi::Signal<void(const Fastboi::CollisionEvent&)> collisionSignal;
-        Gameobject& gameobject;
+        GORef gameobject;
 
-        Collider(Gameobject& gameobject);
-        Collider(Gameobject& gameobject, uint_fast8_t flags);
+        Collider(GORef&& gameobject);
+        Collider(GORef&& gameobject, uint_fast8_t flags);
+        Collider(const Collider& copy);
         ~Collider();
         
         void Start();

@@ -9,3 +9,7 @@ UITexture::UITexture(GORef&& go, const char* textureName)
 void UITexture::Render() {
     Rendering::RenderScreen_Texture(gameobject().transform, texture);
 }
+
+Renderer& UITexture::Duplicate() const {
+    return *(new UITexture(*this));
+}

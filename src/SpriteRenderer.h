@@ -18,6 +18,10 @@ namespace Fastboi {
             ~SpriteRenderer();
 
             void Render() override;
+
+            protected:
+            SpriteRenderer(const SpriteRenderer& copy) = default;
+            Renderer& Duplicate() const override;
         };
     };
 };

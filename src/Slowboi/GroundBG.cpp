@@ -57,6 +57,13 @@ namespace Slowboi {
             Rendering::Render_Texture(Transform(gameobject().transform->position, gameobject().transform->size * 1.3f, 0), spritesheet);
             Rendering::Render_Texture(gameobject().transform, ground);
         }
+        
+        protected:
+        GroundRenderer(const GroundRenderer& copy) = default;
+
+        Renderer& Duplicate() const override {
+            return *(new GroundRenderer(*this));
+        }
     };
 }
 

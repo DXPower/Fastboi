@@ -95,8 +95,8 @@ void Fastboi::Render() {
         renderDelta = renderTimer.elapsed_seconds;
         renderTimer.Tick();
 
-        if (renderDelta > (decltype(renderDelta){10}))
-            printf("Render: %f\n", renderDelta);
+        // if (renderDelta > (decltype(renderDelta){10}))
+        //     printf("Render: %f\n", renderDelta);
 
         // // printf("Attempting render...\n");
         uint32_t flags = SDL_GetWindowFlags(Application::gWindow);
@@ -166,19 +166,15 @@ void TickPhysicsThread() {
     tickTimer.Tick(); // Initial tick because the time between app start and this line is quite long
 
     while (!quit) {
-
         if (!paused) {
             // Cap tick rate with a blocking if
             if (tickTimer.TimeSinceLastTick() > TICK_TIME) {
-                Fastboi::tickDelta = std::chrono::duration_cast<duration<double>>(tickTimer.elapsed_seconds).count();
+                Fastboi::tickDelta = std::chrono::duration_cast<duration<double>>(tickTimer.elapsed_seconds).count(); // Convert from ms to s
                 Fastboi::physicsDelta = Fastboi::tickDelta;
                 tickTimer.Tick();
 
                 Physics();
                 Tick();
-
-                // if (tickDelta > 0.008335)
-                //     printf("tick: %f\n", tickDelta);
 
                 Fastboi::tickDelta = 0;
                 Fastboi::physicsDelta = 0;

@@ -30,3 +30,7 @@ void RectUI::Click(const Fastboi::TargetedClickEvent& e) {
         gameobject().transform->position += 35;
     }
 }
+
+Renderer& RectUI::Duplicate() const {
+    return *(new RectUI(*this));
+}

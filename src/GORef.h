@@ -7,6 +7,7 @@ namespace Fastboi {
     struct Gameobject;
 
     class GORef final{
+        public:
         Gameobject* go = nullptr;
         ComponentBase* owningComp = nullptr;
 
@@ -15,12 +16,13 @@ namespace Fastboi {
         GORef(Gameobject& go, ComponentBase& owner);
         GORef(const GORef& copy);
         GORef(const GORef&& mv);
+        ~GORef();
 
         GORef& operator=(const GORef&& mv) = delete;
         GORef& operator=(Gameobject& rebind);
 
-        inline const Gameobject& operator()() const { return *go; };
-        inline Gameobject& operator()() { return *go; };
+        // inline const Gameobject& operator()() const { return *go; };
+        inline Gameobject& operator()() const { return *go; };
 
         template<typename T, typename... Args>
         friend class Component;

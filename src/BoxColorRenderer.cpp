@@ -23,3 +23,7 @@ void BoxColorRenderer::Render() {
     Rendering::SetColor(color->r, color->g, color->b, color->a);
     Rendering::Render_Rect<Rendering::FILLED>(gameobject().transform);
 }
+
+Renderer& BoxColorRenderer::Duplicate() const {
+    return *(new BoxColorRenderer(*this));
+}

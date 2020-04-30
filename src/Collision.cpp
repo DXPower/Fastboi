@@ -122,8 +122,8 @@ void Fastboi::Collision::ResolveColliders(
     for (const Collision_t& collision : collisions.Get()) {
         tuple<Velocity, Velocity> finalVelocities = ResolveCollision(collision);
 
-        AdvanceTransform(*collision.a.gameobject.transform, get<0>(finalVelocities));
-        AdvanceTransform(*collision.b.gameobject.transform, get<1>(finalVelocities));
+        AdvanceTransform(*collision.a.gameobject().transform, get<0>(finalVelocities));
+        AdvanceTransform(*collision.b.gameobject().transform, get<1>(finalVelocities));
     }
 }
 

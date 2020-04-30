@@ -34,6 +34,10 @@ void RepeatRenderer::Render() {
     Rendering::Render_Texture(gameobject().transform, repeatTexture);
 }
 
+Renderer& RepeatRenderer::Duplicate() const {
+    return *(new RepeatRenderer(*this));
+}
+
 void RepeatRenderer::CreateRepeatTexture(const Size& newSize) {
     repeatTexture.Recreate(gameobject().transform->size, SDL_TEXTUREACCESS_TARGET, baseTexture.GetFormat());                                       
 

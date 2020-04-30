@@ -8,8 +8,12 @@ namespace Fastboi {
             WireframeRenderer(GORef&& go, RenderData rd);
             ~WireframeRenderer();
 
-            void Start();
-            void Render();
+            void Start() override;
+            void Render() override;
+            
+            protected:
+            WireframeRenderer(const WireframeRenderer& copy) = default;
+            Renderer& Duplicate() const override;
         };
     }
 }

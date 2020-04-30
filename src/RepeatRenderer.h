@@ -20,6 +20,10 @@ namespace Fastboi {
             void Start() override;
             void Render() override;
 
+            protected:
+            RepeatRenderer(const RepeatRenderer& copy) = default;
+            Renderer& Duplicate() const override;
+
             private:
             void CreateRepeatTexture(const Size& newSize);
             void WindowSizeChanged(const Fastboi::WindowResizeEvent& e);

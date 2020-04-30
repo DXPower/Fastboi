@@ -8,13 +8,19 @@
 
 using namespace Fastboi;
 
-Collider::Collider(Gameobject& go) : Collider(go, 0) { };
+Collider::Collider(GORef&& go) : Collider(std::move(go), 0) { };
 
-Collider::Collider(Gameobject& gameobject, uint_fast8_t flags)
- : gameobject(gameobject)
+Collider::Collider(GORef&& gameobject, uint_fast8_t flags)
+ : gameobject(std::move(gameobject))
  , flags(flags) {
     Fastboi::RegisterCollider(this);
 };
+
+Collider::Collider(const Collider& copy) : Collider(GORef(copy.gameobject), copy.flags) {
+    isEnabled = copy.isEnabled;
+    isStarted = false;
+}
+
 
 Collider::~Collider() {
     CleanHangingCollisions();
@@ -57,7 +63,7 @@ void Collider::Update() {
 }
 
 const circular_vector<Position>& Collider::GetVertices() const {
-    return gameobject.transform->GetVertices();
+    return gameobject().transform->GetVertices();
 }
 
 void Collider::Collide(Collider& collider) {

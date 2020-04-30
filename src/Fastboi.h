@@ -2,6 +2,7 @@
 
 #include "ComponentReqs.h"
 #include "Collider.h"
+#include "ColorComp.h"
 #include "Events.h"
 #include "Gameobject.h"
 #include "GORef.h"

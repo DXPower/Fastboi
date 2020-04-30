@@ -19,6 +19,7 @@ void WireframeRenderer::Start() {
 }
 
 void WireframeRenderer::Render() {
+    // printf("Rendering wireframe renderer! GO Name: %s\n", gameobject().name.c_str());
     Rendering::SetColor(gameobject().GetComponent<ColorComp>());
     
     auto& vertices = gameobject().transform->GetVertices();
@@ -26,4 +27,8 @@ void WireframeRenderer::Render() {
     for (auto pit = vertices.pair_begin(); pit != vertices.pair_end(); pit++) {
         Rendering::Render_Line(*pit.first, *pit.second);
     }
+}
+
+Renderer& WireframeRenderer::Duplicate() const {
+    return *(new WireframeRenderer(*this));
 }
