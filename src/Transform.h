@@ -1,17 +1,24 @@
 #pragma once
 
+#include "GORef.h"
 #include "Shape.h"
 #include <memory>
+#include <optional>
 #include <type_traits>
 #include "Vec.h"
 
 namespace Fastboi {
+    class GORef;
+
     struct Transform final {
         private:
         bool rotated = false;
         std::unique_ptr<Shape> shape;
+        Transform* parent; //! I Think I'll do it like this, this is how unity does it.
 
         public:
+        // GORef gameobject;
+
         Position position;
         Size size;
         double rotation = 0.f; // Degrees
@@ -31,6 +38,10 @@ namespace Fastboi {
         void SetRotation(double rot);
         void ResetRotation();
 
+        inline bool HasParent() const { return parent != nullptr; };
+        inline Transform& Parent() const { return *parent; };
+        void Parent(Transform* parent);
+
         template<class S>
         void SetShape();
 
@@ -40,6 +51,18 @@ namespace Fastboi {
 
         bool operator==(const Transform& other) const;
         bool operator!=(const Transform& other) const;
+
+        // Parenting: Make the common case fast, so if you're a parent I will keep track of the last position, and manually update
+        private:
+        Position lastPosition = Position::zero();
+
+        void UpdateLastPosRot();
+
+        // Basically what we're going to do here is keep a master list of parent relations, as there's only ever going to be a few root parents.
+        static std::vector<Transform*> rootParents;
+        static void AddRootParent(Transform& rootp);
+        static void ReplaceRootParent(Transform& newRoot, const Transform& oldRoot);
+        static void RemoveRootParent(const Transform& rootp);
     };
 
     template<class S>

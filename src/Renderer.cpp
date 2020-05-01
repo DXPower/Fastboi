@@ -9,7 +9,6 @@ Renderer::Renderer(GORef&& go) : Renderer(std::move(go), { RenderOrder::GROUND, 
 
 Renderer::Renderer(GORef&& go, RenderData data) : gameobject(std::move(go)), data(data) {
     Fastboi::RegisterRenderer(this);
-    printf("Registering renderer at %p\n", this);
 }
 
 Renderer::Renderer(const Renderer& copy) : Renderer(GORef(copy.gameobject), copy.data) {} // Nope, I'm dumb, should be copy.data

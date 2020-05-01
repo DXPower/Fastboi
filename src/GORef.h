@@ -12,6 +12,7 @@ namespace Fastboi {
         ComponentBase* owningComp = nullptr;
 
         public:
+        GORef() = default;
         GORef(Gameobject& go);
         GORef(Gameobject& go, ComponentBase& owner);
         GORef(const GORef& copy);

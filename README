@@ -13,8 +13,8 @@ The Fastboi engine itself only consists of a few parts:
 * Events
 
 Some main features:
-* Intuitive development! Any class can become a component (with C++20 concepts coming soon), with no inheritance required!
-     * Currently, all that is required is the constructor have GORef&& be the first argument. This won't be required with C++20.
+* Intuitive development! Any class can become a component, with no inheritance/arguments required!
+     * The component system will attempt to pass GORef&& as the first argument by default, but it is not required to accept the argument
 * An "Entity-Component-Systems" architecture without Systems (very similar to Unity's component system)
      * The only "systems" are for physics and rendering.
 * Compile-time component storage and retrieval, ala. gameobject.AddComponent<MyComponent>(Cstor args...);

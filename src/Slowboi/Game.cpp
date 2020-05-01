@@ -93,8 +93,11 @@ struct BulletHit {
             if (!e.collider.gameobject().HasComponent<Spinner>())
                 go().DuplicateComponent<Spinner>(e.collider.gameobject()).speed = -0.1;
 
-            Gameobject& newBullet = go().Duplicate();
-            newBullet.transform->position = player.gameobject().transform->position;
+            // Gameobject& newBullet = go().Duplicate();
+            // newBullet.transform->position = player.gameobject().transform->position;
+
+            // Gameobject& newWall = e.collider.gameobject().Duplicate();
+            // newWall.transform->position = newWall.transform->position += 150;
 
             Fastboi::Destroy(go());
         }

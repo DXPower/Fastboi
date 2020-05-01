@@ -4,6 +4,8 @@
 
 using namespace Fastboi;
 
+std::vector<Transform*> Transform::rootParents = std::vector<Transform*>();
+
 Transform::Transform() : Transform(Position::zero(), Size::zero(), 0) { }
 Transform::Transform(Position pos) : Transform(pos, Size::zero(), 0) { }
 Transform::Transform(Position pos, Size size, double rot) : position(pos), size(size), rotation(rot), shape(nullptr) {
@@ -42,6 +44,43 @@ void Transform::SetRotation(double rot) {
 void Transform::ResetRotation() {
     rotation = 0.f;
     rotated = false;
+}
+
+void Transform::Parent(Transform* parent) {
+    if (parent != nullptr) {
+        this->parent = parent;
+        AddRootParent(*this->parent);
+    } else {
+
+    }
+}
+
+void Transform::UpdateLastPosRot() {
+    lastPosition = position;
+    //! Add lastRot here
+}
+
+void Transform::AddRootParent(Transform& rootp) {
+    rootp.UpdateLastPosRot();
+    rootParents.push_back(&rootp);
+}
+
+void Transform::ReplaceRootParent(Transform& newRoot, const Transform& oldRoot) {
+    for (auto it = rootParents.begin(); it != rootParents.end(); it++) {
+        if (*it == &oldRoot) {
+            *it = &newRoot;
+            break;
+        }
+    }
+}
+
+void Transform::RemoveRootParent(const Transform& rootp) {
+    for (auto it = rootParents.begin(); it != rootParents.end(); it++) {
+        if (*it == &rootp) {
+            rootParents.erase(it);
+            break;
+        }
+    }
 }
 
 const circular_vector<Position>& Transform::GetVertices() const {
