@@ -9,12 +9,15 @@
 
 namespace Fastboi {
     class GORef;
+    void Physics();
 
     struct Transform final {
         private:
         bool rotated = false;
         std::unique_ptr<Shape> shape;
-        Transform* parent; //! I Think I'll do it like this, this is how unity does it.
+
+        Transform* parent = nullptr;
+        std::vector<Transform*> children;
 
         public:
         // GORef gameobject;
@@ -38,7 +41,11 @@ namespace Fastboi {
         void SetRotation(double rot);
         void ResetRotation();
 
+        //! To fix this bug I'll have to modify the broad phase for collision to ignore parent/child relationships
+        //! I have to add a function to see if you're any amount of children away from a transform
+        bool HasParent(const Transform& check) const;
         inline bool HasParent() const { return parent != nullptr; };
+        static bool IsDescendentRelated(const Transform& a, const Transform& b);
         inline Transform& Parent() const { return *parent; };
         void Parent(Transform* parent);
 
@@ -55,14 +62,20 @@ namespace Fastboi {
         // Parenting: Make the common case fast, so if you're a parent I will keep track of the last position, and manually update
         private:
         Position lastPosition = Position::zero();
+        double lastRot = 0;
 
+        void AddChild(Transform& child);
+        void RemoveChild(const Transform& child);
         void UpdateLastPosRot();
+        void UpdateChildren(Position deltaPos, double deltaRot); // Performs a DFS on all children, updating total position changes
 
         // Basically what we're going to do here is keep a master list of parent relations, as there's only ever going to be a few root parents.
         static std::vector<Transform*> rootParents;
-        static void AddRootParent(Transform& rootp);
-        static void ReplaceRootParent(Transform& newRoot, const Transform& oldRoot);
-        static void RemoveRootParent(const Transform& rootp);
+        static void AddParentStatus(Transform& rootp);
+        static void RemoveParentStatus(const Transform& rootp);
+        static void UpdateAllParentRelations();
+
+        friend void Fastboi::Physics();
     };
 
     template<class S>

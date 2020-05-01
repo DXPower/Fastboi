@@ -93,6 +93,8 @@ struct BulletHit {
             if (!e.collider.gameobject().HasComponent<Spinner>())
                 go().DuplicateComponent<Spinner>(e.collider.gameobject()).speed = -0.1;
 
+            e.collider.gameobject().transform->Parent(player.gameobject().transform.get());
+
             // Gameobject& newBullet = go().Duplicate();
             // newBullet.transform->position = player.gameobject().transform->position;
 

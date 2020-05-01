@@ -104,7 +104,7 @@ void Fastboi::Collision::NarrowPhase(
 
     for (auto ca = potentialCollisions.begin(); ca != potentialCollisions.end(); ca++) {
         for (auto cb = std::next(ca, 1); cb != potentialCollisions.end(); cb++) {
-            if (*ca == *cb) continue;
+            if (*ca == *cb || Transform::IsDescendentRelated(*(*ca)->gameobject().transform, *(*cb)->gameobject().transform)) continue;
             if (Collision_t::CollisionData coll = AreCollidersIntersectng(**ca, **cb); coll.collided) {
                collisions.AddCollision({ **ca, **cb, coll });
             }
@@ -156,8 +156,6 @@ tuple<Velocity, Velocity> Fastboi::Collision::ResolveCollision(const Collision_t
 }
 
 void Collisions_t::AddCollision(const Collision_t& collision) {
-    // cCollisions.emplace(collision.a, data);
-    // cCollisions.emplace(collision.b, data);
     collisions.emplace_back(collision);
 }
 

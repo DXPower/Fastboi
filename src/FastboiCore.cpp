@@ -55,7 +55,6 @@ void Fastboi::Destroy(Gameobject& go) {
 }
 
 void Fastboi::Tick() {
-
     extern GameobjectAllocator gameobjectAllocator;
     gameobjectAllocator.StartAll();
 
@@ -66,6 +65,7 @@ void Fastboi::Tick() {
 
         go.Update();
     }
+
 
     std::lock_guard<std::mutex> lock(renderingMtx);
     for (Gameobject* go : gosToDelete) {
@@ -142,8 +142,10 @@ void Fastboi::Physics() {
     Collision::BroadPhase(colliders, potentialCollisions);
     Collision::NarrowPhase(potentialCollisions, collisions);
     Collision::ResolveColliders(colliders, collisions);
-    Collision::DispatchCollisions(collisions);
 
+    Transform::UpdateAllParentRelations(); // Apply all updates to childrens' positions
+
+    Collision::DispatchCollisions(collisions);
 }
 
 // Once Fastboi::GameLoop() has ended, clean up all resources.
