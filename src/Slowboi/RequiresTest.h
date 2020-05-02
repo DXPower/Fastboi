@@ -21,7 +21,7 @@ struct RedShifter final {
 };
 
 struct SizeOnRed final {
-    using Reqs = RequiredComponents<Transform, Fastboi::Components::ColorComp>;
+    using Reqs = RequiredComponents<Transform, Fastboi::Components::ColorComp>; 
 
     const GORef go;
     const Fastboi::Components::ColorComp* color;

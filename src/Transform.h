@@ -32,7 +32,7 @@ namespace Fastboi {
         Transform(const Transform& copy); // Copy constructor
         Transform(Transform&& copy); // Move constructor
 
-        ~Transform() = default;
+        ~Transform();
 
         Transform& operator=(const Transform& copy); // Copy assignment
         Transform& operator=(Transform&& copy); // Move assignment
@@ -41,13 +41,17 @@ namespace Fastboi {
         void SetRotation(double rot);
         void ResetRotation();
 
-        //! To fix this bug I'll have to modify the broad phase for collision to ignore parent/child relationships
-        //! I have to add a function to see if you're any amount of children away from a transform
-        bool HasParent(const Transform& check) const;
+        bool HasAncestor(const Transform& check) const;
         inline bool HasParent() const { return parent != nullptr; };
-        static bool IsDescendentRelated(const Transform& a, const Transform& b);
-        inline Transform& Parent() const { return *parent; };
         void Parent(Transform* parent);
+        inline void Parent(const std::unique_ptr<Transform>& parent) { Parent(parent.get()); };
+        inline void Parent(Transform& parent) { Parent(&parent); };
+        inline Transform& Parent() const { return *parent; };
+
+        inline const decltype(children)& GetChildren() const { return children; };
+        bool HasChild(const Transform& check) const;
+
+        static bool IsDescendentRelated(const Transform& a, const Transform& b);
 
         template<class S>
         void SetShape();
@@ -61,7 +65,7 @@ namespace Fastboi {
 
         // Parenting: Make the common case fast, so if you're a parent I will keep track of the last position, and manually update
         private:
-        Position lastPosition = Position::zero();
+        Position lastPos = Position::zero();
         double lastRot = 0;
 
         void AddChild(Transform& child);

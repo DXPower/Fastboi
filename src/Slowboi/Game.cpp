@@ -30,6 +30,8 @@ void LoadResources() {
     Fastboi::Resources::LoadImage("Spritemap", "spritemap.png");
 }
 
+struct Spinner;
+
 void Slowboi::InitGame() {
     LoadResources();
 
@@ -55,11 +57,39 @@ void Slowboi::InitGame() {
     anon.AddComponent<Collider>(Collider::FIXED);
 
     std::vector<Rect> grassSprites = { Rect(36, 36, 8, 8) };
-    Gameobject& grass = Instantiate<&Slowboi::GroundBG>(Position(200, 200), Size(500, 500), Resources::GetTexture("Spritemap"), Size(50, 50), grassSprites);
+    // Gameobject& grass = Instantiate<&Slowboi::GroundBG>(Position(200, 200), Size(500, 500), Resources::GetTexture("Spritemap"), Size(50, 50), grassSprites);
 
     SetCamera(Camera(*player.transform, Camera::WATCHING, 1.5f));
 
     pauseListener.signal.connect<&TogglePause>();
+
+    Gameobject& moveLeft = Instantiate<Gameobject>("Left mover");
+    moveLeft.AddComponent<Transform>(Position(380, 550), Size(20, 20), 0);
+    // moveLeft.AddComponent<VelocityComp>(Velocity(-120.f, 0));
+    moveLeft.AddComponent<Spinner>(.7f);
+    moveLeft.AddComponent<ColorComp>(255, 0, 0, 255);
+    moveLeft.AddComponent<WireframeRenderer>(RenderData(RenderOrder::PARTICLES));
+
+    //! Now let's add something to move down
+    Gameobject& moveDown = Instantiate<Gameobject>("Down mover");
+    moveDown.AddComponent<Transform>(Position(500, 550), Size(100, 20), 0);
+    moveDown.AddComponent<VelocityComp>(Velocity(0, 50.f));
+    moveDown.AddComponent<ColorComp>(255, 168, 100, 255);
+    moveDown.AddComponent<WireframeRenderer>(RenderData(RenderOrder::PARTICLES));
+    moveDown.AddComponent<Spinner>(.7f);
+
+    //! Now let's make the left mover a child of the down mover
+    moveLeft.transform->Parent(moveDown.transform);
+
+    //! Now I want to make something move to the right as a child of the left-mover to cancel out its movement
+    Gameobject& moveRight = Instantiate<Gameobject>("Right mover");
+    moveRight.AddComponent<Transform>(Position(380, 500), Size(20, 20), 0);
+    // moveRight.AddComponent<VelocityComp>(Velocity(100.f, 0));
+    moveRight.AddComponent<ColorComp>(100, 168, 255, 255);
+    moveRight.AddComponent<WireframeRenderer>(RenderData(RenderOrder::PARTICLES, 1));
+
+    // //! And now let's make right mover a child of left mover
+    moveRight.transform->Parent(moveLeft.transform);
 }
 
 struct Spinner {
@@ -87,13 +117,13 @@ struct BulletHit {
         if (e.type == CollisionEvent::END) return;
 
         if (!e.collider.IsTrigger() && !e.collider.gameobject().HasComponent<Slowboi::Components::Player>()) {
-            if (!player.gameobject().HasComponent<Spinner>())
-                go().DuplicateComponent<Spinner>(player.gameobject());
+            // if (!player.gameobject().HasComponent<Spinner>())
+            //     go().DuplicateComponent<Spinner>(player.gameobject());
             
             if (!e.collider.gameobject().HasComponent<Spinner>())
                 go().DuplicateComponent<Spinner>(e.collider.gameobject()).speed = -0.1;
 
-            e.collider.gameobject().transform->Parent(player.gameobject().transform.get());
+            // e.collider.gameobject().transform->Parent(player.gameobject().transform.get());
 
             // Gameobject& newBullet = go().Duplicate();
             // newBullet.transform->position = player.gameobject().transform->position;

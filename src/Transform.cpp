@@ -15,6 +15,15 @@ Transform::Transform(Position pos, Size size, double rot) : position(pos), size(
 Transform::Transform(const Transform& copy) : Transform(copy.position, copy.size, copy.rotation) { }
 Transform::Transform(Transform&& copy) : Transform(copy.position, copy.size, copy.rotation) { }
 
+Transform::~Transform() {
+    Parent(nullptr); // Reset our parenthood to update the parent transform
+
+    // Remove child status from all our children
+    for (Transform* c : children) {
+        c->Parent(nullptr);
+    }
+}
+
 Transform& Transform::operator=(const Transform& copy) {
     position = copy.position;
     size = copy.size;
@@ -46,7 +55,7 @@ void Transform::ResetRotation() {
     rotated = false;
 }
 
-bool Transform::HasParent(const Transform& check) const {
+bool Transform::HasAncestor(const Transform& check) const {
     Transform* p = parent;
 
     while (p != nullptr) {
@@ -54,17 +63,16 @@ bool Transform::HasParent(const Transform& check) const {
             return true;
         }
 
-        p = p->parent; //! I know why now, because I didn't give parent a default value, and that's undefined behavior in C++ :L
+        p = p->parent;
     }
 
     return false;
 }
 
 bool Transform::IsDescendentRelated(const Transform& a, const Transform& b) {
-    //! Trying to think about how I can check if a is the parent/grand*n parent of b or vice versa...
     if (!a.HasParent() && !b.HasParent()) return false;
 
-    return a.HasParent(b) || b.HasParent(a);
+    return a.HasAncestor(b) || b.HasAncestor(a);
 }
 
 
@@ -87,7 +95,13 @@ void Transform::Parent(Transform* p) {
         RemoveParentStatus(*parent);
         parent->RemoveChild(*this);
         this->parent = nullptr;
+
+        AddParentStatus(*this); // If we were previously a child but are now a root parent, this is what we do
     }
+}
+
+bool Transform::HasChild(const Transform& check) const {
+    return std::find(children.begin(), children.end(), &check) != children.end();
 }
 
 void Transform::AddChild(Transform& child) {
@@ -101,25 +115,43 @@ void Transform::RemoveChild(const Transform& child) {
 }
 
 void Transform::UpdateLastPosRot() {
-    lastPosition = position;
+    lastPos = position;
     lastRot = rotation;
 }
 
-void Transform::UpdateChildren(Position deltaPos, double deltaRot) {
-    //! Add deltaRot
-    
-    position += deltaPos;
-    rotation += deltaRot;
+#define PI 3.14159265358979323846
+#define TO_RADIANS(x) x * PI / 180.0
 
+void Transform::UpdateChildren(Position deltaPos, double deltaRot) {
+    // Calculate change in position due to parent's rotation
+    if (deltaRot != 0) {
+        Position rotPos = position - parent->position; // Transform to coordinates of parent
+        double dRotRads = TO_RADIANS(deltaRot);
+
+        const float rx = (rotPos.x * cos(dRotRads)) - (rotPos.y * sin(dRotRads)); // Rotated x val
+        const float ry = (rotPos.x * sin(dRotRads)) + (rotPos.y * cos(dRotRads)); // Rotated y val
+
+        deltaPos += Position(rx, ry) + parent->position - position; // Get deltaPos in global coordinate system
+    }
+
+    // Calculate change in position/rotation for children if and only if we have children
     if (children.size() != 0) {
-        deltaPos += position - lastPosition;
+        Position childDeltaPos = deltaPos + position - lastPos; // We need to add the parent's deltaPos as well as our own deltaPos
+        double childDeltaRot = deltaRot + rotation - lastRot; // We need to add the parent's deltaRot as well as our own deltaRot
 
         for (Transform* child : children) {
-            child->UpdateChildren(deltaPos, deltaRot);
+            child->UpdateChildren(childDeltaPos, childDeltaRot); // Apply the new deltaPos/Rot for each child
         }
 
-        UpdateLastPosRot();
     }
+    
+    // Save our new position from the propogation
+    position += deltaPos;
+    SetRotation(rotation + deltaRot);
+
+    // We only track last pos/rot if we have children
+    if (children.size() != 0)
+        UpdateLastPosRot();
 }
 
 void Transform::AddParentStatus(Transform& rootp) {
