@@ -23,12 +23,13 @@ Player::Player(GORef&& go)
 
 Player::~Player() {
     gameobject().RemoveComponent<Spritesheet<int>>();
-    gameobject().RemoveComponent<VelocityComp>();
+    gameobject().RemoveComponent<Rigidbody>();
 }
 
 void Player::Start() {
     gameobject().GetComponent<Collider>().collisionSignal.connect<&Player::Collision>(this);
-    velocityComp = &gameobject().AddComponent<VelocityComp>();
+    rigidbody = &gameobject().AddComponent<Rigidbody>();
+    rigidbody->drag = 1000.f;
 
     using PlayerSpritesheet = Spritesheet<>;
     using Animation = PlayerSpritesheet::Animation;
@@ -132,7 +133,11 @@ void Player::Update() {
         }
     }
 
-    velocityComp->velocity = direction.normalized() * speed;
+    if (direction.x != 0.f)
+        rigidbody->velocity.x = direction.normalized().x * speed;
+        
+    if (direction.y != 0.f)
+        rigidbody->velocity.y = direction.normalized().y * speed;
 
     if (Input::IsKeyDown(SDL_SCANCODE_I))
         Fastboi::camera.zoom += 0.01f;

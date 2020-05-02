@@ -4,7 +4,6 @@
 #include "Events.h"
 #include "ChangeObserver.h"
 #include "FastboiCore.h"
-#include "VelocityComp.h"
 
 using namespace Fastboi;
 

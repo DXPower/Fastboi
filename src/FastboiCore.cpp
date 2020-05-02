@@ -56,6 +56,7 @@ void Fastboi::Destroy(Gameobject& go) {
 
 void Fastboi::Tick() {
     extern GameobjectAllocator gameobjectAllocator;
+    std::lock_guard<std::mutex> lock(renderingMtx);
     gameobjectAllocator.StartAll();
 
     for (auto it = gameobjectAllocator.GO_Begin(); it != gameobjectAllocator.GO_End(); it++) {
@@ -67,7 +68,6 @@ void Fastboi::Tick() {
     }
 
 
-    std::lock_guard<std::mutex> lock(renderingMtx);
     for (Gameobject* go : gosToDelete) {
         go->~Gameobject();
         gameobjectAllocator.Deallocate(static_cast<void*>(go));
@@ -138,7 +138,7 @@ void Fastboi::Physics() {
 
     // std::lock_guard lock(renderingMtx);
 
-    Collision::ApplyVelocities();
+    Collision::ProgressRigidbodies();
     Collision::BroadPhase(colliders, potentialCollisions);
     Collision::NarrowPhase(potentialCollisions, collisions);
     Collision::ResolveColliders(colliders, collisions);

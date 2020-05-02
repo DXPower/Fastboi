@@ -10,7 +10,7 @@ namespace Slowboi {
     namespace Components {
         struct Player final {
             private:
-            VelocityComp* velocityComp = nullptr;
+            Rigidbody* rigidbody = nullptr;
             Spritesheet<int>* spritesheet = nullptr;
 
             Input::KeyListener spacebarListener;

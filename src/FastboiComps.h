@@ -9,5 +9,4 @@
 #include "SpriteRenderer.h"
 #include "Spritesheet.h"
 #include "UITexture.h"
-#include "VelocityComp.h"
 #include "WireframeRenderer.h"

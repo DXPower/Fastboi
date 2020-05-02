@@ -11,7 +11,7 @@
 #include "Transform.h"
 #include <type_traits>
 #include "Vec.h"
-#include "VelocityComp.h"
+// #include ".h"
 
 namespace Fastboi {
     void Tick();
@@ -95,7 +95,7 @@ namespace Fastboi {
         void RemoveComponentsOnStack();
 
         friend void Fastboi::Tick();
-        friend void Fastboi::Collision::ApplyVelocities();
+        friend void Fastboi::Collision::ProgressRigidbodies();
         friend void Fastboi::Destroy(Gameobject&);
     };
 
@@ -213,8 +213,6 @@ namespace Fastboi {
                 collider->SetEnabled(f);
             else
                 Application::ThrowRuntimeException(Application::COMPONENT_NO_EXIST);
-        } else if constexpr (std::is_same_v<VelocityComp, T>) {
-            return GetComponent<VelocityComp>().SetEnabled(f);
         } else {
             constexpr uint64_t typekey = ctti::type_id<T>().hash();
             components.at(typekey)->enabled = f;
@@ -230,8 +228,6 @@ namespace Fastboi {
                 return collider->IsEnabled();
             else
                 Application::ThrowRuntimeException(Application::COMPONENT_NO_EXIST);
-        } else if constexpr (std::is_same_v<VelocityComp, T>) {
-            return GetComponent<VelocityComp>().IsEnabled();
         } else {
             constexpr uint64_t typekey = ctti::type_id<T>().hash();
             return components.at(typekey)->enabled;

@@ -14,8 +14,6 @@
 namespace Fastboi {
     struct Transform;
 
-    struct VelocityComp;
-
     struct Collider final {
         private:
         std::vector<Collider*> currentCollisions;

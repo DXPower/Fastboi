@@ -7,7 +7,7 @@
 #include "GameobjectAllocator.h"
 #include <limits>
 #include <stdint.h>
-#include "VelocityComp.h"
+#include "Rigidbody.h"
 
 #define CUTE_C2_IMPLEMENTATION
 #include "cute_c2.h"
@@ -71,14 +71,14 @@ namespace Fastboi {
     extern GameobjectAllocator gameobjectAllocator;
 }
 
-void Fastboi::Collision::ApplyVelocities() {
-
+void Fastboi::Collision::ProgressRigidbodies() {
     for (auto it = gameobjectAllocator.GO_Begin(); it != gameobjectAllocator.GO_End(); it++) {
-        const Gameobject& go = *it;
+        Gameobject& go = *it;
 
-        if (go.isStarted && go.HasComponent<VelocityComp>()) {
-            const VelocityComp& vc = go.GetComponent<VelocityComp>();
-            AdvanceTransform(*go.transform, vc.IsEnabled() * vc.velocity * Fastboi::physicsDelta);
+        if (go.isStarted && go.HasComponent<Rigidbody>() && go.IsComponentEnabled<Rigidbody>()) {
+            go.GetComponent<Rigidbody>().ApplyParameters(*go.transform);
+
+            // AdvanceTransform(*go.transform, rb.velocity * Fastboi::physicsDelta, rb.rotVelocity * Fastboi::physicsDelta);
         }
     }
 }
@@ -94,8 +94,9 @@ void Fastboi::Collision::BroadPhase(
     }
 }
 
-void Fastboi::Collision::AdvanceTransform(Transform& transform, const Velocity& velocity) {
-    transform.position += velocity;
+void Fastboi::Collision::AdvanceTransform(Transform& transform, const Velocity& vel, const double rotV) {
+    transform.position += vel;
+    transform.rotation += rotV;
 }
 
 void Fastboi::Collision::NarrowPhase(
@@ -122,8 +123,8 @@ void Fastboi::Collision::ResolveColliders(
     for (const Collision_t& collision : collisions.Get()) {
         tuple<Velocity, Velocity> finalVelocities = ResolveCollision(collision);
 
-        AdvanceTransform(*collision.a.gameobject().transform, get<0>(finalVelocities));
-        AdvanceTransform(*collision.b.gameobject().transform, get<1>(finalVelocities));
+        AdvanceTransform(*collision.a.gameobject().transform, get<0>(finalVelocities), 0.);
+        AdvanceTransform(*collision.b.gameobject().transform, get<1>(finalVelocities), 0.);
     }
 }
 

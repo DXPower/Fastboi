@@ -131,11 +131,12 @@ void Gameobject::Destroy() {
 void Gameobject::SetEnabled(bool f) {
     isEnabled = f;
 
-    if (HasComponent<VelocityComp>())
-        GetComponent<VelocityComp>().SetEnabled(f);
-
     if (collider)
         collider->SetEnabled(f);
+
+    for (const auto& [typekey, comp] : components) {
+        comp->enabled = f;
+    }
 }
 
 

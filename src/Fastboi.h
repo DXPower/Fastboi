@@ -11,5 +11,5 @@
 #include "Rendering.h"
 #include "Renderer.h"
 #include "Resources.h"
+#include "Rigidbody.h"
 #include "Texture.h"
-#include "VelocityComp.h"
