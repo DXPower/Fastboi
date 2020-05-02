@@ -18,6 +18,7 @@ namespace Fastboi {
         private:
         std::vector<Collider*> currentCollisions;
         std::vector<Collider*> pendingCollisions;
+        Gameobject* boundingBox = nullptr;
 
         bool isEnabled = true;
         bool isStarted = false;

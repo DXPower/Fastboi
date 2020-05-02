@@ -57,8 +57,8 @@ namespace Fastboi {
         void SetShape();
 
         const circular_vector<Position>& GetVertices() const;
-
         bool ContainsPoint(const Position& p) const;
+        inline BoundingBox GetBounds() const { return shape->GetBounds(); };
 
         bool operator==(const Transform& other) const;
         bool operator!=(const Transform& other) const;

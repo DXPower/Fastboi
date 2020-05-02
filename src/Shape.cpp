@@ -7,24 +7,59 @@
 using namespace Fastboi;
 
 Shape::Shape(const Transform& t) : transform(t) {
-    lastPos = transform.position;
-    lastSize = transform.size;
-    lastRotation = transform.rotation;
+    lastPosVerts = transform.position;
+    lastSizeVerts = transform.size;
+    lastRotationVerts = transform.rotation;
+    
+    lastPosBounds = transform.position;
+    lastSizeBounds = transform.size;
+    lastRotationBounds = transform.rotation;
 }
 
-const circular_vector<Position>& Shape::GetVertices() {
-    if (   lastPos      != transform.position
-        || lastSize     != transform.size
-        || lastRotation != transform.rotation
+const circular_vector<Position>& Shape::GetVertices() const {
+    if (   lastPosVerts      != transform.position
+        || lastSizeVerts     != transform.size
+        || lastRotationVerts != transform.rotation
     ) {
-        lastPos = transform.position;
-        lastSize = transform.size;
-        lastRotation = transform.rotation;
+        lastPosVerts = transform.position;
+        lastSizeVerts = transform.size;
+        lastRotationVerts = transform.rotation;
 
         vertices = CalculateVertices();
     }
 
     return vertices;
+}
+
+BoundingBox Shape::GetBounds() const {
+    if (   lastPosBounds      != transform.position
+        || lastSizeBounds     != transform.size
+        || lastRotationBounds != transform.rotation
+    ) {
+        lastPosBounds = transform.position;
+        lastSizeBounds = transform.size;
+        lastRotationBounds = transform.rotation;
+
+        bounds = CalculateBounds();
+    }
+
+    return bounds;
+}
+
+BoundingBox Shape::CalculateBounds() const {
+    BoundingBox bounds;
+
+    auto vertices = GetVertices();
+
+    for (auto vertex : vertices) {
+        bounds.lowerBounds.x = std::min(vertex.x, bounds.lowerBounds.x);
+        bounds.lowerBounds.y = std::min(vertex.y, bounds.lowerBounds.y);
+        
+        bounds.upperBounds.x = std::max(vertex.x, bounds.upperBounds.x);
+        bounds.upperBounds.y = std::max(vertex.y, bounds.upperBounds.y);
+    }
+
+    return bounds;
 }
 
 // Gets what "side" of a line a point is on. 1 means "left", -1 means "right", 0 means on the line.

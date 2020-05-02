@@ -23,9 +23,7 @@
   This code was adapted from parts of the Box2D Physics Engine,
   http://www.box2d.org
 */
-
-#ifndef _AABB_H
-#define _AABB_H
+#pragma once
 
 #include <algorithm>
 #include <cassert>
@@ -41,8 +39,7 @@
 /// Null node flag.
 const unsigned int NULL_NODE = 0xffffffff;
 
-namespace Fastboi
-{
+namespace Fastboi {
     /*! \brief The axis-aligned bounding box object.
 
         Axis-aligned bounding boxes (AABBs) store information for the minimum
@@ -52,50 +49,30 @@ namespace Fastboi
         Class member functions provide functionality for merging AABB objects
         and testing overlap with other AABBs.
      */
-    class AABB
-    {
-    public:
+    class AABB {
+        Vecf lowerBound;
+        Vecf upperBound;
+        Vecf centre;
+        float surfaceArea;
+
+        public:
         AABB();
         AABB(const Vecf& lowerBounds, const Vecf& upperBounds);
 
-        float computeSurfaceArea() const;
-        float getSurfaceArea() const;
+        inline Vecf getLowerBound() const { return lowerBound; };
+        inline Vecf getUpperBound() const { return upperBound; };
+        inline Vecf getCentre() const { return centre; };
+        inline float getSurfaceArea() const { return surfaceArea; };
 
-        // Merge two AABBs into this one.
-        void merge(const AABB&, const AABB&);
+        // void updateBounds(const Vecf& lowerBounds, const Vecf& upperBounds);
 
-        // Test whether an AABB is contained within this one.
-        bool contains(const AABB&) const;
+        void merge(const AABB&, const AABB&); // Merge two AABBs into this one.
+        bool contains(const AABB&) const; // Test whether an AABB is contained within this one.
+        bool overlaps(const AABB&, bool touchIsOverlap) const; // Test whether an AABB overlaps with this one
 
-        //! Test whether the AABB overlaps this one.
-        /*! \param aabb
-                A reference to the AABB.
-
-            \param touchIsOverlap
-                Does touching constitute an overlap?
-
-            \return
-                Whether the AABB overlaps.
-         */
-        bool overlaps(const AABB&, bool touchIsOverlap) const;
-
-        //! Compute the centre of the AABB.
-        /*! \returns
-                The position vector of the AABB centre.
-         */
+        private:
         Vecf computeCentre();
-
-        /// Lower bound of AABB in each dimension.
-        Vecf lowerBound;
-
-        /// Upper bound of AABB in each dimension.
-        Vecf upperBound;
-
-        /// The position of the AABB centre.
-        Vecf centre;
-
-        /// The AABB's surface area.
-        double surfaceArea;
+        float computeSurfaceArea() const;
     };
 
     /*! \brief A node of the AABB tree.
@@ -222,7 +199,7 @@ namespace Fastboi
             \param upperBound
                 The upper bound in each dimension.
          */
-        void insertParticle(unsigned int index, const Vecf& lowerBound, const Vecf& upperBound);
+        void insertParticle(unsigned int index, Vecf lowerBound, Vecf upperBound);
 
         /// Return the number of particles in the tree.
         unsigned int nParticles();
@@ -267,7 +244,7 @@ namespace Fastboi
             \param alwaysReinsert
                 Always reinsert the particle, even if it's within its old AABB (default: false)
          */
-        bool updateParticle(unsigned int index, const Vecf& lowerBound, const Vecf& upperBound, bool alwaysReinsert=false);
+        bool updateParticle(unsigned int index, Vecf lowerBound, Vecf upperBound, bool alwaysReinsert=false);
 
         //! Query the tree to find candidate interactions for a particle.
         /*! \param index
@@ -448,5 +425,3 @@ namespace Fastboi
         bool minimumImage(std::vector<double>&, std::vector<double>&);
     };
 }
-
-#endif /* _AABB_H */

@@ -4,6 +4,7 @@
 #include "Events.h"
 #include "ChangeObserver.h"
 #include "FastboiCore.h"
+#include "BoundingBoxRenderer.h"
 
 using namespace Fastboi;
 
@@ -24,14 +25,25 @@ Collider::Collider(const Collider& copy) : Collider(GORef(copy.gameobject), copy
 Collider::~Collider() {
     CleanHangingCollisions();
     Fastboi::UnregisterCollider(this);
+
+    Fastboi::Destroy(*boundingBox);
 }
 
 void Collider::Start() {
     isStarted = true;
+
 }
 
 void Collider::Update() {
     if (!isEnabled) return;
+
+    if (boundingBox == nullptr) {
+        boundingBox = &Fastboi::Instantiate<Gameobject>("Bounding box");
+        boundingBox->AddComponent<Transform>(*gameobject().transform);
+        boundingBox->AddComponent<BoundingBoxRenderer>(RenderData(RenderOrder::UI, 1));
+    }
+
+    *boundingBox->transform = *gameobject().transform;
 
     std::vector<Collider*> newCollisions;
     std::vector<Collider*> endingCollisions;
