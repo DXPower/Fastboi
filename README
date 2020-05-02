@@ -19,7 +19,7 @@ Some main features:
      * The only "systems" are for physics and rendering.
 * Compile-time component storage and retrieval, ala. gameobject.AddComponent<MyComponent>(Cstor args...);
 * GJK narrow-phase collision algorithm allows for any convex polygonal shape as a collider.
-* No built-in "physics": There is no bouncing, gravity, acceleration, or friction built-in. Physics only handles velocity and collision resolution.
+* No built-in "physics": There is no bouncing, gravity, or friction built-in. Physics only handles velocity and collision resolution.
      * This makes the engine optimal for games with no physics, or even a fine-tuned custom physics for a platformer
 * RAII-style Gameobject reference handling through GORef, allowing for instantaenous switching of a component's owner
      * This lets any component be easily duplicated or moved using only the default copy constructor!
