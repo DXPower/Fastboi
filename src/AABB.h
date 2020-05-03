@@ -85,6 +85,7 @@ namespace Fastboi {
             bool contains(const AABB&) const; // Test whether an AABB is contained within this one.
             bool overlaps(const AABB&, bool touchIsOverlap) const; // Test whether an AABB overlaps with this one
 
+            inline static bool shouldRenderAABBs = false;
             static void RenderAllAABBs();
 
             private:

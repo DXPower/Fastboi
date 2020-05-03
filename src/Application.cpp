@@ -1,16 +1,18 @@
 #include "Application.h"
 #include "Input.h"
 #include <iostream>
+#include "Room.h"
 #include "SDL/SDL.h"
 #include "SDL/SDL_image.h"
+
 
 Application::GRenderer* Application::gRenderer = nullptr;
 SDL_Window* Application::gWindow = nullptr;
 SDL_Surface* Application::windowSurface = nullptr;
 // bool Application::quit = false;
 
-const int smallWindowX = 900;
-const int smallWindowY = 800;
+const int smallWindowX = 1000 - Adventure::Room::GetTileSize().x / 4;
+const int smallWindowY = Adventure::Room::GetSize().y / Adventure::Room::GetSize().x * smallWindowX - Adventure::Room::GetTileSize().y / 4;
 
 bool isFullscreen = true;
 

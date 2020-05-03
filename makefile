@@ -30,10 +30,14 @@ COMPILE_TEST.cpp = $(CXX) $(DEFINES) $(TESTDEPFLAGS) $(CXXFLAGS) -c
 
 $(DEPDIR): ; @mkdir -p $@
 
+GAME_SRC = $(ADVENTURE_SRC)
+GAME_INC = $(ADVENTURE_INC)
+EXE_NAME = $(EXE_NAME_ADVENTURE)
+
 APP_OBJS = \
-	$(patsubst src/%.cpp,out/obj/%.o,$(APP_SRC)) \
-	$(patsubst src/Slowboi/%.cpp,out/obj/Slowboi/%.o,$(APP_SRC)) \
-	$(patsubst src/%.c,out/obj/%.o,$(APP_SRC))
+	$(patsubst src/$(EXE_NAME)/%.cpp,out/obj/$(EXE_NAME)/%.o,$(GAME_SRC)) \
+	$(patsubst src/%.cpp,out/obj/%.o,$(ENGINE_SRC)) \
+	$(patsubst src/%.c,out/obj/%.o,$(ENGINE_SRC))
 
 APP_OBJS_TEST = \
 	$(patsubst src/%.cpp,out/test/%.o,$(TEST_SRC)) \
@@ -42,17 +46,17 @@ APP_OBJS_TEST = \
 
 # APP_OBJS_DEBUG = $(patsubst src/%.cpp,out/obj/%.d.o,$(APP_SRC)) $(patsubst src/Slowboi/%.cpp,out/obj/Slowboi/%.o,$(APP_SRC)) 
 
-DEPENDS := $(patsubst src/%.cpp,out/obj/%.d,$(APP_SRC))
-DEPENDS := $(patsubst src/Slowboi/%.cpp,out/obj/Slowboi/%.d,$(DEPENDS))
+DEPENDS := $(patsubst src/%.cpp,out/obj/%.d,$(APP_SRC) $(GAME_SRC))
+DEPENDS := $(patsubst src/$(EXE_NAME)/%.cpp,out/obj/$(EXE_NAME)/%.d,$(DEPENDS))
 DEPENDS := $(patsubst src/%.c,out/obj/%.d,$(DEPENDS))
 
 -include $(DEPENDS)
 
 $(OBJDIR)/%.o : src/%.c
-	$(COMPILE.c) $(APP_INC) $(OUTPUT_OPTION) $<
+	$(COMPILE.c) $(APP_INC) $(GAME_INC) $(OUTPUT_OPTION) $<
 
 $(OBJDIR)/%.o : src/%.cpp
-	$(COMPILE.cpp) $(APP_INC) $(OUTPUT_OPTION) $<
+	$(COMPILE.cpp) $(APP_INC) $(GAME_INC) $(GAME_HEADERS) $(OUTPUT_OPTION) $<
 
 $(TESTDIR)/%.o : src/%.c
 	$(COMPILE_TEST.c) $(APP_INC) $(OUTPUT_OPTION) $<
@@ -77,10 +81,10 @@ mygame: $(APP_OBJS)
 .PHONY: all debug
 
 debug:
-	$(COMPILE.d.cpp) $(CXXFLAGS) $(APP_SRC) -Isrc/ -Isrc/Slowboi/ -Iinc/ -o $(EXE_NAME).d.exe $(CXX_LINKS) -Wno-deprecated
+	$(COMPILE.d.cpp) $(CXXFLAGS) $(GAME_SRC) $(ENGINE_SRC) -Isrc/ $(GAME_INC) -Iinc/ -o $(EXE_NAME).d.exe $(CXX_LINKS) -Wno-deprecated
 
 link:
-	clang++ -Xclang -flto-visibility-public-std -o $(EXE_NAME).exe out/obj/*.o out/obj/Slowboi/*.o $(CXX_LINKS)
+	clang++ -Xclang -flto-visibility-public-std -o $(EXE_NAME).exe out/obj/*.o out/obj/$(EXE_NAME)/*.o $(CXX_LINKS)
  
 link_test:
 	clang++ -Xclang -flto-visibility-public-std -o test.exe out/test/*.o out/test/Slowboi/*.o out/test/test/*.o $(CXX_LINKS)
@@ -99,7 +103,10 @@ test:
 clean:
 	del /f /q /s out\obj\*.*
 	del /f /q /s out\test\*.*
-	del /f /q /s ${EXE_NAME}.exe 2>nul
-	del /f /q /s ${EXE_NAME}.d.exe 2>nul
-	del /f /q /s ${EXE_NAME}.d.exe 2>nul
+	del /f /q /s ${EXE_NAME_SLOWBOI}.exe 2>nul
+	del /f /q /s ${EXE_NAME_SLOWBOI}.d.exe 2>nul
+	del /f /q /s ${EXE_NAME_SLOWBOI}.d.exe 2>nul
+	del /f /q /s ${EXE_NAME_ADVENTURE}.exe 2>nul
+	del /f /q /s ${EXE_NAME_ADVENTURE}.d.exe 2>nul
+	del /f /q /s ${EXE_NAME_ADVENTURE}.d.exe 2>nul
 	del /f /q /s test.exe 2>nul

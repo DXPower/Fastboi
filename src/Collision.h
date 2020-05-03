@@ -75,6 +75,8 @@ namespace Fastboi {
         std::tuple<Velocity, Velocity> ResolveCollision(const Collision_t& collision);
 
         void AdvanceTransform(Transform& transform, const Velocity& vel, const double rotV);
-        circular_vector<Position> AdvanceCollider(const Collider&);;
+        circular_vector<Position> AdvanceCollider(const Collider&);
+
+        inline void SetRenderAABBTree(bool flag) { AABBTree::AABB::shouldRenderAABBs = flag; };
     }
 }

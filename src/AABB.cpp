@@ -110,9 +110,11 @@ Vecf AABB::computeCentre() {
 }
 
 void AABB::RenderAllAABBs() {
-    // for (const AABB* ab : aabbs) {
-    //     Rendering::Request_Render_DebugRect(CreateRect(*ab));
-    // }
+    if (shouldRenderAABBs) {
+        for (const AABB* ab : aabbs) {
+            Rendering::Request_Render_DebugRect(CreateRect(*ab));
+        }
+    }
 }
 
 Node::Node() { }

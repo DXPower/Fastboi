@@ -32,37 +32,37 @@ namespace Fastboi {
             return *this;
         }
 
-        T magnitude2() const {
+        constexpr T magnitude2() const {
             return (x * x) + (y * y);
         }
 
-        T magnitude() const {
+        constexpr T magnitude() const {
             return sqrt(magnitude2());
         }
         
-        Vec<T> normalized() const {
+        constexpr Vec<T> normalized() const {
             if (x == 0 && y == 0) return Vec<T>::zero();
             return Vec<T>(x / magnitude(), y / magnitude());
         }
 
         // Vector|Vector operators
-        Vec<T>& operator+=(const Vec<T>& v) { x += v.x; y += v.y; return *this; };
-        Vec<T>& operator-=(const Vec<T>& v) { x -= v.x; y -= v.y; return *this; };
-        Vec<T>& operator*=(const Vec<T>& v) { x *= v.x; y *= v.y; return *this; };
-        Vec<T>& operator/=(const Vec<T>& v) { x /= v.x; y /= v.y; return *this; };
+        constexpr Vec<T>& operator+=(const Vec<T>& v) { x += v.x; y += v.y; return *this; };
+        constexpr Vec<T>& operator-=(const Vec<T>& v) { x -= v.x; y -= v.y; return *this; };
+        constexpr Vec<T>& operator*=(const Vec<T>& v) { x *= v.x; y *= v.y; return *this; };
+        constexpr Vec<T>& operator/=(const Vec<T>& v) { x /= v.x; y /= v.y; return *this; };
 
         // Vector|Scalar operators
-        Vec<T>& operator+=(const T& s) { x += s; y += s; return *this; };
-        Vec<T>& operator-=(const T& s) { x -= s; y -= s; return *this; };
-        Vec<T>& operator*=(const T& s) { x *= s; y *= s; return *this; };
-        Vec<T>& operator/=(const T& s) { x /= s; y /= s; return *this; };
+        constexpr Vec<T>& operator+=(const T& s) { x += s; y += s; return *this; };
+        constexpr Vec<T>& operator-=(const T& s) { x -= s; y -= s; return *this; };
+        constexpr Vec<T>& operator*=(const T& s) { x *= s; y *= s; return *this; };
+        constexpr Vec<T>& operator/=(const T& s) { x /= s; y /= s; return *this; };
 
         // Negation operators
         constexpr Vec<T> operator-() const { return Vec<T>(-x, -y); };
         Vec<T>& negate() { *this *= -1; return *this; };
 
-        friend bool operator!=(const Vec<T>& lhs, const Vec<T>& rhs) { return !(lhs == rhs); };
-        friend bool operator==(const Vec<T>& lhs, const Vec<T>& rhs) { 
+        friend constexpr bool operator!=(const Vec<T>& lhs, const Vec<T>& rhs) { return !(lhs == rhs); };
+        friend constexpr bool operator==(const Vec<T>& lhs, const Vec<T>& rhs) { 
             if constexpr (!std::is_floating_point_v<T>)
                 return lhs.x == rhs.x && lhs.y == rhs.y;
             else
@@ -71,17 +71,17 @@ namespace Fastboi {
         };
 
         // Non-assignment math operators
-        friend Vec<T> operator+(const Vec<T>& lhs, const Vec<T>& rhs) { return Vec<T>(lhs) += rhs; };
-        friend Vec<T> operator-(const Vec<T>& lhs, const Vec<T>& rhs) { return Vec<T>(lhs) -= rhs; };
-        friend Vec<T> operator*(const Vec<T>& lhs, const Vec<T>& rhs) { return Vec<T>(lhs) *= rhs; };
-        friend Vec<T> operator/(const Vec<T>& lhs, const Vec<T>& rhs) { return Vec<T>(lhs) /= rhs; };
+        friend constexpr Vec<T> operator+(const Vec<T>& lhs, const Vec<T>& rhs) { return Vec<T>(lhs) += rhs; };
+        friend constexpr Vec<T> operator-(const Vec<T>& lhs, const Vec<T>& rhs) { return Vec<T>(lhs) -= rhs; };
+        friend constexpr Vec<T> operator*(const Vec<T>& lhs, const Vec<T>& rhs) { return Vec<T>(lhs) *= rhs; };
+        friend constexpr Vec<T> operator/(const Vec<T>& lhs, const Vec<T>& rhs) { return Vec<T>(lhs) /= rhs; };
 
-        friend Vec<T> operator+(const Vec<T>& lhs, const T& s) { return Vec<T>(lhs) += s; };
-        friend Vec<T> operator+(const T& s, const Vec<T>& rhs) { return Vec<T>(rhs) += s; };
-        friend Vec<T> operator-(const Vec<T>& lhs, const T& s) { return Vec<T>(lhs) -= s; };
-        friend Vec<T> operator*(const Vec<T>& lhs, const T& s) { return Vec<T>(lhs) *= s; };
-        friend Vec<T> operator*(const T& s, const Vec<T>& rhs) { return Vec<T>(rhs) *= s; };
-        friend Vec<T> operator/(const Vec<T>& lhs, const T& s) { return Vec<T>(lhs) /= s; };
+        friend constexpr Vec<T> operator+(const Vec<T>& lhs, const T& s) { return Vec<T>(lhs) += s; };
+        friend constexpr Vec<T> operator+(const T& s, const Vec<T>& rhs) { return Vec<T>(rhs) += s; };
+        friend constexpr Vec<T> operator-(const Vec<T>& lhs, const T& s) { return Vec<T>(lhs) -= s; };
+        friend constexpr Vec<T> operator*(const Vec<T>& lhs, const T& s) { return Vec<T>(lhs) *= s; };
+        friend constexpr Vec<T> operator*(const T& s, const Vec<T>& rhs) { return Vec<T>(rhs) *= s; };
+        friend constexpr Vec<T> operator/(const Vec<T>& lhs, const T& s) { return Vec<T>(lhs) /= s; };
 
         constexpr static Vec<T> zero() {
             return Vec<T>(0, 0);
@@ -89,7 +89,7 @@ namespace Fastboi {
 
         // Cast
         template<typename Y>
-        operator Vec<Y>() const {
+        constexpr operator Vec<Y>() const {
             return Vec<Y>(Y(x), Y(y));
         }
 
@@ -99,11 +99,11 @@ namespace Fastboi {
             std::swap(y, rhs.y);
         }
 
-        static T dotProduct(const Vec<T>& lhs, const Vec<T>& rhs) {
+        static constexpr T dotProduct(const Vec<T>& lhs, const Vec<T>& rhs) {
             return (lhs.x * rhs.x) + (lhs.y * rhs.y);
         }
 
-        static Vec<T> tripleProduct(const Vec<T>& a, const Vec<T>& b, const Vec<T>& c) {
+        static constexpr Vec<T> tripleProduct(const Vec<T>& a, const Vec<T>& b, const Vec<T>& c) {
             return (b * dotProduct(a, c)) - (a * dotProduct(b, c));
         }
 

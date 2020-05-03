@@ -13,6 +13,7 @@ using namespace Fastboi;
 using namespace Fastboi::Components;
 
 Fastboi::Input::KeyListener pauseListener(SDL_SCANCODE_ESCAPE);
+Input::KeyListener aabbListener(SDL_SCANCODE_F1);
 
 void TogglePause(const Fastboi::KeyEvent& e) {
     if (e.type == KeyEvent::DOWN) {
@@ -20,6 +21,15 @@ void TogglePause(const Fastboi::KeyEvent& e) {
             Fastboi::Unpause();
         else
             Fastboi::Pause();
+    }
+}
+
+void ToggleAABBDebug(const Fastboi::KeyEvent& e) {
+    static bool enableAABBs = false;
+
+    if (e.type == KeyEvent::DOWN) {
+        enableAABBs = !enableAABBs;
+        Collision::SetRenderAABBTree(enableAABBs);
     }
 }
 
@@ -38,7 +48,10 @@ void Slowboi::InitGame() {
     // Instantiate<Slowboi::Bullet>(Position(500, 500), Size(526, 53));
 
     Gameobject& player = Instantiate<&PlayerGO>(Position(500.f, 500.f));
-    Gameobject& brick = Instantiate<Brick>(Position(900, 800));
+    Gameobject& brick1 = Instantiate<Brick>(Position(900, 800));
+    Gameobject& brick2 = Instantiate<Brick>(Position(brick1.transform->position.x + brick1.transform->size.x, brick1.transform->position.y));
+    Gameobject& brick3 = Instantiate<Brick>(Position(brick2.transform->position.x, brick2.transform->position.y - brick2.transform->size.y));
+    printf("Pos: brick2 %f %f\n", brick2.transform->position.x, brick2.transform->position.y);
 
     Instantiate<UISquare>(Position(00, 0), Size(50, 50), ColorComp(0, 0, 255, 255), 2);
     Instantiate<UISquare>(Position(50, 0), Size(50, 50), ColorComp(0, 255, 0, 255), 1);
@@ -62,6 +75,7 @@ void Slowboi::InitGame() {
     SetCamera(Camera(*player.transform, Camera::WATCHING, 1.5f));
 
     pauseListener.signal.connect<&TogglePause>();
+    aabbListener.signal.connect<&ToggleAABBDebug>();
 
     Gameobject& moveLeft = Instantiate<Gameobject>("Left mover");
     moveLeft.AddComponent<Transform>(Position(380, 550), Size(20, 20), 0);

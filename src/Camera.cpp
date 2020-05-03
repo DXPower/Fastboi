@@ -9,6 +9,7 @@ void Fastboi::SetCamera(const Camera& cam) {
     printf("Setting camera...\n");
     Fastboi::camera.~Camera(); // Destroy the camera in-place, without memory deallocation
     std::memcpy(&Fastboi::camera, &cam, sizeof(Camera)); // Do byte-by-byte copy because we can't use operator=, due to window being ref
+    //TODO: Rework camera creation
 }
 
 Camera::Camera() : target(nullptr), type(CameraTarget::WATCHING) { };
@@ -31,7 +32,6 @@ Camera::~Camera() {
 }
 
 void Camera::SetTarget(const Transform& target, CameraTarget type) { 
-    printf("Setting target as %s\n", type == CameraTarget::OWNING ? "OWNING" : "WATCHING");
     if (this->type == CameraTarget::OWNING)
         delete this->target;
     

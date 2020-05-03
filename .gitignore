@@ -1,6 +1,7 @@
 # out files
 out/obj/*.*
-out/obj/Slowboi/*.*
+out/obj/slowboi/*.*
+out/obj/adventure/*.*
 out/test/*.*
 out/test/Slowboi/*.*
 out/test/test/*.*

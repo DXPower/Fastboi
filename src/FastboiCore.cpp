@@ -72,7 +72,6 @@ void Fastboi::Tick() {
         go.Update();
     }
 
-
     for (Gameobject* go : gosToDelete) {
         go->~Gameobject();
         gameobjectAllocator.Deallocate(static_cast<void*>(go));
@@ -144,7 +143,7 @@ void Fastboi::Physics() {
     Collision::PotentialCollisions_t potentialCollisions;
     Collision::Collisions_t collisions;
 
-    // std::lock_guard lock(renderingMtx);
+    std::lock_guard lock(renderingMtx);
 
     Collision::ProgressRigidbodies();
     Collision::BroadPhase(colliders, potentialCollisions);

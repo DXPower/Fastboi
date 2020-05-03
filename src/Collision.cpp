@@ -6,8 +6,9 @@
 #include "Gameobject.h"
 #include "GameobjectAllocator.h"
 #include <limits>
-#include <stdint.h>
+#include "Rendering.h"
 #include "Rigidbody.h"
+#include <stdint.h>
 
 #define CUTE_C2_IMPLEMENTATION
 #include "cute_c2.h"
@@ -85,8 +86,6 @@ void Fastboi::Collision::ProgressRigidbodies() {
     }
 }
 
-#include "Rendering.h"
-
 void Fastboi::Collision::BroadPhase(
       const Colliders_t& colliders
     , PotentialCollisions_t& potentialCollisions
@@ -100,7 +99,7 @@ void Fastboi::Collision::BroadPhase(
             if (!pc->isStarted || !pc->isEnabled || pc->isDeleted) continue;
 
             const Transform& t = *pc->gameobject().transform;
-            Rendering::Request_Render_DebugRect(RectF(t.position.x, t.position.y, t.size.x, t.size.y));
+            // Rendering::Request_Render_DebugRect(RectF(t.position.x, t.position.y, t.size.x, t.size.y));
 
             potentialCollisions.emplace(ColliderPairKey(collider, pc));
         }
