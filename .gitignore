@@ -23,3 +23,13 @@ dox/latex/
 # vscode
 .vscode/
 workspace.code-workspace
+
+# visual studio debugging
+.vs/
+Debug/
+fastboi.sln
+fastboi.vcxproj
+fastboi.vcxproj.*
+src/.vs/
+src/CppProperties.json
+x64/

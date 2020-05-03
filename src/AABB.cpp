@@ -25,20 +25,41 @@
 */
 
 #include "AABB.h"
+#include "Rendering.h"
 
 using namespace Fastboi;
+using namespace AABBTree;
 
-AABB::AABB() { }
+namespace Fastboi::AABBTree {
+    extern std::list<AABB*> aabbs;
+}
+
+std::list<AABB*> Fastboi::AABBTree::aabbs = std::list<AABB*>();
+
+RectF CreateRect(const AABB& ab) {
+    Position p = (ab.getUpperBound() + ab.getLowerBound()) * 0.5f;
+    Size s = ab.getUpperBound() - ab.getLowerBound();
+
+    return RectF(p.x, p.y, s.x, s.y);
+}
+
+AABB::AABB(): AABB(Vecf::zero(), Vecf::zero()) {}
 
 AABB::AABB(const Vecf& lowerBound, const Vecf& upperBound) : lowerBound(lowerBound), upperBound(upperBound) {
+    aabbs.push_back(this);
+
     //TODO: Remove this after testing
     // Validate that the upper bounds exceed the lower bounds.
     if (lowerBound.x > upperBound.x || lowerBound.y > upperBound.y)
         throw std::invalid_argument("[ERROR]: AABB lower bound is greater than the upper bound!");
-    
 
     surfaceArea = computeSurfaceArea();
     centre = computeCentre();
+}
+
+AABB::~AABB() {
+    if (auto it = std::find(aabbs.begin(), aabbs.end(), this); it != aabbs.end())
+        aabbs.erase(it);
 }
 
 float AABB::computeSurfaceArea() const {
@@ -78,6 +99,12 @@ bool AABB::overlaps(const AABB& aabb, bool touchIsOverlap) const {
 
 Vecf AABB::computeCentre() {
     return (upperBound + lowerBound) * 0.5;
+}
+
+void AABB::RenderAllAABBs() {
+    for (const AABB* ab : aabbs) {
+        Rendering::Request_Render_DebugRect(CreateRect(*ab));
+    }
 }
 
 Node::Node() { }
@@ -216,6 +243,7 @@ void Tree::freeNode(unsigned int node) {
 
     nodes[node].next = freeList;
     nodes[node].height = -1;
+    nodes[node].aabb = AABB();
     freeList = node;
     nodeCount--;
 }
@@ -677,7 +705,8 @@ unsigned int Tree::balance(unsigned int node)
         // The node's old parent should now point to its right-hand child.
         if (nodes[right].parent != NULL_NODE)
         {
-            if (nodes[nodes[right].parent].left == node) nodes[nodes[right].parent].left = right;
+            if (nodes[nodes[right].parent].left == node)
+                nodes[nodes[right].parent].left = right;
             else
             {
                 assert(nodes[nodes[right].parent].right == node);

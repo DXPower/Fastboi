@@ -57,6 +57,9 @@ namespace Fastboi {
             Render_Rect<fill>(*transform);
         };
 
+        void Request_Render_DebugRect(const RectF& rect);
+        void Render_AllDebugRects();
+
         template<FillType fill>
         void RenderScreen_Rect(const Transform& transform) {
             Position leftCorner = GetLeftCorner(transform);

@@ -10,6 +10,7 @@ Transform::Transform() : Transform(Position::zero(), Size::zero(), 0) { }
 Transform::Transform(Position pos) : Transform(pos, Size::zero(), 0) { }
 Transform::Transform(Position pos, Size size, double rot) : position(pos), size(size), rotation(rot), shape(nullptr) {
     SetShape<Rectangle>();
+    SetRotation(rot);
 }
 
 Transform::Transform(const Transform& copy) : Transform(copy.position, copy.size, copy.rotation) { }
@@ -29,6 +30,8 @@ Transform& Transform::operator=(const Transform& copy) {
     size = copy.size;
     rotation = copy.rotation;
 
+    SetShape<Rectangle>();
+
     return *this;
 }
 
@@ -36,6 +39,8 @@ Transform& Transform::operator=(Transform&& copy) {
     position = copy.position;
     size = copy.size;
     rotation = copy.rotation;
+
+    SetShape<Rectangle>();
 
     return *this;
 }

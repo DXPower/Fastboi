@@ -6,15 +6,7 @@
 
 using namespace Fastboi;
 
-Shape::Shape(const Transform& t) : transform(t) {
-    lastPosVerts = transform.position;
-    lastSizeVerts = transform.size;
-    lastRotationVerts = transform.rotation;
-    
-    lastPosBounds = transform.position;
-    lastSizeBounds = transform.size;
-    lastRotationBounds = transform.rotation;
-}
+Shape::Shape(const Transform& t) : transform(t) { }
 
 const circular_vector<Position>& Shape::GetVertices() const {
     if (   lastPosVerts      != transform.position
@@ -47,17 +39,21 @@ BoundingBox Shape::GetBounds() const {
 }
 
 BoundingBox Shape::CalculateBounds() const {
-    BoundingBox bounds;
+    using nlf = std::numeric_limits<float>;
 
-    auto vertices = GetVertices();
+    BoundingBox bounds{ .lowerBounds=Vecf(nlf::max(), nlf::max()), .upperBounds=Vecf(nlf::lowest(), nlf::lowest()) };
 
-    for (auto vertex : vertices) {
+    auto verts = GetVertices();
+
+    for (auto vertex : verts) {
         bounds.lowerBounds.x = std::min(vertex.x, bounds.lowerBounds.x);
         bounds.lowerBounds.y = std::min(vertex.y, bounds.lowerBounds.y);
         
         bounds.upperBounds.x = std::max(vertex.x, bounds.upperBounds.x);
         bounds.upperBounds.y = std::max(vertex.y, bounds.upperBounds.y);
     }
+
+    // printf("Bounds === lowest: %f %f, highest: %f %f\n", bounds.lowerBounds.x, bounds.lowerBounds.y, bounds.upperBounds.x, bounds.upperBounds.y);
 
     return bounds;
 }
@@ -98,7 +94,8 @@ bool Shape::ContainsPoint(const Position& p) {
 }
 
 Rectangle::Rectangle(const Transform& t) : Shape(t) {
-    vertices = CalculateVertices();
+    GetVertices();
+    GetBounds();
 }
 
 #define PI 3.14159265358979323846

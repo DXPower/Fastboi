@@ -26,24 +26,35 @@ Collider::~Collider() {
     CleanHangingCollisions();
     Fastboi::UnregisterCollider(this);
 
-    Fastboi::Destroy(*boundingBox);
+    if (boundingBox != nullptr)
+        Fastboi::Destroy(*boundingBox);
+
+    Collision::aabbTree.removeParticle((unsigned int) this);
 }
 
 void Collider::Start() {
     isStarted = true;
 
+    const Transform& tr = gameobject().GetComponent<Transform>();
+    BoundingBox bounds = tr.GetBounds();
+
+    Collision::aabbTree.insertParticle((unsigned int) this, bounds.lowerBounds, bounds.upperBounds);
 }
 
 void Collider::Update() {
     if (!isEnabled) return;
 
-    if (boundingBox == nullptr) {
-        boundingBox = &Fastboi::Instantiate<Gameobject>("Bounding box");
-        boundingBox->AddComponent<Transform>(*gameobject().transform);
-        boundingBox->AddComponent<BoundingBoxRenderer>(RenderData(RenderOrder::UI, 1));
-    }
-
-    *boundingBox->transform = *gameobject().transform;
+    // if (gameobject().name == std::string("Player")) {
+        // if (boundingBox == nullptr) {
+        //     boundingBox = &Fastboi::Instantiate<Gameobject>(gameobject().name);
+        //     boundingBox->AddComponent<Transform>(*gameobject().transform);
+        //     boundingBox->AddComponent<BoundingBoxRenderer>(RenderData(RenderOrder::UI, 1));
+        // } else {
+        //     *boundingBox->transform = *gameobject().transform;
+    // }
+        // }
+    const BoundingBox bounds = gameobject().transform->GetBounds(); 
+    Collision::aabbTree.updateParticle((unsigned int) this, bounds.lowerBounds, bounds.upperBounds);
 
     std::vector<Collider*> newCollisions;
     std::vector<Collider*> endingCollisions;

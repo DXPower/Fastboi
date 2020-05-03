@@ -1,4 +1,5 @@
 #include "FastboiCore.h"
+#include "AABB.h"
 #include <algorithm>
 #include "Application.h"
 #include "Camera.h"
@@ -17,9 +18,13 @@
 #include <list>
 #include <map>
 
+#ifndef DEBUG
 extern "C" {
     #include "CacheLineSize.h"
 }
+#else
+    #include "CacheLineSize.h"
+#endif
 
 #define WHITE 255, 255, 255, 255
 #define BLACK 0, 0, 0, 255
@@ -121,6 +126,9 @@ void Fastboi::Render() {
                 }
             }        
         }
+
+        AABBTree::AABB::RenderAllAABBs();
+        Rendering::Render_AllDebugRects();
 
         renderingMtx.unlock();
         SDL_RenderPresent(Rendering::gRenderer);

@@ -2,6 +2,7 @@
 #include "Input.h"
 #include <mutex>
 #include "Resources.h"
+#include <stack>
 #include "Texture.h"
 #include "Utility.h"
 
@@ -9,11 +10,31 @@ using namespace Fastboi;
 using namespace Resources;
 using namespace Rendering;
 
+std::mutex debugRectMtx;
+std::stack<RectF> debugRects;
+
 void Rendering::Render_Line(const Position& worldA, const Position& worldB) {
     Position screenA = Fastboi::camera.WorldToScreenPos(worldA);
     Position screenB = Fastboi::camera.WorldToScreenPos(worldB);
 
     SDL_RenderDrawLineF(gRenderer, screenA.x, screenA.y, screenB.x, screenB.y);
+}
+
+void Rendering::Request_Render_DebugRect(const RectF& rect) {
+    std::lock_guard lock(debugRectMtx);
+    debugRects.push(rect);
+}
+
+void Rendering::Render_AllDebugRects() {
+    std::lock_guard lock(debugRectMtx);
+
+    while (debugRects.size() != 0) {
+        const RectF& rect = debugRects.top();
+
+        Rendering::Render_Rect<Rendering::UNFILLED>(Transform(Position(rect.x, rect.y), Size(rect.w, rect.h), 0));
+
+        debugRects.pop();
+    }
 }
 
 void Rendering::Render_Texture(const Transform& transform, const Texture& texture, const Rect& cutout) {

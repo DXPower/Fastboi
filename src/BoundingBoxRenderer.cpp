@@ -5,9 +5,17 @@ using namespace Fastboi;
 
 void BoundingBoxRenderer::Render() {
     BoundingBox bounds = gameobject().transform->GetBounds();
-    Transform t((bounds.upperBounds + bounds.lowerBounds) * 0.5, (bounds.upperBounds - bounds.lowerBounds) / 2, 0);
+    
+    Transform t(gameobject().transform->position, bounds.upperBounds - bounds.lowerBounds, 0);
 
+    Rendering::SetColor(0, 255, 0, 255);
     Rendering::Render_Rect<Rendering::UNFILLED>(t);
+    Rendering::SetColor(255, 0, 0, 255);
+
+    for (auto vertex : gameobject().transform->GetVertices()) {
+        Transform p(vertex, Size(10.f, 10.f), 0);
+        Rendering::Render_Rect<Rendering::FILLED>(p);
+    }
 }
 
 BoundingBoxRenderer& BoundingBoxRenderer::Duplicate() const {

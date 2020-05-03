@@ -126,11 +126,11 @@ struct BulletHit {
 static int bulletCount = 0;
 
 void Slowboi::Bullet(Gameobject& go, const Position& p, const Velocity& v, Components::Player& player) {
-    char* buffer = new char[20];
-    sprintf(buffer, "Bullet %i", bulletCount);
-    bulletCount++;
+    // char* buffer = new char[20];
+    // sprintf(buffer, "Bullet %i", bulletCount);
+    // bulletCount++;
 
-    go.name = buffer;
+    go.name = "Bullet";
 
     go.AddComponent<Transform>(p, Size(30, 10), 0);
     go.AddComponent<Rigidbody>(v, 500).rotDrag = 300.;

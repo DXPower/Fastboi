@@ -1,5 +1,6 @@
 #pragma once
 
+#include "AABB.h"
 #include <list>
 #include <unordered_set>
 #include <unordered_map>
@@ -14,7 +15,6 @@ namespace Fastboi {
     struct Collider;
     struct Gameobject;
     struct Transform;
-
     
     namespace Collision {
         struct ColliderPairKey {
@@ -54,6 +54,8 @@ namespace Fastboi {
             void AddCollision(const Collision_t& collision);    
             const decltype(collisions)& Get() const;        
         };
+
+        extern AABBTree::Tree aabbTree;
 
         Collision_t::CollisionData AreCollidersIntersectng(
               const Collider& colliderA
