@@ -24,6 +24,14 @@
   http://www.box2d.org
 */
 
+/*
+  This software has been modified by Dylan Ferris as early as May 1st, 2020.
+  Under Lemma 2 of this copyright notice, this is an altered source version.
+  The purpose of the modification was to limit the dimensionality to 2D,
+  remove any periodicity, and make it natively interface with the Fastboi
+  game engine, also created by Dylan Ferris.
+*/
+
 #include "AABB.h"
 #include "Rendering.h"
 
@@ -102,9 +110,9 @@ Vecf AABB::computeCentre() {
 }
 
 void AABB::RenderAllAABBs() {
-    for (const AABB* ab : aabbs) {
-        Rendering::Request_Render_DebugRect(CreateRect(*ab));
-    }
+    // for (const AABB* ab : aabbs) {
+    //     Rendering::Request_Render_DebugRect(CreateRect(*ab));
+    // }
 }
 
 Node::Node() { }
@@ -297,7 +305,7 @@ void Tree::freeNode(unsigned int node) {
 //     nodes[node].particle = particle;
 // }
 
-void Tree::insertParticle(unsigned int particle, Vecf lowerBound, Vecf upperBound) {
+void Tree::insertParticle(ParticleIndex_t particle, Vecf lowerBound, Vecf upperBound) {
     // Make sure the particle doesn't already exist.
     if (particleMap.count(particle) != 0) {
         throw std::invalid_argument("[ERROR]: Particle already exists in tree!");
@@ -326,7 +334,7 @@ unsigned int Tree::nParticles() {
     return particleMap.size();
 }
 
-void Tree::removeParticle(unsigned int particle) {
+void Tree::removeParticle(ParticleIndex_t particle) {
     auto it = particleMap.find(particle);
 
     // The particle doesn't exist.
@@ -390,7 +398,7 @@ void Tree::removeAll() {
 //     return updateParticle(particle, lowerBound, upperBound, alwaysReinsert);
 // }
 
-bool Tree::updateParticle(unsigned int particle, Vecf lowerBound,
+bool Tree::updateParticle(ParticleIndex_t particle, Vecf lowerBound,
                             Vecf upperBound, bool alwaysReinsert) {
     // Map iterator.
     auto it = particleMap.find(particle);
@@ -432,7 +440,7 @@ bool Tree::updateParticle(unsigned int particle, Vecf lowerBound,
     return true;
 }
 
-std::vector<unsigned int> Tree::query(unsigned int particle)
+std::vector<ParticleIndex_t> Tree::query(ParticleIndex_t particle)
 {
     // Make sure that this is a valid particle.
     if (particleMap.count(particle) == 0)
@@ -444,13 +452,13 @@ std::vector<unsigned int> Tree::query(unsigned int particle)
     return query(particle, nodes[particleMap.find(particle)->second].aabb);
 }
 
-std::vector<unsigned int> Tree::query(unsigned int particle, const AABB& aabb)
+std::vector<ParticleIndex_t> Tree::query(ParticleIndex_t particle, const AABB& aabb)
 {
     std::vector<unsigned int> stack;
     stack.reserve(256);
     stack.push_back(root);
 
-    std::vector<unsigned int> particles;
+    std::vector<ParticleIndex_t> particles;
 
     while (stack.size() > 0) {
         unsigned int nodeIndex = stack.back();
@@ -508,7 +516,7 @@ std::vector<unsigned int> Tree::query(unsigned int particle, const AABB& aabb)
 //     return query(std::numeric_limits<unsigned int>::max(), aabb);
 // }
 
-const AABB& Tree::getAABB(unsigned int particle) {
+const AABB& Tree::getAABB(ParticleIndex_t particle) {
     return nodes[particleMap[particle]].aabb;
 }
 
@@ -709,7 +717,7 @@ unsigned int Tree::balance(unsigned int node)
                 nodes[nodes[right].parent].left = right;
             else
             {
-                assert(nodes[nodes[right].parent].right == node);
+                // assert(nodes[nodes[right].parent].right == node);
                 nodes[nodes[right].parent].right = right;
             }
         }
@@ -762,7 +770,7 @@ unsigned int Tree::balance(unsigned int node)
             if (nodes[nodes[left].parent].left == node) nodes[nodes[left].parent].left = left;
             else
             {
-                assert(nodes[nodes[left].parent].right == node);
+                // assert(nodes[nodes[left].parent].right == node);
                 nodes[nodes[left].parent].right = left;
             }
         }

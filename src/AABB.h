@@ -23,6 +23,15 @@
   This code was adapted from parts of the Box2D Physics Engine,
   http://www.box2d.org
 */
+
+/*
+  This software has been modified by Dylan Ferris as early as May 1st, 2020.
+  Under Lemma 2 of this copyright notice, this is an altered source version.
+  The purpose of the modification was to limit the dimensionality to 2D,
+  remove any periodicity, and make it natively interface with the Fastboi
+  game engine, also created by Dylan Ferris.
+*/
+
 #pragma once
 
 #include <algorithm>
@@ -40,7 +49,11 @@
 const unsigned int NULL_NODE = 0xffffffff;
 
 namespace Fastboi {
+    struct Collider;
+
     namespace AABBTree {
+        using ParticleIndex_t = Collider*;
+
         /*! \brief The axis-aligned bounding box object.
 
             Axis-aligned bounding boxes (AABBs) store information for the minimum
@@ -115,7 +128,7 @@ namespace Fastboi {
             int height = -1;
 
             /// The index of the particle that the node contains (leaf nodes only).
-            unsigned int particle;
+            ParticleIndex_t particle;
 
             //! Test whether the node is a leaf.
             /*! \return
@@ -134,106 +147,19 @@ namespace Fastboi {
         */
         class Tree
         {
-        public:
-            //! Constructor (non-periodic).
-            /*! \param skinThickness
-                    The skin thickness for fattened AABBs, as a fraction
-                    of the AABB base length.
-
-                \param nParticles
-                    The number of particles (for fixed particle number systems).
-
-                \param touchIsOverlap
-                    Does touching count as overlapping in query operations?
-            */
+            public:
             Tree(double skinThickness = 0.05,
                 unsigned int nParticles = 16, bool touchIsOverlap=true);
 
-            // //! Constructor (custom periodicity).
-            // /*! \param skinThickness_
-            //         The skin thickness for fattened AABBs, as a fraction
-            //         of the AABB base length.
-
-            //     \param periodicity_
-            //         Whether the system is periodic in each dimension.
-
-            //     \param boxSize_
-            //         The size of the simulation box in each dimension.
-
-            //     \param nParticles
-            //         The number of particles (for fixed particle number systems).
-
-            //     \param touchIsOverlap
-            //         Does touching count as overlapping in query operations?
-            //  */
-            // Tree(double, const std::vector<bool>&, const std::vector<double>&,
-            //     unsigned int nParticles = 16, bool touchIsOverlap=true);
-
-            // //! Set the periodicity of the simulation box.
-            // /*! \param periodicity_
-            //         Whether the system is periodic in each dimension.
-            //  */
-            // void setPeriodicity(const std::vector<bool>&);
-
-            // //! Set the size of the simulation box.
-            // /*! \param boxSize_
-            //         The size of the simulation box in each dimension.
-            //  */
-            // void setBoxSize(const std::vector<double>&);
-
-            // //! Insert a particle into the tree (point particle).
-            // /*! \param index
-            //         The index of the particle.
-
-            //     \param position
-            //         The position vector of the particle.
-
-            //     \param radius
-            //         The radius of the particle.
-            //  */
-            // void insertParticle(unsigned int, std::vector<double>&, double);
-
-            //! Insert a particle into the tree (arbitrary shape with bounding box).
-            /*! \param index
-                    The index of the particle.
-
-                \param lowerBound
-                    The lower bound in each dimension.
-
-                \param upperBound
-                    The upper bound in each dimension.
-            */
-            void insertParticle(unsigned int index, Vecf lowerBound, Vecf upperBound);
+            void insertParticle(ParticleIndex_t index, Vecf lowerBound, Vecf upperBound);
 
             /// Return the number of particles in the tree.
             unsigned int nParticles();
 
-            //! Remove a particle from the tree.
-            /*! \param particle
-                    The particle index (particleMap will be used to map the node).
-            */
-            void removeParticle(unsigned int index);
+            void removeParticle(ParticleIndex_t index);
 
             /// Remove all particles from the tree.
             void removeAll();
-
-            // //! Update the tree if a particle moves outside its fattened AABB.
-            // /*! \param particle
-            //         The particle index (particleMap will be used to map the node).
-
-            //     \param position
-            //         The position vector of the particle.
-
-            //     \param radius
-            //         The radius of the particle.
-
-            //     \param alwaysReinsert
-            //         Always reinsert the particle, even if it's within its old AABB (default:false)
-
-            //     \return
-            //         Whether the particle was reinserted.
-            //  */
-            // bool updateParticle(unsigned int, std::vector<double>&, double, bool alwaysReinsert=false);
 
             //! Update the tree if a particle moves outside its fattened AABB.
             /*! \param index
@@ -248,43 +174,25 @@ namespace Fastboi {
                 \param alwaysReinsert
                     Always reinsert the particle, even if it's within its old AABB (default: false)
             */
-            bool updateParticle(unsigned int index, Vecf lowerBound, Vecf upperBound, bool alwaysReinsert=false);
+            bool updateParticle(ParticleIndex_t particle, Vecf lowerBound, Vecf upperBound, bool alwaysReinsert=false);
 
-            //! Query the tree to find candidate interactions for a particle.
-            /*! \param index
-                    The particle index.
+            std::vector<ParticleIndex_t> query(ParticleIndex_t particle);
+            std::vector<ParticleIndex_t> query(ParticleIndex_t particle, const AABB& aabb);
 
-                \return particles
-                    A vector of particle indices.
-            */
-            std::vector<unsigned int> query(unsigned int);
+            // //! Query the tree to find candidate interactions for an AABB.
+            // /*! \param aabb
+            //         The AABB.
 
-            //! Query the tree to find candidate interactions for an AABB.
-            /*! \param particle
-                    The particle index.
-
-                \param aabb
-                    The AABB.
-
-                \return particles
-                    A vector of particle indices.
-            */
-            std::vector<unsigned int> query(unsigned int, const AABB&);
-
-            //! Query the tree to find candidate interactions for an AABB.
-            /*! \param aabb
-                    The AABB.
-
-                \return particles
-                    A vector of particle indices.
-            */
-            std::vector<unsigned int> query(const AABB&);
+            //     \return particles
+            //         A vector of particle indices.
+            // */
+            // std::vector<unsigned int> query(const AABB&);
 
             //! Get a particle AABB.
             /*! \param particle
                     The particle index.
             */
-            const AABB& getAABB(unsigned int);
+            const AABB& getAABB(ParticleIndex_t particle);
 
             //! Get the height of the tree.
             /*! \return
@@ -342,13 +250,13 @@ namespace Fastboi {
             Vecf boxSize;
 
             /// The position of the negative minimum image.
-        Vecf negMinImage;
+            Vecf negMinImage;
 
             /// The position of the positive minimum image.
             Vecf posMinImage;
 
             /// A map between particle and node indices.
-            std::unordered_map<unsigned int, unsigned int> particleMap;
+            std::unordered_map<ParticleIndex_t, unsigned int> particleMap;
 
             /// Does touching count as overlapping in tree queries?
             bool touchIsOverlap;

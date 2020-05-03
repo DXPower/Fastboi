@@ -43,7 +43,7 @@ namespace Fastboi {
 
         using Vertices_t = circular_vector<Position>;
         using Colliders_t = std::unordered_set<Collider*>;
-        using PotentialCollisions_t = std::list<Collider*>;
+        using PotentialCollisions_t = std::unordered_set<ColliderPairKey, ColliderPairKey::Hash>;
         
         struct Collisions_t {
             // using CollisionPairMap_t = std::unordered_map<ColliderPairKey, CollisionData, ColliderPairKey::Hash>;

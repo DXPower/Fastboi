@@ -29,7 +29,7 @@ Collider::~Collider() {
     if (boundingBox != nullptr)
         Fastboi::Destroy(*boundingBox);
 
-    Collision::aabbTree.removeParticle((unsigned int) this);
+    Collision::aabbTree.removeParticle(this);
 }
 
 void Collider::Start() {
@@ -38,7 +38,7 @@ void Collider::Start() {
     const Transform& tr = gameobject().GetComponent<Transform>();
     BoundingBox bounds = tr.GetBounds();
 
-    Collision::aabbTree.insertParticle((unsigned int) this, bounds.lowerBounds, bounds.upperBounds);
+    Collision::aabbTree.insertParticle(this, bounds.lowerBounds, bounds.upperBounds);
 }
 
 void Collider::Update() {
@@ -54,7 +54,7 @@ void Collider::Update() {
     // }
         // }
     const BoundingBox bounds = gameobject().transform->GetBounds(); 
-    Collision::aabbTree.updateParticle((unsigned int) this, bounds.lowerBounds, bounds.upperBounds);
+    Collision::aabbTree.updateParticle(this, bounds.lowerBounds, bounds.upperBounds);
 
     std::vector<Collider*> newCollisions;
     std::vector<Collider*> endingCollisions;

@@ -85,13 +85,24 @@ void Fastboi::Collision::ProgressRigidbodies() {
     }
 }
 
+#include "Rendering.h"
+
 void Fastboi::Collision::BroadPhase(
       const Colliders_t& colliders
     , PotentialCollisions_t& potentialCollisions
 ) {
     for (Collider* collider : colliders) {
-        if (collider->isStarted && collider->isEnabled && !collider->isDeleted) {
-            potentialCollisions.push_back(collider);
+        if (!collider->isStarted || !collider->isEnabled || collider->isDeleted) continue;
+
+        auto pots = aabbTree.query(collider);
+
+        for (Collider* pc : pots) {
+            if (!pc->isStarted || !pc->isEnabled || pc->isDeleted) continue;
+
+            const Transform& t = *pc->gameobject().transform;
+            Rendering::Request_Render_DebugRect(RectF(t.position.x, t.position.y, t.size.x, t.size.y));
+
+            potentialCollisions.emplace(ColliderPairKey(collider, pc));
         }
     }
 }
@@ -105,12 +116,15 @@ void Fastboi::Collision::NarrowPhase(
       const PotentialCollisions_t& potentialCollisions
     , Collisions_t& collisions) {
 
-    for (auto ca = potentialCollisions.begin(); ca != potentialCollisions.end(); ca++) {
-        for (auto cb = std::next(ca, 1); cb != potentialCollisions.end(); cb++) {
-            if (*ca == *cb || Transform::IsDescendentRelated(*(*ca)->gameobject().transform, *(*cb)->gameobject().transform)) continue;
-            if (Collision_t::CollisionData coll = AreCollidersIntersectng(**ca, **cb); coll.collided) {
-               collisions.AddCollision({ **ca, **cb, coll });
-            }
+    for (const auto& potCol : potentialCollisions) {
+        Collider* const ca = potCol.a;
+        Collider* const cb = potCol.b;
+
+        if (ca == cb) printf("Attempting to compare against self!\n");
+        if (Transform::IsDescendentRelated(*ca->gameobject().transform, *cb->gameobject().transform)) continue;
+
+        if (Collision_t::CollisionData coll = AreCollidersIntersectng(*ca, *cb); coll.collided) {
+            collisions.AddCollision({ .a = *ca, .b = *cb, .data = coll });
         }
     }
 }
