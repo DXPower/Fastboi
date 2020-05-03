@@ -12,6 +12,7 @@ namespace Fastboi {
         std::size_t chunksPerBlock;
         Chunk* allocChunk = nullptr;
         Chunk* unstartedHead = nullptr;
+        Chunk* unstartedTail = nullptr;
         Block* blockHead = nullptr;
         Block* blockTail = nullptr;
         

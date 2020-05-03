@@ -82,13 +82,20 @@ void GameobjectAllocator::Deallocate(void* go) {
 }
 
 void GameobjectAllocator::MarkUnstarted(Chunk& chunk) {
-    chunk.nextStart = unstartedHead;
-    unstartedHead = &chunk;
+    chunk.nextStart = nullptr;
+
+    if (unstartedHead == nullptr) {
+        unstartedHead = &chunk;
+        unstartedTail = &chunk;
+    } else {
+        unstartedTail->nextStart = &chunk;
+        unstartedTail = &chunk;
+    }
+
 }
 
 void GameobjectAllocator::StartAll() {
     Chunk* next;
-
 
     while (unstartedHead != nullptr) {
         reinterpret_cast<Gameobject*>(unstartedHead)->Start();
@@ -98,6 +105,8 @@ void GameobjectAllocator::StartAll() {
         unstartedHead->MarkStarted();
         unstartedHead = next;
     }
+
+    unstartedTail = nullptr;
 }
 
 GameobjectAllocator::Block* GameobjectAllocator::AllocateBlock() {
