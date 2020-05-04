@@ -18,9 +18,11 @@ namespace Adventure {
         Item(GORef&& go);
 
         void Start();
+        
+        void Release();
 
         void Collision(const CollisionEvent& e);
-        void Release(const KeyEvent& e);
+        void ReleasePressed(const KeyEvent& e);
     };
 
     
@@ -39,7 +41,11 @@ namespace Adventure {
         Key(GORef&& go, KeyColor color);
 
         void Start();
+
+        static void Inst(Gameobject& go, const Position& pos, KeyColor color);
     };
 
-    void KeyGO(Gameobject& go, const Position& pos, KeyColor color);
+    struct Sword {
+        static void Inst(Gameobject& go, const Position& pos);
+    };
 }

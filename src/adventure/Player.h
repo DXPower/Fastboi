@@ -26,7 +26,8 @@ namespace Adventure {
         void Start();
         void Update();
         // void Collision(const CollisionEvent& e) const;
+
+        static void Inst(Gameobject& go, const Position& pos);
     };
 
-    void PlayerGO(Gameobject& go, const Position& pos);
 };

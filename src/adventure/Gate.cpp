@@ -33,7 +33,11 @@ void Gate::Start() {
         , 0
     );
 
-    trigger.AddComponent<Collider>(Collider::TRIGGER).collisionSignal.connect<&Gate::EnterTriggerHit>(this);
+    Collider& col = trigger.AddComponent<Collider>(Collider::TRIGGER, CollisionLayer::TRIGGERS);
+    
+    col.mask.Include(CollisionLayer::PLAYER);
+    col.collisionSignal.connect<&Gate::EnterTriggerHit>(this);
+
 }
 
 void Gate::Update() {
@@ -49,16 +53,23 @@ void Gate::Update() {
     } else {
         if (holder->transform->position.y >= inside.GetCenter().y + inside.GetSize().y / 2.f - inside.GetTileSize().y / 2) {
             holder->transform->position = go().transform->position;
-
             hasEntered = false;
-            curState = GateState::CLOSED;
-            timeElapsed = 0.f;
+            timeElapsed = 2.f;
+
+            printf("TPed out\n");
+
+            if (key->GetComponent<Item>().isHeld) {
+                printf("Key with player!\n");
+                curState = GateState::CLOSED;
+                timeElapsed = 0.f;
+            }
         }
     }
 }
 
 void Gate::TryOpen(const Key& key) {
     if (key.color == color && key.go().GetComponent<Item>().isHeld) {
+        printf("Has key!\n");
         curState = GateState::OPEN;
         timeElapsed = 0.0f;
 
@@ -77,6 +88,7 @@ void Gate::TryEnterGate(Gameobject& player) {
     player.transform->position.y += Room::GetSize().y / 2.f - Room::GetTileSize().y;
 
     hasEntered = true;
+    SetProgress(MAX_PROGRESS);
 }
 
 void Gate::EnterTriggerHit(const CollisionEvent& e) {
@@ -123,7 +135,7 @@ void Gate::SetProgress(unsigned char progress) {
 
 void Gate::Inst(Gameobject& go, const Position& pos, KeyColor color, const Room& room) {
     go.AddComponent<Transform>(pos, gateSize, 0);
-    go.AddComponent<Collider>(Collider::FIXED);
+    go.AddComponent<Collider>(Collider::FIXED, CollisionLayer::WALLS).mask.Include(CollisionLayer::PLAYER, CollisionLayer::ITEMS);
     go.AddComponent<SpriteRenderer>(RenderData(RenderOrder::OBJECTS_OVER, 10), "Gate", Rect(0, 0, gateSpriteSize.x, gateSpriteSize.y));
     go.AddComponent<Gate>(color, room);
 }

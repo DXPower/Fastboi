@@ -65,13 +65,13 @@ void Player::Update() {
     rigidbody->velocity = direction.normalized() * speed;
 }
 
-void Adventure::PlayerGO(Gameobject& go, const Position& pos) {
+void Player::Inst(Gameobject& go, const Position& pos) {
     go.name = "Player";
 
     go.AddComponent<Transform>(pos, Room::GetTileSize() / 2.f, 0);
     go.AddComponent<BoxColorRenderer>(RenderData(RenderOrder::UNITS, 10));
     go.AddComponent<ColorComp>(255, 0, 255, 255);
-    go.AddComponent<Collider>();
+    go.AddComponent<Collider>(0, CollisionLayer::PLAYER);
     go.AddComponent<Player>();
 }
 

@@ -7,4 +7,6 @@ using namespace Fastboi::Components;
 
 namespace Adventure {
     void InitGame();
+
+    void LoadLevel1();
 }
