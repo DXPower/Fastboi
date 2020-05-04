@@ -8,17 +8,18 @@
 
 using namespace Fastboi;
 
-Collider::Collider(GORef&& go) : Collider(std::move(go), 0) { };
+Collider::Collider(GORef&& go) : Collider(std::move(go), 0, CollisionLayer::WALLS) { };
 
-Collider::Collider(GORef&& gameobject, uint_fast8_t flags)
+Collider::Collider(GORef&& gameobject, uint_fast8_t flags, CollisionLayer layer)
  : gameobject(std::move(gameobject))
- , flags(flags) {
+ , flags(flags), mask(CollisionMask(layer)) {
     Fastboi::RegisterCollider(this);
 };
 
-Collider::Collider(const Collider& copy) : Collider(GORef(copy.gameobject), copy.flags) {
+Collider::Collider(const Collider& copy) : Collider(GORef(copy.gameobject), copy.flags, CollisionLayer::WALLS) {
     isEnabled = copy.isEnabled;
     isStarted = false;
+    mask = CollisionMask(copy.mask);
 }
 
 
@@ -35,10 +36,10 @@ Collider::~Collider() {
 void Collider::Start() {
     isStarted = true;
 
-    const Transform& tr = gameobject().GetComponent<Transform>();
-    BoundingBox bounds = tr.GetBounds();
+    // const Transform& tr = gameobject().GetComponent<Transform>();
+    // BoundingBox bounds = tr.GetBounds();
 
-    Collision::aabbTree.insertParticle(this, bounds.lowerBounds, bounds.upperBounds);
+    // Collision::aabbTree.insertParticle(this, bounds.lowerBounds, bounds.upperBounds);
 }
 
 void Collider::Update() {
@@ -53,8 +54,8 @@ void Collider::Update() {
         //     *boundingBox->transform = *gameobject().transform;
     // }
         // }
-    const BoundingBox bounds = gameobject().transform->GetBounds(); 
-    Collision::aabbTree.updateParticle(this, bounds.lowerBounds, bounds.upperBounds);
+    // const BoundingBox bounds = gameobject().transform->GetBounds(); 
+    // Collision::aabbTree.updateParticle(this, bounds.lowerBounds, bounds.upperBounds);
 
     decltype(pendingCollisions) newCollisions;
     decltype(pendingCollisions) endingCollisions;

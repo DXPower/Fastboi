@@ -3,6 +3,7 @@
 #include "circular_vector.h"
 #include "Vec.h"
 #include "Collision.h"
+#include "CollisionMask.h"
 #include "Events.h"
 #include <GORef.h>
 #include <list>
@@ -40,6 +41,7 @@ namespace Fastboi {
         bool isEnabled = true;
         bool isStarted = false;
         bool isDeleted = false;
+
         uint_fast8_t flags;
         
         public:
@@ -47,12 +49,14 @@ namespace Fastboi {
             TRIGGER = 1 // Trigger means any collision will not affect either itself or other's positions, but still triggers event. (Like a tripwire)
             , FIXED = 2 // Fixed means any collision will not affect its own position, but still can affect another's position. (Like a wall)
         };
+        
+        CollisionMask mask;
 
         Fastboi::Signal<void(const Fastboi::CollisionEvent&)> collisionSignal;
         GORef gameobject;
 
         Collider(GORef&& gameobject);
-        Collider(GORef&& gameobject, uint_fast8_t flags);
+        Collider(GORef&& gameobject, uint_fast8_t flags, CollisionLayer layer);
         Collider(const Collider& copy);
         ~Collider();
         

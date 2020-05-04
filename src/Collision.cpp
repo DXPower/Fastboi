@@ -90,16 +90,26 @@ void Fastboi::Collision::BroadPhase(
       const Colliders_t& colliders
     , PotentialCollisions_t& potentialCollisions
 ) {
-    for (Collider* collider : colliders) {
+    for (auto it = colliders.begin(); it != colliders.end(); it++) {
+        Collider* collider = *it;
+
         if (!collider->isStarted || !collider->isEnabled || collider->isDeleted) continue;
 
-        auto pots = aabbTree.query(collider);
+        // auto pots = aabbTree.query(collider);
+        const Transform& ct = *collider->gameobject().transform;
 
-        for (Collider* pc : pots) {
+        for (auto pcit = std::next(it); pcit != colliders.end(); pcit++) {
+            Collider* pc = *pcit;
+
             if (!pc->isStarted || !pc->isEnabled || pc->isDeleted) continue;
+            if (!CollisionMask::CanCollide(collider->mask, pc->mask)) continue;
 
-            const Transform& t = *pc->gameobject().transform;
-            // Rendering::Request_Render_DebugRect(RectF(t.position.x, t.position.y, t.size.x, t.size.y));
+            const Transform& pct = *pc->gameobject().transform;
+
+            if (!BoundingBox::Overlaps(ct.GetBounds().Fatten(0.2f), pct.GetBounds().Fatten(0.2f))) continue;
+
+            // Rendering::Request_Render_DebugRect(b.Fatten(0.2f).ToRect());
+            // Rendering::Request_Render_DebugRect(ct.GetBounds().Fatten(0.2f).ToRect());
 
             potentialCollisions.emplace(ColliderPairKey(collider, pc));
         }
@@ -119,7 +129,8 @@ void Fastboi::Collision::NarrowPhase(
         Collider* const ca = potCol.a;
         Collider* const cb = potCol.b;
 
-        if (ca == cb) printf("Attempting to compare against self!\n");
+        // printf("Possible collision between %s and %s\n", ca->gameobject().name.c_str(), cb->gameobject().name.c_str());
+
         if (Transform::IsDescendentRelated(*ca->gameobject().transform, *cb->gameobject().transform)) continue;
 
         if (Collision_t::CollisionData coll = AreCollidersIntersectng(*ca, *cb); coll.collided) {

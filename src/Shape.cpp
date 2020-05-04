@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <cmath>
 #include <limits>
+#include "Rect.h"
 #include "Transform.h"
 
 using namespace Fastboi;
@@ -91,6 +92,27 @@ bool Shape::ContainsPoint(const Position& p) {
     }
 
     return true;
+}
+
+bool BoundingBox::Overlaps(const BoundingBox& o) const {
+    const Vecf aL = lowerBounds, aU = upperBounds;
+    const Vecf bL = o.lowerBounds, bU = o.upperBounds;
+
+    if (aU.x < bL.x || bU.x < aL.x) return false;
+    if (aU.y < bL.y || bU.y < aL.y) return false;
+
+    return true;
+}
+
+BoundingBox BoundingBox::Fatten(float factor) const {
+    const Size deltaSize = (upperBounds - lowerBounds) * factor;
+
+    return { .lowerBounds = lowerBounds - deltaSize, .upperBounds = upperBounds + deltaSize };
+}
+
+RectF BoundingBox::ToRect() const {
+    const Size size = upperBounds - lowerBounds;
+    return RectF(lowerBounds.x, lowerBounds.y, size.x, size.y);
 }
 
 Rectangle::Rectangle(const Transform& t) : Shape(t) {

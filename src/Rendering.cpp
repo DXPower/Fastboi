@@ -31,7 +31,7 @@ void Rendering::Render_AllDebugRects() {
     while (debugRects.size() != 0) {
         const RectF& rect = debugRects.top();
 
-        Rendering::Render_Rect<Rendering::UNFILLED>(Transform(Position(rect.x, rect.y), Size(rect.w, rect.h), 0));
+        Rendering::Render_Rect<Rendering::UNFILLED>(Transform(Position(rect.x, rect.y) + Size(rect.w, rect.h) / 2.f, Size(rect.w, rect.h), 0));
 
         debugRects.pop();
     }

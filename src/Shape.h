@@ -5,10 +5,18 @@
 
 namespace Fastboi {
     struct Transform;
+    struct RectF;
 
     struct BoundingBox {
         Vecf lowerBounds; // Lower bounds in x and y dirs
         Vecf upperBounds; // Upper bounds in x and y dirs
+
+        bool Overlaps(const BoundingBox& other) const;
+        inline static bool Overlaps(const BoundingBox& a, const BoundingBox& b) { return a.Overlaps(b); };
+
+        BoundingBox Fatten(float factor) const;
+
+        RectF ToRect() const;
     };
 
     class Shape {
