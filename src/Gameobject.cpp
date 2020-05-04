@@ -63,8 +63,10 @@ void Gameobject::Update() {
 Gameobject& Gameobject::Duplicate() const {
     Gameobject& dup = Instantiate<Gameobject>(name);
     
-    if (transform)
+    if (transform) {
         dup.transform = std::make_unique<Transform>(*transform);
+        dup.transform->gameobject.go = &dup;
+    }
 
     if (collider) {
         dup.collider = std::make_unique<Collider>(*collider);

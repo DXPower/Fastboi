@@ -45,8 +45,9 @@ namespace Fastboi {
 
         const Collider& collider;
         const CollisionType type;
+        const Vecf penetration;
 
-        CollisionEvent(const Collider& collider, CollisionType type) : collider(collider), type(type) { };
+        CollisionEvent(const Collider& collider, CollisionType type, const Vecf& pen) : collider(collider), type(type), penetration(pen) { };
     };
 
     struct ClickEvent final {

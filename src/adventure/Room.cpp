@@ -1,4 +1,5 @@
 #include "Room.h"
+#include <cmath>
 #include "FastboiComps.h"
 
 using namespace Adventure;
@@ -32,10 +33,19 @@ Position Room::GetTilePos(const Vec<int>& index) const {
     return origin + GetTileSize() * (Position) index;
 }
 
-Position Room::GetRoomCenterFromWorldPos(const Position& worldPos) {
-    Vec<int> roomCoords = (worldPos - roomGlobalOrigin) / size;
-    // printf("Room coords: %i %i\n", roomCoords.x, roomCoords.y);
+Position Room::GetCenter() const {
+    return GetRoomCenter(coords);
+}
+
+Position Room::GetRoomCenter(const Vec<int>& roomCoords) {
     return roomGlobalOrigin + size * (Position) roomCoords + size / 2.f - tileSize / 2.f;
+}
+
+Position Room::GetRoomCenterFromWorldPos(const Position& worldPos) {
+    Position p = (worldPos - roomGlobalOrigin) / size;
+    Vec<int> roomCoords(std::floor(p.x), std::floor(p.y));
+
+    return GetRoomCenter(roomCoords);
 }
 
 void Adventure::Tile(Gameobject& go, const Room& room, const Veci index, const ColorComp& color) {

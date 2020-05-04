@@ -26,9 +26,11 @@ namespace Adventure {
         
         void SetColor(const ColorComp& color);
         Position GetTilePos(const Vec<int>& coords) const;
+        Position GetCenter() const;
 
         inline static consteval Size GetSize() { return size; };
         inline static consteval Size GetTileSize() { return tileSize; };
+        static Position GetRoomCenter(const Vec<int>& roomCoords);
 
         static Position GetRoomCenterFromWorldPos(const Position& worldPos);
 

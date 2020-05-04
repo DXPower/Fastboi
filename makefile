@@ -46,7 +46,7 @@ APP_OBJS_TEST = \
 
 # APP_OBJS_DEBUG = $(patsubst src/%.cpp,out/obj/%.d.o,$(APP_SRC)) $(patsubst src/Slowboi/%.cpp,out/obj/Slowboi/%.o,$(APP_SRC)) 
 
-DEPENDS := $(patsubst src/%.cpp,out/obj/%.d,$(APP_SRC) $(GAME_SRC))
+DEPENDS := $(patsubst src/%.cpp,out/obj/%.d,$(ENGINE_SRC) $(GAME_SRC))
 DEPENDS := $(patsubst src/$(EXE_NAME)/%.cpp,out/obj/$(EXE_NAME)/%.d,$(DEPENDS))
 DEPENDS := $(patsubst src/%.c,out/obj/%.d,$(DEPENDS))
 

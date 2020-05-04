@@ -87,3 +87,8 @@ void Rendering::Render_TextureTarget(const Texture& src, const Texture& dest, co
 
     SDL_SetRenderTarget(gRenderer, nullptr); // Reset render target to be default (gRenderer)
 }
+
+Components::ColorComp bgColor(255, 255, 255, 255);
+
+void Rendering::SetBGColor(const Components::ColorComp& color) { bgColor = color; };
+const Components::ColorComp& Rendering::GetBGColor() { return bgColor; };

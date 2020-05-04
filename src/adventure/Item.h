@@ -10,24 +10,28 @@ namespace Fastboi::Components {
 
 namespace Adventure {
     struct Item {
-        bool isHeld = false;
         GORef go;
+        Input::KeyListener releaseLsn{SDL_SCANCODE_SPACE};
+        bool isHeld = false;
+        
 
         Item(GORef&& go);
 
         void Start();
 
         void Collision(const CollisionEvent& e);
+        void Release(const KeyEvent& e);
+    };
+
+    
+    enum class KeyColor {
+        GOLD = 0,
+        WHITE = 1,
+        BLACK = 2
     };
 
     struct Key {
         using Reqs = RequiredComponents<Components::SpriteRenderer, Transform>;
-
-        enum KeyColor {
-            GOLD = 0,
-            WHITE = 1,
-            BLACK = 2
-        };
 
         const KeyColor color;
         Fastboi::GORef go;
@@ -37,5 +41,5 @@ namespace Adventure {
         void Start();
     };
 
-    void KeyGO(Gameobject& go, const Position& pos, Key::KeyColor color);
+    void KeyGO(Gameobject& go, const Position& pos, KeyColor color);
 }

@@ -16,8 +16,25 @@ namespace Fastboi {
 
     struct Collider final {
         private:
-        std::vector<Collider*> currentCollisions;
-        std::vector<Collider*> pendingCollisions;
+        struct ColDat {
+            Collider* col;
+            Vecf pen;
+
+            bool operator<(const ColDat& rhs) const {
+                return col < rhs.col;
+            }
+
+            bool operator==(const ColDat& rhs) const {
+                return col == rhs.col;
+            }
+
+            bool operator==(const Collider* rhs) const {
+                return col == rhs;
+            }
+        };
+
+        std::vector<ColDat> currentCollisions;
+        std::vector<ColDat> pendingCollisions;
         Gameobject* boundingBox = nullptr;
 
         bool isEnabled = true;
@@ -55,8 +72,8 @@ namespace Fastboi {
         inline bool IsEnabled() const { return isEnabled; };
 
         private:
-        void Collide(Collider& collider);
-        void GetNewAndEndingCollisions(std::vector<Collider*>& newCs, std::vector<Collider*>& endingCs);
+        void Collide(Collider& collider, const Vecf& pen);
+        void GetNewAndEndingCollisions(decltype(pendingCollisions)& newCs, decltype(pendingCollisions)& endingCs);
         void CleanHangingCollisions();
 
         using Colliders_t = Fastboi::Collision::Colliders_t;

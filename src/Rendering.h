@@ -113,5 +113,8 @@ namespace Fastboi {
         inline void SetColor(const Components::ColorComp& color) {
             SetColor(color.r, color.g, color.b, color.a);
         }
+
+        void SetBGColor(const Components::ColorComp& color);
+        const Components::ColorComp& GetBGColor();
     }
 }

@@ -108,7 +108,8 @@ void Fastboi::Render() {
             continue;
         }
 
-        SDL_SetRenderDrawColor(Rendering::gRenderer, WHITE);
+        auto bgColor = Rendering::GetBGColor();
+        SDL_SetRenderDrawColor(Rendering::gRenderer, bgColor.r, bgColor.g, bgColor.b, bgColor.a);
         SDL_RenderClear(Rendering::gRenderer);
 
         renderingMtx.lock();

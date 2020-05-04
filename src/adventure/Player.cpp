@@ -26,14 +26,7 @@ void Player::Start() {
 
     currentRoomPos = Room::GetRoomCenterFromWorldPos(gameobject().transform->position);
     Fastboi::camera.SetTarget(*new Transform(currentRoomPos), Camera::OWNING);
-
-
-    // Setup hand
-    hand = &Instantiate<Gameobject>("PlayerHand");
-    hand->AddComponent<Transform>(gameobject().transform->position, gameobject().transform->size * 2, 0);
-    hand->AddComponent<Collider>(Collider::TRIGGER);
-
-    hand->transform->Parent(gameobject().transform);
+    // Fastboi::camera.SetTarget(*gameobject().transform, Camera::WATCHING);
 }
 
 void Player::Spacebar(const KeyEvent& e) {

@@ -148,8 +148,8 @@ void Fastboi::Collision::DispatchCollisions(const Collisions_t& collisions) {
     for (const Collision_t& collision : collisions.Get()) {
         if (collision.a.isDeleted || collision.b.isDeleted) continue;
         
-        collision.a.Collide(collision.b);
-        collision.b.Collide(collision.a);
+        collision.a.Collide(collision.b, -collision.data.penetration);
+        collision.b.Collide(collision.a, collision.data.penetration);
     }
 }
 

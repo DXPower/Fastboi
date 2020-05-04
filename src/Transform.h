@@ -20,7 +20,7 @@ namespace Fastboi {
         std::vector<Transform*> children;
 
         public:
-        // GORef gameobject;
+        GORef gameobject;
 
         Position position;
         Size size;

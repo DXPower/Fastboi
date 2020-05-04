@@ -116,6 +116,8 @@ void Transform::AddChild(Transform& child) {
 void Transform::RemoveChild(const Transform& child) {
     for (auto it = children.begin(); it != children.end(); it++) {
         children.erase(it);
+        break;
+
     }
 }
 
@@ -147,7 +149,6 @@ void Transform::UpdateChildren(Position deltaPos, double deltaRot) {
         for (Transform* child : children) {
             child->UpdateChildren(childDeltaPos, childDeltaRot); // Apply the new deltaPos/Rot for each child
         }
-
     }
     
     // Save our new position from the propogation

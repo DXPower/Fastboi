@@ -108,6 +108,7 @@ namespace Fastboi {
         // Special cases for transform and render due to their special treatmeant in Gameobject:: above
         if constexpr (is_same_v<T, Transform>) {
             transform = make_unique<Transform>(forward<Args>(args)...);
+            transform->gameobject.go = this;
         } else if constexpr (is_base_of_v<Renderer, T>) {
             renderer = make_unique<T>(*this, forward<Args>(args)...);
             rendererTypeHash = ctti::type_id<T>().hash();
