@@ -85,6 +85,18 @@ void Collider::Update() {
 
 }
 
+std::vector<Collider*> Collider::GetCurrentCollisions() const {
+    std::vector<Collider*> colls(currentCollisions.size(), nullptr);
+
+    size_t i = 0;
+    for (const auto& d : currentCollisions) {
+        colls[i] = d.col;
+        i++;
+    }
+
+    return colls;
+}
+
 const circular_vector<Position>& Collider::GetVertices() const {
     return gameobject().transform->GetVertices();
 }

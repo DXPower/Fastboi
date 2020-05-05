@@ -139,3 +139,10 @@ void Gate::Inst(Gameobject& go, const Position& pos, KeyColor color, const Room&
     go.AddComponent<SpriteRenderer>(RenderData(RenderOrder::OBJECTS_OVER, 10), "Gate", Rect(0, 0, gateSpriteSize.x, gateSpriteSize.y));
     go.AddComponent<Gate>(color, room);
 }
+
+void Castle::Inst(Gameobject& go, const Position& pos, KeyColor color) {
+    constexpr Vec<int> castleSpriteSize(160, 145);
+    constexpr Size castleSize(10 * Room::GetTileSize().x, 9 * Room::GetTileSize().y);
+    go.AddComponent<Transform>(pos, castleSize, 0);
+    go.AddComponent<SpriteRenderer>(RenderData(RenderOrder::OBJECTS_UNDER), "Castle", Rect(0, 0, castleSpriteSize.x, castleSpriteSize.y));
+}

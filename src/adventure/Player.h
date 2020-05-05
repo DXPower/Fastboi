@@ -7,17 +7,19 @@ using namespace Fastboi::Components;
 
 namespace Adventure {
     struct Player final {
+        inline static const float speed = 760.f;
+
         private:
         Rigidbody* rigidbody = nullptr;
         Input::KeyListener spacebarListener; 
 
         Position currentRoomPos = Vecf::zero();
 
+        bool isEaten = false;
+
         public:
         GORef gameobject;
         Gameobject* hand = nullptr;
-
-        float_t speed = 760.f;
 
         Player(GORef&& go);
         ~Player();
@@ -25,6 +27,9 @@ namespace Adventure {
         void Spacebar(const KeyEvent& e);
         void Start();
         void Update();
+
+        void Eat();
+
         // void Collision(const CollisionEvent& e) const;
 
         static void Inst(Gameobject& go, const Position& pos);

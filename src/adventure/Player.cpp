@@ -34,6 +34,8 @@ void Player::Spacebar(const KeyEvent& e) {
 }
 
 void Player::Update() {
+    if (isEaten) return;
+
     if (Position newRoomPos = Room::GetRoomCenterFromWorldPos(gameobject().transform->position); (Vec<int>) newRoomPos != (Vec<int>) currentRoomPos) {
         printf("New room pos: %f %f\n", newRoomPos.x, newRoomPos.y);
         currentRoomPos = newRoomPos;
@@ -63,6 +65,13 @@ void Player::Update() {
     }
 
     rigidbody->velocity = direction.normalized() * speed;
+}
+
+void Player::Eat() {
+    isEaten = true;
+    rigidbody->velocity = Velocity::zero();
+
+    gameobject().collider->SetEnabled(false);
 }
 
 void Player::Inst(Gameobject& go, const Position& pos) {

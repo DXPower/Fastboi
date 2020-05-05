@@ -28,8 +28,9 @@ namespace Adventure {
         Position GetTilePos(const Vec<int>& coords) const;
         Position GetCenter() const;
 
-        inline static consteval Size GetSize() { return size; };
-        inline static consteval Size GetTileSize() { return tileSize; };
+        //TODO: Replace constexpr with consteval once intellisense shuts up
+        inline static constexpr Size GetSize() { return size; };
+        inline static constexpr Size GetTileSize() { return tileSize; };
         static Position GetRoomCenter(const Vec<int>& roomCoords);
 
         static Position GetRoomCenterFromWorldPos(const Position& worldPos);

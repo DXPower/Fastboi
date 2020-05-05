@@ -46,7 +46,8 @@ namespace Fastboi {
         
         public:
         enum {
-            TRIGGER = 1 // Trigger means any collision will not affect either itself or other's positions, but still triggers event. (Like a tripwire)
+            NONE = 0 // None means neither TRIGGER nor FIXED
+            , TRIGGER = 1 // Trigger means any collision will not affect either itself or other's positions, but still triggers event. (Like a tripwire)
             , FIXED = 2 // Fixed means any collision will not affect its own position, but still can affect another's position. (Like a wall)
         };
         
@@ -64,6 +65,7 @@ namespace Fastboi {
         void Update();
         inline void Destroy() { isDeleted = true; };
 
+        std::vector<Collider*> GetCurrentCollisions() const;
         const circular_vector<Position>& GetVertices() const; 
 
         inline bool IsTrigger() const { return flags & TRIGGER; };

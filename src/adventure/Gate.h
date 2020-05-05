@@ -56,4 +56,8 @@ namespace Adventure {
         private:
         void SetProgress(unsigned char progress);
     };
+
+    struct Castle {
+        static void Inst(Gameobject& go, const Position& pos, KeyColor color);
+    };
 }

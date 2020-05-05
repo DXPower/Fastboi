@@ -1,4 +1,5 @@
 #include "Game.h"
+#include "Dragon.h"
 #include "Gate.h"
 #include "Item.h"
 #include "Room.h"
@@ -33,6 +34,11 @@ void LoadResources() {
     Fastboi::Resources::LoadImage("Keys", "keys.png");
     Fastboi::Resources::LoadImage("Gate", "gate.png");
     Fastboi::Resources::LoadImage("Sword", "sword.png");
+    Fastboi::Resources::LoadImage("Castle", "castle.png");
+    Fastboi::Resources::LoadImage("Yorgle", "yorgle.png");
+    Fastboi::Resources::LoadImage("Grundle", "grundle.png");
+    Fastboi::Resources::LoadImage("Rhindle", "rhindle.png");
+
     printf("Resources loaded\n");
 }
 
@@ -58,7 +64,7 @@ Room* mazeSwirls = nullptr;
 void Adventure::LoadLevel1() {
     goldCastle = new Room(
         {
-            "WWWWWWWWWWWWWWWWWWWW",
+            "WWWWWOOOOOOOOOOWWWWW",
             "WOOOOWOOOOOOOOWOOOOW",
             "WOOOOWOOOOOOOOWOOOOW",
             "WOOOOWOOOOOOOOWOOOOW",
@@ -199,16 +205,21 @@ void Adventure::LoadLevel1() {
         },
         Vec<int>(-2, 0), ColorComp(66, 72, 200, 255)
     );
-
-    
     
     Gameobject& player = Instantiate<Player::Inst>(goldCastle->GetTilePos(Vec<int>(9, 9)));
     Gameobject& key = Instantiate<Key::Inst>(goldCastle->GetTilePos(Vec<int>(4, 5)), KeyColor::GOLD);
+
     Gameobject& gate = Instantiate<Gate::Inst>(
         goldCastle->GetTilePos(Vec<int>(9, 7)) + Room::GetTileSize() / 2.f
         , KeyColor::GOLD
         , *goldCastleInside
     );
 
+    Gameobject& gldCastle = Instantiate<Castle::Inst>(
+        goldCastle->GetTilePos(Vec<int>(10, 4)) - Position(Room::GetTileSize().x / 2.f, 8.f)
+        , KeyColor::GOLD);
+
     Gameobject& sword = Instantiate<Sword::Inst>(goldCastleInside->GetTilePos(Vec<int>(3, 9)));
+
+    Gameobject& yorgle = Instantiate<Yorgle::Inst>(player, gcSouth->GetTilePos(Vec<int>(10, 6)));
 }

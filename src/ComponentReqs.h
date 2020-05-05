@@ -52,6 +52,20 @@ namespace Fastboi {
 
             return s.str();
         }
+
+        static void StandardThrowingCheck(const Gameobject& go) {
+            if (!HasRequiredComponents(go)) {
+                const std::string msg = " missing reqs";
+                char* buffer = new char[msg.size() + go.name.size() + 1];
+                sprintf(buffer, "%s%s", go.name.c_str(), msg.c_str());
+
+                Application::ThrowRuntimeException(
+                    msg.c_str()
+                    , Application::REQUIREMENTS_NOT_FULFILLED
+                    , GetMissingNamesString(go).c_str()
+                );
+            }
+        }
     };
 
 };

@@ -169,7 +169,7 @@
 // resented as a point + radius. usually tools that generate polygons should be
 // constructed so they do not output polygons with too many verts.
 // Note: polygons in cute_c2 are all *convex*.
-#define C2_MAX_POLYGON_VERTS 8
+#define C2_MAX_POLYGON_VERTS 20
 
 // 2d vector
 typedef struct c2v
