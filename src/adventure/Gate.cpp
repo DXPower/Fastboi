@@ -1,7 +1,9 @@
 #include "Gate.h"
 #include "Item.h"
+#include "Level.h"
 #include "Room.h"
 #include "FastboiComps.h"
+
 
 using namespace Adventure;
 
@@ -42,17 +44,22 @@ void Gate::Start() {
 
 void Gate::Update() {
     if (!hasEntered) {
-        timeElapsed += Fastboi::tickDelta;
-        
-        if (unsigned char progress = timeElapsed * (float) MAX_PROGRESS; progress <= 6) {
-            SetProgress(progress);
+        if (curProgress != MAX_PROGRESS) {
+            timeElapsed += Fastboi::tickDelta;
+            
+            if (unsigned char progress = timeElapsed * (float) MAX_PROGRESS; progress <= 6) {
+                SetProgress(progress);
 
-            if (curState == GateState::CLOSED && progress == MAX_PROGRESS)
-                go().collider->SetEnabled(true);
+                if (curState == GateState::CLOSED && progress == MAX_PROGRESS)
+                    go().collider->SetEnabled(true);
+            }
         }
     } else {
+        // Check for teleporting out of castle
         if (holder->transform->position.y >= inside.GetCenter().y + inside.GetSize().y / 2.f - inside.GetTileSize().y / 2) {
-            holder->transform->position = go().transform->position;
+            // holder->transform->position = go().transform->position;
+            holder->GetComponent<RoomObserver>().ForceTeleport(go().transform->position);
+
             hasEntered = false;
             timeElapsed = 2.f;
 
@@ -84,8 +91,10 @@ void Gate::TryOpen(const Key& key) {
 void Gate::TryEnterGate(Gameobject& player) {
     if (curState == GateState::CLOSED) return;
 
-    player.transform->position = inside.GetCenter();
-    player.transform->position.y += Room::GetSize().y / 2.f - Room::GetTileSize().y;
+    Position tpPos = inside.GetCenter();
+    tpPos.y += Room::GetSize().y / 2.f - Room::GetTileSize().y * 1.5f;
+
+    player.GetComponent<RoomObserver>().ForceTeleport(tpPos);
 
     hasEntered = true;
     SetProgress(MAX_PROGRESS);
@@ -110,6 +119,7 @@ void Gate::Collision(const CollisionEvent& e) {
 }
 
 void Gate::SetProgress(unsigned char progress) {
+    curProgress = progress;
     auto lastH = renderer->cutout.h;
 
     switch (curState) {

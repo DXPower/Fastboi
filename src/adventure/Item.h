@@ -9,11 +9,18 @@ namespace Fastboi::Components {
 }
 
 namespace Adventure {
+    struct RoomChangeEvent;
+    struct Room;
+
     struct Item {
+        private:
+        inline static std::vector<Item*> globalItems;
+
+        public:
         GORef go;
         Input::KeyListener releaseLsn{SDL_SCANCODE_SPACE};
+        const Room* room = nullptr;
         bool isHeld = false;
-        
 
         Item(GORef&& go);
 
@@ -23,8 +30,10 @@ namespace Adventure {
 
         void Collision(const CollisionEvent& e);
         void ReleasePressed(const KeyEvent& e);
-    };
+        void RoomChanged(const RoomChangeEvent& e);
 
+        inline static const std::vector<Item*>& GetAllItems() { return globalItems; };
+    };
     
     enum class KeyColor {
         GOLD = 0,

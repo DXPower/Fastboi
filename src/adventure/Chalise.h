@@ -5,30 +5,27 @@
 using namespace Fastboi;
 using namespace Fastboi::Components;
 
+namespace Fastboi::Components {
+    struct ColorComp;
+}
+
 namespace Adventure {
     struct RoomChangeEvent;
 
-    struct Player final {
-        inline static const float speed = 760.f;
-
+    struct Chalise {
         private:
-        Rigidbody* rigidbody = nullptr;
-
-        bool isEaten = false;
+        bool playWinSequence = false;
 
         public:
-        GORef gameobject;
+        GORef go;
+        ColorComp& c;
 
-        Player(GORef&& go);
-        ~Player();
+        Chalise(GORef&& go, ColorComp& color);
 
-        void Start();
         void Update();
-
-        void Eat();
         void RoomChanged(const RoomChangeEvent& e);
 
         static void Inst(Gameobject& go, const Position& pos);
     };
 
-};
+}

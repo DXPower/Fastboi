@@ -32,9 +32,11 @@ namespace Adventure {
 
         constexpr static unsigned char MIN_PROGRESS = 0;
         constexpr static unsigned char MAX_PROGRESS = 6;
+        unsigned char curProgress = MAX_PROGRESS;
 
         const Room& inside;
         bool hasEntered = false;
+
 
         public:
         const KeyColor color;

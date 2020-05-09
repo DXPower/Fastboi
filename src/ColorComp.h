@@ -1,4 +1,5 @@
 #pragma once
+#include "Gameobject.h"
 #include "GORef.h"
 #include "Transform.h"
 #include "stdint.h"

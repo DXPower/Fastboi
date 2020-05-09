@@ -1,5 +1,6 @@
 #include "Dragon.h"
 #include "FastboiComps.h"
+#include "GameManager.h"
 #include "Item.h"
 #include "Player.h"
 #include "Room.h"
@@ -8,7 +9,8 @@ using namespace Adventure;
 
 constexpr Vec<int> dragonSpriteSize(16, 44);
 
-Dragon::Dragon(GORef&& go, Gameobject& player, const DragonStats& stats) : go(std::move(go)), player(player), stats(stats) { }
+Dragon::Dragon(GORef&& go, Gameobject& player, const Room& room, const DragonStats& stats)
+ : go(std::move(go)), player(player), room(&room), stats(stats) { }
 
 void Dragon::Start() {
     Reqs::StandardThrowingCheck(go());
@@ -17,7 +19,7 @@ void Dragon::Start() {
 }
 
 void Dragon::Update() {
-    if (!doChase || IsDead()) return;
+    if (!giveChase || IsDead()) return;
 
     if (!isBiting) {
         // Chase player
@@ -48,7 +50,7 @@ void Dragon::CloseJaws() {
             player.GetComponent<Player>().Eat(); // Disables player's movement and collider
 
             // Stop us from moving
-            doChase = false;
+            giveChase = false;
         }
     }
     
@@ -116,7 +118,7 @@ void DragonColPart(Gameobject& go, Dragon& dragon, const Position& pos, const Si
     coll.collisionSignal.connect<&Dragon::Collision>(dragon);
 }
 
-void Dragon::InstDelegate(Gameobject& go, Gameobject& player, const Position& pos, const DragonStats& stats) {
+void Dragon::InstDelegate(Gameobject& go, Gameobject& player, const Room& room, const Position& pos, const DragonStats& stats) {
     constexpr Size dragonSize(1.125f * Room::GetTileSize().x, 1.125f * Room::GetTileSize().x * (float) dragonSpriteSize.y / (float) dragonSpriteSize.x);
 
     Transform& tr = go.AddComponent<Transform>(pos, dragonSize, 0);
@@ -124,7 +126,7 @@ void Dragon::InstDelegate(Gameobject& go, Gameobject& player, const Position& po
     go.AddComponent<Collider>(Collider::TRIGGER, CollisionLayer::UNITS).mask.Include(CollisionLayer::PLAYER, CollisionLayer::ITEMS);
     go.AddComponent<Rigidbody>();
     
-    Dragon& dragon = go.AddComponent<Dragon>(player, stats);
+    Dragon& dragon = go.AddComponent<Dragon>(player, room, stats);
 
     // Build collider parts
     const Size& size = tr.size;
@@ -143,16 +145,30 @@ void Dragon::InstDelegate(Gameobject& go, Gameobject& player, const Position& po
     for (Gameobject* o : dragon.mouthPieces) {
         o->Disable();
     }
+
+    go.Disable();
 }
 
 Dragon::Jaws::Jaws(GORef&& go) : go(std::move(go)) { };
 
 Yorgle::Yorgle() : DragonStats(1, Player::speed / 1.5f) { };
+Grundle::Grundle() : DragonStats(1, Player::speed / 1.5f) { };
 
-void Yorgle::Inst(Gameobject& go, Gameobject& player, const Position& pos) {
-    Dragon::InstDelegate(go, player, pos, Yorgle());
+void Yorgle::Inst(Gameobject& go, Gameobject& player, const Room& room, const Position& pos) {
+    Dragon::InstDelegate(go, player, room, pos, Yorgle());
 
-    go.AddComponent<ColorComp>(0, 0, 255, 255);
+    // go.AddComponent<ColorComp>(0, 0, 255, 255);
     // go.AddComponent<WireframeRenderer>(RenderData(RenderOrder::UNITS, 0));
     go.AddComponent<SpriteRenderer>(RenderData(RenderOrder::UNITS, 20), "Yorgle", Rect(0, 0, dragonSpriteSize.x, dragonSpriteSize.y));
+
+    manager.yorgle = &go.GetComponent<Dragon>();
+}
+
+void Grundle::Inst(Gameobject& go, Gameobject& player, const Room& room, const Position& pos) {
+    Dragon::InstDelegate(go, player, room, pos, Grundle());
+
+    go.AddComponent<SpriteRenderer>(RenderData(RenderOrder::UNITS, 20), "Grundle", Rect(0, 0, dragonSpriteSize.x, dragonSpriteSize.y));
+
+    manager.grundle = &go.GetComponent<Dragon>();
+    printf("Manager address: %p\n", &manager);
 }

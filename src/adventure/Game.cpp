@@ -1,9 +1,14 @@
 #include "Game.h"
+#include "Chalise.h"
 #include "Dragon.h"
+#include "GameManager.h"
 #include "Gate.h"
 #include "Item.h"
-#include "Room.h"
+#include "Layouts.h"
+#include "Level.h"
+#include "Magnet.h"
 #include "Player.h"
+#include "Room.h"
 
 using namespace Fastboi;
 using namespace Fastboi::Components;
@@ -38,6 +43,8 @@ void LoadResources() {
     Fastboi::Resources::LoadImage("Yorgle", "yorgle.png");
     Fastboi::Resources::LoadImage("Grundle", "grundle.png");
     Fastboi::Resources::LoadImage("Rhindle", "rhindle.png");
+    Fastboi::Resources::LoadImage("Chalise", "chalise.png");
+    Fastboi::Resources::LoadImage("Magnet", "magnet.png");
 
     printf("Resources loaded\n");
 }
@@ -48,178 +55,74 @@ void Adventure::InitGame() {
     LoadResources();
     LoadLevel1();
 
-    Fastboi::camera.zoom = 0.5f;
+    Fastboi::camera.zoom = 0.49f;
+    Level::roomChangeSignal.connect<&GameManager::RoomChanged>(manager);
 }
 
-
-Room* goldCastle = nullptr;
-Room* goldCastleInside = nullptr;
-Room* gcSouth = nullptr;
-Room* gcSoutheast = nullptr;
-Room* gcSouthwest = nullptr;
-Room* greenDragonRm = nullptr;
-Room* mazeU = nullptr;
-Room* mazeSwirls = nullptr;
+constexpr ColorComp mazeBlue(66, 72, 200, 255);
 
 void Adventure::LoadLevel1() {
-    goldCastle = new Room(
-        {
-            "WWWWWOOOOOOOOOOWWWWW",
-            "WOOOOWOOOOOOOOWOOOOW",
-            "WOOOOWOOOOOOOOWOOOOW",
-            "WOOOOWOOOOOOOOWOOOOW",
-            "WOOOOWOOOOOOOOWOOOOW",
-            "WOOOOOWOOOOOOWOOOOOW",
-            "WOOOOOWWWWWWWWOOOOOW",
-            "WOOOOOWWWOOWWWOOOOOW",
-            "WOOOOOWWWOOWWWOOOOOW",
-            "WOOOOOOOOOOOOOOOOOOW",
-            "WOOOOOOOOOOOOOOOOOOW",
-            "WWWWWWWWOOOOWWWWWWWW"
-        },
-        Vec<int>(0, 0), ColorComp(210, 210, 64, 255)
-    );
+    Level::SetLevelSize(5, 7);
+    Level::gcCoords = Vec<int>(3, 4);
 
-    goldCastleInside = new Room(
-        {
-            "WWWWWWWWWWWWWWWWWWWW",
-            "WOOOOOOOOOOOOOOOOOOW",
-            "WOOOOOOOOOOOOOOOOOOW",
-            "WOOOOOOOOOOOOOOOOOOW",
-            "WOOOOOOOOOOOOOOOOOOW",
-            "WOOOOOOOOOOOOOOOOOOW",
-            "WOOOOOOOOOOOOOOOOOOW",
-            "WOOOOOOOOOOOOOOOOOOW",
-            "WOOOOOOOOOOOOOOOOOOW",
-            "WOOOOOOOOOOOOOOOOOOW",
-            "WOOOOOOOOOOOOOOOOOOW",
-            "WWWWWWWWOOOOWWWWWWWW"
-        },
-        Vec<int>(0, -1), ColorComp(210, 210, 64, 255)
-    );
+    Room& goldCastle = Level::AddRoom(Layouts::goldCastle);
+    Room& goldCastleInside = Level::AddRoom(Layouts::goldCastleInside);
+    manager.goldCastleInside = &goldCastleInside;
 
-    gcSouth = new Room(
-        {
-            "WWWWWWWWOOOOWWWWWWWW",
-            "OOOOOOOOOOOOOOOOOOOO",
-            "OOOOOOOOOOOOOOOOOOOO",
-            "OOOOOOOOOOOOOOOOOOOO",
-            "OOOOOOOOOOOOOOOOOOOO",
-            "OOOOOOOOOOOOOOOOOOOO",
-            "OOOOOOOOOOOOOOOOOOOO",
-            "OOOOOOOOOOOOOOOOOOOO",
-            "OOOOOOOOOOOOOOOOOOOO",
-            "OOOOOOOOOOOOOOOOOOOO",
-            "OOOOOOOOOOOOOOOOOOOO",
-            "WWWWWWWWWWWWWWWWWWWW"
-        },
-        Vec<int>(0, 1), ColorComp(92, 186, 92, 255)
-    );
-    
-    gcSoutheast = new Room(
-        {
-            "WWWWWWWWWWWWWWWWWWWW",
-            "OOOOOOOOOOOOOOOOOOOW",
-            "OOOOOOOOOOOOOOOOOOOW",
-            "OOOOOOOOOOOOOOOOOOOW",
-            "OOOOOOOOOOOOOOOOOOOW",
-            "OOOOOOOOOOOOOOOOOOOW",
-            "OOOOOOOOOOOOOOOOOOOW",
-            "OOOOOOOOOOOOOOOOOOOW",
-            "OOOOOOOOOOOOOOOOOOOW",
-            "OOOOOOOOOOOOOOOOOOOW",
-            "OOOOOOOOOOOOOOOOOOOW",
-            "WWWWWWWWOOOOWWWWWWWW"
-        },
-        Vec<int>(1, 1), ColorComp(160, 171, 79, 255)
-    );
-    
-    gcSouthwest = new Room(
-        {
-            "WWWWWWWWOOOOWWWWWWWW",
-            "WOOOOOOOOOOOOOOOOOOO",
-            "WOOOOOOOOOOOOOOOOOOO",
-            "WOOOOOOOOOOOOOOOOOOO",
-            "WOOOOOOOOOOOOOOOOOOO",
-            "WOOOOOOOOOOOOOOOOOOO",
-            "WOOOOOOOOOOOOOOOOOOO",
-            "WOOOOOOOOOOOOOOOOOOO",
-            "WOOOOOOOOOOOOOOOOOOO",
-            "WOOOOOOOOOOOOOOOOOOO",
-            "WOOOOOOOOOOOOOOOOOOO",
-            "WWWWWWWWWWWWWWWWWWWW"
-        },
-        Vec<int>(-1, 1), ColorComp(135, 183, 84, 255)
-    );
+    Room& gcSouth = Level::AddRoom(Layouts::gcSouth);
+    Room& gcSoutheast = Level::AddRoom(Layouts::gcSoutheast);
+    Room& gcSouthwest = Level::AddRoom(Layouts::gcSouthwest);
+    Room& greenDragonRm = Level::AddRoom(Layouts::greenDragonRm);
+    Room& mazeU = Level::AddRoom(Layouts::mazeU);
+    Room& mazeSwirls = Level::AddRoom(Layouts::mazeSwirls);
+    Room& mazeHumps = Level::AddRoom(Layouts::mazeHumps);
+    Room& mazeBase = Level::AddRoom(Layouts::mazeBase);
+    Room& mazeGrail = Level::AddRoom(Layouts::mazeGrail);
+    Room& blackCastle = Level::AddRoom(Layouts::blackCastle);
+    Room& blackCastleInsideBot = Level::AddRoom(Layouts::blackCastleInsideBot);
+    Room& blackCastleInsideTop = Level::AddRoom(Layouts::blackCastleInsideTop);
 
-    greenDragonRm = new Room(
-        {
-            "WWWWWWWWOOOOWWWWWWWW",
-            "WOOOOOOOOOOOOOOOOOOW",
-            "WOOOOOOOOOOOOOOOOOOW",
-            "WOOOOOOOOOOOOOOOOOOW",
-            "WOOOOOOOOOOOOOOOOOOW",
-            "WOOOOOOOOOOOOOOOOOOW",
-            "WOOOOOOOOOOOOOOOOOOW",
-            "WOOOOOOOOOOOOOOOOOOW",
-            "WOOOOOOOOOOOOOOOOOOW",
-            "WOOOOOOOOOOOOOOOOOOW",
-            "WOOOOOOOOOOOOOOOOOOW",
-            "WWWWWWWWWWWWWWWWWWWW"
-        },
-        Vec<int>(1, 2), ColorComp(198, 108, 58, 255)
-    );
-    
-    mazeU = new Room(
-        {
-            "WWWWOWOWOWWOWOWOWWWW",
-            "OOOWOWOWOOOOWOWOWOOO",
-            "OOOWOWOWOOOOWOWOWOOO",
-            "WWOWOWOWWWWWWOWOWOWW",
-            "WWOWOWOWWWWWWOWOWOWW",
-            "OOOWOWOOOOOOOOWOWOOO",
-            "OOOWOWOOOOOOOOWOWOOO",
-            "WWWWOWWWWWWWWWWOWWWW",
-            "WWWWOWWWWWWWWWWOWWWW",
-            "OOOOOOOOOOOOOOOOOOOO",
-            "OOOOOOOOOOOOOOOOOOOO",
-            "WWWWWWWWOOOOWWWWWWWW"
-        },
-        Vec<int>(-1, 0), ColorComp(66, 72, 200, 255)
-    );
+    Gameobject& player = Instantiate<Player::Inst>(goldCastle.GetTilePos(Vec<int>(9, 9)));
+    Gameobject& sword = Instantiate<Sword::Inst>(goldCastleInside.GetTilePos(Vec<int>(3, 9)));
+    Gameobject& chalise = Instantiate<Chalise::Inst>(goldCastle.GetTilePos(7, 9));
+    Gameobject& magnet = Instantiate<Magnet::Inst>(goldCastle.GetTilePos(14, 9));
 
-    mazeSwirls = new Room(
-        {
-            "WWOWOWWWWOOWWWWOWOWW",
-            "OOOWOOOWWOOWWOOOWOOO",
-            "OOOWOOOWWOOWWOOOWOOO",
-            "WWWWWWOWWOOWWOWWWWWW",
-            "WWWWWWOWWOOWWOWWWWWW",
-            "OOOOOWOWWOOWWOWOOOOO",
-            "OOOOOWOWWOOWWOWOOOOO",
-            "WWOWOWOWWOOWWOWOWOWW",
-            "WWOWOWOWWOOWWOWOWOWW",
-            "OOOWOWOWOOOOWOWOWOOO",
-            "OOOWOWOWOOOOWOWOWOOO",
-            "WWWWOWOWOOOOWOWOWWWW"
-        },
-        Vec<int>(-2, 0), ColorComp(66, 72, 200, 255)
-    );
-    
-    Gameobject& player = Instantiate<Player::Inst>(goldCastle->GetTilePos(Vec<int>(9, 9)));
-    Gameobject& key = Instantiate<Key::Inst>(goldCastle->GetTilePos(Vec<int>(4, 5)), KeyColor::GOLD);
+    Gameobject& goldKey = Instantiate<Key::Inst>(goldCastle.GetTilePos(Vec<int>(4, 5)), KeyColor::GOLD);
+    Gameobject& blackKey = Instantiate<Key::Inst>(greenDragonRm.GetTilePos(Vec<int>(4, 4)), KeyColor::BLACK);
 
-    Gameobject& gate = Instantiate<Gate::Inst>(
-        goldCastle->GetTilePos(Vec<int>(9, 7)) + Room::GetTileSize() / 2.f
+    Gameobject& goldGate = Instantiate<Gate::Inst>(
+        goldCastle.GetTilePos(Vec<int>(9, 7)) + Room::GetTileSize() / 2.f
         , KeyColor::GOLD
-        , *goldCastleInside
+        , goldCastleInside
     );
+    
+    Gameobject& blackGate = Instantiate<Gate::Inst>(
+        blackCastle.GetTilePos(Vec<int>(9, 7)) + Room::GetTileSize() / 2.f
+        , KeyColor::BLACK
+        , blackCastleInsideBot
+    );
+
 
     Gameobject& gldCastle = Instantiate<Castle::Inst>(
-        goldCastle->GetTilePos(Vec<int>(10, 4)) - Position(Room::GetTileSize().x / 2.f, 8.f)
-        , KeyColor::GOLD);
+        goldCastle.GetTilePos(Vec<int>(10, 4)) - Position(Room::GetTileSize().x / 2.f, 8.f)
+        , KeyColor::GOLD
+    );
 
-    Gameobject& sword = Instantiate<Sword::Inst>(goldCastleInside->GetTilePos(Vec<int>(3, 9)));
+    Gameobject& blckCastle = Instantiate<Castle::Inst>(
+        blackCastle.GetTilePos(Vec<int>(10, 4)) - Position(Room::GetTileSize().x / 2.f, 8.f)
+        , KeyColor::BLACK
+    );
 
-    Gameobject& yorgle = Instantiate<Yorgle::Inst>(player, gcSouth->GetTilePos(Vec<int>(10, 6)));
+    Gameobject& yorgle = Instantiate<Yorgle::Inst>(player, gcSouthwest, gcSouthwest.GetTilePos(Vec<int>(4, 5)));
+    Gameobject& grundle = Instantiate<Grundle::Inst>(player, greenDragonRm, greenDragonRm.GetTilePos(Vec<int>(10, 7)));
+
+    goldCastle.banYorgle = true;
+    goldCastle.banGrundle = true;
+    goldCastleInside.banYorgle = true;
+    goldCastleInside.banGrundle = true;
+
+    mazeU.banGrundle = true;
+    mazeSwirls.banGrundle = true;
+    mazeHumps.banGrundle = true;
+    mazeBase.banGrundle = true;
 }

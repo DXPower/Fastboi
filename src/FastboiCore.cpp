@@ -120,7 +120,7 @@ void Fastboi::Render() {
 
         for (auto& [order, range] : renderers) {
             for (Renderer* r : range) {
-                if (r->isStarted && !r->isDeleted) {
+                if (r->isEnabled && r->isStarted && !r->isDeleted) {
                     std::sort(range.begin(), range.end(), sortByZ);
                     r->Render();
                 }

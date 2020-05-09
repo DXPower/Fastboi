@@ -209,7 +209,12 @@ namespace Fastboi {
     void Gameobject::SetComponentEnabled(bool f) {
         static_assert(!std::is_same_v<Transform, T> && !std::is_same_v<Renderer, T>);
 
-        if constexpr (std::is_same_v<Collider, T>) {
+        if constexpr (std::is_base_of_v<Renderer, T>) {
+            if (renderer)
+                renderer->SetEnabled(f);
+            else
+                Application::ThrowRuntimeException(Application::COMPONENT_NO_EXIST);
+        } else if constexpr (std::is_same_v<Collider, T>) {
             if (collider)
                 collider->SetEnabled(f);
             else
@@ -224,7 +229,12 @@ namespace Fastboi {
     bool Gameobject::IsComponentEnabled() const {
         static_assert(!std::is_same_v<Transform, T> && !std::is_same_v<Renderer, T>);
 
-        if constexpr (std::is_same_v<Collider, T>) {
+        if constexpr (std::is_base_of_v<Renderer, T>) {
+            if (renderer)
+                return renderer->IsEnabled();
+            else
+                Application::ThrowRuntimeException(Application::COMPONENT_NO_EXIST);
+        } else if constexpr (std::is_same_v<Collider, T>) {
             if (collider)
                 return collider->IsEnabled();
             else

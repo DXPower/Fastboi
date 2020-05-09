@@ -133,6 +133,15 @@ void Gameobject::Destroy() {
 void Gameobject::SetEnabled(bool f) {
     isEnabled = f;
 
+    if (transform) {
+        for (const auto* child : transform->GetChildren()) {
+            child->gameobject().SetEnabled(f);
+        }
+    }
+
+    if (renderer)
+        renderer->SetEnabled(f);
+
     if (collider)
         collider->SetEnabled(f);
 

@@ -12,6 +12,7 @@ namespace Fastboi {
         private:
         bool isStarted = false;
         bool isDeleted = false;
+        bool isEnabled = true;
 
         public:
         GORef gameobject;
@@ -25,6 +26,9 @@ namespace Fastboi {
         public:
         virtual void Start() { isStarted = true; };
         virtual void Render() = 0;
+
+        inline void SetEnabled(bool f) { isEnabled = f; };
+        inline bool IsEnabled() const { return isEnabled; };
 
         RenderOrder GetOrder() const;
         void SetOrder(RenderOrder order);

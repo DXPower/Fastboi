@@ -1,19 +1,26 @@
 #include "Item.h"
 #include "FastboiComps.h"
+#include "GameManager.h"
 #include "Gate.h"
 #include "Player.h"
 #include "Room.h"
+#include "Level.h"
 
 using namespace Adventure;
 using namespace Fastboi;
 using namespace Fastboi::Components;
 
-Item::Item(GORef&& go) : go(std::move(go)) { };
+Item::Item(GORef&& go) : go(std::move(go)) {
+    Level::roomChangeSignal.connect<&Item::RoomChanged>(this);
+    releaseLsn.signal.connect<&Item::ReleasePressed>(this);
+
+    globalItems.push_back(this);
+};
 
 void Item::Start() {
     go().GetComponent<Collider>().collisionSignal.connect<&Item::Collision>(this);
 
-    releaseLsn.signal.connect<&Item::ReleasePressed>(this);
+    room = &Level::GetRoom(go().transform->position);
 }
 
 void Item::Release() {
@@ -42,6 +49,12 @@ void Item::ReleasePressed(const KeyEvent& e) {
         Release();
 }
 
+void Item::RoomChanged(const RoomChangeEvent& e) {
+    if (go().GetComponent<Item>().isHeld)
+        room = &e.room;
+}
+
+
 constexpr Vec<int> keySpriteSize(16, 6);
 
 Key::Key(Fastboi::GORef&& go, KeyColor color) : go(std::move(go)), color(color) { }
@@ -51,7 +64,7 @@ void Key::Start() {
         Application::ThrowRuntimeException("Key missing reqs", Application::REQUIREMENTS_NOT_FULFILLED, Reqs::GetMissingNamesString(go()).c_str());
     }
 
-    go().AddComponent<Item>();
+    manager.blackKey = &go().AddComponent<Item>();
 
     SpriteRenderer& sr = go().GetComponent<SpriteRenderer>();
     sr.cutout = Rect(0, (int) color * keySpriteSize.y, keySpriteSize.x, keySpriteSize.y);

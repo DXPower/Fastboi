@@ -1,52 +1,30 @@
 #include "Player.h"
-#include "Input.h"
 #include "FastboiComps.h"
+#include "Input.h"
+#include "Level.h"
 #include "Room.h"
 
 using namespace Fastboi;
 using namespace Input;
 using namespace Adventure;
 
-Player::Player(GORef&& go)
- : gameobject(std::move(go))
- , spacebarListener(KeyListener(SDL_SCANCODE_SPACE)) {
-    spacebarListener.signal.connect<&Player::Spacebar>(this);
+Player::Player(GORef&& go) : gameobject(std::move(go)) {
+    Level::SetPlayer(go());
+    Level::roomChangeSignal.connect<&Player::RoomChanged>(this);
 }
 
 Player::~Player() {
     gameobject().RemoveComponent<Rigidbody>();
-
-    if (hand != nullptr)
-        delete hand;
 }
 
 void Player::Start() {
-    // gameobject().GetComponent<Collider>().collisionSignal.connect<&Player::Collision>(this);
-    rigidbody = &gameobject().AddComponent<Rigidbody>();
-
-    currentRoomPos = Room::GetRoomCenterFromWorldPos(gameobject().transform->position);
-    Fastboi::camera.SetTarget(*new Transform(currentRoomPos), Camera::OWNING);
-    // Fastboi::camera.SetTarget(*gameobject().transform, Camera::WATCHING);
-}
-
-void Player::Spacebar(const KeyEvent& e) {
-    // Instantiate<Slowboi::Bullet>(gameobject().transform->position, facingDirection.normalized() * speed, *this);
+    rigidbody = &gameobject().GetComponent<Rigidbody>();
 }
 
 void Player::Update() {
     if (isEaten) return;
 
-    if (Position newRoomPos = Room::GetRoomCenterFromWorldPos(gameobject().transform->position); (Vec<int>) newRoomPos != (Vec<int>) currentRoomPos) {
-        printf("New room pos: %f %f\n", newRoomPos.x, newRoomPos.y);
-        currentRoomPos = newRoomPos;
-        Fastboi::camera.SetTarget(*new Transform(currentRoomPos), Camera::OWNING);
-    }
-
     Vecf direction(0, 0);
-
-    if (Input::IsKeyDown(SDL_SCANCODE_SPACE)) {
-        Spacebar(KeyEvent(SDL_SCANCODE_SPACE, KeyEvent::DOWN));
-    }
 
     if (Input::IsKeyDown(SDL_SCANCODE_W, SDL_SCANCODE_UP)) {
         direction.y -= 1;
@@ -74,6 +52,13 @@ void Player::Eat() {
     gameobject().collider->SetEnabled(false);
 }
 
+void Player::RoomChanged(const RoomChangeEvent& e) {
+    printf("Changed room!\n");
+    
+    Fastboi::camera.SetTarget(*new Transform(e.room.GetCenter()), Camera::OWNING);
+    gameobject().GetComponent<ColorComp>() = e.room.GetColor();
+}
+
 void Player::Inst(Gameobject& go, const Position& pos) {
     go.name = "Player";
 
@@ -81,11 +66,6 @@ void Player::Inst(Gameobject& go, const Position& pos) {
     go.AddComponent<BoxColorRenderer>(RenderData(RenderOrder::UNITS, 10));
     go.AddComponent<ColorComp>(255, 0, 255, 255);
     go.AddComponent<Collider>(0, CollisionLayer::PLAYER);
+    go.AddComponent<Rigidbody>();
     go.AddComponent<Player>();
 }
-
-// void Player::Collision(const CollisionEvent& e) const {
-//     // if (e.type == CollisionEvent::BEGIN) {
-//     // } else if (e.type == CollisionEvent::END) {
-//     // }
-// }

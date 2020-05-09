@@ -1,22 +1,24 @@
 #include "Room.h"
+#include "Level.h"
 #include <cmath>
 #include "FastboiComps.h"
 
 using namespace Adventure;
 
-Room::Room(std::initializer_list<std::string> layout, const Vec<int>& coords, const ColorComp& color)
-     : coords(coords), originalColor(color), origin(roomGlobalOrigin + size * (Position) coords) {
+Room::Room(const Layouts::Layout_t& layout)
+     : coords(layout.GetCoords(Level::gcCoords)), originalColor(layout.color), currentColor(layout.color)
+     , origin(Level::origin + size * (Position) coords), neighbors(layout.neighbors) {
     
-    tiles.reserve(layout.size());
+    tiles.reserve(layout.tiles.size());
     size_t y = 0;
     
-    for (const std::string& row : layout) {
+    for (const std::string& row : layout.tiles) {
         std::vector<Gameobject*>& tileRow = tiles.emplace_back(row.size(), nullptr);
 
         for (size_t x = 0; x < row.size(); x++) {
             switch (row[x]) {
                 case WALL: {
-                    Gameobject& tile = Instantiate<Tile>(*this, Veci(x, y), color);
+                    Gameobject& tile = Instantiate<Tile>(*this, Veci(x, y), layout.color);
                     tileRow[x] = &tile;
                     break;
                 }
@@ -37,15 +39,35 @@ Position Room::GetCenter() const {
     return GetRoomCenter(coords);
 }
 
+BoundingBox Room::GetBounds() const {
+    BoundingBox b;
+    b.lowerBounds = GetTilePos(0, 0) - Room::GetTileSize() / 2.f;
+    b.upperBounds = b.lowerBounds + GetSize();
+
+    return b;
+}
+
 Position Room::GetRoomCenter(const Vec<int>& roomCoords) {
-    return roomGlobalOrigin + size * (Position) roomCoords + size / 2.f - tileSize / 2.f;
+    return Level::origin + size * (Position) roomCoords + size / 2.f - tileSize / 2.f;
 }
 
 Position Room::GetRoomCenterFromWorldPos(const Position& worldPos) {
-    Position p = (worldPos - roomGlobalOrigin) / size;
+    Position p = (worldPos - Level::origin) / size;
     Vec<int> roomCoords(std::floor(p.x), std::floor(p.y));
 
     return GetRoomCenter(roomCoords);
+}
+
+void Room::SetColor(const ColorComp& c) {
+    currentColor = c;
+
+    for (const auto& row : tiles) {
+        for (Gameobject* tile : row) {
+            if (tile == nullptr) continue;
+            
+            tile->GetComponent<ColorComp>() = c;
+        }
+    }
 }
 
 void Adventure::Tile(Gameobject& go, const Room& room, const Veci index, const ColorComp& color) {
