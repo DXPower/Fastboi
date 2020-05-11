@@ -154,5 +154,19 @@ void Castle::Inst(Gameobject& go, const Position& pos, KeyColor color) {
     constexpr Vec<int> castleSpriteSize(160, 145);
     constexpr Size castleSize(10 * Room::GetTileSize().x, 9 * Room::GetTileSize().y);
     go.AddComponent<Transform>(pos, castleSize, 0);
-    go.AddComponent<SpriteRenderer>(RenderData(RenderOrder::OBJECTS_UNDER), "Castle", Rect(0, 0, castleSpriteSize.x, castleSpriteSize.y));
+
+    const char* castleTexture;
+
+    switch (color) {
+        case KeyColor::GOLD:
+            castleTexture = "GoldCastle";
+            break;
+        case KeyColor::BLACK:
+            castleTexture = "BlackCastle";
+            break;
+        default:
+            castleTexture = "WhiteCastle";
+    }
+
+    go.AddComponent<SpriteRenderer>(RenderData(RenderOrder::OBJECTS_UNDER), castleTexture, Rect(0, 0, castleSpriteSize.x, castleSpriteSize.y));
 }

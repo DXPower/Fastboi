@@ -37,16 +37,23 @@ void ToggleAABBDebug(const Fastboi::KeyEvent& e) {
 }
 
 void LoadResources() {
-    Fastboi::Resources::LoadImage("Keys", "keys.png");
-    Fastboi::Resources::LoadImage("Gate", "gate.png");
-    Fastboi::Resources::LoadImage("Sword", "sword.png");
-    Fastboi::Resources::LoadImage("Castle", "castle.png");
-    Fastboi::Resources::LoadImage("Yorgle", "yorgle.png");
-    Fastboi::Resources::LoadImage("Grundle", "grundle.png");
-    Fastboi::Resources::LoadImage("Rhindle", "rhindle.png");
-    Fastboi::Resources::LoadImage("Chalise", "chalise.png");
-    Fastboi::Resources::LoadImage("Magnet", "magnet.png");
-    Fastboi::Resources::LoadImage("Bridge", "bridge.png");
+    Resources::LoadImage("Keys", "keys.png");
+    Resources::LoadImage("Gate", "gate.png");
+    Resources::LoadImage("Sword", "sword.png");
+    Resources::LoadImage("Yorgle", "yorgle.png");
+    Resources::LoadImage("Grundle", "grundle.png");
+    Resources::LoadImage("Rhindle", "rhindle.png");
+    Resources::LoadImage("Chalise", "chalise.png");
+    Resources::LoadImage("Magnet", "magnet.png");
+    Resources::LoadImage("Bridge", "bridge.png");
+
+    Resources::LoadImage("GoldCastle", "castle.png");
+    Resources::LoadImage("BlackCastle", "castle.png");
+    Resources::LoadImage("WhiteCastle", "castle.png");
+
+    SDL_SetTextureColorMod(Resources::GetTexture("GoldCastle").GetSDL_Texture(), 210, 210, 64);
+    SDL_SetTextureColorMod(Resources::GetTexture("BlackCastle").GetSDL_Texture(), 0, 0, 0);
+    
 
     printf("Resources loaded\n");
 }
@@ -104,7 +111,6 @@ void Adventure::LoadLevel1() {
         , KeyColor::BLACK
         , blackCastleInsideBot
     );
-
 
     Gameobject& gldCastle = Instantiate<Castle::Inst>(
         goldCastle.GetTilePos(Vec<int>(10, 4)) - Position(Room::GetTileSize().x / 2.f, 8.f)
