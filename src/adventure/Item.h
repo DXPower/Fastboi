@@ -27,9 +27,10 @@ namespace Adventure {
         void Start();
         
         void Release();
+        void TryPickup(const CollisionEvent& e);
 
-        void Collision(const CollisionEvent& e);
         void ReleasePressed(const KeyEvent& e);
+        void Collision(const CollisionEvent& e);
         void RoomChanged(const RoomChangeEvent& e);
 
         inline static const std::vector<Item*>& GetAllItems() { return globalItems; };

@@ -1,4 +1,5 @@
 #include "Item.h"
+#include "Bridge.h"
 #include "FastboiComps.h"
 #include "GameManager.h"
 #include "Gate.h"
@@ -28,10 +29,12 @@ void Item::Release() {
     isHeld = false;
 }
 
-void Item::Collision(const CollisionEvent& e) {
+void Item::TryPickup(const CollisionEvent& e) {
+    if (isHeld) return;
+    
     Gameobject& colgo = e.collider.gameobject();
 
-    if (e.type == CollisionEvent::BEGIN && colgo.name == "Player") {
+    if (e.type == CollisionEvent::BEGIN && colgo.name == "Player" && !colgo.GetComponent<Player>().isPhasing) {
         for (const Transform* child : colgo.transform->GetChildren()) {
             if (child->gameobject().HasComponent<Item>())
                 child->gameobject().GetComponent<Item>().Release();
@@ -42,6 +45,12 @@ void Item::Collision(const CollisionEvent& e) {
 
         isHeld = true;
     }
+}
+
+void Item::Collision(const CollisionEvent& e) {
+    if (go().HasComponent<Bridge>()) return; // Bridge can only be picked up from its internal pieces, so it calls TryPickp() directly
+
+    TryPickup(e);
 }
 
 void Item::ReleasePressed(const KeyEvent& e) { 

@@ -19,6 +19,8 @@ Player::~Player() {
 
 void Player::Start() {
     rigidbody = &gameobject().GetComponent<Rigidbody>();
+
+    // gameobject().collider->collisionSignal.connect<&Player::Collision>()
 }
 
 void Player::Update() {
@@ -42,6 +44,18 @@ void Player::Update() {
         direction.x -= 1;
     }
 
+    if (isInBridge) {
+        isPhasing = false;
+
+        for (const Collider* col : gameobject().collider->GetCurrentCollisions()) {
+            if (col->IsFixed()) {
+                direction.x = 0; // Can't move sideways in bridge
+                isPhasing = true;
+                break;
+            }
+        }
+    }
+
     rigidbody->velocity = direction.normalized() * speed;
 }
 
@@ -57,6 +71,19 @@ void Player::RoomChanged(const RoomChangeEvent& e) {
     
     Fastboi::camera.SetTarget(*new Transform(e.room.GetCenter()), Camera::OWNING);
     gameobject().GetComponent<ColorComp>() = e.room.GetColor();
+}
+
+void Player::EnterBridge() {
+    printf("Enter bridge!\n");
+    gameobject().collider->SetFlags(Collider::TRIGGER);
+    isInBridge = true;
+}
+
+void Player::ExitBridge() {
+    printf("Exit bridge!\n");
+    gameobject().collider->SetFlags(Collider::NONE);
+    isInBridge = false;
+    isPhasing = false;
 }
 
 void Player::Inst(Gameobject& go, const Position& pos) {

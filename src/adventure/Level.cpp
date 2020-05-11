@@ -28,6 +28,10 @@ Room& Level::GetRoomMovement(const Position& pos, const Velocity& v, Vec<int>& d
     roomBounds.lowerBounds += Room::GetTileSize() / Size(4.f, 2.f);
     roomBounds.upperBounds -= Room::GetTileSize() / Size(4.f, 2.f);
 
+    roomBounds = roomBounds.Fatten(-0.0025f);
+    const Size s = roomBounds.upperBounds - roomBounds.lowerBounds;
+    Rendering::Request_Render_DebugRect(RectF(roomBounds.lowerBounds.x, roomBounds.lowerBounds.y, s.x, s.y));
+
     using namespace Layouts;
 
     Vec<int> newRoomOffset;

@@ -15,9 +15,11 @@ namespace Adventure {
         Rigidbody* rigidbody = nullptr;
 
         bool isEaten = false;
+        bool isInBridge = false;
 
         public:
         GORef gameobject;
+        bool isPhasing = false;
 
         Player(GORef&& go);
         ~Player();
@@ -27,6 +29,10 @@ namespace Adventure {
 
         void Eat();
         void RoomChanged(const RoomChangeEvent& e);
+
+        void EnterBridge();
+        void ExitBridge();
+        void Collision(const CollisionEvent& e);
 
         static void Inst(Gameobject& go, const Position& pos);
     };

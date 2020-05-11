@@ -6,7 +6,7 @@ namespace Fastboi {
     struct ComponentBase;
     struct Gameobject;
 
-    class [[nodiscard]] GORef final{
+    class GORef final{
         public:
         Gameobject* go = nullptr;
         ComponentBase* owningComp = nullptr;

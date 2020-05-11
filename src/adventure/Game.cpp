@@ -1,4 +1,5 @@
 #include "Game.h"
+#include "Bridge.h"
 #include "Chalise.h"
 #include "Dragon.h"
 #include "GameManager.h"
@@ -45,6 +46,7 @@ void LoadResources() {
     Fastboi::Resources::LoadImage("Rhindle", "rhindle.png");
     Fastboi::Resources::LoadImage("Chalise", "chalise.png");
     Fastboi::Resources::LoadImage("Magnet", "magnet.png");
+    Fastboi::Resources::LoadImage("Bridge", "bridge.png");
 
     printf("Resources loaded\n");
 }
@@ -82,10 +84,11 @@ void Adventure::LoadLevel1() {
     Room& blackCastleInsideBot = Level::AddRoom(Layouts::blackCastleInsideBot);
     Room& blackCastleInsideTop = Level::AddRoom(Layouts::blackCastleInsideTop);
 
-    Gameobject& player = Instantiate<Player::Inst>(goldCastle.GetTilePos(Vec<int>(9, 9)));
+    Gameobject& player = Instantiate<Player::Inst>(mazeGrail.GetTilePos(Vec<int>(9, 9)));
     Gameobject& sword = Instantiate<Sword::Inst>(goldCastleInside.GetTilePos(Vec<int>(3, 9)));
-    Gameobject& chalise = Instantiate<Chalise::Inst>(goldCastle.GetTilePos(7, 9));
-    Gameobject& magnet = Instantiate<Magnet::Inst>(goldCastle.GetTilePos(14, 9));
+    Gameobject& chalise = Instantiate<Chalise::Inst>(blackCastleInsideTop.GetTilePos(7, 9));
+    Gameobject& magnet = Instantiate<Magnet::Inst>(blackCastleInsideBot.GetTilePos(16, 9));
+    Gameobject& bridge = Instantiate<Bridge::Inst>(mazeGrail.GetTilePos(5, 7) + Room::GetTileSize() * 0.5f);
 
     Gameobject& goldKey = Instantiate<Key::Inst>(goldCastle.GetTilePos(Vec<int>(4, 5)), KeyColor::GOLD);
     Gameobject& blackKey = Instantiate<Key::Inst>(greenDragonRm.GetTilePos(Vec<int>(4, 4)), KeyColor::BLACK);
