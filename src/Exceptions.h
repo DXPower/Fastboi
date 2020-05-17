@@ -10,5 +10,6 @@ namespace Application {
         , DEALLOCATE_UNSTARTED_GO = 6
         , COPY_COMP_NO_DUPE = 7
         , INVALID_COL_LAYER = 8
+        , CANNOT_DUPE = 9
     };
 }

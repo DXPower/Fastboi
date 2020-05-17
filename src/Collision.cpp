@@ -13,6 +13,9 @@
 #define CUTE_C2_IMPLEMENTATION
 #include "cute_c2.h"
 
+#define likely(x)       __builtin_expect((x),1)
+#define unlikely(x)     __builtin_expect((x),0)
+
 using namespace Fastboi;
 using namespace Fastboi::Collision;
 
@@ -93,7 +96,10 @@ void Fastboi::Collision::BroadPhase(
     for (auto it = colliders.begin(); it != colliders.end(); it++) {
         Collider* collider = *it;
 
-        if (!collider->isStarted || !collider->isEnabled || collider->isDeleted) continue;
+        // if (!collider->isStarted || !collider->isEnabled || collider->isDeleted) continue;
+        if (!collider->isStarted) continue;
+        if (!collider->isEnabled) continue;
+        if (collider->isDeleted) continue;
 
         // auto pots = aabbTree.query(collider);
         const Transform& ct = *collider->gameobject().transform;
@@ -101,8 +107,11 @@ void Fastboi::Collision::BroadPhase(
         for (auto pcit = std::next(it); pcit != colliders.end(); pcit++) {
             Collider* pc = *pcit;
 
-            if (!pc->isStarted || !pc->isEnabled || pc->isDeleted) continue;
             if (!CollisionMask::CanCollide(collider->mask, pc->mask)) continue;
+
+            if (unlikely(!pc->isStarted)) continue;
+            if (unlikely(!pc->isEnabled)) continue;
+            if (unlikely(pc->isDeleted)) continue;
 
             const Transform& pct = *pc->gameobject().transform;
 

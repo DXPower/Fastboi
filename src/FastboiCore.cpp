@@ -199,7 +199,8 @@ void TickPhysicsThread() {
  * Only intended to be called by main
 **/
 void Fastboi::GameLoop() {
-    cacheLineSize = CacheLineSize();
+    // cacheLineSize = CacheLineSize();
+    cacheLineSize = 64;
     GetCacheSize();
 
     printf("Cache Line Size detected: %lu bytes\n", cacheLineSize);

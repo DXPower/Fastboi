@@ -3,18 +3,21 @@
 #include <utility>
 
 namespace Fastboi {
-    struct ComponentBase;
+    namespace detail {
+        struct ComponentBase;
+    }
+
     struct Gameobject;
 
     class GORef final{
         public:
         Gameobject* go = nullptr;
-        ComponentBase* owningComp = nullptr;
+        detail::ComponentBase* owningComp = nullptr;
 
         public:
         GORef() = default;
         GORef(Gameobject& go);
-        GORef(Gameobject& go, ComponentBase& owner);
+        GORef(Gameobject& go, detail::ComponentBase& owner);
         GORef(const GORef& copy);
         GORef(const GORef&& mv);
         ~GORef();

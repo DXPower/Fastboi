@@ -4,7 +4,7 @@
 using namespace Fastboi;
 
 GORef::GORef(Gameobject& go) : go(&go) { }
-GORef::GORef(Gameobject& go, ComponentBase& owner) : go(&go), owningComp(&owner) { }
+GORef::GORef(Gameobject& go, detail::ComponentBase& owner) : go(&go), owningComp(&owner) { }
 
 GORef::GORef(const GORef& copy) : go(copy.go), owningComp(copy.owningComp) {
     if (owningComp != nullptr && !owningComp->isDuplicating)

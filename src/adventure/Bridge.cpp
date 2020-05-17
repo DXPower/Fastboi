@@ -6,8 +6,7 @@
 
 using namespace Adventure;
 
-Bridge::Bridge(Fastboi::GORef&& go) : go(std::move(go)) {
-}
+Bridge::Bridge(Fastboi::GORef&& go) : go(std::move(go)) { }
 
 void Bridge::Start() {
     go().collider->collisionSignal.connect<&Bridge::EnterBridge>(this);

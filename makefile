@@ -8,7 +8,8 @@ include targets.env
 CC=clang
 CXX=clang++
 CFLAGS = -std=c11
-CXXFLAGS = -std=c++20 -O3 -m64 -march=x86-64 -Wfatal-errors -W -Wdelete-abstract-non-virtual-dtor -Wno-unused-parameter -Wno-format -Wno-parentheses-equality -Xclang -flto-visibility-public-std -frelaxed-template-template-args 
+CXXFLAGS = -std=c++20 -O2 -D _SILENCE_CLANG_CONCEPTS_MESSAGE -m64 -march=x86-64 -Wfatal-errors -W -Wdelete-abstract-non-virtual-dtor -Wno-unused-parameter -Wno-format -Wno-parentheses-equality -Xclang -flto-visibility-public-std -frelaxed-template-template-args 
+CXXFLAGS_PROF = -std=c++20 -O2 -D TBB_USE_THREADING_TOOLS -g -m64 -march=x86-64 -Wfatal-errors -W -Wdelete-abstract-non-virtual-dtor -Wno-unused-parameter -Wno-format -Wno-parentheses-equality -Xclang -flto-visibility-public-std -frelaxed-template-template-args 
 CXX_LINKS = -L./lib/ -lSDL2main -lSDL2 -lSDL2_image
 DEBUGFLAGS = -ggdb -D DEBUG
 DEFINES = -D SDL_MAIN_HANDLED -D WINDOWS
@@ -23,6 +24,7 @@ POSTCOMPILE_TEST = mv -f $(TESTDIR)/$*.Td $(TESTDIR)/$*.d && touch $@
 
 COMPILE.c = $(CC) $(DEFINES) $(DEPFLAGS) $(CFLAGS) -c
 COMPILE.cpp = $(CXX) $(DEFINES) $(DEPFLAGS) $(CXXFLAGS) -c
+# COMPILE.cpp = $(CXX) $(DEFINES) $(CXXFLAGS)
 COMPILE.d.cpp = $(CXX) $(DEFINES) $(DEBUGFLAGS)
 
 COMPILE_TEST.c = $(CC) $(DEFINES) $(TESTDEPFLAGS) $(CFLAGS) -c
@@ -74,6 +76,10 @@ all:
 	@$(MAKE) mygame
 	@$(MAKE) link
 	
+	@echo Done
+
+profile:
+	$(COMPILE.cpp) $(CXXFLAGS) $(GAME_SRC) $(ENGINE_SRC) -Isrc/ $(GAME_INC) -Iinc/ -o $(EXE_NAME).exe $(CXX_LINKS) -Wno-deprecated
 	@echo Done
 
 mygame: $(APP_OBJS)

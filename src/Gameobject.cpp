@@ -79,7 +79,7 @@ Gameobject& Gameobject::Duplicate() const {
     }
 
     for (const auto& [typekey, comp] : components) {
-        ComponentBase& dupComp = comp->CreateEmpty();
+        detail::ComponentBase& dupComp = comp->CreateEmpty();
         comp->Duplicate(dupComp, &dup);
 
         if (typekey == ctti::type_id<Fastboi::Components::ColorShiftComp>().hash()) {
@@ -88,7 +88,7 @@ Gameobject& Gameobject::Duplicate() const {
             Fastboi::Components::ColorShiftComp& cs = *reinterpret_cast<Fastboi::Components::ColorShiftComp*>(dupComp.Retrieve()); 
         }
         
-        dup.components.emplace(typekey, std::unique_ptr<ComponentBase>(&dupComp));
+        dup.components.emplace(typekey, std::unique_ptr<detail::ComponentBase>(&dupComp));
     }
 
     return dup;

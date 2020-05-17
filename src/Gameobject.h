@@ -29,7 +29,7 @@ namespace Fastboi {
 
         public:
         std::string name;
-        std::unordered_map<uint64_t, std::unique_ptr<ComponentBase>> components;
+        std::unordered_map<uint64_t, std::unique_ptr<detail::ComponentBase>> components;
         // Mapping type to components. (Lookup only available at compile time)
         // Transform,  Renderer, Collider are core but act like components, so we store them separately.
         // Additionally, because Renderer can be a base class, this allows for someone to get the
@@ -67,6 +67,7 @@ namespace Fastboi {
         void RemoveComponent();
 
         template<class T>
+        requires detail::CanDuplicate<T>
         T& DuplicateComponent(Gameobject& dest) const;
 
         void SetEnabled(bool f);
@@ -184,6 +185,7 @@ namespace Fastboi {
     }
 
     template<class T>
+    requires detail::CanDuplicate<T>
     T& Gameobject::DuplicateComponent(Gameobject& dest) const {
         if (!HasComponent<T>()) {
             Application::ThrowRuntimeException("Attempt to duplicate nonexistant component!", 

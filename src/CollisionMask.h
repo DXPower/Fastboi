@@ -1,5 +1,6 @@
 #pragma once
 
+#include <concepts>
 #include <cstdint>
 #include <type_traits>
 #include "Application.h"
@@ -28,7 +29,7 @@ namespace Fastboi {
         };
 
         template<typename... EnumClass>
-        requires std::is_same_v<std::common_type_t<EnumClass...>, CollisionLayer>
+        requires std::same_as<std::common_type_t<EnumClass...>, CollisionLayer>
         CollisionMask& Include(EnumClass... layers) {
             using CT = std::common_type_t<EnumClass...>;
             using UT = std::underlying_type_t<CT>;
@@ -50,7 +51,7 @@ namespace Fastboi {
         };
 
         template<typename... EnumClass>
-        requires std::is_same_v<std::common_type_t<EnumClass...>, CollisionLayer>
+        requires std::same_as<std::common_type_t<EnumClass...>, CollisionLayer>
         CollisionMask& Exclude(EnumClass... layers) {
             if (inclusions == CollisionLayer::NONE) return *this;
 

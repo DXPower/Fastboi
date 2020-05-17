@@ -46,6 +46,14 @@ namespace ctti
             return name_;
         }
 
+        inline std::string cppstring() const {
+            return name().cppstring();
+        }
+        
+        inline std::string str() const {
+            return cppstring();
+        }
+
         friend constexpr bool operator==(const type_id_t& lhs, const type_id_t& rhs)
         {
             return lhs.hash() == rhs.hash();
