@@ -1,6 +1,7 @@
 #include "FastboiCore.h"
 #include "AABB.h"
 #include <algorithm>
+#include "Angles.h"
 #include "Application.h"
 #include "Camera.h"
 #include "Collision.h"
@@ -81,23 +82,23 @@ void Fastboi::Tick() {
 }
 
 void Fastboi::Render() {
-    Timer renderTimer;
-    constexpr int TICK_FREQUENCY = 120;
-    constexpr std::chrono::duration<double, std::milli> TICK_TIME(1000.0 / TICK_FREQUENCY);
+    // Timer renderTimer;
+    // constexpr int TICK_FREQUENCY = 120;
+    // constexpr std::chrono::duration<double, std::milli> TICK_TIME(1000.0 / TICK_FREQUENCY);
     
-    std::chrono::duration<double, std::milli> renderDelta(0);
+    // std::chrono::duration<double, std::milli> renderDelta(0);
 
-    while (!quit) {
-        renderingMtx.lock();
-        Input::PollEvents();
-        renderingMtx.unlock();
+    // while (!quit) {
+        // renderingMtx.lock();
+        // Input::PollEvents();
+        // renderingMtx.unlock();
 
         Texture::CreateQueuedTextures();
 
-        if (!(renderTimer.TimeSinceLastTick() > TICK_TIME)) continue;
+        // if (!(renderTimer.TimeSinceLastTick() > TICK_TIME)) continue;
 
-        renderDelta = renderTimer.elapsed_seconds;
-        renderTimer.Tick();
+        // renderDelta = renderTimer.elapsed_seconds;
+        // renderTimer.Tick();
 
         // if (renderDelta > (decltype(renderDelta){10}))
         //     printf("Render: %f\n", renderDelta);
@@ -105,14 +106,15 @@ void Fastboi::Render() {
         // // printf("Attempting render...\n");
         uint32_t flags = SDL_GetWindowFlags(Application::gWindow);
         if (!(flags & (SDL_WINDOW_INPUT_FOCUS))) {
-            continue;
+            // continue;
+            return;
         }
 
         auto bgColor = Rendering::GetBGColor();
         SDL_SetRenderDrawColor(Rendering::gRenderer, bgColor.r, bgColor.g, bgColor.b, bgColor.a);
         SDL_RenderClear(Rendering::gRenderer);
 
-        renderingMtx.lock();
+        // renderingMtx.lock();
 
         const static auto sortByZ = [](const Renderer* a, const Renderer* b) -> bool {
             return a->data.zindex < b->data.zindex;
@@ -130,10 +132,10 @@ void Fastboi::Render() {
         AABBTree::AABB::RenderAllAABBs();
         Rendering::Render_AllDebugRects();
 
-        renderingMtx.unlock();
+        // renderingMtx.unlock();
         SDL_RenderPresent(Rendering::gRenderer);
-        renderDelta = renderDelta.zero();
-    }
+        // renderDelta = renderDelta.zero();
+    // }
 }
 
 /**
@@ -163,6 +165,8 @@ void Cleanup() {
     colliders.clear();
 }
 
+#include <fstream>
+
 void TickPhysicsThread() {
     // Timing constants
     constexpr int TICK_FREQUENCY = 120;
@@ -175,20 +179,57 @@ void TickPhysicsThread() {
 
     tickTimer.Tick(); // Initial tick because the time between app start and this line is quite long
 
+    std::vector<double> frameTimes;
+    std::vector<double> physicsTimes;
+    std::vector<double> tickTimes;
+    std::vector<double> renderTimes;
+    unsigned int n = 10000;
+
+    frameTimes.reserve(n);
+    frameTimes.reserve(n);
+    frameTimes.reserve(n);
+    frameTimes.reserve(n);
+
     while (!quit) {
         if (!paused) {
             // Cap tick rate with a blocking if
-            if (tickTimer.TimeSinceLastTick() > TICK_TIME) {
-                Fastboi::tickDelta = std::chrono::duration_cast<duration<double>>(tickTimer.elapsed_seconds).count(); // Convert from ms to s
+            // if (tickTimer.TimeSinceLastTick() > TICK_TIME) {
+                Fastboi::tickDelta = std::chrono::duration_cast<duration<double>>(tickTimer.TimeSinceLastTick()).count(); // Convert from ms to s
                 Fastboi::physicsDelta = Fastboi::tickDelta;
+
+                Input::PollEvents();
+
                 tickTimer.Tick();
 
+                
+
                 Physics();
+                physicsTimes.push_back(tickTimer.TimeSinceLastTick().count());
                 Tick();
+                tickTimes.push_back(tickTimer.TimeSinceLastTick().count());
+                Render();
+                renderTimes.push_back(tickTimer.TimeSinceLastTick().count());
+
+                frameTimes.push_back(tickTimer.TimeSinceLastTick().count());
 
                 Fastboi::tickDelta = 0;
                 Fastboi::physicsDelta = 0;
-            }
+
+                if (frameTimes.size() == n) {
+                    std::ofstream file("times.txt", std::ios::trunc);
+
+                    file << "Frame" << "," << "Time" << "," << "Frame" << "," << "Physics" << "," << "Ticks" << "," << "Render" << std::endl;
+
+                    double curTime = 0.;
+                    for (unsigned int x = 0; x < frameTimes.size(); x++) {
+                        file << x << "," << curTime << "," << frameTimes[x] << "," << physicsTimes[x] << "," << tickTimes[x] << "," << renderTimes[x] << std::endl;
+                        curTime += frameTimes[x];
+                    }
+
+                    Fastboi::Quit();
+                }
+
+            // }
         }
     }  
 }
@@ -203,18 +244,55 @@ void Fastboi::GameLoop() {
     cacheLineSize = 64;
     GetCacheSize();
 
-    printf("Cache Line Size detected: %lu bytes\n", cacheLineSize);
+    Degree a = 180_deg;
+    Radian rad = a.As<Radian>();
 
+    printf("Degs: %lf, Rads: %lf\n", a.Value(), rad.Value());
+
+    auto b = 30_deg + Radian::PI();
+    b -= 2 * 3.14_rad;
+    printf("b Degs: %lf\n", b.Value());
+
+    Radian c(Radian::PI() / 4);
+    printf("c degs: %lf, rads: %lf\n", c.As<Degree>().Value(), c.As<Radian>().Value());
+
+    a -= c;
+    printf("New a: degs: %lf, rads: %lf\n", a.As<Degree>().Value(), c.As<Radian>().Value());
+
+    c = Radian::PI() / 2 + 35_deg;
+    printf("New c: degs: %lf, rads: %i\n", c.As<Degree>().Value(), c.As<int>());
+
+
+    // printf("Cache Line Size detected: %lu bytes\n", cacheLineSize);
+
+    // Input::PollEvents();
+    // Tick();
+
+    // std::thread bgThread(TickPhysicsThread);
+
+    // updateThreadID = bgThread.get_id();
+    // renderingThreadID = std::this_thread::get_id();
+
+    // Render();
+    // bgThread.join();
     Input::PollEvents();
     Tick();
 
-    std::thread bgThread(TickPhysicsThread);
+    TickPhysicsThread();
 
-    updateThreadID = bgThread.get_id();
-    renderingThreadID = std::this_thread::get_id();
+    // while (!quit) {
+    //     printf("Looping top\n");
+    //     if (paused) continue;
+    //     printf("Next\n");
 
-    Render();
-    bgThread.join();
+    //     Input::PollEvents();
+    //     printf("1\n");
+    //     Physics();
+    //     printf("2\n");
+    //     Tick();
+    //     printf("3\n");
+    //     Render();
+    // }
 
     Cleanup();
 }

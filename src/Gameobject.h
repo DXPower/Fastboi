@@ -55,10 +55,7 @@ namespace Fastboi {
         T& AddComponent(Args&&... args);
 
         template<class T>
-        T& GetComponent();
-
-        template<class T>
-        const T& GetComponent() const;
+        T& GetComponent() const;
 
         template<class T>
         bool HasComponent() const;
@@ -130,12 +127,7 @@ namespace Fastboi {
     }
 
     template<class T>
-    T& Gameobject::GetComponent() {
-        return const_cast<T&>(const_cast<const Gameobject*>(this)->GetComponent<T>());
-    }
-
-    template<class T>
-    const T& Gameobject::GetComponent() const {
+    T& Gameobject::GetComponent() const {
         if (!HasComponent<T>())
             Application::ThrowRuntimeException("Attempt to get nonexistant component!", 
                 Application::COMPONENT_NO_EXIST,

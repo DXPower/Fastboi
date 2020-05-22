@@ -24,7 +24,7 @@ POSTCOMPILE_TEST = mv -f $(TESTDIR)/$*.Td $(TESTDIR)/$*.d && touch $@
 
 COMPILE.c = $(CC) $(DEFINES) $(DEPFLAGS) $(CFLAGS) -c
 COMPILE.cpp = $(CXX) $(DEFINES) $(DEPFLAGS) $(CXXFLAGS) -c
-# COMPILE.cpp = $(CXX) $(DEFINES) $(CXXFLAGS)
+COMPILE.cpp.prof = $(CXX) $(DEFINES) $(CXXFLAGS)
 COMPILE.d.cpp = $(CXX) $(DEFINES) $(DEBUGFLAGS)
 
 COMPILE_TEST.c = $(CC) $(DEFINES) $(TESTDEPFLAGS) $(CFLAGS) -c
@@ -73,13 +73,15 @@ $(TESTDIR)/%.o : src/%.cpp
 # 	$(POSTCOMPILE)
 
 all:
+	compiledb make profile -n
+
 	@$(MAKE) mygame
 	@$(MAKE) link
-	
+
 	@echo Done
 
 profile:
-	$(COMPILE.cpp) $(CXXFLAGS) $(GAME_SRC) $(ENGINE_SRC) -Isrc/ $(GAME_INC) -Iinc/ -o $(EXE_NAME).exe $(CXX_LINKS) -Wno-deprecated
+	$(COMPILE.cpp.prof) $(CXXFLAGS) $(GAME_SRC) $(ENGINE_SRC) -Isrc/ $(GAME_INC) -Iinc/ -o $(EXE_NAME).exe $(CXX_LINKS) -Wno-deprecated
 	@echo Done
 
 mygame: $(APP_OBJS)
@@ -116,3 +118,5 @@ clean:
 	del /f /q /s ${EXE_NAME_ADVENTURE}.d.exe 2>nul
 	del /f /q /s ${EXE_NAME_ADVENTURE}.d.exe 2>nul
 	del /f /q /s test.exe 2>nul
+	
+
