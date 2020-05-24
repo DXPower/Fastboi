@@ -97,17 +97,18 @@ void Key::Inst(Gameobject& go, const Position& pos, KeyColor color) {
 
     constexpr Size keySize(Room::GetTileSize().x, Room::GetTileSize().y * (float) keySpriteSize.y / (float) keySpriteSize.x);
 
-    go.AddComponent<Transform>(pos, keySize, 0);
+    go.AddComponent<Transform>(pos, keySize, 0_deg);
     go.AddComponent<Collider>(Collider::TRIGGER, CollisionLayer::ITEMS).mask.Include(CollisionLayer::PLAYER, CollisionLayer::WALLS);
     go.AddComponent<SpriteRenderer>(RenderData(RenderOrder::OBJECTS_OVER, 0), "Keys", Rect(0, 0, keySpriteSize.x, keySpriteSize.y));
     go.AddComponent<Key>(color);
+    go.AddComponent<Rigidbody>().rotVelocity = 900_deg;
 }
 
 void Sword::Inst(Gameobject& go, const Position& pos) {
     constexpr Vec<int> swordSpriteSize(16, 10);
     constexpr Size swordSize(Room::GetTileSize().x, Room::GetTileSize().y * (float) swordSpriteSize.y / (float) swordSpriteSize.x);
 
-    go.AddComponent<Transform>(pos, swordSize, 0);
+    go.AddComponent<Transform>(pos, swordSize, 0_deg);
     go.AddComponent<Collider>(Collider::TRIGGER, CollisionLayer::ITEMS).mask.Include(CollisionLayer::PLAYER, CollisionLayer::UNITS);
     go.AddComponent<SpriteRenderer>(RenderData(RenderOrder::OBJECTS_OVER, 1), "Sword", Rect(0, 0, swordSpriteSize.x, swordSpriteSize.y));
     go.AddComponent<Item>();

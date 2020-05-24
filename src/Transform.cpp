@@ -6,10 +6,10 @@ using namespace Fastboi;
 
 std::vector<Transform*> Transform::rootParents = std::vector<Transform*>();
 
-Transform::Transform() : Transform(Position::zero(), Size::zero(), 0) { }
-Transform::Transform(Position pos) : Transform(pos, Size::zero(), 0) { }
-Transform::Transform(Position pos, Size size, double rot) : position(pos), size(size), rotation(rot), shape(nullptr) {
-    SetRotation(rot);
+Transform::Transform() : Transform(Position::zero(), Size::zero(), 0_deg) { }
+Transform::Transform(Position pos) : Transform(pos, Size::zero(), 0_deg) { }
+Transform::Transform(Position pos, Size size, Radian rot) : Transform(pos, size, rot.As<Degree>()) { }
+Transform::Transform(Position pos, Size size, Degree rot) : position(pos), size(size), rotation(rot), shape(nullptr) {
     SetShape<Rectangle>();
 }
 
@@ -43,21 +43,6 @@ Transform& Transform::operator=(Transform&& copy) {
     SetShape<Rectangle>();
 
     return *this;
-}
-
-double Transform::GetRotation() const {
-    if (!rotated) return 0.f;
-    else return rotation;
-}
-
-void Transform::SetRotation(double rot) {
-    rotation = rot;
-    rotated = true;
-}
-
-void Transform::ResetRotation() {
-    rotation = 0.f;
-    rotated = false;
 }
 
 bool Transform::HasAncestor(const Transform& check) const {
@@ -129,11 +114,11 @@ void Transform::UpdateLastPosRot() {
 #define PI 3.14159265358979323846
 #define TO_RADIANS(x) x * PI / 180.0
 
-void Transform::UpdateChildren(Position deltaPos, double deltaRot) {
+void Transform::UpdateChildren(Position deltaPos, Degree deltaRot) {
     // Calculate change in position due to parent's rotation
-    if (deltaRot != 0) {
+    if (deltaRot != 0_deg) {
         Position rotPos = position - parent->position; // Transform to coordinates of parent
-        double dRotRads = TO_RADIANS(deltaRot);
+        double dRotRads = deltaRot.As<Radian>().Value();
 
         const float rx = (rotPos.x * cos(dRotRads)) - (rotPos.y * sin(dRotRads)); // Rotated x val
         const float ry = (rotPos.x * sin(dRotRads)) + (rotPos.y * cos(dRotRads)); // Rotated y val
@@ -144,7 +129,7 @@ void Transform::UpdateChildren(Position deltaPos, double deltaRot) {
     // Calculate change in position/rotation for children if and only if we have children
     if (children.size() != 0) {
         Position childDeltaPos = deltaPos + position - lastPos; // We need to add the parent's deltaPos as well as our own deltaPos
-        double childDeltaRot = deltaRot + rotation - lastRot; // We need to add the parent's deltaRot as well as our own deltaRot
+        Degree childDeltaRot = deltaRot + rotation - lastRot; // We need to add the parent's deltaRot as well as our own deltaRot
 
         for (Transform* child : children) {
             child->UpdateChildren(childDeltaPos, childDeltaRot); // Apply the new deltaPos/Rot for each child
@@ -153,7 +138,7 @@ void Transform::UpdateChildren(Position deltaPos, double deltaRot) {
     
     // Save our new position from the propogation
     position += deltaPos;
-    SetRotation(rotation + deltaRot);
+    rotation += deltaRot;
 
     // We only track last pos/rot if we have children
     if (children.size() != 0)
@@ -185,7 +170,7 @@ void Transform::RemoveParentStatus(const Transform& rootp) {
 
 void Transform::UpdateAllParentRelations() {
     for (Transform* t : rootParents) {
-        t->UpdateChildren(Position::zero(), 0.0); // Does a DFS of the tree of parenthood for this root parent
+        t->UpdateChildren(Position::zero(), 0_deg); // Does a DFS of the tree of parenthood for this root parent
     }
 }
 

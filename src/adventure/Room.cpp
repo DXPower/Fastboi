@@ -72,7 +72,7 @@ void Room::SetColor(const ColorComp& c) {
 
 void Adventure::Tile(Gameobject& go, const Room& room, const Veci index, const ColorComp& color) {
     go.name = "Wall";
-    go.AddComponent<Transform>(room.GetTilePos(index), Size(room.GetTileSize()), 0);
+    go.AddComponent<Transform>(room.GetTilePos(index), Size(room.GetTileSize()), 0_deg);
     go.AddComponent<BoxColorRenderer>(RenderData(RenderOrder::GROUND));
     go.AddComponent<Collider>(Collider::FIXED, CollisionLayer::WALLS).mask.Include(CollisionLayer::PLAYER);
     go.AddComponent<ColorComp>(color);

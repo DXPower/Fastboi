@@ -40,7 +40,7 @@ void Magnet::Update() {
 void Magnet::Inst(Gameobject& go, const Position& pos) {
     constexpr Vec<int> magnetSpriteSize{ 16, 16 };
 
-    go.AddComponent<Transform>(pos, Room::GetTileSize(), 0);
+    go.AddComponent<Transform>(pos, Room::GetTileSize(), 0_deg);
     go.AddComponent<SpriteRenderer>(RenderData(RenderOrder::OBJECTS_OVER), "Magnet", Rect(0, 0, magnetSpriteSize.x, magnetSpriteSize.y));
     go.AddComponent<Collider>(Collider::TRIGGER, CollisionLayer::ITEMS).mask.Include(CollisionLayer::PLAYER);
     

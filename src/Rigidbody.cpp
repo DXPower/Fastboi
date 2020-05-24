@@ -6,7 +6,7 @@ using namespace Fastboi;
 
 void Rigidbody::ApplyParameters(Transform& t) {
     t.position += velocity * Fastboi::physicsDelta;
-    t.SetRotation(t.rotation + rotVelocity * Fastboi::physicsDelta);
+    t.rotation += rotVelocity * Fastboi::physicsDelta;
 
     velocity += acceleration * Fastboi::physicsDelta;
     rotVelocity += rotAcceleration * Fastboi::physicsDelta;
@@ -18,6 +18,6 @@ void Rigidbody::ApplyParameters(Transform& t) {
     // Create a vector with magnitudes of newAbsVel but signs of velocity
     velocity = Velocity(std::copysign(newAbsVel.x, velocity.x), std::copysign(newAbsVel.y, velocity.y));
 
-    const double newAbsRV = std::max(0., std::abs(rotVelocity) - rotDrag * Fastboi::physicsDelta);
-    rotVelocity = std::copysign(newAbsRV, rotVelocity);
+    const double newAbsRV = std::max(0., std::abs(rotVelocity.Value()) - rotDrag.Value() * Fastboi::physicsDelta);
+    rotVelocity = Degree(std::copysign(newAbsRV, rotVelocity.Value()));
 }

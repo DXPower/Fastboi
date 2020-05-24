@@ -26,7 +26,7 @@ void Bridge::EnterBridge(const CollisionEvent& e) {
 }
 
 void BridgePart(Gameobject& go, Item& itemParent, const Position& pos, const Size& size) {
-    go.AddComponent<Transform>(pos, size, 0).Parent(itemParent.go().transform);
+    go.AddComponent<Transform>(pos, size, 0_deg).Parent(itemParent.go().transform);
     // go.AddComponent<ColorComp>(0, 255, 0, 255);
     // go.AddComponent<WireframeRenderer>(RenderData(RenderOrder::UI, 10));
     
@@ -36,7 +36,7 @@ void BridgePart(Gameobject& go, Item& itemParent, const Position& pos, const Siz
 }
 
 void BridgeInternal(Gameobject& go, Bridge& bridgeParent, const Position& pos, const Size& size) {
-    go.AddComponent<Transform>(pos, size, 0).Parent(bridgeParent.go().transform);
+    go.AddComponent<Transform>(pos, size, 0_deg).Parent(bridgeParent.go().transform);
     // go.AddComponent<ColorComp>(255, 155, 0, 255);
     // go.AddComponent<WireframeRenderer>(RenderData(RenderOrder::UI, 9));
 
@@ -49,7 +49,7 @@ void Bridge::Inst(Gameobject& go, const Position& pos) {
     constexpr Vec<int> bridgeSpriteSize{64, 48};
     constexpr Size bridgeSize{ (float) bridgeSpriteSize.x / (float) bridgeSpriteSize.y * 3 * Room::GetTileSize().y, 3 * Room::GetTileSize().y };
 
-    go.AddComponent<Transform>(pos, bridgeSize, 0);
+    go.AddComponent<Transform>(pos, bridgeSize, 0_deg);
     go.AddComponent<Collider>(Collider::TRIGGER, CollisionLayer::ITEMS).mask.Include(CollisionLayer::PLAYER);
     go.AddComponent<SpriteRenderer>(RenderData(RenderOrder::OBJECTS_OVER, -1), "Bridge", Rect(0, 0, bridgeSpriteSize.x, bridgeSpriteSize.y));
 

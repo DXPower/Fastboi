@@ -107,7 +107,7 @@ void Dragon::Collision(const CollisionEvent& e) {
 
 struct DragonShape;
 
-void DragonColPart(Gameobject& go, Dragon& dragon, const Position& pos, const Size& size, double rot) {
+void DragonColPart(Gameobject& go, Dragon& dragon, const Position& pos, const Size& size, Degree rot) {
     go.AddComponent<Transform>(pos, size, rot).Parent(dragon.go().transform);
     // go.AddComponent<WireframeRenderer>(RenderData(RenderOrder::UI));
     go.AddComponent<ColorComp>(0, 0, 255, 255);
@@ -121,7 +121,7 @@ void DragonColPart(Gameobject& go, Dragon& dragon, const Position& pos, const Si
 void Dragon::InstDelegate(Gameobject& go, Gameobject& player, const Room& room, const Position& pos, const DragonStats& stats) {
     constexpr Size dragonSize(1.125f * Room::GetTileSize().x, 1.125f * Room::GetTileSize().x * (float) dragonSpriteSize.y / (float) dragonSpriteSize.x);
 
-    Transform& tr = go.AddComponent<Transform>(pos, dragonSize, 0);
+    Transform& tr = go.AddComponent<Transform>(pos, dragonSize, 0_deg);
 
     go.AddComponent<Collider>(Collider::TRIGGER, CollisionLayer::UNITS).mask.Include(CollisionLayer::PLAYER, CollisionLayer::ITEMS);
     go.AddComponent<Rigidbody>();
@@ -132,15 +132,15 @@ void Dragon::InstDelegate(Gameobject& go, Gameobject& player, const Room& room, 
     const Size& size = tr.size;
     const Position& p = tr.position;
 
-    dragon.belly = &Instantiate<DragonColPart>(dragon, p + size * Size(0, .25f), size * Size(1, .5), 0); // Belly + Tail
-    dragon.jaws = &Instantiate<DragonColPart>(dragon, p + size * Size(-.125, -.275f), size * Size(1 / 1.35f, 1 / 10.f), 0); // Jaws
+    dragon.belly = &Instantiate<DragonColPart>(dragon, p + size * Size(0, .25f), size * Size(1, .5), 0_deg); // Belly + Tail
+    dragon.jaws = &Instantiate<DragonColPart>(dragon, p + size * Size(-.125, -.275f), size * Size(1 / 1.35f, 1 / 10.f), 0_deg); // Jaws
     
-    dragon.mouthPieces[0] = &Instantiate<DragonColPart>(dragon, p + size * Size(-.125, -.19f), size * Size(1 / 9.5f, 1 / 3.f), 45); // Lower mouth
-    dragon.mouthPieces[1] = &Instantiate<DragonColPart>(dragon, p + size * Size(-.125, -.36f), size * Size(1 / 9.5f, 1 / 3.f), -45); // Upper mouth
+    dragon.mouthPieces[0] = &Instantiate<DragonColPart>(dragon, p + size * Size(-.125, -.19f), size * Size(1 / 9.5f, 1 / 3.f), 45_deg); // Lower mouth
+    dragon.mouthPieces[1] = &Instantiate<DragonColPart>(dragon, p + size * Size(-.125, -.36f), size * Size(1 / 9.5f, 1 / 3.f), -45_deg); // Upper mouth
     
-    Instantiate<DragonColPart>(dragon, p + size * Size(.125f, -.05f), size * Size(1 / 1.33f, 1 / 10.f), 0); // Shoulders
-    Instantiate<DragonColPart>(dragon, p + size * Size(.18f, -.15f), size * Size(1 / 10.f, 1 / 3.f), 0); // Neck
-    Instantiate<DragonColPart>(dragon, p + size * Size(.18f, -.28f), size * Size(1 / 2.5f, 1 / 4.2f), 30); // Head
+    Instantiate<DragonColPart>(dragon, p + size * Size(.125f, -.05f), size * Size(1 / 1.33f, 1 / 10.f), 0_deg); // Shoulders
+    Instantiate<DragonColPart>(dragon, p + size * Size(.18f, -.15f), size * Size(1 / 10.f, 1 / 3.f), 0_deg); // Neck
+    Instantiate<DragonColPart>(dragon, p + size * Size(.18f, -.28f), size * Size(1 / 2.5f, 1 / 4.2f), 30_deg); // Head
 
     for (Gameobject* o : dragon.mouthPieces) {
         o->Disable();

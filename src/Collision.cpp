@@ -125,7 +125,7 @@ void Fastboi::Collision::BroadPhase(
     }
 }
 
-void Fastboi::Collision::AdvanceTransform(Transform& transform, const Velocity& vel, const double rotV) {
+void Fastboi::Collision::AdvanceTransform(Transform& transform, const Velocity& vel, const Degree& rotV) {
     transform.position += vel;
     transform.rotation += rotV;
 }
@@ -158,8 +158,8 @@ void Fastboi::Collision::ResolveColliders(
     for (const Collision_t& collision : collisions.Get()) {
         tuple<Velocity, Velocity> finalVelocities = ResolveCollision(collision);
 
-        AdvanceTransform(*collision.a.gameobject().transform, get<0>(finalVelocities), 0.);
-        AdvanceTransform(*collision.b.gameobject().transform, get<1>(finalVelocities), 0.);
+        AdvanceTransform(*collision.a.gameobject().transform, get<0>(finalVelocities), 0_deg);
+        AdvanceTransform(*collision.b.gameobject().transform, get<1>(finalVelocities), 0_deg);
     }
 }
 

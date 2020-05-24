@@ -120,13 +120,10 @@ Rectangle::Rectangle(const Transform& t) : Shape(t) {
     GetBounds();
 }
 
-#define PI 3.14159265358979323846
-#define TO_RADIANS(x) x * PI / 180.0
-
 circular_vector<Position> Rectangle::CalculateVertices() const {
     const Size& size = transform.size;
     const Position& pos = transform.position;
-    const double rotRadians = TO_RADIANS(transform.GetRotation());
+    const double rads = transform.rotation.As<Radian>().Value();
 
     circular_vector<Position> verts = circular_vector<Position>();
 
@@ -139,8 +136,8 @@ circular_vector<Position> Rectangle::CalculateVertices() const {
     // Map the rotation function to every point
     std::for_each(verts.begin(), verts.end(), 
         [&](Position& p) {
-            const float rx = (p.x * cos(rotRadians)) - (p.y * sin(rotRadians)); // Rotated x val
-            const float ry = (p.x * sin(rotRadians)) + (p.y * cos(rotRadians)); // Rotated y val
+            const float rx = (p.x * cos(rads)) - (p.y * sin(rads)); // Rotated x val
+            const float ry = (p.x * sin(rads)) + (p.y * cos(rads)); // Rotated y val
 
             p = Position(rx, ry) + pos; // Translate back to global coorindate system
         }

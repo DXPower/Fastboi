@@ -32,7 +32,7 @@ void Gate::Start() {
     trigger.AddComponent<Transform>(
         Position(tr.position.x, tr.GetBounds().lowerBounds.y - tileSize.y / 2.f)
         , tileSize
-        , 0
+        , 0_deg
     );
 
     Collider& col = trigger.AddComponent<Collider>(Collider::TRIGGER, CollisionLayer::TRIGGERS);
@@ -43,18 +43,18 @@ void Gate::Start() {
 }
 
 void Gate::Update() {
-    if (!hasEntered) {
-        if (curProgress != MAX_PROGRESS) {
-            timeElapsed += Fastboi::tickDelta;
-            
-            if (unsigned char progress = timeElapsed * (float) MAX_PROGRESS; progress <= 6) {
-                SetProgress(progress);
+    if (curProgress != MAX_PROGRESS) {
+        timeElapsed += Fastboi::tickDelta;
+        
+        if (unsigned char progress = timeElapsed * (float) MAX_PROGRESS; progress <= 6) {
+            SetProgress(progress);
 
-                if (curState == GateState::CLOSED && progress == MAX_PROGRESS)
-                    go().collider->SetEnabled(true);
-            }
+            if (curState == GateState::CLOSED && progress == MAX_PROGRESS)
+                go().collider->SetEnabled(true);
         }
-    } else {
+    }
+
+    if (hasEntered) {
         // Check for teleporting out of castle
         if (holder->transform->position.y >= inside.GetCenter().y + inside.GetSize().y / 2.f - inside.GetTileSize().y / 2) {
             // holder->transform->position = go().transform->position;
@@ -68,6 +68,7 @@ void Gate::Update() {
             if (key->GetComponent<Item>().isHeld) {
                 printf("Key with player!\n");
                 curState = GateState::CLOSED;
+                SetProgress(MIN_PROGRESS);
                 timeElapsed = 0.f;
             }
         }
@@ -144,7 +145,7 @@ void Gate::SetProgress(unsigned char progress) {
 }
 
 void Gate::Inst(Gameobject& go, const Position& pos, KeyColor color, const Room& room) {
-    go.AddComponent<Transform>(pos, gateSize, 0);
+    go.AddComponent<Transform>(pos, gateSize, 0_deg);
     go.AddComponent<Collider>(Collider::FIXED, CollisionLayer::WALLS).mask.Include(CollisionLayer::PLAYER, CollisionLayer::ITEMS);
     go.AddComponent<SpriteRenderer>(RenderData(RenderOrder::OBJECTS_OVER, 10), "Gate", Rect(0, 0, gateSpriteSize.x, gateSpriteSize.y));
     go.AddComponent<Gate>(color, room);
@@ -153,7 +154,7 @@ void Gate::Inst(Gameobject& go, const Position& pos, KeyColor color, const Room&
 void Castle::Inst(Gameobject& go, const Position& pos, KeyColor color) {
     constexpr Vec<int> castleSpriteSize(160, 145);
     constexpr Size castleSize(10 * Room::GetTileSize().x, 9 * Room::GetTileSize().y);
-    go.AddComponent<Transform>(pos, castleSize, 0);
+    go.AddComponent<Transform>(pos, castleSize, 0_deg);
 
     const char* castleTexture;
 

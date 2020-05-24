@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Angles.h"
 #include "Vec.h"
 
 namespace Fastboi {
@@ -14,13 +15,13 @@ namespace Fastboi {
         Velocity acceleration = Velocity::zero();
         float drag = 0.f;
 
-        double rotVelocity = 0.;
-        double rotAcceleration = 0.;
-        double rotDrag = 0.;
+        Degree rotVelocity = 0_deg;
+        Degree rotAcceleration = 0_deg;
+        Degree rotDrag = 0_deg;
 
         Rigidbody() = default;
         Rigidbody(Velocity v) : velocity(v) { }; 
-        Rigidbody(Velocity v, double rv) : velocity(v), rotVelocity(rv) { };
+        Rigidbody(Velocity v, Degree rv) : velocity(v), rotVelocity(rv) { };
 
         private:
         void ApplyParameters(Transform& t);

@@ -65,7 +65,7 @@ void Chalise::Inst(Gameobject& go, const Position& pos) {
     constexpr Vec<int> chaliseSpriteSize{16, 18};
     constexpr Size chaliseSize{Room::GetTileSize().x, (float) chaliseSpriteSize.y / (float) chaliseSpriteSize.x * Room::GetTileSize().x};
 
-    go.AddComponent<Transform>(pos, chaliseSize, 0);
+    go.AddComponent<Transform>(pos, chaliseSize, 0_deg);
     go.AddComponent<Collider>(Collider::TRIGGER, CollisionLayer::ITEMS).mask.Include(CollisionLayer::PLAYER);
 
     ColorComp& color = go.AddComponent<ColorComp>(0, 0, 0, 255);

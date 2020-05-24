@@ -1,11 +1,9 @@
 #pragma once
 
-#define _USE_MATH_DEFINES
 #include <compare>
 #include <limits>
-#include <math.h>
+#include <numbers>
 #include <type_traits>
-#undef _USE_MATH_DEFINES
 
 namespace Fastboi {
     using AngleNumeric_t = double;
@@ -33,20 +31,16 @@ namespace Fastboi {
 
     struct Degree {
         private:
-        AngleNumeric_t value;
+        AngleNumeric_t value = 0;
 
-        static constexpr AngleNumeric_t ToRadians(AngleNumeric_t deg) noexcept { return deg * M_PI / 180.; };
-        static constexpr AngleNumeric_t FromRadians(AngleNumeric_t rad) noexcept { return rad * 180. / M_PI; };
-        static constexpr AngleNumeric_t Clamp(AngleNumeric_t deg) noexcept { // Clamp between (-360, 360) 
-            if (deg >= 0) 
-                return deg - 360. * detail::floor(deg * (1. / 360.));
-
-            deg *= -1;
-            return -(deg - 360. * detail::floor(deg * (1. / 360.)));
+        static constexpr AngleNumeric_t ToRadians(AngleNumeric_t deg) noexcept { return deg * std::numbers::pi_v<AngleNumeric_t> / 180.; };
+        static constexpr AngleNumeric_t FromRadians(AngleNumeric_t rad) noexcept { return rad * 180. / std::numbers::pi_v<AngleNumeric_t>; };
+        static constexpr AngleNumeric_t Clamp(AngleNumeric_t deg) noexcept { // Clamp between [0, 360)
+            return deg - 360. * detail::floor(deg * (1. / 360.));
         };
 
         public:
-        constexpr explicit Degree(AngleNumeric_t angle) noexcept : value(Clamp(angle)) { };
+        constexpr explicit Degree(AngleNumeric_t angle) noexcept : value(angle) { };
 
         template<Radian_c Radian_t>
         constexpr Degree(const Radian_t& rad) noexcept : value(FromRadians(rad.Value())) { };
@@ -69,26 +63,35 @@ namespace Fastboi {
                 return *this;
         };
 
-        constexpr static AngleNumeric_t Circle() noexcept { return 360.; };
+        template<typename Cast_t>
+        requires (Arithmetic_c<Cast_t> || Degree_c<Cast_t> || Radian_c<Cast_t>)
+        constexpr explicit operator Cast_t() const noexcept {
+            return As<Cast_t>();
+        }
 
-        // Bounded between (-360, 360)
+        template<typename As_t = AngleNumeric_t>
+        requires (Arithmetic_c<As_t> || Degree_c<As_t> || Radian_c<As_t>)
+        constexpr As_t operator()() const noexcept {
+            return As<As_t>();
+        }
+
         constexpr AngleNumeric_t Value() const noexcept { return value; };
-        // Return Degree bounded between (-360, 360)
-        constexpr Degree Normalized() const noexcept { return value >= 0 ? *this : Degree(Circle() + value); }
+
+        // Return Degree bounded between [0, 360)
+        constexpr Degree Normalized() const noexcept { return Degree(Clamp(value)); }
+        consteval static Degree Circle() noexcept { return Degree(360); };
     };
     
     struct Radian {
         private:
-        AngleNumeric_t value;
+        AngleNumeric_t value = 0;
+        static constexpr auto pi = std::numbers::pi_v<AngleNumeric_t>;
 
-        static constexpr AngleNumeric_t ToDegrees(AngleNumeric_t rad) noexcept { return rad * 180. / M_PI; };
-        static constexpr AngleNumeric_t FromDegrees(AngleNumeric_t deg) noexcept { return deg * M_PI / 180.; }
+
+        static constexpr AngleNumeric_t ToDegrees(AngleNumeric_t rad) noexcept { return rad * 180. / pi; };
+        static constexpr AngleNumeric_t FromDegrees(AngleNumeric_t deg) noexcept { return deg * pi / 180.; }
         static constexpr AngleNumeric_t Clamp(AngleNumeric_t rad) noexcept { // Clamp between (-2pi, 2pi)
-            if (rad >= 0)
-                return rad - 2 * M_PI * detail::floor(rad * (0.5 / M_PI));
-
-            rad *= -1;
-            return -(rad - 2 * M_PI * detail::floor(rad * (0.5 / M_PI)));
+                return rad - 2 * pi * detail::floor(rad * (0.5 / pi));
         };
 
         public:
@@ -108,14 +111,23 @@ namespace Fastboi {
             else // This branch we return of type Radian
                 return *this;
         };
-        
-        constexpr static Radian PI() noexcept { return Radian(M_PI); };
-        constexpr static AngleNumeric_t Circle() noexcept { return 2 * M_PI; };
 
-        // Bounded between (-2pi, 2pi)
+        template<typename Cast_t>
+        requires (Arithmetic_c<Cast_t> || Degree_c<Cast_t> || Radian_c<Cast_t>)
+        constexpr explicit operator Cast_t() const noexcept {
+            return As<Cast_t>();
+        }
+
+        constexpr AngleNumeric_t operator()() const noexcept {
+            return As<AngleNumeric_t>();
+        }
+
         constexpr AngleNumeric_t Value() const noexcept { return value; };
-        // Return Radian bounded between (0, 2pi)
-        constexpr Radian Normalized() const noexcept { return value >= 0 ? *this : Radian(Circle() + value); }
+        
+        // Return Radian bounded between [0, 2pi)
+        constexpr Radian Normalized() const noexcept { return Radian(Clamp(value)); }
+        consteval static Radian PI() noexcept { return Radian(pi); };
+        consteval static Radian Circle() noexcept { return Radian(2 * pi); };
     };
 
     constexpr Degree operator ""_deg(long double angle) { return Degree(static_cast<AngleNumeric_t>(angle)); }
@@ -168,7 +180,7 @@ namespace Fastboi {
     } \
  \
     template<AngleType_c Left, AngleType_c Right> \
-    constexpr Left operator op(const Left&& left, const Right&& right) { \
+    constexpr Left operator op(const Left& left, const Right& right) { \
         Left tempL(left); \
         return tempL opeq right; \
     }

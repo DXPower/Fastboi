@@ -204,30 +204,30 @@ void TickPhysicsThread() {
                 
 
                 Physics();
-                physicsTimes.push_back(tickTimer.TimeSinceLastTick().count());
+                // physicsTimes.push_back(tickTimer.TimeSinceLastTick().count());
                 Tick();
-                tickTimes.push_back(tickTimer.TimeSinceLastTick().count());
+                // tickTimes.push_back(tickTimer.TimeSinceLastTick().count());
                 Render();
-                renderTimes.push_back(tickTimer.TimeSinceLastTick().count());
+                // renderTimes.push_back(tickTimer.TimeSinceLastTick().count());
 
-                frameTimes.push_back(tickTimer.TimeSinceLastTick().count());
+                // frameTimes.push_back(tickTimer.TimeSinceLastTick().count());
 
                 Fastboi::tickDelta = 0;
                 Fastboi::physicsDelta = 0;
 
-                if (frameTimes.size() == n) {
-                    std::ofstream file("times.txt", std::ios::trunc);
+                // if (frameTimes.size() == n) {
+                //     std::ofstream file("times.txt", std::ios::trunc);
 
-                    file << "Frame" << "," << "Time" << "," << "Frame" << "," << "Physics" << "," << "Ticks" << "," << "Render" << std::endl;
+                //     file << "Frame" << "," << "Time" << "," << "Frame" << "," << "Physics" << "," << "Ticks" << "," << "Render" << std::endl;
 
-                    double curTime = 0.;
-                    for (unsigned int x = 0; x < frameTimes.size(); x++) {
-                        file << x << "," << curTime << "," << frameTimes[x] << "," << physicsTimes[x] << "," << tickTimes[x] << "," << renderTimes[x] << std::endl;
-                        curTime += frameTimes[x];
-                    }
+                //     double curTime = 0.;
+                //     for (unsigned int x = 0; x < frameTimes.size(); x++) {
+                //         file << x << "," << curTime << "," << frameTimes[x] << "," << physicsTimes[x] << "," << tickTimes[x] << "," << renderTimes[x] << std::endl;
+                //         curTime += frameTimes[x];
+                //     }
 
-                    Fastboi::Quit();
-                }
+                //     Fastboi::Quit();
+                // }
 
             // }
         }
@@ -246,18 +246,18 @@ void Fastboi::GameLoop() {
 
     Degree half = 3 * Radian::PI();
 
-    printf("Half: %f %f\n", half.Value(), half.As<Radian>().Value());
+    printf("Half: %f %f\n", half(), (double) half.As<Radian>());
     
     half = -Radian::PI() / 4;
 
-    printf("Half: %f %f\n", half.Value(), half.As<Radian>().Value());
+    printf("Half: %i %f\n", (int) half, (double) (Radian) half);
 
     half = -15_deg;
 
-    printf("Half: %f %f\n", half.Value(), half.As<Radian>().Value());
+    printf("Half: %f %f\n", half(), half.As<Radian>().Value());
 
     half = -45_deg;
-    printf("half: %f %f\n", half.Value(), half.As<Radian>().Value());
+    printf("half: %i %f\n", half.As<int>(), half.As<Radian>().Value());
 
 
     if (half == 315_deg)

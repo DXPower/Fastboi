@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Angles.h"
 #include "circular_vector.h"
 #include "Vec.h"
 
@@ -27,12 +28,12 @@ namespace Fastboi {
         // Store the last known position, size, and rotation so we only have to recalculate vertices when they are changed
         mutable Position lastPosVerts;
         mutable Size lastSizeVerts;
-        mutable double lastRotationVerts;
+        mutable Degree lastRotationVerts = 0_deg;
 
         // Store last known pos, size, and rots for bounds calcs
         mutable Position lastPosBounds;
         mutable Size lastSizeBounds;
-        mutable double lastRotationBounds;
+        mutable Degree lastRotationBounds = 0_deg;
 
         const Transform& transform;
 

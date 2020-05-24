@@ -31,7 +31,7 @@ void Rendering::Render_AllDebugRects() {
     while (debugRects.size() != 0) {
         const RectF& rect = debugRects.top();
 
-        Rendering::Render_Rect<Rendering::UNFILLED>(Transform(Position(rect.x, rect.y) + Size(rect.w, rect.h) / 2.f, Size(rect.w, rect.h), 0));
+        Rendering::Render_Rect<Rendering::UNFILLED>(Transform(Position(rect.x, rect.y) + Size(rect.w, rect.h) / 2.f, Size(rect.w, rect.h), 0_deg));
 
         debugRects.pop();
     }
@@ -40,10 +40,10 @@ void Rendering::Render_AllDebugRects() {
 void Rendering::Render_Texture(const Transform& transform, const Texture& texture, const Rect& cutout) {
     RectF dest = WorldTransformToScreenRect(transform);
 
-    if (transform.GetRotation() == 0.f)
+    if (transform.rotation == 0_deg)
         SDL_RenderCopyF(gRenderer, texture.GetSDL_Texture(), &cutout, &dest);
     else {
-        SDL_RenderCopyExF(gRenderer, texture.GetSDL_Texture(), &cutout, &dest, transform.GetRotation(), nullptr, SDL_FLIP_NONE);
+        SDL_RenderCopyExF(gRenderer, texture.GetSDL_Texture(), &cutout, &dest, transform.rotation.Value(), nullptr, SDL_FLIP_NONE);
     }
 }
 
@@ -56,10 +56,10 @@ void Rendering::RenderScreen_Texture(const Transform& transform, const Texture& 
     Position leftCorner = GetLeftCorner(transform);
     RectF dest = RectF(leftCorner.x, leftCorner.y, transform.size.x, transform.size.y);
 
-    if (transform.GetRotation() == 0.f)
+    if (transform.rotation == 0_deg)
         SDL_RenderCopyF(gRenderer, texture.GetSDL_Texture(), &cutout, &dest);
     else {
-        SDL_RenderCopyExF(gRenderer, texture.GetSDL_Texture(), &cutout, &dest, transform.GetRotation(), nullptr, SDL_FLIP_NONE);
+        SDL_RenderCopyExF(gRenderer, texture.GetSDL_Texture(), &cutout, &dest, transform.rotation.Value(), nullptr, SDL_FLIP_NONE);
     }
 }
 

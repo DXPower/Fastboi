@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Angles.h"
 #include "GORef.h"
 #include "Shape.h"
 #include <memory>
@@ -13,7 +14,6 @@ namespace Fastboi {
 
     struct Transform final {
         private:
-        bool rotated = false;
         std::unique_ptr<Shape> shape;
 
         Transform* parent = nullptr;
@@ -24,11 +24,12 @@ namespace Fastboi {
 
         Position position;
         Size size;
-        double rotation = 0.f; // Degrees
+        Degree rotation;
 
         Transform();
         Transform(Position position);
-        Transform(Position position, Size size, double rot);
+        Transform(Position position, Size size, Degree rot);
+        Transform(Position position, Size size, Radian rot);
         Transform(const Transform& copy); // Copy constructor
         Transform(Transform&& copy); // Move constructor
 
@@ -36,10 +37,6 @@ namespace Fastboi {
 
         Transform& operator=(const Transform& copy); // Copy assignment
         Transform& operator=(Transform&& copy); // Move assignment
-
-        double GetRotation() const;
-        void SetRotation(double rot);
-        void ResetRotation();
 
         bool HasAncestor(const Transform& check) const;
         inline bool HasParent() const { return parent != nullptr; };
@@ -66,12 +63,12 @@ namespace Fastboi {
         // Parenting: Make the common case fast, so if you're a parent I will keep track of the last position, and manually update
         private:
         Position lastPos = Position::zero();
-        double lastRot = 0;
+        Degree lastRot = 0_deg;
 
         void AddChild(Transform& child);
         void RemoveChild(const Transform& child);
         void UpdateLastPosRot();
-        void UpdateChildren(Position deltaPos, double deltaRot); // Performs a DFS on all children, updating total position changes
+        void UpdateChildren(Position deltaPos, Degree deltaRot); // Performs a DFS on all children, updating total position changes
 
         // Basically what we're going to do here is keep a master list of parent relations, as there's only ever going to be a few root parents.
         static std::vector<Transform*> rootParents;

@@ -12,6 +12,7 @@
 #include "circular_vector.h"
 
 namespace Fastboi {
+    struct Degree;
     struct Collider;
     struct Gameobject;
     struct Transform;
@@ -74,7 +75,7 @@ namespace Fastboi {
         void DispatchCollisions(const Collisions_t& collisions);
         std::tuple<Velocity, Velocity> ResolveCollision(const Collision_t& collision);
 
-        void AdvanceTransform(Transform& transform, const Velocity& vel, const double rotV);
+        void AdvanceTransform(Transform& transform, const Velocity& vel, const Degree& rotV);
         circular_vector<Position> AdvanceCollider(const Collider&);
 
         inline void SetRenderAABBTree(bool flag) { AABBTree::AABB::shouldRenderAABBs = flag; };
