@@ -12,6 +12,7 @@
 #include "Rendering.h"
 #include "Resources.h"
 #include "SDL/SDL.h"
+#include "soloud/soloud.h"
 #include "Texture.h"
 #include "Timer.h"
 #include <thread>
@@ -285,6 +286,8 @@ void Fastboi::GameLoop() {
 
     // Render();
     // bgThread.join();
+    Resources::GetSoloud().init();
+
     Input::PollEvents();
     Tick();
 

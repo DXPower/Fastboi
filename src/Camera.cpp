@@ -56,3 +56,12 @@ bool Camera::IsPointVisible(const Position& worldPos) const {
     return screenPos.x >= 0 && screenPos.x < window.x
         && screenPos.y >= 0 && screenPos.y < window.y;
 }
+
+BoundingBox Camera::GetVisibleBounds() const {
+    BoundingBox bounds;
+
+    bounds.lowerBounds = ScreenToWorldPos(Position(0, 0));
+    bounds.upperBounds = ScreenToWorldPos((Position) window);
+
+    return bounds;
+}

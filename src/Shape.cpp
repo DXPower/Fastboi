@@ -94,6 +94,11 @@ bool Shape::ContainsPoint(const Position& p) {
     return true;
 }
 
+bool BoundingBox::ContainsPoint(const Position& pos) const {
+    return pos.x >= lowerBounds.x && pos.y >= lowerBounds.y
+        && pos.x >= upperBounds.x && pos.y >= upperBounds.y;
+}
+
 bool BoundingBox::Overlaps(const BoundingBox& o) const {
     const Vecf aL = lowerBounds, aU = upperBounds;
     const Vecf bL = o.lowerBounds, bU = o.upperBounds;

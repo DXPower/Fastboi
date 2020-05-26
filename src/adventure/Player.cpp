@@ -1,8 +1,10 @@
 #include "Player.h"
+#include "Events.h"
 #include "FastboiComps.h"
 #include "Input.h"
 #include "Level.h"
 #include "Room.h"
+#include "Speaker.h"
 
 using namespace Fastboi;
 using namespace Input;
@@ -17,10 +19,21 @@ Player::~Player() {
     gameobject().RemoveComponent<Rigidbody>();
 }
 
+#include "soloud/soloud.h"
+#include "soloud/soloud_wav.h"
+
+float ExamplePanFunction(const SoundData& sd) {
+    const float duration = Resources::GetSoloud().getRelativePlaySpeed(sd.handle) * sd.wave->getLength();
+    const float t = Resources::GetSoloud().getStreamTime(sd.handle);
+
+    return 2.f * t / duration - 1.f;
+}
+
+
 void Player::Start() {
     rigidbody = &gameobject().GetComponent<Rigidbody>();
-
-    // gameobject().collider->collisionSignal.connect<&Player::Collision>()
+    
+    gameobject().AddComponent<Speaker>().SetPan<PanType::POSITIONAL>();
 }
 
 void Player::Update() {
@@ -64,6 +77,7 @@ void Player::Eat() {
     rigidbody->velocity = Velocity::zero();
 
     gameobject().collider->SetEnabled(false);
+    gameobject().GetComponent<Speaker>().PlaySound(Resources::GetSound("Death"));
 }
 
 void Player::RoomChanged(const RoomChangeEvent& e) {

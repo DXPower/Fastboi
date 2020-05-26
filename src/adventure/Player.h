@@ -1,6 +1,8 @@
 #pragma once
 
+#include "Events.h"
 #include "Fastboi.h"
+#include "Input.h"
 
 using namespace Fastboi;
 using namespace Fastboi::Components;

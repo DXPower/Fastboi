@@ -1,5 +1,7 @@
 #include "GameManager.h"
 #include <random>
+#include "Resources.h"
+#include "Speaker.h"
 
 using namespace Adventure;
 
@@ -106,6 +108,7 @@ void GameManager::RoomChanged(const RoomChangeEvent& e) {
 
 void GameManager::WinGame() const {
     printf("Winner!\n");
+    Level::GetPlayer().GetComponent<Speaker>().PlaySound(Resources::GetSound("WinGood"));
     Level::GetPlayer().DisableComponent<Player>(); // Stop player from moving//inputting
     Level::GetPlayer().DisableComponent<Rigidbody>();   
 }

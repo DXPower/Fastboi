@@ -4,6 +4,7 @@
 #include "Item.h"
 #include "Player.h"
 #include "Room.h"
+#include "Speaker.h"
 
 using namespace Adventure;
 
@@ -99,8 +100,10 @@ void Dragon::Collision(const CollisionEvent& e) {
     if (e.type == CollisionEvent::BEGIN) {
         if (e.collider.gameobject().HasComponent<Sword>()) {
             SwordHit();
+            go().GetComponent<Speaker>().PlaySound(Resources::GetSound("Slay"));
         } else if (e.collider.gameobject().name == "Player") {
             Bite();
+            go().GetComponent<Speaker>().PlaySound(Resources::GetSound("Chomp"));
         }
     }
 }
@@ -124,6 +127,7 @@ void Dragon::InstDelegate(Gameobject& go, Gameobject& player, const Room& room, 
     Transform& tr = go.AddComponent<Transform>(pos, dragonSize, 0_deg);
 
     go.AddComponent<Collider>(Collider::TRIGGER, CollisionLayer::UNITS).mask.Include(CollisionLayer::PLAYER, CollisionLayer::ITEMS);
+    go.AddComponent<Speaker>();
     go.AddComponent<Rigidbody>();
     
     Dragon& dragon = go.AddComponent<Dragon>(player, room, stats);

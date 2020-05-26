@@ -38,5 +38,7 @@ namespace Fastboi {
         Position WorldToScreenPos(const Position& worldPos) const;
         Position ScreenToWorldPos(const Position& screenPos) const;
         bool IsPointVisible(const Position& worldPos) const;
+
+        BoundingBox GetVisibleBounds() const;
     };
 };

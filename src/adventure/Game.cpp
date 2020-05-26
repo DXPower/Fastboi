@@ -9,6 +9,7 @@
 #include "Level.h"
 #include "Magnet.h"
 #include "Player.h"
+#include "Resources.h"
 #include "Room.h"
 
 using namespace Fastboi;
@@ -51,6 +52,13 @@ void LoadResources() {
     Resources::LoadImage("BlackCastle", "castle.png");
     Resources::LoadImage("WhiteCastle", "castle.png");
 
+    Resources::LoadSound("WinGood", "win-good.mp3");
+    Resources::LoadSound("Pickup", "pickup.mp3");
+    Resources::LoadSound("Drop", "drop.mp3");
+    Resources::LoadSound("Chomp", "chomp.mp3");
+    Resources::LoadSound("Slay", "slay.mp3");
+    Resources::LoadSound("Death", "death.mp3");
+
     SDL_SetTextureColorMod(Resources::GetTexture("GoldCastle").GetSDL_Texture(), 210, 210, 64);
     SDL_SetTextureColorMod(Resources::GetTexture("BlackCastle").GetSDL_Texture(), 0, 0, 0);
     
@@ -58,14 +66,28 @@ void LoadResources() {
     printf("Resources loaded\n");
 }
 
+#include "soloud/soloud.h"
+#include "soloud/soloud_wav.h"
+
+// SoLoud::Soloud gSoloud; // engine
+// SoLoud::Wav gWave; // wav file
+
 void Adventure::InitGame() {
     Rendering::SetBGColor(ColorComp(170, 170, 170, 255));
 
     LoadResources();
     LoadLevel1();
 
-    Fastboi::camera.zoom = 0.49f;
+    Fastboi::camera.zoom = 0.50f;
     Level::roomChangeSignal.connect<&GameManager::RoomChanged>(manager);
+
+    // gSoloud.init(); // init soloud
+    // gWave.load("res/sound/win-good.mp3");
+
+    // Wav& winWav = Resources::GetSound("WinGood");
+    
+    // printf("Sound: %p, gWave: %p\n", winWav.mData, gWave.mData);
+    // gSoloud.play(winWav);
 }
 
 constexpr ColorComp mazeBlue(66, 72, 200, 255);

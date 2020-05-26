@@ -5,19 +5,27 @@
 struct SDL_Surface;
 struct SDL_Texture;
 
+namespace SoLoud {
+    class Wav;
+    class Soloud;
+}
 
 namespace Fastboi {
     struct Texture;
     struct WindowResizeEvent;
 
-    namespace Input {
-        void PollEvents();
-    };
+    using SoLoud::Wav;
+    using SoLoud::Soloud;
 
     namespace Resources {
-        // Stores image as texture to be used later
+        // Stores image file as texture to be used later
         void LoadImage(const char* key, const char* filename);
         const Texture& GetTexture(const char* key);
+
+        void LoadSound(const char* key, const char* filename);
+        Wav& GetSound(const char* key);
+
+        Soloud& GetSoloud();
 
         void Cleanup();
     }

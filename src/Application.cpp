@@ -26,7 +26,7 @@ bool Application::InitApplication() {
         return false;
     }
 
-    Application::gWindow = SDL_CreateWindow("Slowboi"
+    Application::gWindow = SDL_CreateWindow("Death to Vulkan"
                                          , SDL_WINDOWPOS_CENTERED
                                          , SDL_WINDOWPOS_CENTERED
                                          , window.x, window.y

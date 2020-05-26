@@ -5,6 +5,8 @@
 #include "Rendering.h"
 #include "SDL/SDL.h"
 #include "SDL/SDL_image.h"
+#include "soloud/soloud.h"
+#include "soloud/soloud_wav.h"
 #include "Texture.h"
 #include <unordered_map>
 #include "Utility.h"
@@ -12,7 +14,12 @@
 using namespace Fastboi;
 
 std::unordered_map<const char*, Texture, cstring_hasher> textures;
+std::unordered_map<const char*, Wav, cstring_hasher> sounds;
+
 constexpr const char* imagePath = "res/images/";
+constexpr const char* soundPath = "res/sound/";
+
+Soloud gSoloud;
 
 void Resources::LoadImage(const char* key, const char* filename) {
     char* pathBuffer = new char[strlen(imagePath) + strlen(filename) + 10];
@@ -46,4 +53,22 @@ const Texture& Resources::GetTexture(const char* key) {
 
 void Resources::Cleanup() {
     textures.clear();
+}
+
+void Resources::LoadSound(const char* key, const char* filename) {
+    char* pathBuffer = new char[strlen(soundPath) + strlen(filename) + 10];
+    sprintf(pathBuffer, "%s%s", soundPath, filename);
+
+    sounds.emplace(std::piecewise_construct, std::make_tuple(key), std::make_tuple());
+    Wav& w = GetSound(key);
+    SoLoud::result res = w.load(pathBuffer);
+    printf("Path: %s Sound loaded: %p. Result: %u\n", pathBuffer, w.mData, res);
+}
+
+Wav& Resources::GetSound(const char* key) {
+    return sounds.at(key);
+}
+
+Soloud& Resources::GetSoloud() {
+    return gSoloud;
 }

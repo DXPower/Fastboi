@@ -3,9 +3,10 @@
 #include "FastboiComps.h"
 #include "GameManager.h"
 #include "Gate.h"
+#include "Level.h"
 #include "Player.h"
 #include "Room.h"
-#include "Level.h"
+#include "Speaker.h"
 
 using namespace Adventure;
 using namespace Fastboi;
@@ -35,8 +36,10 @@ void Item::TryPickup(const CollisionEvent& e) {
     Gameobject& colgo = e.collider.gameobject();
 
     if (e.type == CollisionEvent::BEGIN && colgo.name == "Player") {
+        Player& player = colgo.GetComponent<Player>();
+
         // Check that we aren't picking up the bridge while inside a wall
-        if (go().HasComponent<Bridge>() && colgo.GetComponent<Player>().isPhasing) return;
+        if (go().HasComponent<Bridge>() && player.isPhasing) return;
 
         for (const Transform* child : colgo.transform->GetChildren()) {
             if (child->gameobject().HasComponent<Item>())
@@ -47,6 +50,8 @@ void Item::TryPickup(const CollisionEvent& e) {
         go().transform->position += e.penetration.normalized() * 50.f;
 
         isHeld = true;
+
+        player.gameobject().GetComponent<Speaker>().PlaySound(Resources::GetSound("Pickup"));
     }
 }
 
@@ -57,8 +62,10 @@ void Item::Collision(const CollisionEvent& e) {
 }
 
 void Item::ReleasePressed(const KeyEvent& e) { 
-    if (e.type == KeyEvent::DOWN && isHeld)
+    if (e.type == KeyEvent::DOWN && isHeld) {
+        go().transform->Parent().gameobject().GetComponent<Speaker>().PlaySound(Resources::GetSound("Drop"));
         Release();
+    }
 }
 
 void Item::RoomChanged(const RoomChangeEvent& e) {
