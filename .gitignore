@@ -37,3 +37,7 @@ fastboi.vcxproj.*
 src/.vs/
 src/CppProperties.json
 x64/
+
+# cmake
+build/
+cmake/

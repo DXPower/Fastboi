@@ -13,7 +13,8 @@ namespace Fastboi {
         UNITS = 8,
         ITEMS = 16,
         NONE = 32,
-        TRIGGERS = 64
+        TRIGGERS = 64,
+        PARTICLES = 128
     };
 
     struct CollisionMask {
