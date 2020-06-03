@@ -2,7 +2,7 @@
 
 Fastboi is a small and lightweight **Entity-Component** engine. `Gameobject`'s can store components, through which `Start()` and `Update()` functions are called.
 
-*Note tests and documentation are currently incomplete.*
+*Note: tests and documentation are currently incomplete.*
 
 The current features are:
 - **Compile-time components with no inheritance!** `Start()` and `Update()` functions are automatically detected and called.

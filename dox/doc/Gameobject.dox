@@ -12,16 +12,30 @@
  * In examples/Gameobject.cpp
  * @dontinclude examples/Gameobject.cpp
  * @skip "Example Gameobject"
- * @skip struct
- * @until };
+ * @skip //
+ * @until Fastboi::Destroy
  */
 /**
  * @fn void Gameobject::Start()
  * @brief This function is called at the beginning of the first frame after instantiation. This calls all
  * child components' ComponentBase::Start().
  * 
- * Start() is guarenteed to be called after the ctor and before Gameobject::Update(). Thusly, all components required
- * for the function of a Gameobject should be added in the ctor using Gamobject::AddComponent().
+ * Start() is guarenteed to be called after the ctor and before Gameobject::Update().
+*/
+
+/**
+ * @fn Gameobject::Gameobject(const Gameobject& copy)
+ * @b =delete
+*/
+
+/**
+ * @fn Gameobject::Gameobject(const Gameobject&& copy)
+ * @b =delete
+*/
+
+/**
+ * @fn Gameobject::~Gameobject()
+ * Called at the end of the frame Fastboi::Destroy() was called on this object.
 */
 
 /**
@@ -29,22 +43,24 @@
  * @brief This function is called every frame after instantiation. This calls all
  * child components' ComponentBase::Update().
  * 
- * Update() is guarenteed to be called after Gameobject::Start and before Gameobject::Destroy(). Thusly, all components required
- * for the function of a Gameobject should be added in the ctor using Gamobject::AddComponent().
+ * \b Update() is guarenteed to be called after Gameobject::Start() and before Gameobject::Destroy(). 
 */
 
 /**
  * @fn T& Fastboi::Gameobject::AddComponent(Args&&... args)
- * @brief Adds component of type \b T (with args \b args ) to the control of the gameobject. T::Start() and 
- * T::Update() are called if they are available.
+ * @brief Adds component of type \b T (with args \b args ) to the control of the gameobject. `T::Start()` and 
+ * `T::Update()` are called if they are available.
  * 
- * T::Start() will be immediately called is the gameobject has already been started.
+ * If \b T has a constructor of the form `T(GORef&&, Args&&...)`, then that constructor will be called.
+ * Else, the constructor of the form `T(Args&&...)` will be called.
+
+ * `T::Start()` will be immediately called if the gameobject has already been started.
  * 
  * In examples/Gameobject.cpp:
  * @dontinclude examples/Gameobject.cpp
  * @skip "Example AddComponent"
  * @skip Gameobject
- * @until go.AddComponent<BoxColorRenderer>
+ * @until gameobject.AddComponent<Printer>
  * 
  * @tparam T The type of component to be constructed
  * @param args The arguments to be perfectly forwarded to the ctor of @b T.  
@@ -70,11 +86,51 @@
  * @brief Checks if the gameobject has a component of type @b T.
  * 
  * @tparam T The type of component to check for
+ * @return @b bool Whether the gameobject has a component of type @b T
 */
 
 /**
- * @fn T& Fastboi::Gameobject::RemoveComponent()
+ * @fn void Fastboi::Gameobject::RemoveComponent()
  * @brief Removes component of type @b T.
  * 
  * @tparam T The type of component to remove
+*/
+
+/**
+ * @fn void Fastboi::Gameobject::Enable()
+ * @brief Allows the Gameobject to receive Gameobject::Update() calls, and thus all child components as well.
+*/
+
+/**
+ * @fn void Fastboi::Gameobject::EnableComponent()
+ * @brief Allows a child component of type \b T to receive updates.
+ * @tparam T The type of the component to disable
+*/
+
+/**
+ * @fn void Fastboi::Gameobject::Disable()
+ * @brief Prevents any further calls to Gameobject::Update(), and thus all child components as well.
+*/
+
+/**
+ * @fn void Fastboi::Gameobject::DisableComponent()
+ * @brief Prevents a child component of type \b T from any updates.
+ * @tparam T The type of the component to disable
+*/
+
+/**
+ * @fn void Fastboi::Gameobject::Duplicate()
+ * @brief Duplicates a Gameobject and all its components.
+ * Components are duplicated by calling each components copy constructor. It is not necessary to attempt to copy
+ * any GORef members, as that will be handled automatically by Fastboi.
+*/
+
+/**
+ * @fn void Fastboi::Gameobject::DuplicateComponent(Gameobject& dest)
+ * @brief Duplicates a component from \b *this to \b dest.
+ * Components are duplicated by calling each components copy constructor. It is not necessary to attempt to copy
+ * any GORef members, as that will be handled automatically by Fastboi.
+ * @tparam T The type of the component to duplicate
+ * @param dest The destination gameobject to which the component will be duplicated
+ * @return \b T& A reference to the duplicated component in \b dest
 */
