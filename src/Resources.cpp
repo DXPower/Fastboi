@@ -4,7 +4,10 @@
 #include "Rect.h"
 #include "Rendering.h"
 #include "SDL/SDL.h"
+#include "SDL/SDL_blendmode.h"
 #include "SDL/SDL_image.h"
+#include "SDL/SDL_render.h"
+#include "SDL/SDL_surface.h"
 #include "soloud/soloud.h"
 #include "soloud/soloud_wav.h"
 #include "Texture.h"
@@ -42,12 +45,18 @@ void Resources::LoadImage(const char* key, const char* filename) {
         throw -1;
     }
 
+    SDL_SetTextureBlendMode(texture, SDL_BLENDMODE_BLEND);
+
     printf("\nCreating texture %s: %p\n", key, texture);
     textures.emplace(key, texture);
 }
 
 const Texture& Resources::GetTexture(const char* key) {
     printf("Getting texture %s\n", key);
+
+    if (textures.find(key) == textures.end())
+        printf("Doesn't exist!\n");
+
     return textures.at(key);
 }
 

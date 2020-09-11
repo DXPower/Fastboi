@@ -245,34 +245,34 @@ void Fastboi::GameLoop() {
     cacheLineSize = 64;
     GetCacheSize();
 
-    Degree half = 3 * Radian::PI();
+    // Degree half = 3 * Radian::PI();
 
-    printf("Half: %f %f\n", half(), (double) half.As<Radian>());
+    // printf("Half: %f %f\n", half(), (double) half.As<Radian>());
     
-    half = -Radian::PI() / 4;
+    // half = -Radian::PI() / 4;
 
-    printf("Half: %i %f\n", (int) half, (double) (Radian) half);
+    // printf("Half: %i %f\n", (int) half, (double) (Radian) half);
 
-    half = -15_deg;
+    // half = -15_deg;
 
-    printf("Half: %f %f\n", half(), half.As<Radian>().Value());
+    // printf("Half: %f %f\n", half(), half.As<Radian>().Value());
 
-    half = -45_deg;
-    printf("half: %i %f\n", half.As<int>(), half.As<Radian>().Value());
+    // half = -45_deg;
+    // printf("half: %i %f\n", half.As<int>(), half.As<Radian>().Value());
 
 
-    if (half == 315_deg)
-        printf("Half == -45deg == 315deg\n");
-    else
-        printf("Half == -45deg != 315deg\n");
+    // if (half == 315_deg)
+    //     printf("Half == -45deg == 315deg\n");
+    // else
+    //     printf("Half == -45deg != 315deg\n");
 
-    auto a = Radian::PI() / 4;
-    auto b = -7./4. * Radian::PI();
+    // auto a = Radian::PI() / 4;
+    // auto b = -7./4. * Radian::PI();
 
-    printf("a: %f b: %f\n", a.Value(), b.Value());
+    // printf("a: %f b: %f\n", a.Value(), b.Value());
 
-    if (a == b)
-        printf("They're equal!\n");
+    // if (a == b)
+    //     printf("They're equal!\n");
 
     // printf("Cache Line Size detected: %lu bytes\n", cacheLineSize);
 

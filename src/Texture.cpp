@@ -89,7 +89,8 @@ std::shared_future<SDL_Texture*> Texture::CreateSDL_Texture(const Vec<int>& size
     std::shared_future<SDL_Texture*> fut(prom->get_future());
     
     // SDL_Texture must always be made/handled by Rendering thread. This is the quick-way out.
-    if (Fastboi::IsRenderingThread()) {
+    //if (Fastboi::IsRenderingThread()) {
+    if (true) {
         SDL_Texture* t = SDL_CreateTexture(Application::gRenderer, format, access, size.x, size.y);
         printf("Texture made: %p\n", t);
         prom->set_value(t);

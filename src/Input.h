@@ -64,7 +64,18 @@ namespace Fastboi {
             bool IsListeningToKey(uint32_t key) const;
         };
 
+        //! Follows RAII. When this goes out of scope, the signal and all connections are disconnected.
+        struct MouseWheelListener {
+            using EventSignature = MouseWheelEvent::Signal_t_g;
+            mutable Signal<EventSignature> signal;
+            
+            MouseWheelListener();
+            ~MouseWheelListener();
+        };
+
         void PollEvents();
+
+        const Vec<int>& GetMousePosition();
         const uint8_t* GetKeyboardState(); 
 
         template<typename... I>

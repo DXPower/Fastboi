@@ -80,6 +80,13 @@ namespace Fastboi {
         : transform(t), type(type), button(button), clicks(clicks), pos(pos) { };
     };
 
+    struct MouseWheelEvent final {
+        using Signal_t_g = void(const MouseWheelEvent&);
+
+
+        const Vec<int> scroll;
+    };
+
     // Intended to help objects get rid of dangling pointers
     struct GameobjectDeleteEvent final {
         using Signal_t_g = void(const GameobjectDeleteEvent&);

@@ -5,6 +5,8 @@
 #include <memory>
 #include "SDL/SDL.h"
 #include "Renderer.h"
+#include "SDL/SDL_events.h"
+#include "SDL/SDL_mouse.h"
 #include "Timer.h"
 #include "Transform.h"
 #include <unordered_map>
@@ -14,9 +16,12 @@ using namespace Input;
 
 const uint8_t* keyboardState;
 
+Vec<int> mousePosition(0, 0);
+
 std::vector<KeyListener*> keyListeners;
 std::vector<ClickListener*> untargetedClickListeners;
 std::vector<TargetedClickListener*> targetedClickListeners;
+std::vector<MouseWheelListener*> mouseWheelListeners;
 
 Signal<WindowResizeEvent::Signal_t_g> Input::resizeSignal;
 
@@ -60,6 +65,8 @@ void DispatchUntargetedClick(const ClickEvent& e) {
 }
 
 void Input::PollEvents() {
+    SDL_GetMouseState(&mousePosition.x, &mousePosition.y);
+
     SDL_Event event;
 
     while (SDL_PollEvent(&event)) {
@@ -132,6 +139,22 @@ void Input::PollEvents() {
                     
                 break;
             }
+            case SDL_MOUSEWHEEL: {
+                SDL_MouseWheelEvent sdl_wheelEvent = event.wheel;
+
+                Vec<int> scroll = Vec<int>(sdl_wheelEvent.x, sdl_wheelEvent.y);
+
+                if (sdl_wheelEvent.direction == SDL_MOUSEWHEEL_FLIPPED)
+                    scroll *= -1;
+
+                MouseWheelEvent wheelEvent { .scroll = scroll };
+
+                for (MouseWheelListener* listener : mouseWheelListeners) {
+                    listener->signal.fire(wheelEvent);
+                }
+
+                break;
+            }
             default:
                 break;
         }
@@ -155,6 +178,10 @@ void CheckCombinations() {
             Application::ToggleFullscreen();
         }
     }
+}
+
+const Vec<int>& Input::GetMousePosition() {
+    return mousePosition;
 }
 
 const uint8_t* Input::GetKeyboardState() {
@@ -198,4 +225,12 @@ KeyListener::~KeyListener() {
 
 bool KeyListener::IsListeningToKey(uint32_t key) const {
 	return std::find(keys.begin(), keys.end(), key) != keys.end();
+}
+
+MouseWheelListener::MouseWheelListener() {
+    mouseWheelListeners.push_back(this);
+};
+
+MouseWheelListener::~MouseWheelListener() {
+    mouseWheelListeners.erase(std::find(mouseWheelListeners.begin(), mouseWheelListeners.end(), this));
 }

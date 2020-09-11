@@ -3,6 +3,7 @@
 #include <mutex>
 #include "Resources.h"
 #include <stack>
+#include "SDL/SDL_render.h"
 #include "Texture.h"
 #include "Utility.h"
 
@@ -85,6 +86,16 @@ void Rendering::Render_TextureTarget(const Texture& src, const Texture& dest, co
 
     SDL_RenderCopy(gRenderer, src.GetSDL_Texture(), &cutout, &destRect);
 
+    SDL_SetRenderTarget(gRenderer, nullptr); // Reset render target to be default (gRenderer)
+}
+
+void Rendering::Render_TextureTarget(const Texture& src, const Texture& dest, const Transform& destT, const Rect& cutout) {
+    SDL_SetRenderTarget(gRenderer, dest.GetSDL_Texture()); // Target the destination texture
+
+    RectF destRect = RectF(destT.position.x, destT.position.y, destT.size.x, destT.size.y);
+
+    SDL_RenderCopyExF(gRenderer, src.GetSDL_Texture(), &cutout, &destRect, destT.rotation.Value(), nullptr, SDL_FLIP_NONE);
+    
     SDL_SetRenderTarget(gRenderer, nullptr); // Reset render target to be default (gRenderer)
 }
 
