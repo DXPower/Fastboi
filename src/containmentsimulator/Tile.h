@@ -48,6 +48,8 @@ namespace CS {
 
         Texture layerTexture;
 
+        bool isLocked = false;
+
         public:
         TileLayer(int width, int height, Veci tileSize);
         TileLayer(Veci size, Veci tileSize) : TileLayer(size.x, size.y, tileSize) { };
@@ -58,8 +60,14 @@ namespace CS {
         Tile& AccessTile(int x, int y)const;
         Tile& AccessTile(Veci pos) const { return AccessTile(pos.x, pos.y); };
 
+        decltype(tiles)& GetTiles();
+        const decltype(tiles)& GetTiles() const;
+
         void InitTiles(int width, int height);
         void InitTiles(Veci size) { InitTiles(size.x, size.y); };
+
+        void LockTexture(); // Block any attempts to update the texture
+        void UnlockTexture(); // Allow the texture to be updated again
 
         static void Blueprint(Gameobject& go, const Position& origin, const Veci& size, const Veci& tileSize);
     };

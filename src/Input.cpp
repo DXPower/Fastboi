@@ -17,6 +17,7 @@ using namespace Input;
 const uint8_t* keyboardState;
 
 Vec<int> mousePosition(0, 0);
+bool blockTargetedMouseUp = false;
 
 std::vector<KeyListener*> keyListeners;
 std::vector<ClickListener*> untargetedClickListeners;
@@ -134,8 +135,13 @@ void Input::PollEvents() {
                     , Vec<int>(sdl_mouseEvent.x, sdl_mouseEvent.y)
                 );
                 
-                if (!DispatchTargetedClick(mouseEvent))
+                // If we are blocking targeted mouse up, immediately move to dispatching untargeted mouse up
+                // If !blockTargetedMouseUp, then check if we are targeting something.
+                // If not, then do untargeted mouse up.
+                if (blockTargetedMouseUp || !DispatchTargetedClick(mouseEvent)) {
                     DispatchUntargetedClick(mouseEvent);
+                    blockTargetedMouseUp = false;
+                }
                     
                 break;
             }
@@ -188,6 +194,10 @@ const uint8_t* Input::GetKeyboardState() {
     return keyboardState;
 }
 
+void Input::BlockTargetedMouseUp() {
+    blockTargetedMouseUp = true;
+}
+
 ClickListener::ClickListener() {
     untargetedClickListeners.push_back(this);
 }
@@ -197,8 +207,8 @@ ClickListener::~ClickListener() {
 }
 
 TargetedClickListener::TargetedClickListener() : TargetedClickListener(nullptr, nullptr) { };
-TargetedClickListener::TargetedClickListener(const Transform& t, const Renderer& r) : TargetedClickListener(&t, &r) { };
-TargetedClickListener::TargetedClickListener(const Transform* t, const Renderer* r) : transform(t), renderer(r) {
+TargetedClickListener::TargetedClickListener(Transform& t, Renderer& r) : TargetedClickListener(&t, &r) { };
+TargetedClickListener::TargetedClickListener(Transform* t, Renderer* r) : transform(t), renderer(r) {
 	targetedClickListeners.push_back(this);
 }
 
@@ -206,7 +216,7 @@ TargetedClickListener::~TargetedClickListener() {
     targetedClickListeners.erase(std::find(targetedClickListeners.begin(), targetedClickListeners.end(), this));
 }
 
-void TargetedClickListener::Init(const Transform& t, const Renderer& r) {
+void TargetedClickListener::Init(Transform& t, Renderer& r) {
     transform = &t;
     renderer = &r;
 

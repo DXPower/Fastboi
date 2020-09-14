@@ -2,6 +2,7 @@
 out/obj/*.*
 out/obj/slowboi/*.*
 out/obj/adventure/*.*
+out/obj/containmentsimulator/*.*
 out/test/*.*
 out/test/Slowboi/*.*
 out/test/test/*.*

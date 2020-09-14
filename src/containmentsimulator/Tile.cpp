@@ -6,11 +6,6 @@ using namespace Fastboi;
 using namespace Fastboi::Components;
 using namespace CS;
 
-std::random_device rd;
-std::uniform_int_distribution<int> grassRotDist(0, 3);
-std::uniform_int_distribution<int> grassDistX(0, 4);
-std::uniform_int_distribution<int> grassDistY(0, 1);
-
 Tile::Tile(TileLayer& layer, Veci pos, const Rect& cutout)
  : Tile(layer, pos, cutout, 0_deg) { }
 
@@ -56,15 +51,11 @@ TileLayer::TileLayer(int width, int height, Veci tileSize)
     layerTexture.Recreate(Vec<int>(width, height) * (Vec<int>) tileSize, SDL_TEXTUREACCESS_TARGET, spritesheet.GetFormat());
     SDL_SetTextureBlendMode(layerTexture.GetSDL_Texture(), SDL_BLENDMODE_BLEND);
 
-    Rect grassOrigin = Rect(960, 640, 64, 64);
-
     for (int y = 0; y < height; y++) {
         for (int x = 0; x < width; x++) {
-            
-            Rect cutout = Rect(grassOrigin.x + grassDistX(rd) * 64, grassOrigin.y + grassDistY(rd) * 64, 64, 64);
+            Rect cutout = Rect(864, 224, 64, 64); // Default tile is just some random squares
 
             tiles.push_back(Tile(*this, Veci(x, y), cutout));
-            tiles.back().SetRotation(grassRotDist(rd) * 90_deg);
         }
     }
 
@@ -72,6 +63,8 @@ TileLayer::TileLayer(int width, int height, Veci tileSize)
 }
 
 void TileLayer::UpdateTexture() {
+    if (isLocked) return;
+
     const Texture& tileSpritesheet = Resources::GetTexture("TileSpritesheet");
 
     for (const Tile& tile : tiles) {
@@ -91,8 +84,24 @@ Tile& TileLayer::AccessTile(int x, int y) const {
     return tiles[size.x * y + x];
 }
 
+decltype(TileLayer::tiles)& TileLayer::GetTiles() {
+    return tiles;
+}
+
+const decltype(TileLayer::tiles)& TileLayer::GetTiles() const {
+    return tiles;
+}
+
 const Texture& TileLayer::GetTexture() const {
     return layerTexture;
+}
+
+void TileLayer::LockTexture() {
+    isLocked = true;
+}
+
+void TileLayer::UnlockTexture() {
+    isLocked = false;
 }
 
 void TileLayer::Blueprint(Gameobject& go, const Position& origin, const Veci& size, const Veci& tileSize) {

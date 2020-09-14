@@ -1,15 +1,27 @@
 #include "Game.h"
+#include "Button.h"
 #include "CameraController.h"
 #include "Fastboi.h"
 #include "FastboiComps.h"
+#include <random>
+#include "FastboiCore.h"
 #include "Resources.h"
 #include "Tile.h"
+#include "WorldEditor.h"
 
 using namespace Fastboi;
 using namespace Fastboi::Components;
+using namespace CS;
+
+std::random_device rd;
+
+void CreateLayers();
 
 void CS::LoadResources() {
     Resources::LoadImage("TileSpritesheet", "tiles.png");
+
+    const Texture& tiles = Resources::GetTexture("TileSpritesheet");
+    SDL_SetTextureBlendMode(tiles.GetSDL_Texture(), SDL_BLENDMODE_BLEND);
 }
 
 void CS::InitGame() {
@@ -17,17 +29,31 @@ void CS::InitGame() {
 
     LoadResources();
 
-
-    Gameobject& layer = Instantiate<TileLayer::Blueprint>(Position(25, 20), Veci(15, 10), Veci(64, 64));
-
     Gameobject& mainCamera = Instantiate<CameraController::Blueprint>();
 
-    // Gameobject& tile = Instantiate<Gameobject>("Tile Test");
-    
-    // tile.AddComponent<Transform>(Position(10, 10), Size(400, 400), 0_deg);
-    // // tile.AddComponent<BoxColorRenderer>(RenderData(RenderOrder::GROUND, 0));
-    // // tile.AddComponent<ColorComp>(255, 0, 0, 255);
-    // tile.AddComponent<SpriteRenderer>(RenderData(RenderOrder::GROUND, 0), "TileSpritesheet", Rect(1472, 512, 64, 64));
-    
+    Gameobject& button = Instantiate<Button::Blueprint>("TileSpritesheet", Position(250, 400), Size(200, 200));
 
+    CreateLayers();
+
+    WorldEditor* we = new WorldEditor();
+}
+
+void CreateLayers() {
+    std::uniform_int_distribution<int> grassRotDist(0, 3);
+    std::uniform_int_distribution<int> grassDistX(0, 4);
+    std::uniform_int_distribution<int> grassDistY(0, 1);
+
+    Gameobject& groundGO = Instantiate<TileLayer::Blueprint>(Position(25, 20), Veci(15, 10), Veci(64, 64));
+    TileLayer& ground = groundGO.GetComponent<TileLayer>();
+    Rect grassOrigin = Rect(960, 640, 64, 64);
+
+    ground.LockTexture();
+
+    for (Tile& tile : ground.GetTiles()) {
+        tile.SetCutout(Rect(grassOrigin.x + grassDistX(rd) * 64, grassOrigin.y + grassDistY(rd) * 64, 64, 64));
+        tile.SetRotation(90_deg * grassRotDist(rd));
+    }
+
+    ground.UnlockTexture();
+    ground.UpdateTexture();
 }

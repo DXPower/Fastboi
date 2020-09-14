@@ -27,25 +27,25 @@ namespace Fastboi {
 
         //! Follows RAII. When this goes out of scope, the signal and all connections are disconnected.
         struct TargetedClickListener {
-            const Transform* transform;
-            const Renderer* renderer; // Used to determine button press if there is overlap
+            Transform* transform;
+            Renderer* renderer; // Used to determine button press if there is overlap
 
             using EventSignature = TargetedClickEvent::Signal_t_g;
             mutable Signal<EventSignature> signal;
             
             private:
-            TargetedClickListener(const Transform* t, const Renderer* r);
+            TargetedClickListener(Transform* t, Renderer* r);
 
             public:
             TargetedClickListener();
-            TargetedClickListener(const Transform& transform, const Renderer& renderer);
+            TargetedClickListener(Transform& transform, Renderer& renderer);
             ~TargetedClickListener();
 
             /**
              * @param transform - A click within bounds of this transform fires the signal
              * @param renderer - Used to determine which listener receives the click event in case multiple overlap
             **/
-            void Init(const Transform& transform, const Renderer& renderer);
+            void Init(Transform& transform, Renderer& renderer);
 
             // bool operator==(const TargetedClickListener& other) const;
         };
@@ -77,6 +77,8 @@ namespace Fastboi {
 
         const Vec<int>& GetMousePosition();
         const uint8_t* GetKeyboardState(); 
+
+        void BlockTargetedMouseUp();
 
         template<typename... I>
         bool IsKeyDown(I... keys) {

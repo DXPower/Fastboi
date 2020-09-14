@@ -31,6 +31,8 @@ void CameraController::OnClick(const ClickEvent& e) {
         if (e.type == ClickEvent::DOWN) {
             dragOrigin = GetMousePosition();
             isMouseHeld = true;
+
+            Input::BlockTargetedMouseUp(); // Don't let buttons absorb the mouse up
         } else if (e.type == ClickEvent::UP) {
             isMouseHeld = false;
             camOrigin = go().transform->position;

@@ -43,11 +43,11 @@ namespace Fastboi {
             END
         };
 
-        const Collider& collider;
-        const CollisionType type;
-        const Vecf penetration;
+        Collider& collider;
+        CollisionType type;
+        Vecf penetration;
 
-        CollisionEvent(const Collider& collider, CollisionType type, const Vecf& pen) : collider(collider), type(type), penetration(pen) { };
+        CollisionEvent(Collider& collider, CollisionType type, const Vecf& pen) : collider(collider), type(type), penetration(pen) { };
     };
 
     struct ClickEvent final {
@@ -58,10 +58,10 @@ namespace Fastboi {
             DOWN
         };
 
-        const ClickType type;
-        const int button;
-        const int clicks;
-        const Vec<int> pos;
+        ClickType type;
+        int button;
+        int clicks;
+        Vec<int> pos;
 
         ClickEvent(ClickType type, int button, int clicks, const Vec<int>& pos)
         : type(type), button(button), clicks(clicks), pos(pos) { };
@@ -70,13 +70,13 @@ namespace Fastboi {
     struct TargetedClickEvent final {
         using Signal_t_g = void(const TargetedClickEvent&);
 
-        const Transform& transform;
-        const ClickEvent::ClickType type;
-        const int button;
-        const int clicks;
-        const Vec<int> pos;
+        Transform& transform;
+        ClickEvent::ClickType type;
+        int button;
+        int clicks;
+        Vec<int> pos;
 
-        TargetedClickEvent(const Transform& t, ClickEvent::ClickType type, int button, int clicks, const Vec<int>& pos)
+        TargetedClickEvent(Transform& t, ClickEvent::ClickType type, int button, int clicks, const Vec<int>& pos)
         : transform(t), type(type), button(button), clicks(clicks), pos(pos) { };
     };
 

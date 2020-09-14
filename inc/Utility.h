@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstring>
+#include <cstdio>
 
 inline size_t hash_cstring(const char* p) {
    size_t result = 0;
@@ -15,8 +16,15 @@ inline size_t hash_cstring(const char* p) {
 
 struct cstring_hasher {
    std::size_t __attribute__((flatten)) operator()(const char* const& p) const {
+      printf("cstring hash: %lu\n", hash_cstring(p));
       return hash_cstring(p);
    };
+};
+
+struct cstring_eq {
+   bool operator()(const char* const& lhs, const char* const& rhs) const {
+      return std::strcmp(lhs, rhs) == 0;
+   }
 };
 
 struct SDL_Rect;

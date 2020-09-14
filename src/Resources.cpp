@@ -16,8 +16,8 @@
 
 using namespace Fastboi;
 
-std::unordered_map<const char*, Texture, cstring_hasher> textures;
-std::unordered_map<const char*, Wav, cstring_hasher> sounds;
+std::unordered_map<const char*, Texture, cstring_hasher, cstring_eq> textures;
+std::unordered_map<const char*, Wav, cstring_hasher, cstring_eq> sounds;
 
 constexpr const char* imagePath = "res/images/";
 constexpr const char* soundPath = "res/sound/";
@@ -53,6 +53,8 @@ void Resources::LoadImage(const char* key, const char* filename) {
 
 const Texture& Resources::GetTexture(const char* key) {
     printf("Getting texture %s\n", key);
+
+    printf("textures size: %i\n", textures.size());
 
     if (textures.find(key) == textures.end())
         printf("Doesn't exist!\n");
