@@ -7,6 +7,7 @@
 #include "FastboiCore.h"
 #include "Resources.h"
 #include "Tile.h"
+#include "TileData.h"
 #include "WorldEditor.h"
 
 using namespace Fastboi;
@@ -22,6 +23,8 @@ void CS::LoadResources() {
 
     const Texture& tiles = Resources::GetTexture("TileSpritesheet");
     SDL_SetTextureBlendMode(tiles.GetSDL_Texture(), SDL_BLENDMODE_BLEND);
+
+    InitTileData();
 }
 
 void CS::InitGame() {
@@ -31,11 +34,9 @@ void CS::InitGame() {
 
     Gameobject& mainCamera = Instantiate<CameraController::Blueprint>();
 
-    Gameobject& button = Instantiate<Button::Blueprint>("TileSpritesheet", Position(250, 400), Size(200, 200));
-
     CreateLayers();
+    Gameobject& worldEditor = Instantiate<WorldEditor::Blueprint>(Position(0.25, 0.9));
 
-    WorldEditor* we = new WorldEditor();
 }
 
 void CreateLayers() {

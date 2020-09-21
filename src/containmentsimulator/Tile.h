@@ -1,6 +1,8 @@
 #pragma once
 
+#include "Events.h"
 #include "Fastboi.h"
+#include "Input.h"
 #include "Vec.h"
 
 using namespace Fastboi;
@@ -50,15 +52,23 @@ namespace CS {
 
         bool isLocked = false;
 
+        Input::TargetedClickListener listener;
+
         public:
-        TileLayer(int width, int height, Veci tileSize);
-        TileLayer(Veci size, Veci tileSize) : TileLayer(size.x, size.y, tileSize) { };
+        GORef go;
+
+        TileLayer(GORef&& go, int width, int height, Veci tileSize);
+        TileLayer(GORef&& go, Veci size, Veci tileSize) : TileLayer(std::move(go), size.x, size.y, tileSize) { };
+
+        void Start();
+        void Click(const TargetedClickEvent& e);
 
         void UpdateTexture();
         const Texture& GetTexture() const;
         
-        Tile& AccessTile(int x, int y)const;
+        Tile& AccessTile(int x, int y) const;
         Tile& AccessTile(Veci pos) const { return AccessTile(pos.x, pos.y); };
+        Tile& AccessTile(Position pos) const; // Assume position is in range
 
         decltype(tiles)& GetTiles();
         const decltype(tiles)& GetTiles() const;

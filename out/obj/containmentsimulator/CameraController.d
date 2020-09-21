@@ -14,25 +14,25 @@ out/obj/containmentsimulator/CameraController.o: \
   inc\ctti\static_value.hpp src\Collider.h src\Collision.h src\AABB.h \
   src\CollisionMask.h src\Events.h src\GORef.h src\Component.h \
   src\Application.h inc\Utility.h src\Renderer.h src\RenderOrder.h \
-  src\ColorComp.h src\Input.h src\Rect.h inc\SDL\SDL.h \
-  inc\SDL\SDL_main.h inc\SDL\SDL_stdinc.h inc\SDL\SDL_config.h \
-  inc\SDL\SDL_platform.h inc\SDL\begin_code.h inc\SDL\close_code.h \
-  inc\SDL\SDL_assert.h inc\SDL\SDL_atomic.h inc\SDL\SDL_audio.h \
-  inc\SDL\SDL_error.h inc\SDL\SDL_endian.h inc\SDL\SDL_mutex.h \
-  inc\SDL\SDL_thread.h inc\SDL\SDL_rwops.h inc\SDL\SDL_clipboard.h \
-  inc\SDL\SDL_cpuinfo.h inc\SDL\SDL_events.h inc\SDL\SDL_video.h \
-  inc\SDL\SDL_pixels.h inc\SDL\SDL_rect.h inc\SDL\SDL_surface.h \
-  inc\SDL\SDL_blendmode.h inc\SDL\SDL_keyboard.h inc\SDL\SDL_keycode.h \
-  inc\SDL\SDL_scancode.h inc\SDL\SDL_mouse.h inc\SDL\SDL_joystick.h \
-  inc\SDL\SDL_gamecontroller.h inc\SDL\SDL_quit.h inc\SDL\SDL_gesture.h \
-  inc\SDL\SDL_touch.h inc\SDL\SDL_filesystem.h inc\SDL\SDL_haptic.h \
-  inc\SDL\SDL_hints.h inc\SDL\SDL_loadso.h inc\SDL\SDL_log.h \
-  inc\SDL\SDL_messagebox.h inc\SDL\SDL_power.h inc\SDL\SDL_render.h \
-  inc\SDL\SDL_sensor.h inc\SDL\SDL_shape.h inc\SDL\SDL_system.h \
-  inc\SDL\SDL_timer.h inc\SDL\SDL_version.h src\Rendering.h \
-  src\FastboiCore.h src\GameobjectAllocator.h src\Camera.h \
-  src\Resources.h src\Rigidbody.h src\Texture.h src\Input.h src\Camera.h \
-  src\FastboiCore.h
+  src\ColorComp.h src\Input.h src\ScreenElement.h src\Rect.h \
+  inc\SDL\SDL.h inc\SDL\SDL_main.h inc\SDL\SDL_stdinc.h \
+  inc\SDL\SDL_config.h inc\SDL\SDL_platform.h inc\SDL\begin_code.h \
+  inc\SDL\close_code.h inc\SDL\SDL_assert.h inc\SDL\SDL_atomic.h \
+  inc\SDL\SDL_audio.h inc\SDL\SDL_error.h inc\SDL\SDL_endian.h \
+  inc\SDL\SDL_mutex.h inc\SDL\SDL_thread.h inc\SDL\SDL_rwops.h \
+  inc\SDL\SDL_clipboard.h inc\SDL\SDL_cpuinfo.h inc\SDL\SDL_events.h \
+  inc\SDL\SDL_video.h inc\SDL\SDL_pixels.h inc\SDL\SDL_rect.h \
+  inc\SDL\SDL_surface.h inc\SDL\SDL_blendmode.h inc\SDL\SDL_keyboard.h \
+  inc\SDL\SDL_keycode.h inc\SDL\SDL_scancode.h inc\SDL\SDL_mouse.h \
+  inc\SDL\SDL_joystick.h inc\SDL\SDL_gamecontroller.h inc\SDL\SDL_quit.h \
+  inc\SDL\SDL_gesture.h inc\SDL\SDL_touch.h inc\SDL\SDL_filesystem.h \
+  inc\SDL\SDL_haptic.h inc\SDL\SDL_hints.h inc\SDL\SDL_loadso.h \
+  inc\SDL\SDL_log.h inc\SDL\SDL_messagebox.h inc\SDL\SDL_power.h \
+  inc\SDL\SDL_render.h inc\SDL\SDL_sensor.h inc\SDL\SDL_shape.h \
+  inc\SDL\SDL_system.h inc\SDL\SDL_timer.h inc\SDL\SDL_version.h \
+  src\Rendering.h src\FastboiCore.h src\GameobjectAllocator.h \
+  src\Camera.h src\Resources.h src\Rigidbody.h src\Texture.h src\Input.h \
+  src\Camera.h src\FastboiCore.h
 
 src\containmentsimulator\CameraController.h:
 
@@ -117,6 +117,8 @@ src\RenderOrder.h:
 src\ColorComp.h:
 
 src\Input.h:
+
+src\ScreenElement.h:
 
 src\Rect.h:
 

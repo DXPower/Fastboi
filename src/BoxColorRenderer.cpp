@@ -20,13 +20,8 @@ void BoxColorRenderer::Start() {
 }
 
 void BoxColorRenderer::Render() {
-    printf("Setting color\n");
     Rendering::SetColor(color->r, color->g, color->b, color->a);
-    printf("Set color. Senting rect...\n");
-    printf("Transform:\n");
-    printf("%f %f %f %f\n", gameobject().transform->position.x, gameobject().transform->position.y, gameobject().transform->size.x, gameobject().transform->size.y);
     Rendering::Render_Rect<Rendering::FILLED>(gameobject().transform);
-    printf("Rect rendered\n");
 }
 
 Renderer& BoxColorRenderer::Duplicate() const {

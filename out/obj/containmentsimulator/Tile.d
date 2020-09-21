@@ -1,19 +1,20 @@
 out/obj/containmentsimulator/Tile.o: src\containmentsimulator\Tile.cpp \
-  src\containmentsimulator\Tile.h src\Fastboi.h src\ComponentReqs.h \
-  src\Gameobject.h src\Application.h src\Vec.h src\Exceptions.h \
-  inc\ctti\type_id.hpp inc\ctti\detail\hash.hpp \
+  src\containmentsimulator\Tile.h src\Events.h \
+  inc\nano_ss\nano_signal_slot.hpp inc\nano_ss\nano_function.hpp \
+  inc\nano_ss\nano_observer.hpp inc\nano_ss\nano_mutex.hpp \
+  src\Transform.h src\Angles.h src\GORef.h src\Shape.h \
+  src\circular_vector.h src\Vec.h src\Vec.h src\Fastboi.h \
+  src\ComponentReqs.h src\Gameobject.h src\Application.h \
+  src\Exceptions.h inc\ctti\type_id.hpp inc\ctti\detail\hash.hpp \
   inc\ctti\detail\cstring.hpp inc\ctti\detail\algorithm.hpp \
   inc\ctti\nameof.hpp inc\ctti\detail\pretty_function.hpp \
   inc\ctti\detail\name_filters.hpp inc\ctti\detail\meta.hpp \
   inc\ctti\detail\language_features.hpp inc\ctti\type_tag.hpp \
-  inc\ctti\static_value.hpp src\Collider.h src\circular_vector.h \
-  src\Collision.h src\AABB.h src\CollisionMask.h src\Events.h \
-  inc\nano_ss\nano_signal_slot.hpp inc\nano_ss\nano_function.hpp \
-  inc\nano_ss\nano_observer.hpp inc\nano_ss\nano_mutex.hpp \
-  src\Transform.h src\Angles.h src\GORef.h src\Shape.h src\Vec.h \
-  src\GORef.h src\Component.h src\Application.h inc\Utility.h \
-  src\Renderer.h src\RenderOrder.h src\ColorComp.h src\Input.h \
-  src\Rect.h inc\SDL\SDL.h inc\SDL\SDL_main.h inc\SDL\SDL_stdinc.h \
+  inc\ctti\static_value.hpp src\Collider.h src\Collision.h src\AABB.h \
+  src\CollisionMask.h src\Events.h src\GORef.h src\Component.h \
+  src\Application.h inc\Utility.h src\Renderer.h src\RenderOrder.h \
+  src\ColorComp.h src\Input.h src\ScreenElement.h src\Rect.h \
+  inc\SDL\SDL.h inc\SDL\SDL_main.h inc\SDL\SDL_stdinc.h \
   inc\SDL\SDL_config.h inc\SDL\SDL_platform.h inc\SDL\begin_code.h \
   inc\SDL\close_code.h inc\SDL\SDL_assert.h inc\SDL\SDL_atomic.h \
   inc\SDL\SDL_audio.h inc\SDL\SDL_error.h inc\SDL\SDL_endian.h \
@@ -29,13 +30,40 @@ out/obj/containmentsimulator/Tile.o: src\containmentsimulator\Tile.cpp \
   inc\SDL\SDL_render.h inc\SDL\SDL_sensor.h inc\SDL\SDL_shape.h \
   inc\SDL\SDL_system.h inc\SDL\SDL_timer.h inc\SDL\SDL_version.h \
   src\Rendering.h src\FastboiCore.h src\GameobjectAllocator.h \
-  src\Camera.h src\Resources.h src\Rigidbody.h src\Texture.h \
-  src\FastboiComps.h src\BoxColorRenderer.h src\Fastboi.h \
+  src\Camera.h src\Resources.h src\Rigidbody.h src\Texture.h src\Input.h \
+  src\Camera.h src\FastboiComps.h src\BoxColorRenderer.h src\Fastboi.h \
   src\ChangeObserver.h src\RectUI.h src\RepeatRenderer.h \
   src\SpriteRenderer.h src\Spritesheet.h src\FastboiComps.h \
-  src\UITexture.h src\WireframeRenderer.h
+  src\UITexture.h src\WireframeRenderer.h \
+  src\containmentsimulator\WorldEditor.h \
+  src\containmentsimulator\Button.h src\containmentsimulator\TileData.h \
+  src\Rect.h
 
 src\containmentsimulator\Tile.h:
+
+src\Events.h:
+
+inc\nano_ss\nano_signal_slot.hpp:
+
+inc\nano_ss\nano_function.hpp:
+
+inc\nano_ss\nano_observer.hpp:
+
+inc\nano_ss\nano_mutex.hpp:
+
+src\Transform.h:
+
+src\Angles.h:
+
+src\GORef.h:
+
+src\Shape.h:
+
+src\circular_vector.h:
+
+src\Vec.h:
+
+src\Vec.h:
 
 src\Fastboi.h:
 
@@ -44,8 +72,6 @@ src\ComponentReqs.h:
 src\Gameobject.h:
 
 src\Application.h:
-
-src\Vec.h:
 
 src\Exceptions.h:
 
@@ -73,8 +99,6 @@ inc\ctti\static_value.hpp:
 
 src\Collider.h:
 
-src\circular_vector.h:
-
 src\Collision.h:
 
 src\AABB.h:
@@ -82,24 +106,6 @@ src\AABB.h:
 src\CollisionMask.h:
 
 src\Events.h:
-
-inc\nano_ss\nano_signal_slot.hpp:
-
-inc\nano_ss\nano_function.hpp:
-
-inc\nano_ss\nano_observer.hpp:
-
-inc\nano_ss\nano_mutex.hpp:
-
-src\Transform.h:
-
-src\Angles.h:
-
-src\GORef.h:
-
-src\Shape.h:
-
-src\Vec.h:
 
 src\GORef.h:
 
@@ -116,6 +122,8 @@ src\RenderOrder.h:
 src\ColorComp.h:
 
 src\Input.h:
+
+src\ScreenElement.h:
 
 src\Rect.h:
 
@@ -223,6 +231,10 @@ src\Rigidbody.h:
 
 src\Texture.h:
 
+src\Input.h:
+
+src\Camera.h:
+
 src\FastboiComps.h:
 
 src\BoxColorRenderer.h:
@@ -244,3 +256,11 @@ src\FastboiComps.h:
 src\UITexture.h:
 
 src\WireframeRenderer.h:
+
+src\containmentsimulator\WorldEditor.h:
+
+src\containmentsimulator\Button.h:
+
+src\containmentsimulator\TileData.h:
+
+src\Rect.h:

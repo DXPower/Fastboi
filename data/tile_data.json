@@ -1,0 +1,11 @@
+{
+    "tiles": [
+        { "id": 0, "name": "white_marble",  "size": [64, 64], "corner": [1408, 512 ] },
+        { "id": 1, "name": "grey_squares",  "size": [64, 64], "corner": [1472, 512 ] },
+        { "id": 2, "name": "orange_fur",    "size": [64, 64], "corner": [1536, 512 ] },
+        { "id": 3, "name": "white_squares", "size": [64, 64], "corner": [1408, 576 ] },
+        { "id": 4, "name": "blue_squares",  "size": [64, 64], "corner": [1472, 576 ] },
+        { "id": 5, "name": "tan_swirls",    "size": [64, 64], "corner": [1536, 576 ] }
+    ]
+}
+

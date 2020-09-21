@@ -27,7 +27,7 @@ void CameraController::Update() {
 }
 
 void CameraController::OnClick(const ClickEvent& e) {
-    if (e.button == 1) {
+    if (e.button == 3) {
         if (e.type == ClickEvent::DOWN) {
             dragOrigin = GetMousePosition();
             isMouseHeld = true;

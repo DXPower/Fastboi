@@ -3,6 +3,7 @@
 #include "Events.h"
 #include <initializer_list>
 #include <memory>
+#include "ScreenElement.h"
 #include "stdint.h"
 #include "Transform.h"
 #include <unordered_map>

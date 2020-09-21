@@ -1,12 +1,14 @@
 #include "Input.h"
 #include <algorithm>
 #include "Application.h"
+#include "Camera.h"
 #include "FastboiCore.h"
 #include <memory>
 #include "SDL/SDL.h"
 #include "Renderer.h"
 #include "SDL/SDL_events.h"
 #include "SDL/SDL_mouse.h"
+#include "ScreenElement.h"
 #include "Timer.h"
 #include "Transform.h"
 #include <unordered_map>
@@ -41,12 +43,25 @@ bool DispatchTargetedClick(const ClickEvent& e) {
 
     // Get all the transform targets which are under the mouse
     for (const TargetedClickListener* tcl : targetedClickListeners) {
-        if (tcl->transform != nullptr && tcl->transform->ContainsPoint(e.pos)) {
-            targets.push_back(tcl);
+        if (tcl->transform != nullptr) {
+            if (tcl->transform->gameobject().HasComponent<ScreenElement>()) {
+                Transform screenT = tcl->transform->gameobject().GetComponent<ScreenElement>().GetScreenTransform();
+                Position searchPos = static_cast<Position>(e.pos);
+
+                if (screenT.ContainsPoint(searchPos))
+                    targets.push_back(tcl);
+                
+            } else {
+                Position searchPos = Fastboi::camera.ScreenToWorldPos(e.pos);
+
+                if (tcl->transform->ContainsPoint(searchPos))
+                    targets.push_back(tcl);
+            }
         }
     }
 
     if (targets.size() > 0) {
+        printf("Clicked on target!\n");
         // Sort by z-index and get the topmost transform
         std::sort(targets.begin(), targets.end(), tclCompare);
 

@@ -1,5 +1,7 @@
 #include "Tile.h"
+#include "Camera.h"
 #include "FastboiComps.h"
+#include "WorldEditor.h"
 #include <random>
 
 using namespace Fastboi;
@@ -39,8 +41,9 @@ const Veci& Tile::GetCoords() const {
     return position;
 }
 
-TileLayer::TileLayer(int width, int height, Veci tileSize)
- : size(width, height)
+TileLayer::TileLayer(GORef&& go, int width, int height, Veci tileSize)
+ : go(std::move(go))
+ , size(width, height)
  , tileSize(tileSize)
  , layerTexture(Texture(nullptr)) {
 
@@ -60,6 +63,28 @@ TileLayer::TileLayer(int width, int height, Veci tileSize)
     }
 
     UpdateTexture();
+}
+
+void TileLayer::Start() {
+    printf("Start!\n");
+
+    listener.Init(*go().transform, *go().renderer);
+    listener.signal.connect<&TileLayer::Click>(this);
+
+    printf("Pos: %f %f\n", go().transform->position.x, go().transform->position.y);
+    printf("Size: %f %f\n", go().transform->size.x, go().transform->size.y);
+
+}
+
+void TileLayer::Click(const TargetedClickEvent& e) {
+    printf("Click!\n");
+
+    TileID selected = WorldEditor::GetSelectedTile();
+
+    if (selected == TileID::NONE) return;
+    
+    Tile& tile = AccessTile(Fastboi::camera.ScreenToWorldPos(e.pos));
+    tile.SetCutout(TileData::Get(selected).cutout);
 }
 
 void TileLayer::UpdateTexture() {
@@ -82,6 +107,14 @@ void TileLayer::UpdateTexture() {
 
 Tile& TileLayer::AccessTile(int x, int y) const {
     return tiles[size.x * y + x];
+}
+
+Tile& TileLayer::AccessTile(Position pos) const {
+    const Position relative = pos - go().transform->position + go().transform->size / 2;
+    const Position zone = relative / (Size) tileSize; // Get decimal coordinate by dividing
+    const Vec<int> coords = static_cast<Vec<int>>(zone); // Round down to get coords
+
+    return AccessTile(coords.x, coords.y);
 }
 
 decltype(TileLayer::tiles)& TileLayer::GetTiles() {
@@ -114,4 +147,9 @@ void TileLayer::Blueprint(Gameobject& go, const Position& origin, const Veci& si
     const Texture& layerTexture = layer.GetTexture();
 
     go.AddComponent<SpriteRenderer>(RenderData(RenderOrder::GROUND, 0), layer.GetTexture(), Rect(0, 0, layerTexture.GetSize().x, layerTexture.GetSize().y));
+
+    // Gameobject& test = Instantiate<Gameobject>("Test");
+    // test.AddComponent<Transform>(origin, textureSize, 0_deg);
+    // go.AddComponent<BoxColorRenderer>(RenderData(RenderOrder::OBJECTS_OVER, 0));
+    // go.AddComponent<ColorComp>(255, 0, 0, 255);
 }
