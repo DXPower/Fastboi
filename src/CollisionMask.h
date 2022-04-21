@@ -19,7 +19,10 @@ namespace Fastboi {
 
     struct CollisionMask {
         private:
-        CollisionLayer inclusions = CollisionLayer::ALL;
+        using UT = std::underlying_type_t<CollisionLayer>;
+        #define stut(x) static_cast<UT>(x)
+
+        UT inclusions = stut(CollisionLayer::ALL);
 
         public:
         CollisionLayer layer;
@@ -33,19 +36,18 @@ namespace Fastboi {
         requires std::same_as<std::common_type_t<EnumClass...>, CollisionLayer>
         CollisionMask& Include(EnumClass... layers) {
             using CT = std::common_type_t<EnumClass...>;
-            using UT = std::underlying_type_t<CT>;
 
             if (((layers == CollisionLayer::ALL) || ...))
-                inclusions = CollisionLayer::ALL;
+                inclusions = stut(CollisionLayer::ALL);
             else if (((layers == CollisionLayer::NONE) || ...))
-                inclusions = CollisionLayer::NONE;
+                inclusions = stut(CollisionLayer::NONE);
             else {
                 UT merged = (static_cast<UT>(layers) | ...);
                 
-                if (inclusions == CollisionLayer::ALL)
-                    inclusions = static_cast<CT>(merged);
+                if (inclusions == stut(CollisionLayer::ALL))
+                    inclusions = merged;
                 else
-                    inclusions = static_cast<CT>(static_cast<UT>(inclusions) | merged);
+                    inclusions |= merged;
             };
 
             return *this;
@@ -54,15 +56,14 @@ namespace Fastboi {
         template<typename... EnumClass>
         requires std::same_as<std::common_type_t<EnumClass...>, CollisionLayer>
         CollisionMask& Exclude(EnumClass... layers) {
-            if (inclusions == CollisionLayer::NONE) return *this;
+            if (inclusions == stut(CollisionLayer::NONE)) return *this;
 
             using CT = std::common_type_t<EnumClass...>;
-            using UT = std::underlying_type_t<CT>;
 
             if (((layers == CollisionLayer::ALL) || ...))
-                inclusions = CollisionLayer::NONE;
+                inclusions = stut(CollisionLayer::NONE);
             else if (((layers == CollisionLayer::NONE) || ...))
-                inclusions = CollisionLayer::ALL;
+                inclusions = stut(CollisionLayer::ALL);
             else {
                 UT exclusions = (static_cast<UT>(layers) | ...);
                 UT result;
@@ -72,16 +73,16 @@ namespace Fastboi {
                 if (inclusions == CollisionLayer::ALL)
                     result = ~static_cast<UT>(0x0); // Set all bits to 1 if the inclusions is ALL
                 else
-                    result = static_cast<UT>(inclusions);
+                    result = inclusions;
 
-                inclusions = static_cast<CT>(result & exclusions);
+                inclusions = result & exclusions;
             }
 
             return *this;
         }
 
         CollisionMask& Clear() {
-            inclusions = CollisionLayer::NONE;
+            inclusions = stut(CollisionLayer::NONE);
 
             return *this;
         }
@@ -90,5 +91,7 @@ namespace Fastboi {
 
         private:
         bool CanCollide(CollisionLayer layer) const;
+
+        #undef stut
     };
 }

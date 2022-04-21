@@ -11,7 +11,7 @@ int main(int argc, char* args[]) {
 
     if (Application::InitApplication()) {
         std::cout << "Application started" << std::endl;
-        CS::InitGame();
+        Adventure::InitGame();
         Fastboi::GameLoop();
         Fastboi::Resources::Cleanup();
     }

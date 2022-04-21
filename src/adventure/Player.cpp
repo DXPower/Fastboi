@@ -19,16 +19,6 @@ Player::~Player() {
     gameobject().RemoveComponent<Rigidbody>();
 }
 
-#include "soloud/soloud.h"
-#include "soloud/soloud_wav.h"
-
-float ExamplePanFunction(const SoundData& sd) {
-    const float duration = Resources::GetSoloud().getRelativePlaySpeed(sd.handle) * sd.wave->getLength();
-    const float t = Resources::GetSoloud().getStreamTime(sd.handle);
-
-    return 2.f * t / duration - 1.f;
-}
-
 
 void Player::Start() {
     rigidbody = &gameobject().GetComponent<Rigidbody>();

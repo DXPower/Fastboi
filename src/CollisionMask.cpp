@@ -7,10 +7,8 @@ bool CollisionMask::CanCollide(const CollisionMask& a, const CollisionMask& b) {
 }
 
 bool CollisionMask::CanCollide(CollisionLayer layer) const {
-    using UT = std::underlying_type_t<CollisionLayer>;
+    if (inclusions == static_cast<UT>(CollisionLayer::NONE)) return false;
     
-    if (inclusions == CollisionLayer::NONE) return false;
-    
-    return inclusions == CollisionLayer::ALL ||
-            (static_cast<UT>(inclusions) & static_cast<UT>(layer)) == static_cast<UT>(layer);
+    return inclusions == static_cast<UT>(CollisionLayer::ALL)
+           || (inclusions & static_cast<UT>(layer)) == static_cast<UT>(layer);
 }

@@ -78,7 +78,7 @@ void Adventure::InitGame() {
     LoadResources();
     LoadLevel1();
 
-    Fastboi::camera.zoom = 0.50f;
+    Fastboi::camera.zoom = 0.8f;
     Level::roomChangeSignal.connect<&GameManager::RoomChanged>(manager);
 
     // gSoloud.init(); // init soloud
