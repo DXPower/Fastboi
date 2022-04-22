@@ -10,8 +10,8 @@ using namespace Fastboi;
 TEST_CASE("Colliders", "[collider]") {
     Gameobject go;
     printf("Getting shared ptrs\n");
-    Transform& transform =  go.AddComponent<Transform>(Position(0, 0), Size(10, 10), 0);
-    Collider& collider = go.AddComponent<Collider>(go);
+    Transform& transform =  go.AddComponent<Transform>(Position(0, 0), Size(10, 10), 0_deg);
+    Collider& collider = go.AddComponent<Collider>();
     
     go.Start();
 
@@ -56,10 +56,10 @@ TEST_CASE("Colliders", "[collider]") {
         Gameobject g2;
         Gameobject g3;
         Gameobject g4;
-        Collider& c1 = g1.AddComponent<Collider>(g1);
-        Collider& c2 = g2.AddComponent<Collider>(g2, Collider::FIXED | Collider::TRIGGER);
-        Collider& c3 = g3.AddComponent<Collider>(g3, Collider::TRIGGER);
-        Collider& c4 = g4.AddComponent<Collider>(g4, Collider::FIXED);
+        Collider& c1 = g1.AddComponent<Collider>();
+        Collider& c2 = g2.AddComponent<Collider>(Collider::FIXED | Collider::TRIGGER, CollisionLayer::UNITS);
+        Collider& c3 = g3.AddComponent<Collider>(Collider::TRIGGER, CollisionLayer::UNITS);
+        Collider& c4 = g4.AddComponent<Collider>(Collider::FIXED, CollisionLayer::UNITS);
 
         REQUIRE(c1.IsTrigger() == false);
         REQUIRE(c2.IsTrigger() == true);
@@ -80,7 +80,7 @@ std::vector<std::string> collisions;
 void addCollision(const Fastboi::CollisionEvent& collision) {
     printf("Collison detected!\n");
     if (collision.type == Fastboi::CollisionEvent::BEGIN) {
-        collisions.push_back(collision.collider.gameobject.name);
+        collisions.push_back(collision.collider.gameobject().name);
     } else if (collision.type == Fastboi::CollisionEvent::END) {
         printf("Collision end!\n");
         collisions.pop_back();
@@ -90,14 +90,14 @@ void addCollision(const Fastboi::CollisionEvent& collision) {
 TEST_CASE("Collider integration: new collisions", "[collider]") {
     Gameobject& a = Instantiate<Gameobject>();
     a.name = "new coll Object A";
-    a.AddComponent<Transform>(Position(0, 0), Size(10, 10), 0);
-    Collider& cA = a.AddComponent<Collider>(a, Collider::FIXED);
+    a.AddComponent<Transform>(Position(0, 0), Size(10, 10), 0_deg);
+    Collider& cA = a.AddComponent<Collider>(Collider::FIXED, CollisionLayer::WALLS);
     cA.collisionSignal.connect<&addCollision>();
 
     Gameobject& b = Instantiate<Gameobject>();
     b.name = "new coll Object B";
-    b.AddComponent<Transform>(Position(3, 3), Size(10, 10), 0);
-    Collider& cB = b.AddComponent<Collider>(b, Collider::FIXED);
+    b.AddComponent<Transform>(Position(3, 3), Size(10, 10), 0_deg);
+    Collider& cB = b.AddComponent<Collider>(Collider::FIXED, CollisionLayer::WALLS);
     cB.collisionSignal.connect<&addCollision>();
 
     a.Start();
@@ -140,14 +140,14 @@ TEST_CASE("Collider integration: ending collisions", "[collider]") {
 
     Gameobject& a = Instantiate<Gameobject>();
     a.name = "ending coll Object A";
-    a.AddComponent<Transform>(Position(0, 0), Size(10, 10), 0);
-    Collider& cA = a.AddComponent<Collider>(a);
+    a.AddComponent<Transform>(Position(0, 0), Size(10, 10), 0_deg);
+    Collider& cA = a.AddComponent<Collider>();
     cA.collisionSignal.connect<&addCollision>();
 
     Gameobject& b = Instantiate<Gameobject>();
     b.name = "ending coll Object B";
-    b.AddComponent<Transform>(Position(3, 3), Size(10, 10), 0);
-    Collider& cB = b.AddComponent<Collider>(b);
+    b.AddComponent<Transform>(Position(3, 3), Size(10, 10), 0_deg);
+    Collider& cB = b.AddComponent<Collider>();
     cB.collisionSignal.connect<&addCollision>();
 
     a.Start();
@@ -192,12 +192,12 @@ TEST_CASE("Collider integration: Two unfixed nontrigger colliders", "[collider]"
     constexpr Position p2(3, 3);
 
     // Add transforms
-    g1.AddComponent<Transform>(p1, Size(50, 50), 0);
-    g2.AddComponent<Transform>(p2, Size(50, 50), 0);
+    g1.AddComponent<Transform>(p1, Size(50, 50), 0_deg);
+    g2.AddComponent<Transform>(p2, Size(50, 50), 0_deg);
 
     // Add colliders
-    g1.AddComponent<Collider>(g1);
-    g2.AddComponent<Collider>(g2);
+    g1.AddComponent<Collider>();
+    g2.AddComponent<Collider>();
 
     g1.Start();
     g2.Start();
@@ -226,12 +226,12 @@ TEST_CASE("Collider integration: One trigger unfixed; one nontrigger unfixed col
     constexpr Position p2(3, 3);
 
     // Add transforms
-    g1.AddComponent<Transform>(p1, Size(50, 50), 0);
-    g2.AddComponent<Transform>(p2, Size(50, 50), 0);
+    g1.AddComponent<Transform>(p1, Size(50, 50), 0_deg);
+    g2.AddComponent<Transform>(p2, Size(50, 50), 0_deg);
 
     // Add colliders
-    g1.AddComponent<Collider>(g1, Collider::TRIGGER);
-    g2.AddComponent<Collider>(g2);
+    g1.AddComponent<Collider>(Collider::TRIGGER, CollisionLayer::WALLS);
+    g2.AddComponent<Collider>();
 
     printf("Colliders added\n");
 

@@ -1,6 +1,8 @@
 #include "catch.hpp"
 #include "Vec.h"
 
+using namespace Fastboi;
+
 TEST_CASE("Vector creation and operations", "[vec]") {
     Vecf a(3.f, 4.f);
     Vec<int> b(173, 29543);

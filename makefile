@@ -26,8 +26,8 @@ COMPILE.cpp = $(CXX) $(DEFINES) $(DEPFLAGS) $(OPTIM) $(CXXFLAGS) -c
 COMPILE.cpp.prof = $(CXX) $(DEFINES) $(CXXFLAGS)
 COMPILE.d.cpp = $(CXX) $(DEFINES) $(DEBUGFLAGS)
 
-COMPILE_TEST.c = $(CC) $(DEFINES) $(TESTDEPFLAGS) $(CFLAGS) -c
-COMPILE_TEST.cpp = $(CXX) $(DEFINES) $(TESTDEPFLAGS) $(CXXFLAGS) -c
+COMPILE_TEST.c = $(CC) $(DEFINES) $(TESTDEPFLAGS) $(CFLAGS) -c -g
+COMPILE_TEST.cpp = $(CXX) $(DEFINES) $(TESTDEPFLAGS) $(CXXFLAGS) -c -g
 
 $(DEPDIR): ; @mkdir -p $@
 
@@ -59,11 +59,9 @@ $(OBJDIR)/%.o : src/%.cpp
 
 $(TESTDIR)/%.o : src/%.c
 	$(COMPILE_TEST.c) $(APP_INC) $(OUTPUT_OPTION) $<
-	$(POSTCOMPILE_TEST)
 
 $(TESTDIR)/%.o : src/%.cpp
 	$(COMPILE_TEST.cpp) $(APP_INC) $(OUTPUT_OPTION) $<
-	$(POSTCOMPILE_TEST)
 
 all:
 	compiledb make profile -n
@@ -86,7 +84,7 @@ link:
 	clang++ -Xclang -flto-visibility-public-std -o $(EXE_NAME).exe out/obj/*.o out/obj/$(EXE_NAME)/*.o $(CXX_LINKS)
  
 link_test:
-	clang++ -Xclang -flto-visibility-public-std -o test.exe out/test/*.o out/test/Slowboi/*.o out/test/test/*.o $(CXX_LINKS)
+	clang++ -Xclang -flto-visibility-public-std -g -o test.exe out/test/*.o out/test/test/*.o $(CXX_LINKS)
 
 test_build: $(APP_OBJS_TEST)
 

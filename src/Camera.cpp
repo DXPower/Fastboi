@@ -19,21 +19,22 @@ const Camera& Fastboi::GetCamera() {
 }
 
 static void CameraDestroyed(const Camera& cam) {
-    if (mainCamera == &cam)
+    if (mainCamera == &cam && &cam != &nullCamera)
         Application::ThrowRuntimeException("Main camera destroyed", Application::NO_CAMERA);
 }
 
-Camera::Camera() : target(nullptr) { };
+Camera::Camera(GORef&& go) : gameobject(std::move(go)), target(nullptr) { };
 
-Camera::Camera(float zoom) : zoom(zoom) { };
+Camera::Camera(GORef&& go, float zoom) : gameobject(std::move(go)), zoom(zoom) { };
 Camera::Camera(const Transform& target, float zoom) : target(&target), zoom(zoom) { };
 
 Camera::~Camera() {
     CameraDestroyed(*this);
 }
 
-void Camera::Start(const Gameobject& go) {
-    this->target = &go.GetComponent<Transform>();
+void Camera::Start() {
+    if (target == nullptr)
+        this->target = &gameobject().GetComponent<Transform>();
 }
 
 Position Camera::WorldToScreenPos(const Position& worldPos) const {

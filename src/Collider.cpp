@@ -30,7 +30,7 @@ Collider::~Collider() {
     if (boundingBox != nullptr)
         Fastboi::Destroy(*boundingBox);
 
-    Collision::aabbTree.removeParticle(this);
+    // Collision::aabbTree.removeParticle(this);
 }
 
 void Collider::Start() {

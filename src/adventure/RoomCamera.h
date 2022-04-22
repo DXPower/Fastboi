@@ -7,13 +7,13 @@ namespace Adventure {
         GORef gameobject;        
 
         RoomCamera(GORef&& go) : gameobject(std::move(go)) {
-            Camera& camera = gameobject().AddComponent<Camera>(*gameobject().transform, 0.8f);
-            Fastboi::SetCamera(camera);
-
             Level::roomChangeSignal.connect<&RoomCamera::RoomChanged>(*this);
         }
 
-        void Start(Gameobject& go) {
+        void Start() {
+            Camera& camera = gameobject().AddComponent<Camera>(*gameobject().transform, 0.8f);
+            Fastboi::SetCamera(camera);
+            
             std::cout << "Starting room camera";
         }
 

@@ -13,15 +13,16 @@ namespace Fastboi {
     const Camera& GetCamera();
     
     struct Camera final {
-        const Transform* target;
+        const Transform* target = nullptr;
+        GORef gameobject;
         float zoom = 1.f;
 
-        Camera();
-        Camera(float zoom = 1.f);
+        Camera(GORef&& go);
+        Camera(GORef&& go, float zoom = 1.f);
         Camera(const Transform& target, float zoom = 1.f);
         ~Camera();
 
-        void Start(const Gameobject& go);
+        void Start();
 
         Position WorldToScreenPos(const Position& worldPos) const;
         Position ScreenToWorldPos(const Position& screenPos) const;
