@@ -52,7 +52,7 @@ bool DispatchTargetedClick(const ClickEvent& e) {
                     targets.push_back(tcl);
                 
             } else {
-                Position searchPos = Fastboi::camera.ScreenToWorldPos(e.pos);
+                Position searchPos = Fastboi::GetCamera().ScreenToWorldPos(e.pos);
 
                 if (tcl->transform->ContainsPoint(searchPos))
                     targets.push_back(tcl);

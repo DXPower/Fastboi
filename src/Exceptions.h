@@ -11,5 +11,6 @@ namespace Application {
         , COPY_COMP_NO_DUPE = 7
         , INVALID_COL_LAYER = 8
         , CANNOT_DUPE = 9
+        , NO_CAMERA = 10
     };
 }

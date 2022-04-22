@@ -132,7 +132,7 @@ GameobjectAllocator::Block* GameobjectAllocator::AllocateBlock() {
 
     Chunk::Init(chunks[chunksPerBlock - 1], nullptr);
 
-    printf("Size of block: %lu bytes\n", Block::GetMemSize(chunksPerBlock));
+    // printf("Size of block: %lu bytes\n", Block::GetMemSize(chunksPerBlock));
     return block;
 }
 

@@ -47,17 +47,17 @@ void Resources::LoadImage(const char* key, const char* filename) {
 
     SDL_SetTextureBlendMode(texture, SDL_BLENDMODE_BLEND);
 
-    printf("\nCreating texture %s: %p\n", key, texture);
+    // printf("\nCreating texture %s: %p\n", key, texture);
     textures.emplace(key, texture);
 }
 
 const Texture& Resources::GetTexture(const char* key) {
-    printf("Getting texture %s\n", key);
+    // printf("Getting texture %s\n", key);
 
-    printf("textures size: %i\n", textures.size());
+    // printf("textures size: %i\n", textures.size());
 
-    if (textures.find(key) == textures.end())
-        printf("Doesn't exist!\n");
+    // if (textures.find(key) == textures.end())
+    //     printf("Doesn't exist!\n");
 
     return textures.at(key);
 }
@@ -73,7 +73,7 @@ void Resources::LoadSound(const char* key, const char* filename) {
     sounds.emplace(std::piecewise_construct, std::make_tuple(key), std::make_tuple());
     Wav& w = GetSound(key);
     SoLoud::result res = w.load(pathBuffer);
-    printf("Path: %s Sound loaded: %p. Result: %u\n", pathBuffer, w.mData, res);
+    // printf("Path: %s Sound loaded: %p. Result: %u\n", pathBuffer, w.mData, res);
 }
 
 Wav& Resources::GetSound(const char* key) {

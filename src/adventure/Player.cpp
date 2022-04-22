@@ -73,7 +73,7 @@ void Player::Eat() {
 void Player::RoomChanged(const RoomChangeEvent& e) {
     printf("Changed room!\n");
     
-    Fastboi::camera.SetTarget(*new Transform(e.room.GetCenter()), Camera::OWNING);
+    // Fastboi::camera.SetTarget(*new Transform(e.room.GetCenter()), Camera::OWNING);
     gameobject().GetComponent<ColorComp>() = e.room.GetColor();
 }
 

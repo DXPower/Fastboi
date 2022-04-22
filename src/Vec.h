@@ -106,15 +106,6 @@ namespace Fastboi {
         static constexpr Vec<T> tripleProduct(const Vec<T>& a, const Vec<T>& b, const Vec<T>& c) {
             return (b * dotProduct(a, c)) - (a * dotProduct(b, c));
         }
-
-        // std::size_t ColliderPairKey::Hash::operator()(const ColliderPairKey& cp) const {
-        //     std::size_t a = std::hash<Collider*>()(cp.a);
-        //     std::size_t b = std::hash<Collider*>()(cp.b);
-
-        //     // (a, b) and (b, a) always produce the same hash
-        //     return std::min(a, b) ^ std::max(a, b);
-        // }
-
     };
 
     template<class T>

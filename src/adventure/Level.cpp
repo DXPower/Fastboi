@@ -5,9 +5,7 @@ Room& Level::AddRoom(const Layouts::Layout_t& layout) {
     int x = layout.GetCoords(Level::gcCoords).x;
     int y = layout.GetCoords(Level::gcCoords).y;
 
-    printf("Making room in x,y %i %i...\n", x, y);
     rooms[y][x] = std::make_unique<Room>(layout);
-    printf("Made room there\n");
     return *rooms[y][x];
 }
 

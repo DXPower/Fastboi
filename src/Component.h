@@ -23,8 +23,8 @@ namespace Fastboi {
             ComponentBase(ctti::type_id_t&& tid) : enabled(true), typekey(std::move(tid)) { };
             virtual ~ComponentBase() { };
 
-            virtual void Start() = 0;
-            virtual void Update() = 0;
+            virtual void Start(Gameobject& go) = 0;
+            virtual void Update(Gameobject& go) = 0;
             virtual void Duplicate(ComponentBase& out, Gameobject* parent = nullptr) const = 0;
             virtual ComponentBase& CreateEmpty() const = 0; // Creates a ComponentBase with the same size as Component<T>, for use in GO::Duplicate()
             
@@ -40,8 +40,18 @@ namespace Fastboi {
         };
 
         template<class Component_t>
+        concept HasStartWithGO = requires (Component_t c, Gameobject& go) {
+            c.Start(go);
+        };
+
+        template<class Component_t>
         concept HasUpdate = requires(Component_t c) {
             c.Update();
+        };
+
+        template<class Component_t>
+        concept HasUpdateWithGO = requires (Component_t c, Gameobject& go) {
+            c.Update(go);
         };
 
         template<class Component_t>
@@ -78,16 +88,22 @@ namespace Fastboi {
 
         Component& operator=(const Component& copy) = delete;
 
-        void Start() override {
+        void Start(Gameobject& go) override {
             if constexpr (detail::HasStart<Component_t>) {
                 component->Start();
+            } else if constexpr (detail::HasStartWithGO<Component_t>) {
+                component->Start(go);
             }
         };
 
-        void Update() override { 
+        void Update(Gameobject& go) override {
+            if (!enabled)
+                return;
+
             if constexpr (detail::HasUpdate<Component_t>) {
-                if (enabled)
-                    component->Update();
+                component->Update();
+            } else if constexpr (detail::HasUpdateWithGO<Component_t>) {
+                component->Update(go);
             }
         };
 

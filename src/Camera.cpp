@@ -3,65 +3,58 @@
 
 using namespace Fastboi;
 
-Fastboi::Camera Fastboi::camera;
+namespace Fastboi {
+    const Transform nullTransform;
+    const Camera nullCamera(nullTransform );
+    
+    const Camera* mainCamera = &nullCamera;
+}
 
 void Fastboi::SetCamera(const Camera& cam) {
-    printf("Setting camera...\n");
-    Fastboi::camera.~Camera(); // Destroy the camera in-place, without memory deallocation
-    std::memcpy(&Fastboi::camera, &cam, sizeof(Camera)); // Do byte-by-byte copy because we can't use operator=, due to window being ref
-    //TODO: Rework camera creation
+    mainCamera = &cam;
 }
 
-Camera::Camera() : target(nullptr), type(CameraTarget::WATCHING) { };
+const Camera& Fastboi::GetCamera() {
+    return *mainCamera;
+}
 
-Camera::Camera(const Transform& target, CameraTarget type) : target(&target), type(type), zoom(1.f) {
-    // Application::GetWindowSize(&window.x, &window.y);    
-};
+static void CameraDestroyed(const Camera& cam) {
+    if (mainCamera == &cam)
+        Application::ThrowRuntimeException("Main camera destroyed", Application::NO_CAMERA);
+}
 
-Camera::Camera(const Transform& target, CameraTarget type, float zoom) : target(&target), type(type), zoom(zoom) {
-    // Application::GetWindowSize(&window.x, &window.y);    
-};
+Camera::Camera() : target(nullptr) { };
+
+Camera::Camera(float zoom) : zoom(zoom) { };
+Camera::Camera(const Transform& target, float zoom) : target(&target), zoom(zoom) { };
 
 Camera::~Camera() {
-    printf("Deleting camera...\n");
-
-    if (type == CameraTarget::OWNING) {
-        printf("Deleting target...\n");
-        delete target;
-    }
+    CameraDestroyed(*this);
 }
 
-void Camera::SetTarget(const Transform& target, CameraTarget type) { 
-    if (this->type == CameraTarget::OWNING)
-        delete this->target;
-    
-    this->target = &target;
-    this->type = type;
+void Camera::Start(const Gameobject& go) {
+    this->target = &go.GetComponent<Transform>();
 }
-
-const Transform& Camera::GetTarget() const { 
-    return *target;
-};
 
 Position Camera::WorldToScreenPos(const Position& worldPos) const {
-    return (worldPos - target->position) * zoom + (Vecf) (window / 2);
+    return (worldPos - target->position) * zoom + (Vecf) (Application::GetWindowSize() / 2);
 };
 
 Position Camera::ScreenToWorldPos(const Position& screenPos) const {
-    return  (screenPos - (Vecf) (window / 2)) / zoom + target->position; 
+    return  (screenPos - (Vecf) (Application::GetWindowSize() / 2)) / zoom + target->position; 
 };
 
 bool Camera::IsPointVisible(const Position& worldPos) const {
     Position screenPos = WorldToScreenPos(worldPos);
-    return screenPos.x >= 0 && screenPos.x < window.x
-        && screenPos.y >= 0 && screenPos.y < window.y;
+    return screenPos.x >= 0 && screenPos.x < Application::GetWindowSize().x
+        && screenPos.y >= 0 && screenPos.y < Application::GetWindowSize().y;
 }
 
 BoundingBox Camera::GetVisibleBounds() const {
     BoundingBox bounds;
 
     bounds.lowerBounds = ScreenToWorldPos(Position(0, 0));
-    bounds.upperBounds = ScreenToWorldPos((Position) window);
+    bounds.upperBounds = ScreenToWorldPos((Position) Application::GetWindowSize());
 
     return bounds;
 }

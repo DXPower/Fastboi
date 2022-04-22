@@ -15,8 +15,8 @@ std::mutex debugRectMtx;
 std::stack<RectF> debugRects;
 
 void Rendering::Render_Line(const Position& worldA, const Position& worldB) {
-    Position screenA = Fastboi::camera.WorldToScreenPos(worldA);
-    Position screenB = Fastboi::camera.WorldToScreenPos(worldB);
+    Position screenA = Fastboi::GetCamera().WorldToScreenPos(worldA);
+    Position screenB = Fastboi::GetCamera().WorldToScreenPos(worldB);
 
     SDL_RenderDrawLineF(gRenderer, screenA.x, screenA.y, screenB.x, screenB.y);
 }

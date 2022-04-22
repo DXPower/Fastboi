@@ -8,32 +8,20 @@
 
 namespace Fastboi {
     class Camera;
-    extern Camera camera;
 
     void SetCamera(const Camera& camera);
-
+    const Camera& GetCamera();
+    
     struct Camera final {
-        // This determines whether the Camera should destroy its holding Transform when it itself is destroyed
-        enum CameraTarget {
-            OWNING,
-            WATCHING
-        };
-        
-        private:
         const Transform* target;
-        const Vec<int>& window = Application::GetWindowSize();
-        CameraTarget type;
-
-        public:
         float zoom = 1.f;
 
         Camera();
-        Camera(const Transform& target, CameraTarget type);
-        Camera(const Transform& target, CameraTarget type, float zoom);
+        Camera(float zoom = 1.f);
+        Camera(const Transform& target, float zoom = 1.f);
         ~Camera();
-        
-        void SetTarget(const Transform& target, CameraTarget type);
-        const Transform& GetTarget() const;
+
+        void Start(const Gameobject& go);
 
         Position WorldToScreenPos(const Position& worldPos) const;
         Position ScreenToWorldPos(const Position& screenPos) const;

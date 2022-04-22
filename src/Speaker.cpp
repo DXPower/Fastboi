@@ -89,7 +89,7 @@ void Speaker::SetPanAllHandles(float pan) const {
 
 float Speaker::PanPosition::GetPan(const SoundData* sd) const {
     const Position& pos = speaker->gameobject().transform->position;
-    BoundingBox screen = Fastboi::camera.GetVisibleBounds();
+    BoundingBox screen = Fastboi::GetCamera().GetVisibleBounds();
 
     const float screenCenter = (screen.upperBounds.x + screen.lowerBounds.x) / 2.f;
     // Get relative x where < -1 is past left edge, > 1 is past right edge

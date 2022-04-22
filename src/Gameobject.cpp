@@ -33,7 +33,7 @@ void Gameobject::Start() {
     componentsLock = true;
 
     for (auto& [typekey, comp] : components) {
-        comp->Start();
+        comp->Start(*this);
     }
 
     AddComponentsOnStack();
@@ -52,7 +52,7 @@ void Gameobject::Update() {
         }
 
         for (auto& [typeKey, comp] : components) {
-            comp->Update();
+            comp->Update(*this);
         }
 
         AddComponentsOnStack();
@@ -82,12 +82,6 @@ Gameobject& Gameobject::Duplicate() const {
         detail::ComponentBase& dupComp = comp->CreateEmpty();
         comp->Duplicate(dupComp, &dup);
 
-        if (typekey == ctti::type_id<Fastboi::Components::ColorShiftComp>().hash()) {
-            auto& maincs = GetComponent<Fastboi::Components::ColorShiftComp>();
-
-            Fastboi::Components::ColorShiftComp& cs = *reinterpret_cast<Fastboi::Components::ColorShiftComp*>(dupComp.Retrieve()); 
-        }
-        
         dup.components.emplace(typekey, std::unique_ptr<detail::ComponentBase>(&dupComp));
     }
 
@@ -102,7 +96,7 @@ void Gameobject::AddComponentsOnStack() {
         auto p = std::move(componentsToAdd.top());
         componentsToAdd.pop();
 
-        p.second->Start();
+        p.second->Start(*this);
         
         components.insert(std::move(p));
     }

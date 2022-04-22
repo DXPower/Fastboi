@@ -11,6 +11,7 @@
 #include "Player.h"
 #include "Resources.h"
 #include "Room.h"
+#include "RoomCamera.h"
 
 using namespace Fastboi;
 using namespace Fastboi::Components;
@@ -78,7 +79,6 @@ void Adventure::InitGame() {
     LoadResources();
     LoadLevel1();
 
-    Fastboi::camera.zoom = 0.8f;
     Level::roomChangeSignal.connect<&GameManager::RoomChanged>(manager);
 
     // gSoloud.init(); // init soloud
@@ -114,6 +114,11 @@ void Adventure::LoadLevel1() {
     Room& blackCastleInsideTop = Level::AddRoom(Layouts::blackCastleInsideTop);
 
     Gameobject& player = Instantiate<Player::Inst>(goldCastle.GetTilePos(Vec<int>(9, 9)));
+
+    Gameobject& roomCamera = Instantiate<Gameobject>("RoomCamera");
+    roomCamera.AddComponent<Transform>(Level::GetRoom(player.transform->position).GetCenter());
+    roomCamera.AddComponent<RoomCamera>();
+
     Gameobject& sword = Instantiate<Sword::Inst>(goldCastleInside.GetTilePos(Vec<int>(3, 9)));
     Gameobject& chalise = Instantiate<Chalise::Inst>(blackCastleInsideTop.GetTilePos(7, 9));
     Gameobject& magnet = Instantiate<Magnet::Inst>(blackCastleInsideBot.GetTilePos(16, 9));

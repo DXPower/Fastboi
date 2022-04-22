@@ -27,9 +27,9 @@ namespace Fastboi {
         
         // Gets left corner of a transform (assuming transform.position is center), ignoring rotation
         inline RectF WorldTransformToScreenRect(const Transform& t) {
-            Position screenLeftCorner = Fastboi::camera.WorldToScreenPos(GetLeftCorner(t));
+            Position screenLeftCorner = GetCamera().WorldToScreenPos(GetLeftCorner(t));
 
-            return RectF(screenLeftCorner.x, screenLeftCorner.y, t.size.x * camera.zoom, t.size.y * camera.zoom);
+            return RectF(screenLeftCorner.x, screenLeftCorner.y, t.size.x * GetCamera().zoom, t.size.y * GetCamera().zoom);
         }
 
         template<FillType fill>
