@@ -4,11 +4,20 @@
 
 using namespace Fastboi;
 
+template<typename T>
+T clamp(T low, T val, T high) {
+    return std::max(low, std::min(val, high));
+}
+
 void Rigidbody::ApplyParameters(Transform& t) {
     t.position += velocity * Fastboi::physicsDelta;
     t.rotation += rotVelocity * Fastboi::physicsDelta;
 
     velocity += acceleration * Fastboi::physicsDelta;
+    
+    velocity.x = clamp(-maxVelocity.x, velocity.x, maxVelocity.x);
+    velocity.y = clamp(-maxVelocity.y, velocity.y, maxVelocity.y);
+
     rotVelocity += rotAcceleration * Fastboi::physicsDelta;
 
     const float scaledDrag = (float) drag * Fastboi::physicsDelta;

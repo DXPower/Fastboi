@@ -12,6 +12,7 @@ namespace Fastboi {
 
     struct Rigidbody {
         Velocity velocity = Velocity::zero();
+        Velocity maxVelocity = Velocity(std::numeric_limits<float>::infinity(), std::numeric_limits<float>::infinity());
         Velocity acceleration = Velocity::zero();
         float drag = 0.f;
 

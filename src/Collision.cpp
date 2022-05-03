@@ -156,10 +156,20 @@ void Fastboi::Collision::ResolveColliders(
     , const Collisions_t& collisions
 ) {
     for (const Collision_t& collision : collisions.Get()) {
-        tuple<Velocity, Velocity> finalVelocities = ResolveCollision(collision);
+        const tuple<Velocity, Velocity> finalVelocities = ResolveCollision(collision);
 
         AdvanceTransform(*collision.a.gameobject().transform, get<0>(finalVelocities), 0_deg);
         AdvanceTransform(*collision.b.gameobject().transform, get<1>(finalVelocities), 0_deg);
+
+        if (collision.a.gameobject().HasComponent<Rigidbody>()) {
+            Velocity& curVel = collision.a.gameobject().GetComponent<Rigidbody>().velocity;
+            curVel = Velocity::projection(curVel, get<0>(finalVelocities).ortho());
+        }
+
+        if (collision.b.gameobject().HasComponent<Rigidbody>()) {
+            Velocity& curVel = collision.b.gameobject().GetComponent<Rigidbody>().velocity;
+            curVel = Velocity::projection(curVel, get<1>(finalVelocities).ortho());
+        }
     }
 }
 

@@ -51,6 +51,7 @@ bool Application::InitApplication() {
 
     SDL_SetHint(SDL_HINT_RENDER_DRIVER, "opengl");
 
+    SDL_SetRenderDrawBlendMode(gRenderer, SDL_BLENDMODE_BLEND);
     SDL_SetRenderDrawColor(gRenderer, 255, 255, 255, 255);
     SDL_RenderClear(gRenderer);
 

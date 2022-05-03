@@ -11,6 +11,7 @@
 #include "Transform.h"
 #include <type_traits>
 #include "Vec.h"
+#include <type_traits>
 // #include ".h"
 
 namespace Fastboi {
@@ -52,6 +53,7 @@ namespace Fastboi {
         Gameobject& Duplicate() const;
         
         template<class T, typename... Args>
+        requires detail::ComponentConstructible<T, Args...>
         T& AddComponent(Args&&... args);
 
         template<class T>
@@ -100,6 +102,7 @@ namespace Fastboi {
     
 
     template<class T, typename... Args>
+    requires detail::ComponentConstructible<T, Args...>
     T& Gameobject::AddComponent(Args&&... args) {
         using namespace std;
 

@@ -8,6 +8,7 @@
 #include <type_traits>
 #include <thread>
 #include <vector>
+#include <concepts>
 
 namespace Fastboi {
     struct Collider;
@@ -21,6 +22,9 @@ namespace Fastboi {
     
     // Instatiates gameobject of type GO with arguments args
     template<auto InitFunc, typename... Args>
+    requires requires (Gameobject& go, Args&&... args) {
+        { InitFunc(go, std::forward<Args>(args)...) } -> std::same_as<void>;
+    }
     Gameobject& Instantiate(Args&&... args) {
         extern GameobjectAllocator gameobjectAllocator;
         

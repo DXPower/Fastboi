@@ -12,5 +12,6 @@ namespace Application {
         , INVALID_COL_LAYER = 8
         , CANNOT_DUPE = 9
         , NO_CAMERA = 10
+        , GAME_ERROR = 11
     };
 }

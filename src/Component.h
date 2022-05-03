@@ -34,6 +34,10 @@ namespace Fastboi {
         template<class Component_t, typename... Args>
         concept HasGOConstructor = std::is_constructible_v<Component_t, GORef&&, Args...>;
 
+
+        template<class Component_t, typename... Args>
+        concept ComponentConstructible = HasGOConstructor<Component_t, Args...> || std::is_constructible_v<Component_t, Args...>;
+
         template<class Component_t>
         concept HasStart = requires (Component_t c) {
             c.Start();
@@ -71,7 +75,7 @@ namespace Fastboi {
         };
 
         template<int = 0>
-        requires (!detail::HasGOConstructor<Component_t, Args...>)
+        requires (!detail::HasGOConstructor<Component_t, Args...>) && detail::ComponentConstructible<Component_t, Args...>
         Component(Gameobject& go, Args&&... args)
          : ComponentBase(ctti::type_id<Component_t>())
          , component(std::in_place, std::forward<Args>(args)...) {

@@ -45,6 +45,13 @@ namespace Fastboi {
             return Vec<T>(x / magnitude(), y / magnitude());
         }
 
+        // Returns a vector that is perpendicular to this
+        template<int = 0>
+        requires std::is_signed_v<T>
+        constexpr Vec<T> ortho() const {
+            return Vec<T>(this->y, -this->x);
+        }
+
         // Vector|Vector operators
         constexpr Vec<T>& operator+=(const Vec<T>& v) { x += v.x; y += v.y; return *this; };
         constexpr Vec<T>& operator-=(const Vec<T>& v) { x -= v.x; y -= v.y; return *this; };
@@ -58,7 +65,12 @@ namespace Fastboi {
         constexpr Vec<T>& operator/=(const T& s) { x /= s; y /= s; return *this; };
 
         // Negation operators
+        template<int = 0>
+        requires std::is_signed_v<T>
         constexpr Vec<T> operator-() const { return Vec<T>(-x, -y); };
+        
+        template<int = 0>
+        requires std::is_signed_v<T>
         Vec<T>& negate() { *this *= -1; return *this; };
 
         friend constexpr bool operator!=(const Vec<T>& lhs, const Vec<T>& rhs) { return !(lhs == rhs); };
@@ -105,6 +117,10 @@ namespace Fastboi {
 
         static constexpr Vec<T> tripleProduct(const Vec<T>& a, const Vec<T>& b, const Vec<T>& c) {
             return (b * dotProduct(a, c)) - (a * dotProduct(b, c));
+        }
+
+        static constexpr Vec<T> projection(const Vec<T>& vec, const Vec<T>& line) {
+            return (dotProduct(vec, line) / dotProduct(line, line)) * line;
         }
     };
 

@@ -7,7 +7,7 @@ CC=clang
 CXX=clang++
 CFLAGS = -std=c11
 OPTIM = -O2
-CXXFLAGS = -std=c++20 -D _SILENCE_CLANG_CONCEPTS_MESSAGE -m64 -march=x86-64 -Wfatal-errors -W -Wdelete-abstract-non-virtual-dtor -Wno-unused-parameter -Wno-format -Wno-parentheses-equality -Xclang -flto-visibility-public-std -frelaxed-template-template-args 
+CXXFLAGS = -std=c++20 -D _SILENCE_CLANG_CONCEPTS_MESSAGE -m64 -march=x86-64 -Wfatal-errors -W -Wdelete-abstract-non-virtual-dtor -Wno-unused-parameter -Wno-format -Wno-parentheses-equality -Xclang -flto-visibility-public-std -frelaxed-template-template-args -fsanitize=undefined
 CXXFLAGS_PROF = -std=c++20 -O2 -D TBB_USE_THREADING_TOOLS -g -m64 -march=x86-64 -Wfatal-errors -W -Wdelete-abstract-non-virtual-dtor -Wno-unused-parameter -Wno-format -Wno-parentheses-equality -Xclang -flto-visibility-public-std -frelaxed-template-template-args 
 CXX_LINKS = -L./lib/ -lSDL2main -lSDL2 -lSDL2_image -llibsoloud_static
 DEBUGFLAGS = -ggdb -D DEBUG
@@ -31,9 +31,9 @@ COMPILE_TEST.cpp = $(CXX) $(DEFINES) $(TESTDEPFLAGS) $(CXXFLAGS) -c -g
 
 $(DEPDIR): ; @mkdir -p $@
 
-GAME_SRC = $(ADVENTURE_SRC)
-GAME_INC = $(ADVENTURE_INC)
-EXE_NAME = $(EXE_NAME_ADVENTURE)
+GAME_SRC = $(MINECRAFT_SRC)
+GAME_INC = $(MINECRAFT_INC)
+EXE_NAME = $(EXE_NAME_MINECRAFT)
 
 APP_OBJS = \
 	$(patsubst src/$(EXE_NAME)/%.cpp,out/obj/$(EXE_NAME)/%.o,$(GAME_SRC)) \
@@ -52,10 +52,12 @@ DEPENDS := $(patsubst src/%.c,out/obj/%.d,$(DEPENDS))
 -include $(DEPENDS)
 
 $(OBJDIR)/%.o : src/%.c
-	$(COMPILE.c) $(APP_INC) $(GAME_INC) $(OUTPUT_OPTION) $<
+	@echo [BUILD C]   $<
+	@$(COMPILE.c) $(APP_INC) $(GAME_INC) $(OUTPUT_OPTION) $<
 
 $(OBJDIR)/%.o : src/%.cpp
-	$(COMPILE.cpp) $(APP_INC) $(GAME_INC) $(GAME_HEADERS) $(OUTPUT_OPTION) $<
+	@echo [BUILD CXX] $<
+	@$(COMPILE.cpp) $(APP_INC) $(GAME_INC) $(GAME_HEADERS) $(OUTPUT_OPTION) $<
 
 $(TESTDIR)/%.o : src/%.c
 	$(COMPILE_TEST.c) $(APP_INC) $(OUTPUT_OPTION) $<
