@@ -1,7 +1,9 @@
 #pragma once
 
+#include <optional>
 #include "RenderOrder.h"
 #include "GORef.h"
+#include "UI/Screen.h"
 
 namespace Fastboi {
     struct Gameobject;
@@ -17,6 +19,8 @@ namespace Fastboi {
         public:
         GORef gameobject;
         RenderData data;
+
+        std::optional<UI::Screen> screen;
 
         public:
         Renderer(GORef&& go);

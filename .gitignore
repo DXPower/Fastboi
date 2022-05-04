@@ -1,5 +1,7 @@
 # out files
 out/obj/*.*
+out/obj/UI/*.*
+out/obj/minecraft/*.*
 out/obj/slowboi/*.*
 out/obj/adventure/*.*
 out/obj/containmentsimulator/*.*
@@ -10,6 +12,9 @@ out/test/test/*.*
 *.exe
 *.ilk
 *.pdb
+*.exp
+*.d.lib
+*.lib
 
 clangd_output.json
 times.*

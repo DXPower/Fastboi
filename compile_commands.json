@@ -42,6 +42,7 @@
    "src/minecraft/Game.cpp",
    "src/minecraft/Player.cpp",
    "src/minecraft/World.cpp",
+   "src/UI/Screen.cpp",
    "src/AABB.cpp",
    "src/Angles.cpp",
    "src/Application.cpp",

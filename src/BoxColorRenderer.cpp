@@ -1,4 +1,5 @@
 #include "BoxColorRenderer.h"
+#include "Rendering.h"
 
 using namespace Fastboi;
 using namespace Fastboi::Components;
@@ -21,7 +22,12 @@ void BoxColorRenderer::Start() {
 
 void BoxColorRenderer::Render() {
     Rendering::SetColor(color->r, color->g, color->b, color->a);
-    Rendering::Render_Rect<Rendering::FILLED>(gameobject().transform);
+
+    if (screen.has_value()) {
+        Rendering::RenderScreen_Rect<Rendering::FILLED>(screen->RelativizeTransform(*gameobject().transform));
+    } else {
+        Rendering::Render_Rect<Rendering::FILLED>(gameobject().transform);
+    }
 }
 
 Renderer& BoxColorRenderer::Duplicate() const {

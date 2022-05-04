@@ -83,7 +83,7 @@ debug:
 	$(COMPILE.d.cpp) -O0 $(CXXFLAGS) $(GAME_SRC) $(ENGINE_SRC) -Isrc/ $(GAME_INC) -Iinc/ -o $(EXE_NAME).d.exe $(CXX_LINKS) -Wno-deprecated
 
 link:
-	clang++ -Xclang -flto-visibility-public-std -o $(EXE_NAME).exe out/obj/*.o out/obj/$(EXE_NAME)/*.o $(CXX_LINKS)
+	clang++ -Xclang -flto-visibility-public-std -o $(EXE_NAME).exe out/obj/*.o out/obj/UI/*.o out/obj/$(EXE_NAME)/*.o $(CXX_LINKS)
  
 link_test:
 	clang++ -Xclang -flto-visibility-public-std -g -o test.exe out/test/*.o out/test/test/*.o $(CXX_LINKS)

@@ -8,10 +8,10 @@
 #include "Renderer.h"
 #include "SDL/SDL_events.h"
 #include "SDL/SDL_mouse.h"
-#include "ScreenElement.h"
 #include "Timer.h"
 #include "Transform.h"
 #include <unordered_map>
+#include "UI/Screen.h"
 
 using namespace Fastboi;
 using namespace Input;
@@ -44,13 +44,14 @@ bool DispatchTargetedClick(const ClickEvent& e) {
     // Get all the transform targets which are under the mouse
     for (const TargetedClickListener* tcl : targetedClickListeners) {
         if (tcl->transform != nullptr) {
-            if (tcl->transform->gameobject().HasComponent<ScreenElement>()) {
-                Transform screenT = tcl->transform->gameobject().GetComponent<ScreenElement>().GetScreenTransform();
+            if (tcl->renderer && tcl->renderer->screen.has_value()) {
+                const UI::Screen& screen = tcl->renderer->screen.value();
+
+                Transform screenT = screen.RelativizeTransform(*tcl->transform);
                 Position searchPos = static_cast<Position>(e.pos);
 
                 if (screenT.ContainsPoint(searchPos))
                     targets.push_back(tcl);
-                
             } else {
                 Position searchPos = Fastboi::GetCamera().ScreenToWorldPos(e.pos);
 

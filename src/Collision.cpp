@@ -6,7 +6,6 @@
 #include "Gameobject.h"
 #include "GameobjectAllocator.h"
 #include <limits>
-#include "Rendering.h"
 #include "Rigidbody.h"
 #include <stdint.h>
 

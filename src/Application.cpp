@@ -46,6 +46,7 @@ bool Application::InitApplication() {
 
     if (Application::gRenderer == nullptr) {
         std::cout << "Renderer could not be created" << std::endl;
+        std::cout << SDL_GetError() << std::endl;
         return false;
     }
 
