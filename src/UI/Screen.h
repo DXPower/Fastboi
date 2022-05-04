@@ -6,7 +6,7 @@ namespace Fastboi {
     class Transform;
 
     namespace UI {
-        using RelativeFunc_t = std::function<float(const Transform& parent)>;
+        using RelativeFunc_t = std::function<float(Size selfSize, const Transform& parent)>;
 
         struct ScreenspaceCoord {
             RelativeFunc_t x;
@@ -29,11 +29,14 @@ namespace Fastboi {
             Screen(const ScreenspaceCoord& anchor) : anchor(anchor) { }
             Screen(const ScreenspaceCoord& anchor, const ScreenspaceCoord& scale) : anchor(anchor), scale(scale) { }
 
-            Vec<float> CalculateAnchor(const Transform& parent) const { return { anchor.x(parent), anchor.y(parent) }; }
-            Vec<float> CalculateAnchor() const { return CalculateAnchor(nullTransform); }
-            Vec<float> CalculateScale(const Transform& parent) const  { return { scale.x(parent),  scale.y(parent) }; }
-            Vec<float> CalculateScale() const  { return CalculateScale(nullTransform); }
+            Vec<float> CalculateAnchor(Size selfSize, const Transform& parent) const { return { anchor.x(selfSize, parent), anchor.y(selfSize, parent) }; }
+            Vec<float> CalculateScale(Size selfSize, const Transform& parent) const  { return { scale.x(selfSize, parent),  scale.y(selfSize, parent) }; }
 
+            /*
+             * New transform is:
+             * Size: self.size * scale(self.size, self.parent)
+             * Position: self.position + anchor(newSize, self.parent)
+            */
             Transform RelativizeTransform(const Transform& self) const;
         };
     }

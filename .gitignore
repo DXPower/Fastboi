@@ -19,6 +19,9 @@ out/test/test/*.*
 clangd_output.json
 times.*
 
+.clangd/
+.cache/
+
 # lib/dll files
 *.dll
 lib/*

@@ -3,6 +3,7 @@
 #include <utility>
 #include <type_traits>
 #include <functional>
+#include <concepts>
 #include "Application.h"
 #include "Transform.h"
 
@@ -16,6 +17,9 @@ namespace Fastboi {
         constexpr struct ScreenTop_t {}     ScreenTop;
         constexpr auto                      ScreenBottom = ScreenHeight;
 
+        constexpr struct SelfWidth_t {}     SelfWidth;
+        constexpr struct SelfHeight_t {}    SelfHeight;
+
         constexpr struct ParentWidth_t {}   ParentWidth;
         constexpr struct ParentHeight_t {}  ParentHeight;
  
@@ -23,16 +27,6 @@ namespace Fastboi {
         constexpr struct ParentRight_t {}   ParentRight;
         constexpr struct ParentTop_t {}     ParentTop;
         constexpr struct ParentBottom_t {}  ParentBottom;
-
-        constexpr struct ScreenCenter_t {
-            struct ScreenCenterX_t {} x;
-            struct ScreenCenterY_t {} y;
-        } ScreenCenter;
-
-        constexpr struct ParentCenter_t {
-            struct ParentCenterX_t {} x;
-            struct ParentCenterY_t {} y;
-        } ParentCenter;
 
         template<typename Check, typename... Args>
         constexpr bool is_same_list_v = std::disjunction_v<std::is_same<Check, Args>...>;
@@ -44,16 +38,14 @@ namespace Fastboi {
             , ScreenHeight_t
             , ScreenLeft_t
             , ScreenTop_t
+            , SelfWidth_t
+            , SelfHeight_t
             , ParentWidth_t
             , ParentHeight_t
             , ParentLeft_t
             , ParentRight_t
             , ParentTop_t
             , ParentBottom_t
-            , ScreenCenter_t::ScreenCenterX_t
-            , ScreenCenter_t::ScreenCenterY_t
-            , ParentCenter_t::ParentCenterX_t
-            , ParentCenter_t::ParentCenterY_t
         >;
 
         template<typename T>
@@ -65,8 +57,10 @@ namespace Fastboi {
             struct Node {
                 T value;
 
-                auto operator()(const Transform& transform) const {
-                    return value(transform);
+                template<typename X = int>
+                requires std::invocable<T, Size, const Transform&>
+                auto operator()(Size selfSize, const Transform& transform) const {
+                    return value(selfSize, transform);
                 }
             };
 
@@ -74,7 +68,7 @@ namespace Fastboi {
             struct Node<T> {
                 T value;
 
-                auto operator()(const Transform& transform) const {
+                auto operator()(Size selfSize, const Transform& transform) const {
                     if constexpr (std::is_same_v<T, ScreenWidth_t>)
                         return Application::GetWindowSize().x;
                     else if constexpr (std::is_same_v<T, ScreenHeight_t>)
@@ -83,6 +77,10 @@ namespace Fastboi {
                         return 0.f;
                     else if constexpr (std::is_same_v<T, ScreenTop_t>)
                         return 0.f;
+                    else if constexpr (std::is_same_v<T, SelfWidth_t>)
+                        return selfSize.x;
+                    else if constexpr (std::is_same_v<T, SelfHeight_t>)
+                        return selfSize.y;
                     else if constexpr (std::is_same_v<T, ParentWidth_t>)
                         return transform.size.x;
                     else if constexpr (std::is_same_v<T, ParentHeight_t>)
@@ -95,14 +93,6 @@ namespace Fastboi {
                         return transform.position.y - transform.size.y/2;
                     else if constexpr (std::is_same_v<T, ParentBottom_t>)
                         return transform.position.y + transform.size.y/2;
-                    else if constexpr (std::is_same_v<T, ScreenCenter_t::ScreenCenterX_t>)
-                        return Application::GetWindowSize().x / 2;
-                    else if constexpr (std::is_same_v<T, ScreenCenter_t::ScreenCenterY_t>)
-                        return Application::GetWindowSize().y / 2;
-                    else if constexpr (std::is_same_v<T, ParentCenter_t::ParentCenterX_t>)
-                        return transform.position.x;
-                    else if constexpr (std::is_same_v<T, ParentCenter_t::ParentCenterY_t>)
-                        return transform.position.y;
                 }
             };
 
@@ -110,7 +100,7 @@ namespace Fastboi {
             struct Node<T> {
                 T value;
 
-                const T& operator()(const Transform&) const {
+                const T& operator()(Size selfSize, const Transform&) const {
                     return value;
                 }
             };
@@ -120,8 +110,8 @@ namespace Fastboi {
 
             constexpr ScreenspaceExpression(const L& l, const R& r, Callable&&) : left{l}, right{r} { }
 
-            auto operator()(const Transform& transform) const {
-                return Callable{}(left(transform), right(transform));
+            auto operator()(Size selfSize, const Transform& parent) const {
+                return Callable{}(left(selfSize, parent), right(selfSize, parent));
             }
         };
 

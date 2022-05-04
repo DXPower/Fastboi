@@ -6,7 +6,7 @@
 #include "Input.h"
 #include "Player.h"
 #include "Block.h" 
-#include "UI/ScreenspaceExpression.h"
+#include "UI/CommonLayouts.h"
 #include "World.h"
 #include "BlockHighlighter.h"
 
@@ -47,6 +47,7 @@ void Minecraft::InitGame() {
     Gameobject& highlighter = Instantiate<BlockHighlighter::Inst>();
 
     using namespace UI;
+    using namespace Layouts;
 
     Gameobject& uiThingy = Instantiate<Gameobject>();
     Gameobject& uiChild = Instantiate<Gameobject>("UI Thingy");
@@ -57,10 +58,10 @@ void Minecraft::InitGame() {
     auto& renderer1 = uiThingy.AddComponent<Components::BoxColorRenderer>(RenderData(RenderOrder::UI, 0));
     auto& renderer2 = uiChild.AddComponent<Components::BoxColorRenderer>(RenderData(RenderOrder::UI, 10));
     
-    uiThingy.AddComponent<Transform>(Position(0, 100), Size(1, 1), 0_deg);
+    uiThingy.AddComponent<Transform>(Position(0, 0), Size(1, 1), 0_deg);
 
     renderer1.screen = Screen(
-        Anchor{ ScreenWidth / 2.f, ScreenConst(ScreenTop) },
+        Anchor{ Center::Screen.x, PushWithMargin(PushTop::Screen, 25) },
         Scale{ ScreenWidth * 0.75f, ScreenConst(100.f) }
     );
 
@@ -68,8 +69,8 @@ void Minecraft::InitGame() {
     uiChild.transform->Parent(*uiThingy.transform);
 
     renderer2.screen = Screen(
-        Anchor{ ParentLeft + ParentWidth * 0.1f, ScreenConst(ParentCenter.y) },
-        Scale{ ParentHeight / 2, ParentHeight * 0.4f }
+        PushBottomMiddle::Parent,
+        ScaleBy::Parent(0.9f, 0.5f)
     );
 
     uiChild.AddComponent<RandomColorChanger>();

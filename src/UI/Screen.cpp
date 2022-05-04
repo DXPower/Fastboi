@@ -16,8 +16,10 @@ Transform Screen::RelativizeTransform(const Transform& self) const {
         parentRelative = parentScreen.RelativizeTransform(parent);
     }
 
-    Vec<float> anchor = CalculateAnchor(parentRelative);
-    Vec<float> scale = CalculateScale(parentRelative);
+    Vec<float> scale = CalculateScale(self.size, parentRelative);
+    Size newSize = self.size * scale;
+    
+    Vec<float> anchor = CalculateAnchor(newSize, parentRelative);
 
-    return Transform(anchor + self.position, self.size * scale, self.rotation);
+    return Transform(anchor + self.position, newSize, self.rotation);
 }

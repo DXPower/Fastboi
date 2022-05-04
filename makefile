@@ -7,7 +7,7 @@ CC=clang
 CXX=clang++
 CFLAGS = -std=c11
 OPTIM = -O2
-CXXFLAGS = -std=c++20 -D _SILENCE_CLANG_CONCEPTS_MESSAGE -m64 -march=x86-64 -Wfatal-errors -W -Wdelete-abstract-non-virtual-dtor -Wno-unused-parameter -Wno-format -Wno-parentheses-equality -Xclang -flto-visibility-public-std -frelaxed-template-template-args -fsanitize=undefined
+CXXFLAGS = -std=c++20 -D _SILENCE_CLANG_CONCEPTS_MESSAGE -m64 -march=x86-64 -Wfatal-errors -W -Wdelete-abstract-non-virtual-dtor -Wno-unused-parameter -Wno-format -Wno-parentheses-equality -Xclang -flto-visibility-public-std -frelaxed-template-template-args
 CXXFLAGS_PROF = -std=c++20 -O2 -D TBB_USE_THREADING_TOOLS -g -m64 -march=x86-64 -Wfatal-errors -W -Wdelete-abstract-non-virtual-dtor -Wno-unused-parameter -Wno-format -Wno-parentheses-equality -Xclang -flto-visibility-public-std -frelaxed-template-template-args 
 CXX_LINKS = -L./lib/ -lSDL2main -lSDL2 -lSDL2_image -llibsoloud_static
 DEBUGFLAGS = -ggdb -D DEBUG
