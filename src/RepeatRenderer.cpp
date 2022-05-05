@@ -41,7 +41,8 @@ Renderer& RepeatRenderer::Duplicate() const {
 void RepeatRenderer::CreateRepeatTexture(const Size& newSize) {
     repeatTexture.Recreate(gameobject().transform->size, SDL_TEXTUREACCESS_TARGET, baseTexture.GetFormat());                                       
 
-    const Size& size = gameobject().transform->size; // Using Size& size instead of newSize for cache locality
+    // const Size& size = gameobject().transform->size; // Using Size& size instead of newSize for cache locality
+    const Size& size = newSize;
 
     // Count tiles in each direction. +1 because we are guarenteeing that one tile is exactly centered,
     //   meaning there is always an odd number of tiles in each direction.
@@ -65,7 +66,7 @@ void RepeatRenderer::CreateRepeatTexture(const Size& newSize) {
     }
 }
 
-void RepeatRenderer::WindowSizeChanged(const Fastboi::WindowResizeEvent& e) {
+void RepeatRenderer::WindowSizeChanged(const Fastboi::WindowResizeEvent&) {
     printf("Repeat renderer: Window size changed.\n");
     CreateRepeatTexture(gameobject().transform->size);
 }

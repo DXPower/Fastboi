@@ -6,7 +6,7 @@
 
 #include "Spritesheet.h"
 
-int main(int argc, char* args[]) {
+int main([[maybe_unused]] int argc, [[maybe_unused]] char* args[]) {
     std::cout << "Starting..." << std::endl;
 
     if (Application::InitApplication()) {
@@ -17,4 +17,6 @@ int main(int argc, char* args[]) {
     }
 
     Application::Cleanup();
+
+    return 0;
 }

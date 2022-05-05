@@ -100,7 +100,7 @@ namespace Fastboi {
             struct Node<T> {
                 T value;
 
-                const T& operator()(Size selfSize, const Transform&) const {
+                const T& operator()([[maybe_unused]] Size selfSize, const Transform&) const {
                     return value;
                 }
             };

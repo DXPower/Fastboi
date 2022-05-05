@@ -4,12 +4,26 @@
 #include <vector>
 
 namespace Adventure {
-    struct RoomObserver;
+    struct RoomObserver {
+        GORef go;
+        Room* curRoom = nullptr;
+        Rigidbody* rb = nullptr;
+
+        RoomObserver(GORef&& go) : go(std::move(go)) { }
+
+        void Start();
+        void Update();
+
+        void ForceTeleport(const Position& pos);
+
+        private:
+        void ChangeRoom(Room& room);
+    };
 
     struct RoomChangeEvent {
         Room& room;
         Gameobject& player;
-    };
+    };;
 
     struct Level {
         private:
@@ -39,21 +53,5 @@ namespace Adventure {
         static void SetLevelSize(size_t x, size_t y);
 
         friend struct RoomObserver; // In charge of watching player and firing roomChangeSignal
-    };
-
-    struct RoomObserver {
-        GORef go;
-        Room* curRoom = nullptr;
-        Rigidbody* rb = nullptr;
-
-        RoomObserver(GORef&& go) : go(std::move(go)) { }
-
-        void Start();
-        void Update();
-
-        void ForceTeleport(const Position& pos);
-
-        private:
-        void ChangeRoom(Room& room);
     };
 }

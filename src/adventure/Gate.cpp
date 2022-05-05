@@ -10,7 +10,7 @@ using namespace Adventure;
 constexpr Vec<int> gateSpriteSize{14, 32};
 constexpr Size gateSize{2 * Room::GetTileSize().y * (float) gateSpriteSize.x / (float) gateSpriteSize.y, 2 * Room::GetTileSize().y};
 
-Gate::Gate(GORef&& go, KeyColor color, const Room& inside) : go(std::move(go)), color(color), inside(inside) { }
+Gate::Gate(GORef&& go, KeyColor color, const Room& inside) : go(std::move(go)), inside(inside), color(color) { }
 
 void Gate::Start() {
     if (!Reqs::HasRequiredComponents(go())) {

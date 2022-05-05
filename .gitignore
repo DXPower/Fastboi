@@ -1,13 +1,12 @@
-# out files
-out/obj/*.*
-out/obj/UI/*.*
-out/obj/minecraft/*.*
-out/obj/slowboi/*.*
-out/obj/adventure/*.*
-out/obj/containmentsimulator/*.*
-out/test/*.*
-out/test/Slowboi/*.*
-out/test/test/*.*
+# Cmake
+CMakeFiles/
+pkg/
+cmake_install.cmake
+CMakeCache.txt
+
+# deps
+deps/
+
 
 *.exe
 *.ilk

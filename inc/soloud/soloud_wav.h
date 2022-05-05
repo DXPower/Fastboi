@@ -71,7 +71,4 @@ namespace SoLoud
 	};
 };
 
-#undef max
-#undef min
-#undef LoadImage
 #endif

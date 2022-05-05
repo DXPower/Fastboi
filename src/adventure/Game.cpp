@@ -125,6 +125,8 @@ void Adventure::LoadLevel1() {
     Gameobject& bridge = Instantiate<Bridge::Inst>(mazeGrail.GetTilePos(5, 7) + Room::GetTileSize() * 0.5f);
 
     Gameobject& goldKey = Instantiate<Key::Inst>(goldCastle.GetTilePos(Vec<int>(4, 5)), KeyColor::GOLD);
+    goldKey.name = "GoldKey";
+    
     Gameobject& blackKey = Instantiate<Key::Inst>(greenDragonRm.GetTilePos(Vec<int>(4, 4)), KeyColor::BLACK);
 
     Gameobject& goldGate = Instantiate<Gate::Inst>(

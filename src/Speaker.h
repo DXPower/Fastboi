@@ -43,14 +43,14 @@ namespace Fastboi {
 
         struct PanNone : PanBase {
             PanNone(const Speaker* speaker) : PanBase(speaker) { };
-            float GetPan(const SoundData* sd) const override { return 0.f; };
+            float GetPan(const SoundData*) const override { return 0.f; };
         };
 
         struct PanConstant : PanBase {
             float panAmt;
 
             PanConstant(const Speaker* speaker, float panAmt) : PanBase(speaker), panAmt(panAmt) { };
-            float GetPan(const SoundData* sd) const override { return panAmt; };
+            float GetPan(const SoundData*) const override { return panAmt; };
         };
 
         struct PanPosition : PanBase {
@@ -67,6 +67,9 @@ namespace Fastboi {
             float GetPan(const SoundData* sd) const override { return panFunc(*sd); };
         };
 
+        public:
+        GORef gameobject;
+
         private:
         std::unique_ptr<PanBase> panner;
         PanType panning;
@@ -74,8 +77,6 @@ namespace Fastboi {
         std::vector<SoundData> soundsPlaying;
 
         public:
-        GORef gameobject;
-
         Speaker(GORef&& go);
         Speaker(const Speaker& copy);
 

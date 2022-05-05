@@ -552,7 +552,4 @@ namespace SoLoud
 	};
 };
 
-#undef min
-#undef max
-#undef LoadImage
 #endif

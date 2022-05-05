@@ -8,10 +8,10 @@ using namespace Fastboi;
 Gameobject::Gameobject() : Gameobject("") { }
 
 Gameobject::Gameobject(const std::string& name)
- : transform(nullptr)
+ : name(name)
+ , transform(nullptr)
  , renderer(nullptr)
- , collider(nullptr)
- , name(name) { };
+ , collider(nullptr) { }
 
 Gameobject::~Gameobject() {
     isDestroying = true;

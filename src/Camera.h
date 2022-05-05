@@ -7,14 +7,14 @@
 #include <type_traits>
 
 namespace Fastboi {
-    class Camera;
+    struct Camera;
 
     void SetCamera(const Camera& camera);
     const Camera& GetCamera();
     
     struct Camera final {
-        const Transform* target = nullptr;
         GORef gameobject;
+        const Transform* target = nullptr;
         float zoom = 1.f;
 
         Camera(GORef&& go);

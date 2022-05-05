@@ -11,7 +11,7 @@ using namespace Adventure;
 constexpr Vec<int> dragonSpriteSize(16, 44);
 
 Dragon::Dragon(GORef&& go, Gameobject& player, const Room& room, const DragonStats& stats)
- : go(std::move(go)), player(player), room(&room), stats(stats) { }
+ : go(std::move(go)), room(&room), stats(stats), player(player) { }
 
 void Dragon::Start() {
     Reqs::StandardThrowingCheck(go());

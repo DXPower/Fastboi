@@ -9,13 +9,16 @@
 #include "soloud/soloud.h"
 #include "soloud/soloud_wav.h"
 
+#undef min
+#undef max
+
 using namespace Fastboi;
 
 Speaker::Speaker(GORef&& go) : gameobject(std::move(go)), panner(nullptr) {
     SetPan<PanType::NONE>();
 };
 
-Speaker::Speaker(const Speaker& copy) : panning(copy.panning), panner(nullptr) {
+Speaker::Speaker(const Speaker& copy) : panner(nullptr), panning(copy.panning) {
     switch (panning) {
         case PanType::NONE:
             SetPan<PanType::NONE>();
@@ -87,7 +90,7 @@ void Speaker::SetPanAllHandles(float pan) const {
     }
 }
 
-float Speaker::PanPosition::GetPan(const SoundData* sd) const {
+float Speaker::PanPosition::GetPan(const SoundData*) const {
     const Position& pos = speaker->gameobject().transform->position;
     BoundingBox screen = Fastboi::GetCamera().GetVisibleBounds();
 

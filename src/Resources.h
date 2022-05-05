@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Vec.h"
+#undef LoadImageA
 
 struct SDL_Surface;
 struct SDL_Texture;

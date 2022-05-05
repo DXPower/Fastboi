@@ -47,6 +47,6 @@ namespace Fastboi {
         virtual Renderer& Duplicate() const = 0;
 
         friend void Fastboi::Render();
-        friend class Gameobject;
+        friend struct Gameobject;
     };
 };

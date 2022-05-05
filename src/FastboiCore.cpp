@@ -147,12 +147,12 @@ void Fastboi::Physics() {
     Collision::PotentialCollisions_t potentialCollisions;
     Collision::Collisions_t collisions;
 
-    std::lock_guard lock(renderingMtx);
+    // std::lock_guard lock(renderingMtx);
 
     Collision::ProgressRigidbodies();
     Collision::BroadPhase(colliders, potentialCollisions);
     Collision::NarrowPhase(potentialCollisions, collisions);
-    Collision::ResolveColliders(colliders, collisions);
+    Collision::ResolveColliders(collisions);
 
     Transform::UpdateAllParentRelations(); // Apply all updates to childrens' positions
 

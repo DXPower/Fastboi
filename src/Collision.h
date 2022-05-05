@@ -71,7 +71,7 @@ namespace Fastboi {
         void ProgressRigidbodies();
         void BroadPhase(const Colliders_t& colliders, PotentialCollisions_t& potentialCollisions);
         void NarrowPhase(const PotentialCollisions_t& potentialCollisions, Collisions_t& collisions);
-        void ResolveColliders(const Colliders_t& allColliders, const Collisions_t& collisions);
+        void ResolveColliders(const Collisions_t& collisions);
         void DispatchCollisions(const Collisions_t& collisions);
         std::tuple<Velocity, Velocity> ResolveCollision(const Collision_t& collision);
 

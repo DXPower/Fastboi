@@ -3,7 +3,7 @@
 #include "ScreenspaceExpression.h"
 
 namespace Fastboi {
-    class Transform;
+    struct Transform;
 
     namespace UI {
         using RelativeFunc_t = std::function<float(Size selfSize, const Transform& parent)>;

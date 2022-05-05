@@ -53,7 +53,7 @@ GameobjectAllocator::GameobjectAllocator() {
     const std::size_t chunksSpace = blockTotSize - Block::GetMemBaseSize();
     
     chunksPerBlock = chunksSpace / sizeof(Chunk);
-    printf("Chunks per block: %lu\n", chunksPerBlock);
+    printf("Chunks per block: %llu\n", chunksPerBlock);
 }
 
 void* GameobjectAllocator::Allocate() {
@@ -139,7 +139,7 @@ GameobjectAllocator::Block* GameobjectAllocator::AllocateBlock() {
 #define likely(x)       __builtin_expect((x),1)
 #define unlikely(x)     __builtin_expect((x),0)
 
-GameobjectAllocator::iterator GameobjectAllocator::iterator::operator++(int _) {
+GameobjectAllocator::iterator GameobjectAllocator::iterator::operator++(int) {
     if (unlikely(block == nullptr)) return *this;
 
     if (likely(cn != block->numChunks - 1)) {

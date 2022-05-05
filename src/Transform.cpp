@@ -99,11 +99,7 @@ void Transform::AddChild(Transform& child) {
 }
 
 void Transform::RemoveChild(const Transform& child) {
-    for (auto it = children.begin(); it != children.end(); it++) {
-        children.erase(it);
-        break;
-
-    }
+    std::erase(children, &child);
 }
 
 void Transform::UpdateLastPosRot() {
@@ -137,8 +133,8 @@ void Transform::UpdateChildren(Position deltaPos, Degree deltaRot) {
     }
     
     // Save our new position from the propogation
-    position += deltaPos;
-    rotation += deltaRot;
+    position += deltaPos;  
+    rotation += deltaRot; 
 
     // We only track last pos/rot if we have children
     if (children.size() != 0)

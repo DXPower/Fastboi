@@ -54,7 +54,7 @@ void Chalise::Update() {
 }
 
 void Chalise::RoomChanged(const RoomChangeEvent& e) {
-    if (go().GetComponent<Item>().isHeld && &Level::GetRoom(go().transform->Parent().position) == manager.goldCastleInside) {
+    if (go().GetComponent<Item>().isHeld && &e.room == manager.goldCastleInside) {
         manager.WinGame();
 
         playWinSequence = true;

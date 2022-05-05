@@ -16,7 +16,6 @@ inline size_t hash_cstring(const char* p) {
 
 struct cstring_hasher {
    std::size_t __attribute__((flatten)) operator()(const char* const& p) const {
-      printf("cstring hash: %lu\n", hash_cstring(p));
       return hash_cstring(p);
    };
 };

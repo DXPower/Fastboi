@@ -28,6 +28,9 @@ namespace Adventure {
     struct Dragon {
         using Reqs = RequiredComponents<Collider, Rigidbody, SpriteRenderer>;
 
+        GORef go;
+        const Room* room;
+
         private:
         struct Jaws {
             GORef go;
@@ -46,13 +49,9 @@ namespace Adventure {
 
         Timer biteTimer;
         bool isBiting = false;
-        bool isDead = false;
         bool giveChase = false;
 
         public:
-        GORef go;
-        const Room* room;
-
         Dragon(GORef&& go, Gameobject& player, const Room& room, const DragonStats& stats);
 
         void Start();

@@ -13,12 +13,6 @@ namespace Fastboi {
     void Physics();
 
     struct Transform final {
-        private:
-        std::unique_ptr<Shape> shape;
-
-        Transform* parent = nullptr;
-        std::vector<Transform*> children;
-
         public:
         GORef gameobject;
 
@@ -26,6 +20,13 @@ namespace Fastboi {
         Size size;
         Degree rotation;
 
+        private:
+        std::unique_ptr<Shape> shape;
+
+        Transform* parent = nullptr;
+        std::vector<Transform*> children;
+
+        public:
         Transform();
         Transform(Position position);
         Transform(Position position, Size size, Degree rot);

@@ -34,6 +34,10 @@ namespace Fastboi {
             }
         };
 
+        public:
+        GORef gameobject;
+
+        private:
         std::vector<ColDat> currentCollisions;
         std::vector<ColDat> pendingCollisions;
         Gameobject* boundingBox = nullptr;
@@ -54,7 +58,6 @@ namespace Fastboi {
         CollisionMask mask;
 
         Fastboi::Signal<void(const Fastboi::CollisionEvent&)> collisionSignal;
-        GORef gameobject;
 
         Collider(GORef&& gameobject);
         Collider(GORef&& gameobject, uint_fast8_t flags, CollisionLayer layer);
@@ -89,7 +92,7 @@ namespace Fastboi {
 
         friend void Fastboi::Collision::BroadPhase(const Colliders_t&, PotentialCollisions_t&);
         friend void Fastboi::Collision::NarrowPhase(const PotentialCollisions_t&, Collisions_t&);
-        friend void Fastboi::Collision::ResolveColliders(const Colliders_t&, const Collisions_t&);
+        friend void Fastboi::Collision::ResolveColliders(const Collisions_t&);
         friend std::tuple<Velocity, Velocity> Fastboi::Collision::ResolveCollision(const Collision_t&);
         friend void Fastboi::Collision::DispatchCollisions(const Collisions_t&);
     };

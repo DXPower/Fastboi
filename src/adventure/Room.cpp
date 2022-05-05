@@ -6,7 +6,7 @@
 using namespace Adventure;
 
 Room::Room(const Layouts::Layout_t& layout)
-     : coords(layout.GetCoords(Level::gcCoords)), originalColor(layout.color), currentColor(layout.color)
+     : originalColor(layout.color), currentColor(layout.color), coords(layout.GetCoords(Level::gcCoords))
      , origin(Level::origin + size * (Position) coords), neighbors(layout.neighbors) {
     
     tiles.reserve(layout.tiles.size());

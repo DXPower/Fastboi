@@ -14,6 +14,9 @@
 #include <unordered_map>
 #include "Utility.h"
 
+#undef LoadImageA
+#undef LoadImage
+
 using namespace Fastboi;
 
 std::unordered_map<const char*, Texture, cstring_hasher, cstring_eq> textures;

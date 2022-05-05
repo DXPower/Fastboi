@@ -29,8 +29,8 @@ namespace Fastboi {
         inline Gameobject& operator()() const { return *go; };
 
         template<typename T, typename... Args>
-        friend class Component;
+        friend struct Component;
         
-        friend class Gameobject;
+        friend struct Gameobject;
     };
 }

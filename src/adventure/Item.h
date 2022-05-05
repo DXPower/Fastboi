@@ -45,8 +45,8 @@ namespace Adventure {
     struct Key {
         using Reqs = RequiredComponents<Components::SpriteRenderer, Transform>;
 
-        const KeyColor color;
         Fastboi::GORef go;
+        const KeyColor color;
 
         Key(GORef&& go, KeyColor color);
 

@@ -39,7 +39,7 @@ Texture::Texture(SDL_Texture* sdlt) {
     }
 }
 
-Texture::Texture(const Texture& copy) : format(copy.format), access(copy.access), size(copy.size) {
+Texture::Texture(const Texture& copy) : size(copy.size), access(copy.access), format(copy.format) {
     if (copy.access != SDL_TEXTUREACCESS_TARGET)
         Application::ThrowRuntimeException("Copy nontarget texture", Application::COPY_NONTARGET_TEXTURE);
 

@@ -16,6 +16,8 @@ namespace Adventure {
 
     struct Gate {
         using Reqs = RequiredComponents<SpriteRenderer, Collider>;
+        
+        Fastboi::GORef go;
 
         private:
         enum class GateState {
@@ -40,7 +42,6 @@ namespace Adventure {
 
         public:
         const KeyColor color;
-        Fastboi::GORef go;
 
         Gate(GORef&& go, KeyColor color, const Room& inside);
 

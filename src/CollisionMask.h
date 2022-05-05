@@ -35,8 +35,6 @@ namespace Fastboi {
         template<typename... EnumClass>
         requires std::same_as<std::common_type_t<EnumClass...>, CollisionLayer>
         CollisionMask& Include(EnumClass... layers) {
-            using CT = std::common_type_t<EnumClass...>;
-
             if (((layers == CollisionLayer::ALL) || ...))
                 inclusions = stut(CollisionLayer::ALL);
             else if (((layers == CollisionLayer::NONE) || ...))

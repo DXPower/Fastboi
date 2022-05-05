@@ -22,15 +22,15 @@ namespace Fastboi {
         };
 
         struct ColorShiftComp final {
+            GORef gameobject;
+
             uint8_t count = 0;
             ColorComp* color;
 
-            GORef gameobject;
             ColorShiftComp(GORef&& go) : gameobject(std::move(go)), color(nullptr) { };
 
             void Start() {
                 color = &gameobject().GetComponent<ColorComp>();
-                const Transform& t = gameobject().GetComponent<Transform>();
             }
 
             void Update() {
