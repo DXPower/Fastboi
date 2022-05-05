@@ -18,8 +18,6 @@
 using namespace Fastboi;
 using namespace Fastboi::Collision;
 
-AABBTree::Tree Collision::aabbTree(0.05, 128, true);
-
 c2v toC2V(const Position& p) {
     return (c2v) { p.x, p.y };
 }

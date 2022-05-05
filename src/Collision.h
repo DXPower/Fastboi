@@ -1,6 +1,5 @@
 #pragma once
 
-#include "AABB.h"
 #include <list>
 #include <unordered_set>
 #include <unordered_map>
@@ -56,8 +55,6 @@ namespace Fastboi {
             const decltype(collisions)& Get() const;        
         };
 
-        extern AABBTree::Tree aabbTree;
-
         Collision_t::CollisionData AreCollidersIntersectng(
               const Collider& colliderA
             , const Collider& colliderB
@@ -77,7 +74,5 @@ namespace Fastboi {
 
         void AdvanceTransform(Transform& transform, const Velocity& vel, const Degree& rotV);
         circular_vector<Position> AdvanceCollider(const Collider&);
-
-        inline void SetRenderAABBTree(bool flag) { AABBTree::AABB::shouldRenderAABBs = flag; };
     }
 }

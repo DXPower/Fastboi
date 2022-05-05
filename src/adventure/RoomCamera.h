@@ -1,6 +1,7 @@
 #include "Fastboi.h"
 #include "Level.h"
 #include "Room.h"
+#include <iostream>
 
 namespace Adventure {
     struct RoomCamera {

@@ -705,29 +705,29 @@ deps/soloud/src/core/soloud_thread.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/deps/soloud/src/core/soloud_thread.cpp.s
 .PHONY : deps/soloud/src/core/soloud_thread.cpp.s
 
-src/AABB.obj: src/AABB.cpp.obj
-.PHONY : src/AABB.obj
+src/AABBTree.obj: src/AABBTree.cpp.obj
+.PHONY : src/AABBTree.obj
 
 # target to build an object file
-src/AABB.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/AABB.cpp.obj
-.PHONY : src/AABB.cpp.obj
+src/AABBTree.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/AABBTree.cpp.obj
+.PHONY : src/AABBTree.cpp.obj
 
-src/AABB.i: src/AABB.cpp.i
-.PHONY : src/AABB.i
+src/AABBTree.i: src/AABBTree.cpp.i
+.PHONY : src/AABBTree.i
 
 # target to preprocess a source file
-src/AABB.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/AABB.cpp.i
-.PHONY : src/AABB.cpp.i
+src/AABBTree.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/AABBTree.cpp.i
+.PHONY : src/AABBTree.cpp.i
 
-src/AABB.s: src/AABB.cpp.s
-.PHONY : src/AABB.s
+src/AABBTree.s: src/AABBTree.cpp.s
+.PHONY : src/AABBTree.s
 
 # target to generate assembly for a file
-src/AABB.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/AABB.cpp.s
-.PHONY : src/AABB.cpp.s
+src/AABBTree.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/AABBTree.cpp.s
+.PHONY : src/AABBTree.cpp.s
 
 src/Angles.obj: src/Angles.cpp.obj
 .PHONY : src/Angles.obj
@@ -1818,9 +1818,9 @@ help:
 	@echo ... deps/soloud/src/core/soloud_thread.obj
 	@echo ... deps/soloud/src/core/soloud_thread.i
 	@echo ... deps/soloud/src/core/soloud_thread.s
-	@echo ... src/AABB.obj
-	@echo ... src/AABB.i
-	@echo ... src/AABB.s
+	@echo ... src/AABBTree.obj
+	@echo ... src/AABBTree.i
+	@echo ... src/AABBTree.s
 	@echo ... src/Angles.obj
 	@echo ... src/Angles.i
 	@echo ... src/Angles.s

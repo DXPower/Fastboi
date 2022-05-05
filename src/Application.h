@@ -12,9 +12,7 @@ namespace Application {
     using GRenderer = SDL_Renderer;
 
     extern SDL_Window* gWindow;
-    extern SDL_Surface* windowSurface;
     extern GRenderer* gRenderer;
-    // extern bool quit;
 
     bool InitApplication();
     void Cleanup();

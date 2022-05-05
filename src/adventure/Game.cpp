@@ -34,7 +34,6 @@ void ToggleAABBDebug(const Fastboi::KeyEvent& e) {
 
     if (e.type == KeyEvent::DOWN) {
         enableAABBs = !enableAABBs;
-        Collision::SetRenderAABBTree(enableAABBs);
     }
 }
 
@@ -126,7 +125,7 @@ void Adventure::LoadLevel1() {
 
     Gameobject& goldKey = Instantiate<Key::Inst>(goldCastle.GetTilePos(Vec<int>(4, 5)), KeyColor::GOLD);
     goldKey.name = "GoldKey";
-    
+
     Gameobject& blackKey = Instantiate<Key::Inst>(greenDragonRm.GetTilePos(Vec<int>(4, 4)), KeyColor::BLACK);
 
     Gameobject& goldGate = Instantiate<Gate::Inst>(

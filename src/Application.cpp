@@ -8,7 +8,6 @@
 
 Application::GRenderer* Application::gRenderer = nullptr;
 SDL_Window* Application::gWindow = nullptr;
-SDL_Surface* Application::windowSurface = nullptr;
 // bool Application::quit = false;
 
 // const int smallWindowX = 1000 - Adventure::Room::GetTileSize().x / 4;
@@ -41,7 +40,6 @@ bool Application::InitApplication() {
         return false;
     }
 
-    Application::windowSurface = SDL_GetWindowSurface(gWindow);
     Application::gRenderer = SDL_CreateRenderer(gWindow, -1, SDL_RENDERER_ACCELERATED);
 
     if (Application::gRenderer == nullptr) {

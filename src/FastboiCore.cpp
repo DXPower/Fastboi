@@ -1,5 +1,4 @@
 #include "FastboiCore.h"
-#include "AABB.h"
 #include <algorithm>
 #include "Angles.h"
 #include "Application.h"
@@ -130,7 +129,6 @@ void Fastboi::Render() {
             }        
         }
 
-        AABBTree::AABB::RenderAllAABBs();
         Rendering::Render_AllDebugRects();
 
         // renderingMtx.unlock();

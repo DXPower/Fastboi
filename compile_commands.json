@@ -1,8 +1,8 @@
 [
 {
   "directory": "C:/Users/myaka/Documents/Github/Fastboi",
-  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -O3 -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\AABB.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\AABB.cpp",
-  "file": "C:/Users/myaka/Documents/Github/Fastboi/src/AABB.cpp"
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -O3 -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\AABBTree.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\AABBTree.cpp",
+  "file": "C:/Users/myaka/Documents/Github/Fastboi/src/AABBTree.cpp"
 },
 {
   "directory": "C:/Users/myaka/Documents/Github/Fastboi",
