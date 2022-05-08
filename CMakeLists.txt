@@ -7,7 +7,7 @@ endif()
 set(CMAKE_C_COMPILER clang)
 set(CMAKE_CXX_COMPILER clang++)
 set(CMAKE_CXX_FLAGS "-Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function")
-set(CMAKE_CXX_FLAGS_DEBUG "-Og -g")
+set(CMAKE_CXX_FLAGS_DEBUG "-g")
 set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 
 project(FastBoi)

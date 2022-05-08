@@ -12,11 +12,15 @@ namespace Fastboi {
         Vecf lowerBounds; // Lower bounds in x and y dirs
         Vecf upperBounds; // Upper bounds in x and y dirs
 
+        bool ContainsBox(const BoundingBox& box) const;
         bool ContainsPoint(const Position& pos) const;
         bool Overlaps(const BoundingBox& other) const;
         inline static bool Overlaps(const BoundingBox& a, const BoundingBox& b) { return a.Overlaps(b); };
 
-        BoundingBox Fatten(float factor) const;
+        BoundingBox Fattened(float factor) const;
+
+        static BoundingBox Union(const BoundingBox& a, const BoundingBox& b);
+        float Area() const;
 
         RectF ToRect() const;
     };

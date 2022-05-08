@@ -26,7 +26,7 @@ Room& Level::GetRoomMovement(const Position& pos, const Velocity& v, Vec<int>& d
     roomBounds.lowerBounds += Room::GetTileSize() / Size(4.f, 2.f);
     roomBounds.upperBounds -= Room::GetTileSize() / Size(4.f, 2.f);
 
-    roomBounds = roomBounds.Fatten(-0.0025f);
+    roomBounds = roomBounds.Fattened(-0.0025f);
 
     using namespace Layouts;
 

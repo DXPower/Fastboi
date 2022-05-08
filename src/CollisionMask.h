@@ -56,8 +56,6 @@ namespace Fastboi {
         CollisionMask& Exclude(EnumClass... layers) {
             if (inclusions == stut(CollisionLayer::NONE)) return *this;
 
-            using CT = std::common_type_t<EnumClass...>;
-
             if (((layers == CollisionLayer::ALL) || ...))
                 inclusions = stut(CollisionLayer::NONE);
             else if (((layers == CollisionLayer::NONE) || ...))
@@ -68,7 +66,7 @@ namespace Fastboi {
 
                 exclusions = ~exclusions; // Flip all excluded bits to 0
 
-                if (inclusions == CollisionLayer::ALL)
+                if (inclusions == static_cast<UT>(CollisionLayer::ALL))
                     result = ~static_cast<UT>(0x0); // Set all bits to 1 if the inclusions is ALL
                 else
                     result = inclusions;

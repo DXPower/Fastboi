@@ -112,7 +112,7 @@ void Fastboi::Collision::BroadPhase(
 
             const Transform& pct = *pc->gameobject().transform;
 
-            if (!BoundingBox::Overlaps(ct.GetBounds().Fatten(0.2f), pct.GetBounds().Fatten(0.2f))) continue;
+            if (!BoundingBox::Overlaps(ct.GetBounds().Fattened(0.2f), pct.GetBounds().Fattened(0.2f))) continue;
 
             // Rendering::Request_Render_DebugRect(b.Fatten(0.2f).ToRect());
             // Rendering::Request_Render_DebugRect(ct.GetBounds().Fatten(0.2f).ToRect());

@@ -94,6 +94,11 @@ bool Shape::ContainsPoint(const Position& p) {
     return true;
 }
 
+bool BoundingBox::ContainsBox(const BoundingBox& box) const {
+    return Position::minTransform(lowerBounds, box.lowerBounds) == lowerBounds
+        && Position::maxTransform(upperBounds, box.upperBounds) == upperBounds;
+}
+
 bool BoundingBox::ContainsPoint(const Position& pos) const {
     return pos.x >= lowerBounds.x && pos.y >= lowerBounds.y
         && pos.x >= upperBounds.x && pos.y >= upperBounds.y;
@@ -109,7 +114,7 @@ bool BoundingBox::Overlaps(const BoundingBox& o) const {
     return true;
 }
 
-BoundingBox BoundingBox::Fatten(float factor) const {
+BoundingBox BoundingBox::Fattened(float factor) const {
     const Size deltaSize = (upperBounds - lowerBounds) * factor;
 
     return { .lowerBounds = lowerBounds - deltaSize, .upperBounds = upperBounds + deltaSize };
@@ -149,4 +154,14 @@ circular_vector<Position> Rectangle::CalculateVertices() const {
     );
 
     return verts;
+}
+
+BoundingBox BoundingBox::Union(const BoundingBox& a, const BoundingBox& b) {
+    return { Position::minTransform(a.lowerBounds, b.lowerBounds), Position::maxTransform(a.upperBounds, b.upperBounds) };
+}
+
+float BoundingBox::Area() const {
+    Vecf box = upperBounds - lowerBounds;
+
+    return box.x * box.y;
 }

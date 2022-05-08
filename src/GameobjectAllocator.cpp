@@ -39,7 +39,7 @@ struct GameobjectAllocator::Block {
     Chunk chunks; // Chunks begin immediately here in memory.
 
     constexpr static std::size_t GetMemBaseSize() {
-        return sizeof(nextBlock) + sizeof(chunks);
+        return sizeof(nextBlock) + sizeof(chunks); // NOLINT
     }
 
     static std::size_t  GetMemSize(std::size_t chunksPerBlock) {
