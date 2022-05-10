@@ -129,7 +129,7 @@ void Fastboi::Render() {
             }        
         }
 
-        Rendering::Render_AllDebugRects();
+        // Rendering::Render_AllDebugRects();
 
         // renderingMtx.unlock();
         SDL_RenderPresent(Rendering::gRenderer);
@@ -153,6 +153,8 @@ void Fastboi::Physics() {
     Collision::ResolveColliders(collisions);
 
     Transform::UpdateAllParentRelations(); // Apply all updates to childrens' positions
+
+    Collision::UpdateAABBTree(colliders);
 
     Collision::DispatchCollisions(collisions);
 }

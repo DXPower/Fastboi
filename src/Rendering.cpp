@@ -1,4 +1,5 @@
 #include "Rendering.h"
+#include "Collision.h"
 #include "Input.h"
 #include <mutex>
 #include "Resources.h"
@@ -6,6 +7,7 @@
 #include "SDL/SDL_render.h"
 #include "Texture.h"
 #include "Utility.h"
+#include "Vec.h"
 
 using namespace Fastboi;
 using namespace Resources;
@@ -27,14 +29,12 @@ void Rendering::Request_Render_DebugRect(const RectF& rect) {
 }
 
 void Rendering::Render_AllDebugRects() {
-    std::lock_guard lock(debugRectMtx);
+    // std::lock_guard lock(debugRectMtx);
 
-    while (debugRects.size() != 0) {
-        const RectF& rect = debugRects.top();
-
-        Rendering::Render_Rect<Rendering::UNFILLED>(Transform(Position(rect.x, rect.y) + Size(rect.w, rect.h) / 2.f, Size(rect.w, rect.h), 0_deg));
-
-        debugRects.pop();
+    for (const auto& node : Collision::globalAABB.nodes) {
+        Transform transform((node.bounds.upperBounds - node.bounds.lowerBounds) / 2 + node.bounds.lowerBounds, node.bounds.upperBounds - node.bounds.lowerBounds, 0_deg);
+        Rendering::SetColor(0, 0, 0, 255);
+        Rendering::Render_Rect<FillType::UNFILLED>(transform);
     }
 }
 

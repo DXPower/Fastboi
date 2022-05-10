@@ -15,8 +15,11 @@ namespace Fastboi {
     struct Collider;
     struct Gameobject;
     struct Transform;
-    
+
     namespace Collision {
+        struct AABBTree;
+        extern AABBTree globalAABB;
+
         struct ColliderPairKey {
             Collider* a;
             Collider* b;
@@ -74,5 +77,8 @@ namespace Fastboi {
 
         void AdvanceTransform(Transform& transform, const Velocity& vel, const Degree& rotV);
         circular_vector<Position> AdvanceCollider(const Collider&);
+
+        // AABBHandle RegisterAABB(const Collider& collider);
+        void UpdateAABBTree(Colliders_t& colliders);
     }
 }

@@ -1,6 +1,7 @@
 #include "Game.h"
 #include "Bridge.h"
 #include "Chalise.h"
+#include "Collision.h"
 #include "Dragon.h"
 #include "GameManager.h"
 #include "Gate.h"
@@ -12,6 +13,7 @@
 #include "Resources.h"
 #include "Room.h"
 #include "RoomCamera.h"
+#include "AABBTree.h"
 
 using namespace Fastboi;
 using namespace Fastboi::Components;
@@ -127,6 +129,15 @@ void Adventure::LoadLevel1() {
     goldKey.name = "GoldKey";
 
     Gameobject& blackKey = Instantiate<Key::Inst>(greenDragonRm.GetTilePos(Vec<int>(4, 4)), KeyColor::BLACK);
+    // Gameobject& blackKey = Instantiate<Key::Inst>(goldCastle.GetTilePos(Vec<int>(8, 8)), KeyColor::BLACK);
+    blackKey.name = "BlackKey";
+
+    // Gameobject& sword = Instantiate<Sword::Inst>(goldCastle.GetTilePos(Vec<int>(3, 9)));
+
+    // player.collider->aabbHandle   = Collision::globalAABB.InsertLeaf(player.transform->GetBounds());
+    // goldKey.collider->aabbHandle  = Collision::globalAABB.InsertLeaf(goldKey.transform->GetBounds());
+    // blackKey.collider->aabbHandle = Collision::globalAABB.InsertLeaf(blackKey.transform->GetBounds());
+    // sword.collider->aabbHandle    = Collision::globalAABB.InsertLeaf(sword.transform->GetBounds());
 
     Gameobject& goldGate = Instantiate<Gate::Inst>(
         goldCastle.GetTilePos(Vec<int>(9, 7)) + Room::GetTileSize() / 2.f

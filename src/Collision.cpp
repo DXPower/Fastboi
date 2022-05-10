@@ -1,5 +1,6 @@
 #include "Collision.h"
 #include <algorithm>
+#include "AABBTree.h"
 #include "Collider.h"
 #include "FastboiCore.h"
 #include <functional>
@@ -17,6 +18,8 @@
 
 using namespace Fastboi;
 using namespace Fastboi::Collision;
+
+AABBTree Collision::globalAABB{ 1.f };
 
 c2v toC2V(const Position& p) {
     return (c2v) { p.x, p.y };
@@ -219,3 +222,11 @@ std::size_t ColliderPairKey::Hash::operator()(const ColliderPairKey& cp) const {
     return std::min(a, b) ^ std::max(a, b);
 }
 
+void Collision::UpdateAABBTree(Colliders_t& colliders) {
+    for (Collider* collider : colliders) {
+        if (!collider->aabbHandle.has_value())
+            continue;
+
+        globalAABB.TestMovedTightAABB(collider->aabbHandle.value(), collider->gameobject().transform->GetBounds());
+    }
+}

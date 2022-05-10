@@ -1,5 +1,6 @@
 #pragma once
 
+#include "AABBTree.h"
 #include "circular_vector.h"
 #include "Vec.h"
 #include "Collision.h"
@@ -36,6 +37,7 @@ namespace Fastboi {
 
         public:
         GORef gameobject;
+        std::optional<Collision::AABBHandle> aabbHandle;
 
         private:
         std::vector<ColDat> currentCollisions;

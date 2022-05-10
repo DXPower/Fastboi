@@ -1,9 +1,11 @@
 #include "Collider.h"
 #include <algorithm>
+#include "Collision.h"
 #include "Gameobject.h"
 #include "Events.h"
 #include "ChangeObserver.h"
 #include "FastboiCore.h"
+#include "AABBTree.h"
 
 using namespace Fastboi;
 
@@ -34,6 +36,8 @@ Collider::~Collider() {
 
 void Collider::Start() {
     isStarted = true;
+
+    this->aabbHandle = Collision::globalAABB.InsertLeaf(gameobject().transform->GetBounds());
 
     // const Transform& tr = gameobject().GetComponent<Transform>();
     // BoundingBox bounds = tr.GetBounds();

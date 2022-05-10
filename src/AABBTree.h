@@ -17,21 +17,28 @@ namespace Fastboi {
             public:
             std::vector<Node> nodes;
             int rootIndex = -1;
+            int firstFreeIndex = -1;
 
             float fatteningFactor;
 
             AABBTree(float fatteningFactor) : fatteningFactor(fatteningFactor) { }
 
             AABBHandle InsertLeaf(const BoundingBox& tightBox);
-            void RemoveLeaf(const AABBHandle& handle);
 
             void TestMovedTightAABB(AABBHandle& handle, const BoundingBox& tightBox);
 
             private:
+            int CreateNode(const BoundingBox& bounds, int parentIndex, int leftIndex, int rightIndex);
+            int CreateNode(const BoundingBox& bounds, int parentIndex) { return CreateNode(bounds, parentIndex, -1, -1); };
+            int CreateNode(const BoundingBox& bounds) { return CreateNode(bounds, -1, -1, -1); };
+            
+            void RemoveLeaf(const AABBHandle& handle);
+
             int FindBestSibling(const BoundingBox& newBox) const;
             int CreateParent(int leftIndex, int rightIndex);
             int MakeSiblings(int childIndex, int orphanIndex);
 
+            void RefitAncestors(const Node& startingPoint);
             void RefitAndRotateAncestors(const Node& startingPoint);
 
             // targetB will always be the child of the parent with the changing area
@@ -41,6 +48,8 @@ namespace Fastboi {
 
             void ForAllAncestors(const Node& startingPoint, const std::function<void(Node& ancestor)> pred);
             void ForAllAncestors(const Node& startingPoint, const std::function<void(const Node& ancestor)> pred) const;
+
+            friend struct AABBHandle;
 
             struct Node {
                 AABBHandle* handle = nullptr;
@@ -52,7 +61,8 @@ namespace Fastboi {
                 int rightIndex;
 
                 Node() : parentIndex(-1), selfIndex(-1), leftIndex(-1), rightIndex(-1) { };
-                Node(const BoundingBox& box, int self, int left, int right) : bounds(box), parentIndex(-1), selfIndex(self), leftIndex(left), rightIndex(right) { }
+                Node(const BoundingBox& box, int self, int parent, int left, int right) : bounds(box), parentIndex(parent), selfIndex(self), leftIndex(left), rightIndex(right) { }
+                Node(const BoundingBox& box, int self, int left, int right) : Node(box, self, -1, left, right) { }
                 Node(const BoundingBox& box, int self) : Node(box, self, -1, -1) { }
                 Node(const BoundingBox& box) : Node(box, -1, -1, -1) { }
 
@@ -61,7 +71,7 @@ namespace Fastboi {
                 bool HasRight() const { return rightIndex >= 0; }
                 bool HasBoth() const { return HasLeft() && HasRight(); }
 
-                bool IsLeaf() const { return !HasLeft() && !HasRight(); }
+                bool IsLeaf() const { return handle != nullptr; }
 
                       Node& GetParent(std::span<Node> nodes) const       { return nodes[parentIndex]; }
                 const Node& GetParent(std::span<const Node> nodes) const { return nodes[parentIndex]; }

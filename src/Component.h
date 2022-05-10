@@ -84,13 +84,10 @@ namespace Fastboi {
 
         Component() : ComponentBase(ctti::type_id<Component_t>()), component(std::nullopt) { };
 
-        ~Component() = default;
-
-        Component& operator=(const Component&& copy) {
-            component = std::move(copy.component);
-        }
-
+        Component(const Component& copy) = delete;
+        Component(Component&& move) = delete;
         Component& operator=(const Component& copy) = delete;
+        Component& operator=(Component&& move) = delete;
 
         void Start(Gameobject& go) override {
             if constexpr (detail::HasStart<Component_t>) {
