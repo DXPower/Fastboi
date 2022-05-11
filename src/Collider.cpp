@@ -37,7 +37,7 @@ Collider::~Collider() {
 void Collider::Start() {
     isStarted = true;
 
-    this->aabbHandle = Collision::globalAABB.InsertLeaf(gameobject().transform->GetBounds());
+    this->aabbHandle = Collision::globalAABB.InsertLeaf(gameobject().transform->GetBounds(), this);
 
     // const Transform& tr = gameobject().GetComponent<Transform>();
     // BoundingBox bounds = tr.GetBounds();
@@ -48,17 +48,14 @@ void Collider::Start() {
 void Collider::Update() {
     if (!isEnabled) return;
 
-    // if (gameobject().name == std::string("Player")) {
-        // if (boundingBox == nullptr) {
-        //     boundingBox = &Fastboi::Instantiate<Gameobject>(gameobject().name);
-        //     boundingBox->AddComponent<Transform>(*gameobject().transform);
-        //     boundingBox->AddComponent<BoundingBoxRenderer>(RenderData(RenderOrder::UI, 1));
-        // } else {
-        //     *boundingBox->transform = *gameobject().transform;
-    // }
-        // }
-    // const BoundingBox bounds = gameobject().transform->GetBounds(); 
-    // Collision::aabbTree.updateParticle(this, bounds.lowerBounds, bounds.upperBounds);
+    const Transform& newTransform = *gameobject().transform;
+    
+    if (lastTransform != newTransform) {
+        lastTransform = newTransform;
+        hasTransformChanged = true;
+    } else
+        hasTransformChanged = false;
+
 
     decltype(pendingCollisions) newCollisions;
     decltype(pendingCollisions) endingCollisions;

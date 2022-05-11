@@ -38,14 +38,14 @@ int AABBTree::CreateNode(const BoundingBox& bounds, int parentIndex, int leftInd
     }
 }
 
-AABBHandle AABBTree::InsertLeaf(const BoundingBox& tightBox) {
+AABBHandle AABBTree::InsertLeaf(const BoundingBox& tightBox, std::any&& owner) {
     const BoundingBox box = tightBox.Fattened(fatteningFactor);
 
     // Check if this is the first node. If it is, nothing to do.
     if (nodes.size() == 0) {
         int newLeafIndex = CreateNode(box);
         this->rootIndex = newLeafIndex;
-        return AABBHandle(*this, newLeafIndex);
+        return AABBHandle(*this, std::move(owner), newLeafIndex);
     }
 
     int bestSiblingIndex = FindBestSibling(box);
@@ -55,7 +55,7 @@ AABBHandle AABBTree::InsertLeaf(const BoundingBox& tightBox) {
 
     RefitAndRotateAncestors(nodes[newParentIndex]);
 
-    return AABBHandle(*this, newLeafIndex);
+    return AABBHandle(*this, std::move(owner), newLeafIndex);
 }
 
 void AABBTree::RemoveLeaf(const AABBHandle& handle) {
@@ -197,7 +197,7 @@ void AABBTree::TestMovedTightAABB(AABBHandle& handle, const BoundingBox& tightBo
         return;
 
     RemoveLeaf(handle);
-    handle = InsertLeaf(tightBox); 
+    handle = InsertLeaf(tightBox, std::move(handle.owner)); 
 }
 
 int AABBTree::MakeSiblings(int childIndex, int orphanIndex) {
@@ -250,6 +250,41 @@ void AABBTree::RefitAndRotateAncestors(const Node& startingPoint) {
 
         TentativeRotate(ancestor);
     });
+}
+
+void AABBTree::ForAllOverlapping(const BoundingBox& box, const std::function<void(const AABBHandle& handle)>& pred) const {
+    if (rootIndex == -1) return;
+
+    const Node& root = nodes[rootIndex];
+
+    if (BoundingBox::Overlaps(box, root.bounds)) {
+        if (not root.IsLeaf())
+            ForAllOverlappingHelper(box, root, pred);
+        else 
+            pred(*root.handle);
+    }
+}
+
+void AABBTree::ForAllOverlappingHelper(const BoundingBox& box, const Node& node, const std::function<void(const AABBHandle& handle)>& pred) const {
+    if (not node.IsLeaf()) {
+        if (const Node& left = nodes[node.leftIndex]; BoundingBox::Overlaps(box, left.bounds))
+            ForAllOverlappingHelper(box, left, pred);
+        
+        if (const Node& right = nodes[node.rightIndex]; BoundingBox::Overlaps(box, right.bounds))
+            ForAllOverlappingHelper(box, right, pred);
+    } else 
+        pred(*node.handle);
+}
+
+void AABBTree::ForAllOverlappingHelper(const BoundingBox& box, const Node& node, const std::function<void(AABBHandle& handle)>& pred) {
+    if (not node.IsLeaf()) {
+        if (const Node& left = nodes[node.leftIndex]; BoundingBox::Overlaps(box, left.bounds))
+            ForAllOverlappingHelper(box, left, pred);
+        
+        if (const Node& right = nodes[node.rightIndex]; BoundingBox::Overlaps(box, right.bounds))
+            ForAllOverlappingHelper(box, right, pred);
+    } else 
+        pred(*node.handle);
 }
 
 void AABBTree::ForAllAncestors(const Node& startingPoint, const std::function<void(Node&)> pred) {

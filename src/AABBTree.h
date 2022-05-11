@@ -4,14 +4,42 @@
 #include <optional>
 #include <span>
 #include <functional>
+#include <any>
 
 namespace Fastboi {
     namespace Collision {
-        struct AABBHandle;
+        struct AABBTree;
+
+        struct AABBHandle {
+            AABBTree* tree;
+            std::any owner; // Holds a pointer to the owner to be used for queries on the tree
+
+            private:
+            int selfIndex;
+
+            public:
+            AABBHandle() = default;
+            AABBHandle(AABBTree& tree, std::any&& owner, int selfIndex);
+
+            AABBHandle(const AABBHandle& copy) = delete;
+            AABBHandle(AABBHandle&& move);
+
+            ~AABBHandle();
+
+            AABBHandle& operator=(const AABBHandle& copy) = delete;
+            AABBHandle& operator=(AABBHandle&& move);
+
+            bool operator==(const AABBHandle& rhs) { return tree == rhs.tree && selfIndex == rhs.selfIndex; }
+
+            BoundingBox GetInTreeBounds() const;
+            void Reset();
+
+            friend struct AABBTree;
+        };
 
         struct AABBTree {
-            private:
             struct Node;
+            private:
             struct BestRotation_t;
 
             public:
@@ -23,9 +51,24 @@ namespace Fastboi {
 
             AABBTree(float fatteningFactor) : fatteningFactor(fatteningFactor) { }
 
-            AABBHandle InsertLeaf(const BoundingBox& tightBox);
+            private:
+            AABBHandle InsertLeaf(const BoundingBox& tightBox, std::any&& owner);
+
+            public:
+            template<typename Owner>
+            requires std::is_pointer_v<Owner>
+                  or std::is_reference_v<Owner> 
+                  or std::is_same_v<Owner, std::nullptr_t>
+            AABBHandle InsertLeaf(const BoundingBox& tightBox, Owner owner) {
+                if constexpr (std::is_reference_v<Owner>)
+                    return InsertLeaf(tightBox, std::any(&owner));
+                else
+                    return InsertLeaf(tightBox, std::any(owner));
+            }
 
             void TestMovedTightAABB(AABBHandle& handle, const BoundingBox& tightBox);
+            void ForAllOverlapping(const BoundingBox& box, const std::function<void(const AABBHandle& handle)>& pred) const;
+            void ForAllOverlapping(const BoundingBox& box, const std::function<void(AABBHandle& handle)>& pred);
 
             private:
             int CreateNode(const BoundingBox& bounds, int parentIndex, int leftIndex, int rightIndex);
@@ -48,9 +91,22 @@ namespace Fastboi {
 
             void ForAllAncestors(const Node& startingPoint, const std::function<void(Node& ancestor)> pred);
             void ForAllAncestors(const Node& startingPoint, const std::function<void(const Node& ancestor)> pred) const;
+            void ForAllOverlappingHelper(const BoundingBox& box, const Node& node, const std::function<void(const AABBHandle& handle)>& pred) const;
+            void ForAllOverlappingHelper(const BoundingBox& box, const Node& node, const std::function<void(AABBHandle& handle)>& pred);
+
+
 
             friend struct AABBHandle;
 
+            
+
+            struct BestRotation_t {
+                Node* targetA;
+                Node* targetB;
+                float newArea;
+            };
+
+            public:
             struct Node {
                 AABBHandle* handle = nullptr;
                 BoundingBox bounds;
@@ -86,57 +142,52 @@ namespace Fastboi {
                 const Node& GetRight(std::span<const Node> nodes) const { return nodes[rightIndex]; }
                 
                 
-                std::pair<Node&, Node&> GetBothChildren(std::span<Node> nodes) const { return { nodes[leftIndex], nodes[rightIndex] }; }
-            };
-
-            struct BestRotation_t {
-                Node* targetA;
-                Node* targetB;
-                float newArea;
+                std::pair<Node&, Node&>             GetBothChildren(std::span<Node> nodes) const       { return { nodes[leftIndex], nodes[rightIndex] }; }
+                std::pair<const Node&, const Node&> GetBothChildren(std::span<const Node> nodes) const { return { nodes[leftIndex], nodes[rightIndex] }; }
             };
         };
 
-        struct AABBHandle {
-            AABBTree* tree;
+        
+        inline AABBHandle::AABBHandle(AABBTree& tree, std::any&& owner, int selfIndex)
+        : tree(&tree)
+        , owner(std::move(owner))
+        , selfIndex(selfIndex)
+        {
+            tree.nodes[selfIndex].handle = this;
+        }
 
-            private:
-            int selfIndex;
+        inline AABBHandle::AABBHandle(AABBHandle&& move) : AABBHandle(*move.tree, std::move(move.owner), move.selfIndex) {
+            move.tree = nullptr;
+            move.owner = nullptr;
+        }
 
-            public:
-            AABBHandle() = default;
-            AABBHandle(AABBTree& tree, int selfIndex) : tree(&tree), selfIndex(selfIndex) {
-                tree.nodes[selfIndex].handle = this;
+        inline AABBHandle::~AABBHandle() {
+            if (tree != nullptr)
+                tree->RemoveLeaf(*this);
+        }
+
+        inline AABBHandle& AABBHandle::operator=(AABBHandle&& move) {
+            tree = move.tree;
+            selfIndex = move.selfIndex;
+            owner = move.owner;
+
+            move.tree = nullptr;
+            move.owner = nullptr;
+
+            tree->nodes[selfIndex].handle = this;
+
+            return *this;
+        }
+
+        inline BoundingBox AABBHandle::GetInTreeBounds() const {
+            return tree->nodes[selfIndex].bounds;
+        }
+
+        inline void AABBHandle::Reset() {
+            if (tree != nullptr) {
+                tree->RemoveLeaf(*this);
+                tree = nullptr;
             }
-
-            AABBHandle(const AABBHandle& copy) = delete;
-            AABBHandle(AABBHandle&& move) : AABBHandle(*move.tree, move.selfIndex) {
-                move.tree = nullptr;
-            }
-
-            ~AABBHandle() {
-                if (tree != nullptr)
-                    tree->RemoveLeaf(*this);
-            }
-
-            AABBHandle& operator=(const AABBHandle& copy) = delete;
-            AABBHandle& operator=(AABBHandle&& move) {
-                tree = move.tree;
-                selfIndex = move.selfIndex;
-                move.tree = nullptr;
-
-                tree->nodes[selfIndex].handle = this;
-
-                return *this;
-            }
-
-            void Reset() {
-                if (tree != nullptr) {
-                    tree->RemoveLeaf(*this);
-                    tree = nullptr;
-                }
-            }
-
-            friend struct AABBTree;
-        };
+        }
     }
 }

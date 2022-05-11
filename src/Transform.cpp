@@ -11,6 +11,7 @@ Transform::Transform(Position pos) : Transform(pos, Size::zero(), 0_deg) { }
 Transform::Transform(Position pos, Size size, Radian rot) : Transform(pos, size, rot.As<Degree>()) { }
 Transform::Transform(Position pos, Size size, Degree rot) : position(pos), size(size), rotation(rot), shape(nullptr) {
     SetShape<Rectangle>();
+    // TODO: Properly copy shapes
 }
 
 Transform::Transform(const Transform& copy) : Transform(copy.position, copy.size, copy.rotation) { }

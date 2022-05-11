@@ -51,7 +51,7 @@ namespace Fastboi {
 
         static bool IsDescendentRelated(const Transform& a, const Transform& b);
 
-        template<class S>
+        template<std::derived_from<Shape> S>
         void SetShape();
 
         const circular_vector<Position>& GetVertices() const;
@@ -80,10 +80,8 @@ namespace Fastboi {
         friend void Fastboi::Physics();
     };
 
-    template<class S>
+    template<std::derived_from<Shape> S>
     void Transform::SetShape() {
-        static_assert(std::is_base_of_v<Shape, S>);
-
         shape = std::make_unique<S>(*this);
     };
 };

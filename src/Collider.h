@@ -1,6 +1,5 @@
 #pragma once
 
-#include "AABBTree.h"
 #include "circular_vector.h"
 #include "Vec.h"
 #include "Collision.h"
@@ -40,6 +39,9 @@ namespace Fastboi {
         std::optional<Collision::AABBHandle> aabbHandle;
 
         private:
+        bool hasTransformChanged;
+        Transform lastTransform; 
+
         std::vector<ColDat> currentCollisions;
         std::vector<ColDat> pendingCollisions;
         Gameobject* boundingBox = nullptr;
@@ -92,10 +94,11 @@ namespace Fastboi {
         using Collisions_t = Fastboi::Collision::Collisions_t;
         using Collision_t = Fastboi::Collision::Collision_t;
 
-        friend void Fastboi::Collision::BroadPhase(const Colliders_t&, PotentialCollisions_t&);
-        friend void Fastboi::Collision::NarrowPhase(const PotentialCollisions_t&, Collisions_t&);
-        friend void Fastboi::Collision::ResolveColliders(const Collisions_t&);
+        friend void Collision::BroadPhase(const Colliders_t&, PotentialCollisions_t&);
+        friend void Collision::detail::BroadPhaseHelper(std::span<const Collision::AABBTree::Node> nodes, PotentialCollisions_t& potentialCollisions, const Collision::AABBTree::Node& single, const Collision::AABBTree::Node& potential);
+        friend void Collision::NarrowPhase(const PotentialCollisions_t&, Collisions_t&);
+        friend void Collision::ResolveColliders(const Collisions_t&);
         friend std::tuple<Velocity, Velocity> Fastboi::Collision::ResolveCollision(const Collision_t&);
-        friend void Fastboi::Collision::DispatchCollisions(const Collisions_t&);
+        friend void Collision::DispatchCollisions(const Collisions_t&);
     };
 };

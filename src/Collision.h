@@ -9,6 +9,8 @@
 #include "Vec.h"
 #include <vector>
 #include "circular_vector.h"
+#include <span>
+#include "AABBTree.h"
 
 namespace Fastboi {
     struct Degree;
@@ -17,7 +19,6 @@ namespace Fastboi {
     struct Transform;
 
     namespace Collision {
-        struct AABBTree;
         extern AABBTree globalAABB;
 
         struct ColliderPairKey {
@@ -69,7 +70,12 @@ namespace Fastboi {
         );
 
         void ProgressRigidbodies();
+
         void BroadPhase(const Colliders_t& colliders, PotentialCollisions_t& potentialCollisions);
+        namespace detail {
+            void BroadPhaseHelper(std::span<const AABBTree::Node> nodes, PotentialCollisions_t& potentialCollisions, const AABBTree::Node& single, const AABBTree::Node& potential);
+        }
+
         void NarrowPhase(const PotentialCollisions_t& potentialCollisions, Collisions_t& collisions);
         void ResolveColliders(const Collisions_t& collisions);
         void DispatchCollisions(const Collisions_t& collisions);

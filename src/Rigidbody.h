@@ -24,6 +24,8 @@ namespace Fastboi {
         Rigidbody(Velocity v) : velocity(v) { }; 
         Rigidbody(Velocity v, Degree rv) : velocity(v), rotVelocity(rv) { };
 
+        bool operator==(const Rigidbody& rb) const = default;
+
         private:
         void ApplyParameters(Transform& t);
 

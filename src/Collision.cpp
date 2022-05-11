@@ -1,6 +1,5 @@
 #include "Collision.h"
 #include <algorithm>
-#include "AABBTree.h"
 #include "Collider.h"
 #include "FastboiCore.h"
 #include <functional>
@@ -9,6 +8,8 @@
 #include <limits>
 #include "Rigidbody.h"
 #include <stdint.h>
+#include <queue>
+#include <iostream>
 
 #define CUTE_C2_IMPLEMENTATION
 #include "cute_c2.h"
@@ -89,41 +90,116 @@ void Fastboi::Collision::ProgressRigidbodies() {
     }
 }
 
-void Fastboi::Collision::BroadPhase(
-      const Colliders_t& colliders
-    , PotentialCollisions_t& potentialCollisions
-) {
-    for (auto it = colliders.begin(); it != colliders.end(); it++) {
-        Collider* collider = *it;
+// void Fastboi::Collision::detail::BroadPhaseHelper(
+//       std::span<const AABBTree::Node> nodes
+//     , PotentialCollisions_t& potentialCollisions
+//     , const AABBTree::Node& single
+//     , const AABBTree::Node& potential
+// ) {
+//     if (not BoundingBox::Overlaps(single.bounds, potential.bounds))
+//         return;
 
-        // if (!collider->isStarted || !collider->isEnabled || collider->isDeleted) continue;
-        if (!collider->isStarted) continue;
-        if (!collider->isEnabled) continue;
-        if (collider->isDeleted) continue;
+//     // We have two distinct nodes overlapping - check all combinations of their children
+//     if (not single.IsLeaf()) {
+//         BroadPhaseHelper(nodes, potentialCollisions, single.GetLeft(nodes), single.GetRight(nodes));
 
-        // auto pots = aabbTree.query(collider);
-        const Transform& ct = *collider->gameobject().transform;
+//         if (not potential.IsLeaf()) {
+//             // Both are not leafs
+//             BroadPhaseHelper(nodes, potentialCollisions, potential.GetLeft(nodes), potential.GetRight(nodes));
 
-        for (auto pcit = std::next(it); pcit != colliders.end(); pcit++) {
-            Collider* pc = *pcit;
+//             BroadPhaseHelper(nodes, potentialCollisions, single.GetLeft(nodes),  potential.GetLeft(nodes));
+//             BroadPhaseHelper(nodes, potentialCollisions, single.GetLeft(nodes),  potential.GetRight(nodes));
+//             BroadPhaseHelper(nodes, potentialCollisions, single.GetRight(nodes), potential.GetLeft(nodes));
+//             BroadPhaseHelper(nodes, potentialCollisions, single.GetRight(nodes), potential.GetRight(nodes));
+//         } else {
+//             // Only single is leaf
+//             BroadPhaseHelper(nodes, potentialCollisions, single.GetLeft(nodes),  potential);
+//             BroadPhaseHelper(nodes, potentialCollisions, single.GetRight(nodes), potential);
+//         }
+//     } else {
+//         if (not potential.IsLeaf()) {
+//             // Only potential is leaf
+//             BroadPhaseHelper(nodes, potentialCollisions, potential.GetLeft(nodes), potential.GetRight(nodes));
 
-            if (!CollisionMask::CanCollide(collider->mask, pc->mask)) continue;
+//             BroadPhaseHelper(nodes, potentialCollisions, potential.GetLeft(nodes),  single);
+//             BroadPhaseHelper(nodes, potentialCollisions, potential.GetRight(nodes), single);
+//         } else {
+//             // Two leaves are overlapping, insert into potential collisions if the rules are met
+//             Collider* a = std::any_cast<Collider*>(single.handle->owner);
+//             Collider* b = std::any_cast<Collider*>(potential.handle->owner);
 
-            if (unlikely(!pc->isStarted)) continue;
-            if (unlikely(!pc->isEnabled)) continue;
-            if (unlikely(pc->isDeleted)) continue;
+//             if (unlikely(not a->isStarted || not b->isStarted)) return;
+//             if (unlikely(not a->isEnabled || not b->isEnabled)) return;
+//             if (unlikely(    a->isDeleted ||     b->isDeleted)) return;
 
-            const Transform& pct = *pc->gameobject().transform;
+//             potentialCollisions.emplace(a, b);
+//         }
+//     }
+// }
 
-            if (!BoundingBox::Overlaps(ct.GetBounds().Fattened(0.2f), pct.GetBounds().Fattened(0.2f))) continue;
+void Fastboi::Collision::BroadPhase(const Colliders_t &colliders [[maybe_unused]], PotentialCollisions_t &potentialCollisions) {
+    const AABBTree& tree = globalAABB;
 
-            // Rendering::Request_Render_DebugRect(b.Fatten(0.2f).ToRect());
-            // Rendering::Request_Render_DebugRect(ct.GetBounds().Fatten(0.2f).ToRect());
+    for (Collider* collider : colliders) {
+        if (not collider->hasTransformChanged) {
+            if (not collider->gameobject().HasComponent<Rigidbody>()) continue;
 
-            potentialCollisions.emplace(ColliderPairKey(collider, pc));
+            const Rigidbody& rb = collider->gameobject().GetComponent<Rigidbody>();
+            
+            if (rb == Rigidbody()) continue;
         }
+
+        tree.ForAllOverlapping(collider->aabbHandle->GetInTreeBounds(), [&](const AABBHandle& handle) {
+            if (handle == collider->aabbHandle.value()) return;
+
+            Collider* other = std::any_cast<Collider*>(handle.owner);
+            
+            if (!CollisionMask::CanCollide(collider->mask, other->mask)) return;
+
+            if (unlikely(not collider->isStarted || not other->isStarted)) return;
+            if (unlikely(not collider->isEnabled || not other->isEnabled)) return;
+            if (unlikely(    collider->isDeleted ||     other->isDeleted)) return;
+
+            potentialCollisions.emplace(collider, other);
+        });
     }
 }
+
+// void Fastboi::Collision::BroadPhase(
+//       const Colliders_t& colliders
+//     , PotentialCollisions_t& potentialCollisions
+// ) {
+//     for (auto it = colliders.begin(); it != colliders.end(); it++) {
+//         Collider* collider = *it;
+
+//         // if (!collider->isStarted || !collider->isEnabled || collider->isDeleted) continue;
+//         if (!collider->isStarted) continue;
+//         if (!collider->isEnabled) continue;
+//         if (collider->isDeleted) continue;
+
+//         // auto pots = aabbTree.query(collider);
+//         const Transform& ct = *collider->gameobject().transform;
+
+//         for (auto pcit = std::next(it); pcit != colliders.end(); pcit++) {
+//             Collider* pc = *pcit;
+
+//             if (!CollisionMask::CanCollide(collider->mask, pc->mask)) continue;
+
+//             if (unlikely(!pc->isStarted)) continue;
+//             if (unlikely(!pc->isEnabled)) continue;
+//             if (unlikely(pc->isDeleted)) continue;
+
+//             const Transform& pct = *pc->gameobject().transform;
+
+//             if (!BoundingBox::Overlaps(ct.GetBounds().Fattened(0.2f), pct.GetBounds().Fattened(0.2f))) continue;
+
+//             // Rendering::Request_Render_DebugRect(b.Fatten(0.2f).ToRect());
+//             // Rendering::Request_Render_DebugRect(ct.GetBounds().Fatten(0.2f).ToRect());
+
+//             potentialCollisions.emplace(ColliderPairKey(collider, pc));
+//         }
+//     }
+// }
 
 void Fastboi::Collision::AdvanceTransform(Transform& transform, const Velocity& vel, const Degree& rotV) {
     transform.position += vel;
@@ -219,7 +295,7 @@ std::size_t ColliderPairKey::Hash::operator()(const ColliderPairKey& cp) const {
     std::size_t b = std::hash<Collider*>()(cp.b);
 
     // (a, b) and (b, a) always produce the same hash
-    return std::min(a, b) ^ std::max(a, b);
+    return a ^ b;
 }
 
 void Collision::UpdateAABBTree(Colliders_t& colliders) {
