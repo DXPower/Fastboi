@@ -1,6 +1,8 @@
 #include "Collision.h"
 #include <algorithm>
+#include "AABBTree.h"
 #include "Collider.h"
+#include "CollisionMask.h"
 #include "FastboiCore.h"
 #include <functional>
 #include "Gameobject.h"
@@ -21,6 +23,50 @@ using namespace Fastboi;
 using namespace Fastboi::Collision;
 
 AABBTree Collision::globalAABB{ 1.f };
+
+Gameobject* Fastboi::GetGameobjectAtPosition(Position pos, CollisionMask::UT acceptable) {
+    const AABBTree& tree = globalAABB;
+    std::vector<Gameobject*> handles;
+
+    tree.ForAllOverlapping(BoundingBox{pos, pos}, [&](const AABBHandle& handle) {
+        Collider* owner = std::any_cast<Collider*>(handle.owner);
+
+        if (not CollisionMask::CanCollide(owner->mask, acceptable)) return;
+
+        if (unlikely(not owner->isStarted)) return;
+        if (unlikely(not owner->isEnabled)) return;
+        if (unlikely(    owner->isDeleted)) return;
+
+
+        if (owner->gameobject().transform->ContainsPoint(pos))
+            handles.push_back(&owner->gameobject());        
+    });
+
+    if (handles.size() == 0)
+        return nullptr;
+
+    auto it = std::ranges::min_element(handles, [](Gameobject* a, Gameobject* b) {
+        bool aHasRenderer = a->HasComponent<Renderer>();
+        bool bHasRenderer = b->HasComponent<Renderer>();
+
+        if (aHasRenderer && bHasRenderer) {
+            Renderer& ra = a->GetComponent<Renderer>();
+            Renderer& rb = b->GetComponent<Renderer>();
+
+            return ra.GetRenderData() > rb.GetRenderData();
+        } else if (aHasRenderer && !bHasRenderer) { 
+            return true;
+        } else if (!aHasRenderer && bHasRenderer) {
+            return false;
+        } else {
+            return false; // If neither have a renderer then we can't order it, choose a random one
+        }
+
+        return false;
+    });
+
+    return *it;
+}
 
 c2v toC2V(const Position& p) {
     return (c2v) { p.x, p.y };
@@ -89,53 +135,6 @@ void Fastboi::Collision::ProgressRigidbodies() {
         }
     }
 }
-
-// void Fastboi::Collision::detail::BroadPhaseHelper(
-//       std::span<const AABBTree::Node> nodes
-//     , PotentialCollisions_t& potentialCollisions
-//     , const AABBTree::Node& single
-//     , const AABBTree::Node& potential
-// ) {
-//     if (not BoundingBox::Overlaps(single.bounds, potential.bounds))
-//         return;
-
-//     // We have two distinct nodes overlapping - check all combinations of their children
-//     if (not single.IsLeaf()) {
-//         BroadPhaseHelper(nodes, potentialCollisions, single.GetLeft(nodes), single.GetRight(nodes));
-
-//         if (not potential.IsLeaf()) {
-//             // Both are not leafs
-//             BroadPhaseHelper(nodes, potentialCollisions, potential.GetLeft(nodes), potential.GetRight(nodes));
-
-//             BroadPhaseHelper(nodes, potentialCollisions, single.GetLeft(nodes),  potential.GetLeft(nodes));
-//             BroadPhaseHelper(nodes, potentialCollisions, single.GetLeft(nodes),  potential.GetRight(nodes));
-//             BroadPhaseHelper(nodes, potentialCollisions, single.GetRight(nodes), potential.GetLeft(nodes));
-//             BroadPhaseHelper(nodes, potentialCollisions, single.GetRight(nodes), potential.GetRight(nodes));
-//         } else {
-//             // Only single is leaf
-//             BroadPhaseHelper(nodes, potentialCollisions, single.GetLeft(nodes),  potential);
-//             BroadPhaseHelper(nodes, potentialCollisions, single.GetRight(nodes), potential);
-//         }
-//     } else {
-//         if (not potential.IsLeaf()) {
-//             // Only potential is leaf
-//             BroadPhaseHelper(nodes, potentialCollisions, potential.GetLeft(nodes), potential.GetRight(nodes));
-
-//             BroadPhaseHelper(nodes, potentialCollisions, potential.GetLeft(nodes),  single);
-//             BroadPhaseHelper(nodes, potentialCollisions, potential.GetRight(nodes), single);
-//         } else {
-//             // Two leaves are overlapping, insert into potential collisions if the rules are met
-//             Collider* a = std::any_cast<Collider*>(single.handle->owner);
-//             Collider* b = std::any_cast<Collider*>(potential.handle->owner);
-
-//             if (unlikely(not a->isStarted || not b->isStarted)) return;
-//             if (unlikely(not a->isEnabled || not b->isEnabled)) return;
-//             if (unlikely(    a->isDeleted ||     b->isDeleted)) return;
-
-//             potentialCollisions.emplace(a, b);
-//         }
-//     }
-// }
 
 void Fastboi::Collision::BroadPhase(const Colliders_t &colliders [[maybe_unused]], PotentialCollisions_t &potentialCollisions) {
     const AABBTree& tree = globalAABB;

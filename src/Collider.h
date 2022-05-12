@@ -94,8 +94,8 @@ namespace Fastboi {
         using Collisions_t = Fastboi::Collision::Collisions_t;
         using Collision_t = Fastboi::Collision::Collision_t;
 
+        friend Gameobject* Fastboi::GetGameobjectAtPosition(Position pos, CollisionMask::UT acceptable);
         friend void Collision::BroadPhase(const Colliders_t&, PotentialCollisions_t&);
-        friend void Collision::detail::BroadPhaseHelper(std::span<const Collision::AABBTree::Node> nodes, PotentialCollisions_t& potentialCollisions, const Collision::AABBTree::Node& single, const Collision::AABBTree::Node& potential);
         friend void Collision::NarrowPhase(const PotentialCollisions_t&, Collisions_t&);
         friend void Collision::ResolveColliders(const Collisions_t&);
         friend std::tuple<Velocity, Velocity> Fastboi::Collision::ResolveCollision(const Collision_t&);

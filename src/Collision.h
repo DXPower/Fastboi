@@ -6,6 +6,7 @@
 #include <map>
 #include <memory>
 #include <tuple>
+#include "CollisionMask.h"
 #include "Vec.h"
 #include <vector>
 #include "circular_vector.h"
@@ -17,6 +18,12 @@ namespace Fastboi {
     struct Collider;
     struct Gameobject;
     struct Transform;
+
+
+           Gameobject* GetGameobjectAtPosition(Position pos, CollisionMask::UT acceptable);
+    inline Gameobject* GetGameobjectAtPosition(Position pos, CollisionLayer acceptable) {
+        return GetGameobjectAtPosition(pos, static_cast<CollisionMask::UT>(acceptable));
+    }
 
     namespace Collision {
         extern AABBTree globalAABB;
@@ -50,9 +57,7 @@ namespace Fastboi {
         using PotentialCollisions_t = std::unordered_set<ColliderPairKey, ColliderPairKey::Hash>;
         
         struct Collisions_t {
-            // using CollisionPairMap_t = std::unordered_map<ColliderPairKey, CollisionData, ColliderPairKey::Hash>;
             std::vector<Collision_t> collisions;
-            // Colliders_t cCollisions;
 
             // bool HasCollided(Collider* c) const;
             void AddCollision(const Collision_t& collision);    
@@ -72,10 +77,6 @@ namespace Fastboi {
         void ProgressRigidbodies();
 
         void BroadPhase(const Colliders_t& colliders, PotentialCollisions_t& potentialCollisions);
-        namespace detail {
-            void BroadPhaseHelper(std::span<const AABBTree::Node> nodes, PotentialCollisions_t& potentialCollisions, const AABBTree::Node& single, const AABBTree::Node& potential);
-        }
-
         void NarrowPhase(const PotentialCollisions_t& potentialCollisions, Collisions_t& collisions);
         void ResolveColliders(const Collisions_t& collisions);
         void DispatchCollisions(const Collisions_t& collisions);
@@ -84,7 +85,6 @@ namespace Fastboi {
         void AdvanceTransform(Transform& transform, const Velocity& vel, const Degree& rotV);
         circular_vector<Position> AdvanceCollider(const Collider&);
 
-        // AABBHandle RegisterAABB(const Collider& collider);
         void UpdateAABBTree(Colliders_t& colliders);
     }
 }

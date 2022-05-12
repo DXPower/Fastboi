@@ -1,5 +1,7 @@
 #pragma once
 
+#include <compare>
+
 namespace Fastboi {
     enum class RenderOrder {
         SKYBOX,
@@ -15,7 +17,16 @@ namespace Fastboi {
         RenderOrder order;
         int zindex;
 
-        RenderData(RenderOrder o) : RenderData(o, 0) { };
-        RenderData(RenderOrder o, int z) : order(o), zindex(z) { };
+        constexpr RenderData(RenderOrder o) : RenderData(o, 0) { };
+        constexpr RenderData(RenderOrder o, int z) : order(o), zindex(z) { };
+
+        constexpr bool operator==(const RenderData& other) const = default;
+
+        constexpr std::strong_ordering operator<=>(const RenderData& rhs) const {
+            if (order != rhs.order)
+                return order <=> rhs.order;
+            else
+                return zindex <=> rhs.zindex;
+        }
     };  
 };

@@ -40,6 +40,9 @@ namespace Fastboi {
         int GetZ() const;
         void SetZ(int z);
 
+        RenderData GetRenderData() const { return data; };
+        void SetRenderData(RenderData data) { SetOrder(data.order); SetZ(data.zindex); } 
+
         void Destroy() { isDeleted = true; };
 
         protected:

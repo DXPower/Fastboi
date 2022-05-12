@@ -18,8 +18,9 @@ namespace Fastboi {
     };
 
     struct CollisionMask {
-        private:
         using UT = std::underlying_type_t<CollisionLayer>;
+        
+        private:
         #define stut(x) static_cast<UT>(x)
 
         UT inclusions = stut(CollisionLayer::ALL);
@@ -84,6 +85,9 @@ namespace Fastboi {
         }
 
         static bool CanCollide(const CollisionMask& a, const CollisionMask& b);
+
+        // Check if a's layer is in b
+        static bool CanCollide(const CollisionMask& a, UT b);
 
         private:
         bool CanCollide(CollisionLayer layer) const;

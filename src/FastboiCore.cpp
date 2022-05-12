@@ -4,6 +4,7 @@
 #include "Application.h"
 #include "Camera.h"
 #include "Collision.h"
+#include "CollisionMask.h"
 #include "Gameobject.h"
 #include "Input.h"
 #include <mutex>
@@ -130,6 +131,14 @@ void Fastboi::Render() {
         }
 
         // Rendering::Render_AllDebugRects();
+
+        Position mouseWorldPos = Fastboi::GetCamera().ScreenToWorldPos(Input::GetMousePosition());
+        Gameobject* goUnderMouse = Fastboi::GetGameobjectAtPosition(mouseWorldPos, CollisionLayer::ALL);
+
+        if (goUnderMouse != nullptr) {
+            Rendering::SetColor(0, 0, 0, 255);
+            Rendering::Render_Rect<Rendering::FillType::UNFILLED>(goUnderMouse->transform);
+        }
 
         // renderingMtx.unlock();
         SDL_RenderPresent(Rendering::gRenderer);
