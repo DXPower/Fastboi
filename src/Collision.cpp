@@ -37,13 +37,14 @@ Gameobject* Fastboi::GetGameobjectAtPosition(Position pos, CollisionMask::UT acc
         if (unlikely(not owner->isEnabled)) return;
         if (unlikely(    owner->isDeleted)) return;
 
-
         if (owner->gameobject().transform->ContainsPoint(pos))
             handles.push_back(&owner->gameobject());        
     });
 
     if (handles.size() == 0)
         return nullptr;
+    if (handles.size() == 1)
+        return handles[0];
 
     auto it = std::ranges::min_element(handles, [](Gameobject* a, Gameobject* b) {
         bool aHasRenderer = a->HasComponent<Renderer>();
@@ -66,6 +67,23 @@ Gameobject* Fastboi::GetGameobjectAtPosition(Position pos, CollisionMask::UT acc
     });
 
     return *it;
+}
+
+RaytraceResult Fastboi::Raytrace(Position origin, Vecf direction, CollisionMask::UT acceptable, float maxDistance) {
+    constexpr float step = 10.f;
+
+    Position curPos = origin;
+    direction = direction.normalized();
+
+    for (float distance = 0; distance <= maxDistance; distance += step, curPos += step * direction) {
+        Gameobject* hit = GetGameobjectAtPosition(curPos, acceptable);
+
+        if (hit != nullptr) {
+            return { .hit = hit, .origin = origin, .ending = curPos };
+        }
+    }
+
+    return { .hit = nullptr, .origin = origin, .ending = curPos };
 }
 
 c2v toC2V(const Position& p) {

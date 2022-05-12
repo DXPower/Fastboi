@@ -25,6 +25,17 @@ namespace Fastboi {
         return GetGameobjectAtPosition(pos, static_cast<CollisionMask::UT>(acceptable));
     }
 
+    struct RaytraceResult {
+        Gameobject* hit;
+        Position origin;
+        Position ending;
+    };
+
+    RaytraceResult Raytrace(Position origin, Vecf direction, CollisionMask::UT acceptable, float maxDistance);
+    inline RaytraceResult Raytrace(Position origin, Vecf direction, CollisionLayer acceptable, float maxDistance) {
+        return Raytrace(origin, direction, static_cast<CollisionMask::UT>(acceptable), maxDistance);
+    }
+
     namespace Collision {
         extern AABBTree globalAABB;
 

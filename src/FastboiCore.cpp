@@ -133,11 +133,22 @@ void Fastboi::Render() {
         // Rendering::Render_AllDebugRects();
 
         Position mouseWorldPos = Fastboi::GetCamera().ScreenToWorldPos(Input::GetMousePosition());
+        Position screenCenterWorldPos = Fastboi::GetCamera().ScreenToWorldPos(Application::GetWindowSize() / 2);
         Gameobject* goUnderMouse = Fastboi::GetGameobjectAtPosition(mouseWorldPos, CollisionLayer::ALL);
 
         if (goUnderMouse != nullptr) {
             Rendering::SetColor(0, 0, 0, 255);
             Rendering::Render_Rect<Rendering::FillType::UNFILLED>(goUnderMouse->transform);
+        }
+
+        auto raytrace = Fastboi::Raytrace(mouseWorldPos, mouseWorldPos - screenCenterWorldPos, CollisionLayer::ALL, 10000);
+
+        Rendering::SetColor(255, 0, 0, 255);
+        Rendering::Render_Line(raytrace.origin, raytrace.ending);
+
+        if (raytrace.hit != nullptr) {
+            Rendering::SetColor(255, 0, 0, 255);
+            Rendering::Render_Rect<Rendering::FillType::UNFILLED>(raytrace.hit->transform);
         }
 
         // renderingMtx.unlock();
