@@ -68,8 +68,8 @@ void LoadResources() {
     printf("Resources loaded\n");
 }
 
-#include "soloud/soloud.h"
-#include "soloud/soloud_wav.h"
+#include "soloud.h"
+#include "soloud_wav.h"
 
 // SoLoud::Soloud gSoloud; // engine
 // SoLoud::Wav gWave; // wav file

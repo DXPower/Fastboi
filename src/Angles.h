@@ -4,6 +4,8 @@
 #include <limits>
 #include <numbers>
 #include <type_traits>
+#include <cstdio>
+#include <cmath>
 
 namespace Fastboi {
     using AngleNumeric_t = double;

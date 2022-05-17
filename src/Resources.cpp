@@ -8,8 +8,8 @@
 #include "SDL/SDL_image.h"
 #include "SDL/SDL_render.h"
 #include "SDL/SDL_surface.h"
-#include "soloud/soloud.h"
-#include "soloud/soloud_wav.h"
+#include "soloud.h"
+#include "soloud_wav.h"
 #include "Texture.h"
 #include <unordered_map>
 #include "Utility.h"

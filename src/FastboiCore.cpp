@@ -12,7 +12,7 @@
 #include "Rendering.h"
 #include "Resources.h"
 #include "SDL/SDL.h"
-#include "soloud/soloud.h"
+#include "soloud.h"
 #include "Texture.h"
 #include "Timer.h"
 #include <thread>
