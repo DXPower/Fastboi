@@ -27,7 +27,7 @@ add_executable(adventure ${SRC} ${THIRDPARTY_SRC} ${APP_SRC})
 
 target_compile_options(adventure PRIVATE -flto=thin)
 target_link_options(adventure PRIVATE -fuse-ld=lld -flto=thin)
-target_include_directories(adventure PRIVATE inc src inc/soloud inc/SDL)
+target_include_directories(adventure PRIVATE inc src deps/soloud/include inc/SDL)
 
 target_link_libraries(adventure PRIVATE SDL2 SDL2main SDL2_image)
 

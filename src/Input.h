@@ -84,7 +84,8 @@ namespace Fastboi {
         template<typename... I>
         bool IsKeyDown(I... keys) {
             static_assert((std::is_convertible_v<I, uint8_t> && ...));
-            static_assert(sizeof...(I) > 1);
+            // todo: maybe do something about this
+	    //static_assert(sizeof...(I) > 1);
 
             return (IsKeyDown(keys) || ...);
         }

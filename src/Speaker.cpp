@@ -6,8 +6,8 @@
 #include "Rect.h"
 #include "Resources.h"
 #include "Shape.h"
-#include "soloud/soloud.h"
-#include "soloud/soloud_wav.h"
+#include "soloud.h"
+#include "soloud_wav.h"
 
 #undef min
 #undef max

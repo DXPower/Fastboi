@@ -1,0 +1,3 @@
+[submodule "deps/soloud"]
+	path = deps/soloud
+	url = https://github.com/jarikomppa/soloud.git
