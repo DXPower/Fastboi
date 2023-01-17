@@ -1,6 +1,7 @@
 #include "FastboiCore.h"
 #include <algorithm>
 #include "Angles.h"
+#include "Archetype.h"
 #include "Application.h"
 #include "Camera.h"
 #include "Collision.h"
@@ -15,7 +16,6 @@
 #include "soloud/soloud.h"
 #include "Texture.h"
 #include "Timer.h"
-#include <thread>
 #include <unordered_set>
 #include <list>
 #include <map>
@@ -50,11 +50,6 @@ std::vector<Gameobject*> gosToDelete; // Need to keep track of the objects we de
 std::map<RenderOrder, std::vector<Renderer*>> renderers;
 std::unordered_set<Collider*> colliders;
 
-std::thread::id renderingThreadID;
-std::thread::id updateThreadID;
-
-std::mutex renderingMtx;
-
 void Fastboi::Destroy(Gameobject& go) {
     go.Destroy();
 
@@ -63,7 +58,7 @@ void Fastboi::Destroy(Gameobject& go) {
 
 void Fastboi::Tick() {
     extern GameobjectAllocator gameobjectAllocator;
-    std::lock_guard<std::mutex> lock(renderingMtx);
+
     gameobjectAllocator.StartAll();
 
     for (auto it = gameobjectAllocator.GO_Begin(); it != gameobjectAllocator.GO_End(); it++) {
@@ -79,82 +74,62 @@ void Fastboi::Tick() {
         gameobjectAllocator.Deallocate(static_cast<void*>(go));
     }
 
+    for (auto& [k, archetypePtr] : detail::archetypes) {
+        ArchetypeBase& archetype = *archetypePtr;
+        archetype.TickSystems();
+    }
+
     gosToDelete.clear();
 }
 
 void Fastboi::Render() {
-    // Timer renderTimer;
-    // constexpr int TICK_FREQUENCY = 120;
-    // constexpr std::chrono::duration<double, std::milli> TICK_TIME(1000.0 / TICK_FREQUENCY);
-    
-    // std::chrono::duration<double, std::milli> renderDelta(0);
+    Texture::CreateQueuedTextures();
 
-    // while (!quit) {
-        // renderingMtx.lock();
-        // Input::PollEvents();
-        // renderingMtx.unlock();
+    uint32_t flags = SDL_GetWindowFlags(Application::gWindow);
+    if (!(flags & (SDL_WINDOW_INPUT_FOCUS))) {
+        // continue;
+        return;
+    }
 
-        Texture::CreateQueuedTextures();
+    auto bgColor = Rendering::GetBGColor();
+    SDL_SetRenderDrawColor(Rendering::gRenderer, bgColor.r, bgColor.g, bgColor.b, bgColor.a);
+    SDL_RenderClear(Rendering::gRenderer);
 
-        // if (!(renderTimer.TimeSinceLastTick() > TICK_TIME)) continue;
+    const static auto sortByZ = [](const Renderer* a, const Renderer* b) -> bool {
+        return a->data.zindex < b->data.zindex;
+    };
 
-        // renderDelta = renderTimer.elapsed_seconds;
-        // renderTimer.Tick();
+    for (auto& [order, range] : renderers) {
+        for (Renderer* r : range) {
+            if (r->isEnabled && r->isStarted && !r->isDeleted) {
+                std::sort(range.begin(), range.end(), sortByZ);
+                r->Render();
+            }
+        }        
+    }
 
-        // if (renderDelta > (decltype(renderDelta){10}))
-        //     printf("Render: %f\n", renderDelta);
+    // Rendering::Render_AllDebugRects();
 
-        // // printf("Attempting render...\n");
-        uint32_t flags = SDL_GetWindowFlags(Application::gWindow);
-        if (!(flags & (SDL_WINDOW_INPUT_FOCUS))) {
-            // continue;
-            return;
-        }
+    Position mouseWorldPos = Fastboi::GetCamera().ScreenToWorldPos(Input::GetMousePosition());
+    Position screenCenterWorldPos = Fastboi::GetCamera().ScreenToWorldPos(Application::GetWindowSize() / 2);
+    Gameobject* goUnderMouse = Fastboi::GetGameobjectAtPosition(mouseWorldPos, CollisionLayer::ALL);
 
-        auto bgColor = Rendering::GetBGColor();
-        SDL_SetRenderDrawColor(Rendering::gRenderer, bgColor.r, bgColor.g, bgColor.b, bgColor.a);
-        SDL_RenderClear(Rendering::gRenderer);
+    if (goUnderMouse != nullptr) {
+        Rendering::SetColor(0, 0, 0, 255);
+        Rendering::Render_Rect<Rendering::FillType::UNFILLED>(goUnderMouse->transform);
+    }
 
-        // renderingMtx.lock();
+    auto raytrace = Fastboi::Raytrace(mouseWorldPos, mouseWorldPos - screenCenterWorldPos, CollisionLayer::ALL, 10000);
 
-        const static auto sortByZ = [](const Renderer* a, const Renderer* b) -> bool {
-            return a->data.zindex < b->data.zindex;
-        };
+    Rendering::SetColor(255, 0, 0, 255);
+    Rendering::Render_Line(raytrace.origin, raytrace.ending);
 
-        for (auto& [order, range] : renderers) {
-            for (Renderer* r : range) {
-                if (r->isEnabled && r->isStarted && !r->isDeleted) {
-                    std::sort(range.begin(), range.end(), sortByZ);
-                    r->Render();
-                }
-            }        
-        }
-
-        // Rendering::Render_AllDebugRects();
-
-        Position mouseWorldPos = Fastboi::GetCamera().ScreenToWorldPos(Input::GetMousePosition());
-        Position screenCenterWorldPos = Fastboi::GetCamera().ScreenToWorldPos(Application::GetWindowSize() / 2);
-        Gameobject* goUnderMouse = Fastboi::GetGameobjectAtPosition(mouseWorldPos, CollisionLayer::ALL);
-
-        if (goUnderMouse != nullptr) {
-            Rendering::SetColor(0, 0, 0, 255);
-            Rendering::Render_Rect<Rendering::FillType::UNFILLED>(goUnderMouse->transform);
-        }
-
-        auto raytrace = Fastboi::Raytrace(mouseWorldPos, mouseWorldPos - screenCenterWorldPos, CollisionLayer::ALL, 10000);
-
+    if (raytrace.hit != nullptr) {
         Rendering::SetColor(255, 0, 0, 255);
-        Rendering::Render_Line(raytrace.origin, raytrace.ending);
+        Rendering::Render_Rect<Rendering::FillType::UNFILLED>(raytrace.hit->transform);
+    }
 
-        if (raytrace.hit != nullptr) {
-            Rendering::SetColor(255, 0, 0, 255);
-            Rendering::Render_Rect<Rendering::FillType::UNFILLED>(raytrace.hit->transform);
-        }
-
-        // renderingMtx.unlock();
-        SDL_RenderPresent(Rendering::gRenderer);
-        // renderDelta = renderDelta.zero();
-    // }
+    SDL_RenderPresent(Rendering::gRenderer);
 }
 
 /**
@@ -197,19 +172,7 @@ void TickPhysicsThread() {
     static Timer tickTimer;
 
     Fastboi::tickDelta = 0;
-
     tickTimer.Tick(); // Initial tick because the time between app start and this line is quite long
-
-    std::vector<double> frameTimes;
-    std::vector<double> physicsTimes;
-    std::vector<double> tickTimes;
-    std::vector<double> renderTimes;
-    unsigned int n = 10000;
-
-    frameTimes.reserve(n);
-    frameTimes.reserve(n);
-    frameTimes.reserve(n);
-    frameTimes.reserve(n);
 
     while (!quit) {
         if (!paused) {
@@ -225,32 +188,11 @@ void TickPhysicsThread() {
                 
 
                 Physics();
-                // physicsTimes.push_back(tickTimer.TimeSinceLastTick().count());
                 Tick();
-                // tickTimes.push_back(tickTimer.TimeSinceLastTick().count());
                 Render();
-                // renderTimes.push_back(tickTimer.TimeSinceLastTick().count());
-
-                // frameTimes.push_back(tickTimer.TimeSinceLastTick().count());
 
                 Fastboi::tickDelta = 0;
                 Fastboi::physicsDelta = 0;
-
-                // if (frameTimes.size() == n) {
-                //     std::ofstream file("times.txt", std::ios::trunc);
-
-                //     file << "Frame" << "," << "Time" << "," << "Frame" << "," << "Physics" << "," << "Ticks" << "," << "Render" << std::endl;
-
-                //     double curTime = 0.;
-                //     for (unsigned int x = 0; x < frameTimes.size(); x++) {
-                //         file << x << "," << curTime << "," << frameTimes[x] << "," << physicsTimes[x] << "," << tickTimes[x] << "," << renderTimes[x] << std::endl;
-                //         curTime += frameTimes[x];
-                //     }
-
-                //     Fastboi::Quit();
-                // }
-
-            // }
         }
     }  
 }
@@ -265,67 +207,12 @@ void Fastboi::GameLoop() {
     cacheLineSize = 64;
     GetCacheSize();
 
-    // Degree half = 3 * Radian::PI();
-
-    // printf("Half: %f %f\n", half(), (double) half.As<Radian>());
-    
-    // half = -Radian::PI() / 4;
-
-    // printf("Half: %i %f\n", (int) half, (double) (Radian) half);
-
-    // half = -15_deg;
-
-    // printf("Half: %f %f\n", half(), half.As<Radian>().Value());
-
-    // half = -45_deg;
-    // printf("half: %i %f\n", half.As<int>(), half.As<Radian>().Value());
-
-
-    // if (half == 315_deg)
-    //     printf("Half == -45deg == 315deg\n");
-    // else
-    //     printf("Half == -45deg != 315deg\n");
-
-    // auto a = Radian::PI() / 4;
-    // auto b = -7./4. * Radian::PI();
-
-    // printf("a: %f b: %f\n", a.Value(), b.Value());
-
-    // if (a == b)
-    //     printf("They're equal!\n");
-
-    // printf("Cache Line Size detected: %lu bytes\n", cacheLineSize);
-
-    // Input::PollEvents();
-    // Tick();
-
-    // std::thread bgThread(TickPhysicsThread);
-
-    // updateThreadID = bgThread.get_id();
-    // renderingThreadID = std::this_thread::get_id();
-
-    // Render();
-    // bgThread.join();
     Resources::GetSoloud().init();
 
     Input::PollEvents();
     Tick();
 
     TickPhysicsThread();
-
-    // while (!quit) {
-    //     printf("Looping top\n");
-    //     if (paused) continue;
-    //     printf("Next\n");
-
-    //     Input::PollEvents();
-    //     printf("1\n");
-    //     Physics();
-    //     printf("2\n");
-    //     Tick();
-    //     printf("3\n");
-    //     Render();
-    // }
 
     Cleanup();
 }
@@ -386,11 +273,8 @@ void Fastboi::UnregisterGameobject(Gameobject* go) {
 }
 
 void Fastboi::RegisterRenderer(Renderer* r) {
-    // Print("New renderer!");
-    
     RenderOrder order = r->GetOrder();
     renderers[order].push_back(r);
-    // Print("Renderer name: %s\n", r->gameobject.name);
 }
 
 //! Helper function used by Renderer::SetOrder(). This should not be directly called.
@@ -403,35 +287,25 @@ void Fastboi::ChangeRenderOrder(Renderer* r, RenderOrder old, RenderOrder _new) 
 }
 
 void Fastboi::UnregisterRenderer(Renderer* r) {
-    // Print("Dead renderer!");
     std::vector<Renderer*>& range = renderers[r->GetOrder()];
     range.erase(std::find(range.begin(), range.end(), r));
 }
 
 void Fastboi::RegisterCollider(Collider* c) {
-    // Print("New collider! %p\n", c);
     colliders.emplace(c);
 }
 
 void Fastboi::UnregisterCollider(Collider* c) {
-    // Print("Dead collider!");
     colliders.erase(c);
 }
 
-std::thread::id Fastboi::GetRenderingThreadID() {
-    return renderingThreadID;
-}
-
-std::thread::id Fastboi::GetUpdateThreadID() {
-    return updateThreadID;
-}
 
 bool Fastboi::IsRenderingThread() {
-    return std::this_thread::get_id() == GetRenderingThreadID();
+    return true;
 }
 
 bool Fastboi::IsUpdateThread() {
-    return std::this_thread::get_id() == GetUpdateThreadID();
+    return true;
 }
 
 /**

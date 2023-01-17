@@ -1,337 +1,637 @@
 [
 {
   "directory": "C:/Users/myaka/Documents/Github/Fastboi",
-  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -O3 -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\AABBTree.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\AABBTree.cpp",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\AABBTree.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\AABBTree.cpp",
   "file": "C:/Users/myaka/Documents/Github/Fastboi/src/AABBTree.cpp"
 },
 {
   "directory": "C:/Users/myaka/Documents/Github/Fastboi",
-  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -O3 -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\Angles.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\Angles.cpp",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\Angles.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\Angles.cpp",
   "file": "C:/Users/myaka/Documents/Github/Fastboi/src/Angles.cpp"
 },
 {
   "directory": "C:/Users/myaka/Documents/Github/Fastboi",
-  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -O3 -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\Application.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\Application.cpp",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\Application.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\Application.cpp",
   "file": "C:/Users/myaka/Documents/Github/Fastboi/src/Application.cpp"
 },
 {
   "directory": "C:/Users/myaka/Documents/Github/Fastboi",
-  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -O3 -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\BoundingBoxRenderer.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\BoundingBoxRenderer.cpp",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\BoundingBoxRenderer.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\BoundingBoxRenderer.cpp",
   "file": "C:/Users/myaka/Documents/Github/Fastboi/src/BoundingBoxRenderer.cpp"
 },
 {
   "directory": "C:/Users/myaka/Documents/Github/Fastboi",
-  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -O3 -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\BoxColorRenderer.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\BoxColorRenderer.cpp",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\BoxColorRenderer.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\BoxColorRenderer.cpp",
   "file": "C:/Users/myaka/Documents/Github/Fastboi/src/BoxColorRenderer.cpp"
 },
 {
   "directory": "C:/Users/myaka/Documents/Github/Fastboi",
-  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -O3 -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\Camera.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\Camera.cpp",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\Camera.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\Camera.cpp",
   "file": "C:/Users/myaka/Documents/Github/Fastboi/src/Camera.cpp"
 },
 {
   "directory": "C:/Users/myaka/Documents/Github/Fastboi",
-  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -O3 -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\Collider.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\Collider.cpp",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\Collider.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\Collider.cpp",
   "file": "C:/Users/myaka/Documents/Github/Fastboi/src/Collider.cpp"
 },
 {
   "directory": "C:/Users/myaka/Documents/Github/Fastboi",
-  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -O3 -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\Collision.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\Collision.cpp",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\Collision.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\Collision.cpp",
   "file": "C:/Users/myaka/Documents/Github/Fastboi/src/Collision.cpp"
 },
 {
   "directory": "C:/Users/myaka/Documents/Github/Fastboi",
-  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -O3 -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\CollisionMask.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\CollisionMask.cpp",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\CollisionMask.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\CollisionMask.cpp",
   "file": "C:/Users/myaka/Documents/Github/Fastboi/src/CollisionMask.cpp"
 },
 {
   "directory": "C:/Users/myaka/Documents/Github/Fastboi",
-  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -O3 -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\FastboiCore.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\FastboiCore.cpp",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\FastboiCore.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\FastboiCore.cpp",
   "file": "C:/Users/myaka/Documents/Github/Fastboi/src/FastboiCore.cpp"
 },
 {
   "directory": "C:/Users/myaka/Documents/Github/Fastboi",
-  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -O3 -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\GORef.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\GORef.cpp",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\GORef.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\GORef.cpp",
   "file": "C:/Users/myaka/Documents/Github/Fastboi/src/GORef.cpp"
 },
 {
   "directory": "C:/Users/myaka/Documents/Github/Fastboi",
-  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -O3 -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\Gameobject.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\Gameobject.cpp",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\Gameobject.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\Gameobject.cpp",
   "file": "C:/Users/myaka/Documents/Github/Fastboi/src/Gameobject.cpp"
 },
 {
   "directory": "C:/Users/myaka/Documents/Github/Fastboi",
-  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -O3 -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\GameobjectAllocator.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\GameobjectAllocator.cpp",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\GameobjectAllocator.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\GameobjectAllocator.cpp",
   "file": "C:/Users/myaka/Documents/Github/Fastboi/src/GameobjectAllocator.cpp"
 },
 {
   "directory": "C:/Users/myaka/Documents/Github/Fastboi",
-  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -O3 -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\Input.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\Input.cpp",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\Input.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\Input.cpp",
   "file": "C:/Users/myaka/Documents/Github/Fastboi/src/Input.cpp"
 },
 {
   "directory": "C:/Users/myaka/Documents/Github/Fastboi",
-  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -O3 -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\RectUI.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\RectUI.cpp",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\RectUI.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\RectUI.cpp",
   "file": "C:/Users/myaka/Documents/Github/Fastboi/src/RectUI.cpp"
 },
 {
   "directory": "C:/Users/myaka/Documents/Github/Fastboi",
-  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -O3 -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\Renderer.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\Renderer.cpp",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\Renderer.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\Renderer.cpp",
   "file": "C:/Users/myaka/Documents/Github/Fastboi/src/Renderer.cpp"
 },
 {
   "directory": "C:/Users/myaka/Documents/Github/Fastboi",
-  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -O3 -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\Rendering.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\Rendering.cpp",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\Rendering.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\Rendering.cpp",
   "file": "C:/Users/myaka/Documents/Github/Fastboi/src/Rendering.cpp"
 },
 {
   "directory": "C:/Users/myaka/Documents/Github/Fastboi",
-  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -O3 -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\RepeatRenderer.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\RepeatRenderer.cpp",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\RepeatRenderer.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\RepeatRenderer.cpp",
   "file": "C:/Users/myaka/Documents/Github/Fastboi/src/RepeatRenderer.cpp"
 },
 {
   "directory": "C:/Users/myaka/Documents/Github/Fastboi",
-  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -O3 -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\Resources.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\Resources.cpp",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\Resources.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\Resources.cpp",
   "file": "C:/Users/myaka/Documents/Github/Fastboi/src/Resources.cpp"
 },
 {
   "directory": "C:/Users/myaka/Documents/Github/Fastboi",
-  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -O3 -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\Rigidbody.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\Rigidbody.cpp",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\Rigidbody.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\Rigidbody.cpp",
   "file": "C:/Users/myaka/Documents/Github/Fastboi/src/Rigidbody.cpp"
 },
 {
   "directory": "C:/Users/myaka/Documents/Github/Fastboi",
-  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -O3 -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\ScreenElement.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\ScreenElement.cpp",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\ScreenElement.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\ScreenElement.cpp",
   "file": "C:/Users/myaka/Documents/Github/Fastboi/src/ScreenElement.cpp"
 },
 {
   "directory": "C:/Users/myaka/Documents/Github/Fastboi",
-  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -O3 -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\Shape.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\Shape.cpp",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\Shape.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\Shape.cpp",
   "file": "C:/Users/myaka/Documents/Github/Fastboi/src/Shape.cpp"
 },
 {
   "directory": "C:/Users/myaka/Documents/Github/Fastboi",
-  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -O3 -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\Speaker.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\Speaker.cpp",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\Speaker.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\Speaker.cpp",
   "file": "C:/Users/myaka/Documents/Github/Fastboi/src/Speaker.cpp"
 },
 {
   "directory": "C:/Users/myaka/Documents/Github/Fastboi",
-  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -O3 -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\SpriteRenderer.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\SpriteRenderer.cpp",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\SpriteRenderer.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\SpriteRenderer.cpp",
   "file": "C:/Users/myaka/Documents/Github/Fastboi/src/SpriteRenderer.cpp"
 },
 {
   "directory": "C:/Users/myaka/Documents/Github/Fastboi",
-  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -O3 -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\Texture.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\Texture.cpp",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\Texture.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\Texture.cpp",
   "file": "C:/Users/myaka/Documents/Github/Fastboi/src/Texture.cpp"
 },
 {
   "directory": "C:/Users/myaka/Documents/Github/Fastboi",
-  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -O3 -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\Transform.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\Transform.cpp",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\Transform.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\Transform.cpp",
   "file": "C:/Users/myaka/Documents/Github/Fastboi/src/Transform.cpp"
 },
 {
   "directory": "C:/Users/myaka/Documents/Github/Fastboi",
-  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -O3 -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\UI\\Screen.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\UI\\Screen.cpp",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\UI\\Screen.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\UI\\Screen.cpp",
   "file": "C:/Users/myaka/Documents/Github/Fastboi/src/UI/Screen.cpp"
 },
 {
   "directory": "C:/Users/myaka/Documents/Github/Fastboi",
-  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -O3 -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\UITexture.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\UITexture.cpp",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\UITexture.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\UITexture.cpp",
   "file": "C:/Users/myaka/Documents/Github/Fastboi/src/UITexture.cpp"
 },
 {
   "directory": "C:/Users/myaka/Documents/Github/Fastboi",
-  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -O3 -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\Utility.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\Utility.cpp",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\Utility.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\Utility.cpp",
   "file": "C:/Users/myaka/Documents/Github/Fastboi/src/Utility.cpp"
 },
 {
   "directory": "C:/Users/myaka/Documents/Github/Fastboi",
-  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -O3 -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\WireframeRenderer.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\WireframeRenderer.cpp",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\WireframeRenderer.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\WireframeRenderer.cpp",
   "file": "C:/Users/myaka/Documents/Github/Fastboi/src/WireframeRenderer.cpp"
 },
 {
   "directory": "C:/Users/myaka/Documents/Github/Fastboi",
-  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -O3 -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\deps\\soloud\\src\\audiosource\\wav\\dr_impl.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\deps\\soloud\\src\\audiosource\\wav\\dr_impl.cpp",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\deps\\soloud\\src\\audiosource\\wav\\dr_impl.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\deps\\soloud\\src\\audiosource\\wav\\dr_impl.cpp",
   "file": "C:/Users/myaka/Documents/Github/Fastboi/deps/soloud/src/audiosource/wav/dr_impl.cpp"
 },
 {
   "directory": "C:/Users/myaka/Documents/Github/Fastboi",
-  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -O3 -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\deps\\soloud\\src\\audiosource\\wav\\soloud_wav.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\deps\\soloud\\src\\audiosource\\wav\\soloud_wav.cpp",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\deps\\soloud\\src\\audiosource\\wav\\soloud_wav.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\deps\\soloud\\src\\audiosource\\wav\\soloud_wav.cpp",
   "file": "C:/Users/myaka/Documents/Github/Fastboi/deps/soloud/src/audiosource/wav/soloud_wav.cpp"
 },
 {
   "directory": "C:/Users/myaka/Documents/Github/Fastboi",
-  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -O3 -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\deps\\soloud\\src\\audiosource\\wav\\soloud_wavstream.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\deps\\soloud\\src\\audiosource\\wav\\soloud_wavstream.cpp",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\deps\\soloud\\src\\audiosource\\wav\\soloud_wavstream.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\deps\\soloud\\src\\audiosource\\wav\\soloud_wavstream.cpp",
   "file": "C:/Users/myaka/Documents/Github/Fastboi/deps/soloud/src/audiosource/wav/soloud_wavstream.cpp"
 },
 {
   "directory": "C:/Users/myaka/Documents/Github/Fastboi",
-  "command": "C:\\PROGRA~1\\LLVM\\bin\\clang.exe -DWITH_SDL2_STATIC @CMakeFiles/adventure.dir/includes_C.rsp -O3 -DNDEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -flto=thin -o CMakeFiles\\adventure.dir\\deps\\soloud\\src\\audiosource\\wav\\stb_vorbis.c.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\deps\\soloud\\src\\audiosource\\wav\\stb_vorbis.c",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\clang.exe -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/adventure.dir/includes_C.rsp -g -Xclang -gcodeview -O0 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -o CMakeFiles\\adventure.dir\\deps\\soloud\\src\\audiosource\\wav\\stb_vorbis.c.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\deps\\soloud\\src\\audiosource\\wav\\stb_vorbis.c",
   "file": "C:/Users/myaka/Documents/Github/Fastboi/deps/soloud/src/audiosource/wav/stb_vorbis.c"
 },
 {
   "directory": "C:/Users/myaka/Documents/Github/Fastboi",
-  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -O3 -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\deps\\soloud\\src\\core\\soloud.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\deps\\soloud\\src\\core\\soloud.cpp",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\deps\\soloud\\src\\core\\soloud.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\deps\\soloud\\src\\core\\soloud.cpp",
   "file": "C:/Users/myaka/Documents/Github/Fastboi/deps/soloud/src/core/soloud.cpp"
 },
 {
   "directory": "C:/Users/myaka/Documents/Github/Fastboi",
-  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -O3 -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\deps\\soloud\\src\\core\\soloud_audiosource.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\deps\\soloud\\src\\core\\soloud_audiosource.cpp",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\deps\\soloud\\src\\core\\soloud_audiosource.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\deps\\soloud\\src\\core\\soloud_audiosource.cpp",
   "file": "C:/Users/myaka/Documents/Github/Fastboi/deps/soloud/src/core/soloud_audiosource.cpp"
 },
 {
   "directory": "C:/Users/myaka/Documents/Github/Fastboi",
-  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -O3 -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\deps\\soloud\\src\\core\\soloud_bus.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\deps\\soloud\\src\\core\\soloud_bus.cpp",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\deps\\soloud\\src\\core\\soloud_bus.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\deps\\soloud\\src\\core\\soloud_bus.cpp",
   "file": "C:/Users/myaka/Documents/Github/Fastboi/deps/soloud/src/core/soloud_bus.cpp"
 },
 {
   "directory": "C:/Users/myaka/Documents/Github/Fastboi",
-  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -O3 -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\deps\\soloud\\src\\core\\soloud_core_3d.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\deps\\soloud\\src\\core\\soloud_core_3d.cpp",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\deps\\soloud\\src\\core\\soloud_core_3d.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\deps\\soloud\\src\\core\\soloud_core_3d.cpp",
   "file": "C:/Users/myaka/Documents/Github/Fastboi/deps/soloud/src/core/soloud_core_3d.cpp"
 },
 {
   "directory": "C:/Users/myaka/Documents/Github/Fastboi",
-  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -O3 -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\deps\\soloud\\src\\core\\soloud_core_basicops.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\deps\\soloud\\src\\core\\soloud_core_basicops.cpp",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\deps\\soloud\\src\\core\\soloud_core_basicops.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\deps\\soloud\\src\\core\\soloud_core_basicops.cpp",
   "file": "C:/Users/myaka/Documents/Github/Fastboi/deps/soloud/src/core/soloud_core_basicops.cpp"
 },
 {
   "directory": "C:/Users/myaka/Documents/Github/Fastboi",
-  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -O3 -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\deps\\soloud\\src\\core\\soloud_core_faderops.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\deps\\soloud\\src\\core\\soloud_core_faderops.cpp",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\deps\\soloud\\src\\core\\soloud_core_faderops.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\deps\\soloud\\src\\core\\soloud_core_faderops.cpp",
   "file": "C:/Users/myaka/Documents/Github/Fastboi/deps/soloud/src/core/soloud_core_faderops.cpp"
 },
 {
   "directory": "C:/Users/myaka/Documents/Github/Fastboi",
-  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -O3 -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\deps\\soloud\\src\\core\\soloud_core_filterops.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\deps\\soloud\\src\\core\\soloud_core_filterops.cpp",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\deps\\soloud\\src\\core\\soloud_core_filterops.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\deps\\soloud\\src\\core\\soloud_core_filterops.cpp",
   "file": "C:/Users/myaka/Documents/Github/Fastboi/deps/soloud/src/core/soloud_core_filterops.cpp"
 },
 {
   "directory": "C:/Users/myaka/Documents/Github/Fastboi",
-  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -O3 -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\deps\\soloud\\src\\core\\soloud_core_getters.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\deps\\soloud\\src\\core\\soloud_core_getters.cpp",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\deps\\soloud\\src\\core\\soloud_core_getters.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\deps\\soloud\\src\\core\\soloud_core_getters.cpp",
   "file": "C:/Users/myaka/Documents/Github/Fastboi/deps/soloud/src/core/soloud_core_getters.cpp"
 },
 {
   "directory": "C:/Users/myaka/Documents/Github/Fastboi",
-  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -O3 -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\deps\\soloud\\src\\core\\soloud_core_setters.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\deps\\soloud\\src\\core\\soloud_core_setters.cpp",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\deps\\soloud\\src\\core\\soloud_core_setters.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\deps\\soloud\\src\\core\\soloud_core_setters.cpp",
   "file": "C:/Users/myaka/Documents/Github/Fastboi/deps/soloud/src/core/soloud_core_setters.cpp"
 },
 {
   "directory": "C:/Users/myaka/Documents/Github/Fastboi",
-  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -O3 -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\deps\\soloud\\src\\core\\soloud_core_voicegroup.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\deps\\soloud\\src\\core\\soloud_core_voicegroup.cpp",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\deps\\soloud\\src\\core\\soloud_core_voicegroup.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\deps\\soloud\\src\\core\\soloud_core_voicegroup.cpp",
   "file": "C:/Users/myaka/Documents/Github/Fastboi/deps/soloud/src/core/soloud_core_voicegroup.cpp"
 },
 {
   "directory": "C:/Users/myaka/Documents/Github/Fastboi",
-  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -O3 -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\deps\\soloud\\src\\core\\soloud_core_voiceops.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\deps\\soloud\\src\\core\\soloud_core_voiceops.cpp",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\deps\\soloud\\src\\core\\soloud_core_voiceops.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\deps\\soloud\\src\\core\\soloud_core_voiceops.cpp",
   "file": "C:/Users/myaka/Documents/Github/Fastboi/deps/soloud/src/core/soloud_core_voiceops.cpp"
 },
 {
   "directory": "C:/Users/myaka/Documents/Github/Fastboi",
-  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -O3 -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\deps\\soloud\\src\\core\\soloud_fader.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\deps\\soloud\\src\\core\\soloud_fader.cpp",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\deps\\soloud\\src\\core\\soloud_fader.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\deps\\soloud\\src\\core\\soloud_fader.cpp",
   "file": "C:/Users/myaka/Documents/Github/Fastboi/deps/soloud/src/core/soloud_fader.cpp"
 },
 {
   "directory": "C:/Users/myaka/Documents/Github/Fastboi",
-  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -O3 -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\deps\\soloud\\src\\core\\soloud_fft.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\deps\\soloud\\src\\core\\soloud_fft.cpp",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\deps\\soloud\\src\\core\\soloud_fft.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\deps\\soloud\\src\\core\\soloud_fft.cpp",
   "file": "C:/Users/myaka/Documents/Github/Fastboi/deps/soloud/src/core/soloud_fft.cpp"
 },
 {
   "directory": "C:/Users/myaka/Documents/Github/Fastboi",
-  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -O3 -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\deps\\soloud\\src\\core\\soloud_fft_lut.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\deps\\soloud\\src\\core\\soloud_fft_lut.cpp",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\deps\\soloud\\src\\core\\soloud_fft_lut.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\deps\\soloud\\src\\core\\soloud_fft_lut.cpp",
   "file": "C:/Users/myaka/Documents/Github/Fastboi/deps/soloud/src/core/soloud_fft_lut.cpp"
 },
 {
   "directory": "C:/Users/myaka/Documents/Github/Fastboi",
-  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -O3 -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\deps\\soloud\\src\\core\\soloud_file.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\deps\\soloud\\src\\core\\soloud_file.cpp",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\deps\\soloud\\src\\core\\soloud_file.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\deps\\soloud\\src\\core\\soloud_file.cpp",
   "file": "C:/Users/myaka/Documents/Github/Fastboi/deps/soloud/src/core/soloud_file.cpp"
 },
 {
   "directory": "C:/Users/myaka/Documents/Github/Fastboi",
-  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -O3 -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\deps\\soloud\\src\\core\\soloud_filter.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\deps\\soloud\\src\\core\\soloud_filter.cpp",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\deps\\soloud\\src\\core\\soloud_filter.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\deps\\soloud\\src\\core\\soloud_filter.cpp",
   "file": "C:/Users/myaka/Documents/Github/Fastboi/deps/soloud/src/core/soloud_filter.cpp"
 },
 {
   "directory": "C:/Users/myaka/Documents/Github/Fastboi",
-  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -O3 -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\deps\\soloud\\src\\core\\soloud_misc.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\deps\\soloud\\src\\core\\soloud_misc.cpp",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\deps\\soloud\\src\\core\\soloud_misc.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\deps\\soloud\\src\\core\\soloud_misc.cpp",
   "file": "C:/Users/myaka/Documents/Github/Fastboi/deps/soloud/src/core/soloud_misc.cpp"
 },
 {
   "directory": "C:/Users/myaka/Documents/Github/Fastboi",
-  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -O3 -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\deps\\soloud\\src\\core\\soloud_queue.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\deps\\soloud\\src\\core\\soloud_queue.cpp",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\deps\\soloud\\src\\core\\soloud_queue.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\deps\\soloud\\src\\core\\soloud_queue.cpp",
   "file": "C:/Users/myaka/Documents/Github/Fastboi/deps/soloud/src/core/soloud_queue.cpp"
 },
 {
   "directory": "C:/Users/myaka/Documents/Github/Fastboi",
-  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -O3 -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\deps\\soloud\\src\\core\\soloud_thread.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\deps\\soloud\\src\\core\\soloud_thread.cpp",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\deps\\soloud\\src\\core\\soloud_thread.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\deps\\soloud\\src\\core\\soloud_thread.cpp",
   "file": "C:/Users/myaka/Documents/Github/Fastboi/deps/soloud/src/core/soloud_thread.cpp"
 },
 {
   "directory": "C:/Users/myaka/Documents/Github/Fastboi",
-  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -O3 -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\deps\\soloud\\src\\backend\\sdl2_static\\soloud_sdl2_static.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\deps\\soloud\\src\\backend\\sdl2_static\\soloud_sdl2_static.cpp",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\deps\\soloud\\src\\backend\\sdl2_static\\soloud_sdl2_static.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\deps\\soloud\\src\\backend\\sdl2_static\\soloud_sdl2_static.cpp",
   "file": "C:/Users/myaka/Documents/Github/Fastboi/deps/soloud/src/backend/sdl2_static/soloud_sdl2_static.cpp"
 },
 {
   "directory": "C:/Users/myaka/Documents/Github/Fastboi",
-  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -O3 -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\adventure\\Bridge.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\adventure\\Bridge.cpp",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\adventure\\Bridge.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\adventure\\Bridge.cpp",
   "file": "C:/Users/myaka/Documents/Github/Fastboi/src/adventure/Bridge.cpp"
 },
 {
   "directory": "C:/Users/myaka/Documents/Github/Fastboi",
-  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -O3 -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\adventure\\Chalise.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\adventure\\Chalise.cpp",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\adventure\\Chalise.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\adventure\\Chalise.cpp",
   "file": "C:/Users/myaka/Documents/Github/Fastboi/src/adventure/Chalise.cpp"
 },
 {
   "directory": "C:/Users/myaka/Documents/Github/Fastboi",
-  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -O3 -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\adventure\\Dragon.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\adventure\\Dragon.cpp",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\adventure\\Dragon.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\adventure\\Dragon.cpp",
   "file": "C:/Users/myaka/Documents/Github/Fastboi/src/adventure/Dragon.cpp"
 },
 {
   "directory": "C:/Users/myaka/Documents/Github/Fastboi",
-  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -O3 -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\adventure\\Game.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\adventure\\Game.cpp",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\adventure\\Game.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\adventure\\Game.cpp",
   "file": "C:/Users/myaka/Documents/Github/Fastboi/src/adventure/Game.cpp"
 },
 {
   "directory": "C:/Users/myaka/Documents/Github/Fastboi",
-  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -O3 -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\adventure\\GameManager.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\adventure\\GameManager.cpp",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\adventure\\GameManager.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\adventure\\GameManager.cpp",
   "file": "C:/Users/myaka/Documents/Github/Fastboi/src/adventure/GameManager.cpp"
 },
 {
   "directory": "C:/Users/myaka/Documents/Github/Fastboi",
-  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -O3 -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\adventure\\Gate.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\adventure\\Gate.cpp",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\adventure\\Gate.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\adventure\\Gate.cpp",
   "file": "C:/Users/myaka/Documents/Github/Fastboi/src/adventure/Gate.cpp"
 },
 {
   "directory": "C:/Users/myaka/Documents/Github/Fastboi",
-  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -O3 -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\adventure\\Item.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\adventure\\Item.cpp",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\adventure\\Item.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\adventure\\Item.cpp",
   "file": "C:/Users/myaka/Documents/Github/Fastboi/src/adventure/Item.cpp"
 },
 {
   "directory": "C:/Users/myaka/Documents/Github/Fastboi",
-  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -O3 -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\adventure\\Layouts.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\adventure\\Layouts.cpp",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\adventure\\Layouts.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\adventure\\Layouts.cpp",
   "file": "C:/Users/myaka/Documents/Github/Fastboi/src/adventure/Layouts.cpp"
 },
 {
   "directory": "C:/Users/myaka/Documents/Github/Fastboi",
-  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -O3 -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\adventure\\Level.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\adventure\\Level.cpp",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\adventure\\Level.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\adventure\\Level.cpp",
   "file": "C:/Users/myaka/Documents/Github/Fastboi/src/adventure/Level.cpp"
 },
 {
   "directory": "C:/Users/myaka/Documents/Github/Fastboi",
-  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -O3 -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\adventure\\Magnet.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\adventure\\Magnet.cpp",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\adventure\\Magnet.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\adventure\\Magnet.cpp",
   "file": "C:/Users/myaka/Documents/Github/Fastboi/src/adventure/Magnet.cpp"
 },
 {
   "directory": "C:/Users/myaka/Documents/Github/Fastboi",
-  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -O3 -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\adventure\\Player.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\adventure\\Player.cpp",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\adventure\\Player.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\adventure\\Player.cpp",
   "file": "C:/Users/myaka/Documents/Github/Fastboi/src/adventure/Player.cpp"
 },
 {
   "directory": "C:/Users/myaka/Documents/Github/Fastboi",
-  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -O3 -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\adventure\\Room.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\adventure\\Room.cpp",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\adventure\\Room.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\adventure\\Room.cpp",
   "file": "C:/Users/myaka/Documents/Github/Fastboi/src/adventure/Room.cpp"
 },
 {
   "directory": "C:/Users/myaka/Documents/Github/Fastboi",
-  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -O3 -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\adventure\\main.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\adventure\\main.cpp",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\adventure\\TestSystem.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\adventure\\TestSystem.cpp",
+  "file": "C:/Users/myaka/Documents/Github/Fastboi/src/adventure/TestSystem.cpp"
+},
+{
+  "directory": "C:/Users/myaka/Documents/Github/Fastboi",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/adventure.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\adventure.dir\\src\\adventure\\main.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\adventure\\main.cpp",
   "file": "C:/Users/myaka/Documents/Github/Fastboi/src/adventure/main.cpp"
+},
+{
+  "directory": "C:/Users/myaka/Documents/Github/Fastboi",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/minecraft.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\minecraft.dir\\src\\AABBTree.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\AABBTree.cpp",
+  "file": "C:/Users/myaka/Documents/Github/Fastboi/src/AABBTree.cpp"
+},
+{
+  "directory": "C:/Users/myaka/Documents/Github/Fastboi",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/minecraft.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\minecraft.dir\\src\\Angles.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\Angles.cpp",
+  "file": "C:/Users/myaka/Documents/Github/Fastboi/src/Angles.cpp"
+},
+{
+  "directory": "C:/Users/myaka/Documents/Github/Fastboi",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/minecraft.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\minecraft.dir\\src\\Application.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\Application.cpp",
+  "file": "C:/Users/myaka/Documents/Github/Fastboi/src/Application.cpp"
+},
+{
+  "directory": "C:/Users/myaka/Documents/Github/Fastboi",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/minecraft.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\minecraft.dir\\src\\BoundingBoxRenderer.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\BoundingBoxRenderer.cpp",
+  "file": "C:/Users/myaka/Documents/Github/Fastboi/src/BoundingBoxRenderer.cpp"
+},
+{
+  "directory": "C:/Users/myaka/Documents/Github/Fastboi",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/minecraft.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\minecraft.dir\\src\\BoxColorRenderer.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\BoxColorRenderer.cpp",
+  "file": "C:/Users/myaka/Documents/Github/Fastboi/src/BoxColorRenderer.cpp"
+},
+{
+  "directory": "C:/Users/myaka/Documents/Github/Fastboi",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/minecraft.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\minecraft.dir\\src\\Camera.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\Camera.cpp",
+  "file": "C:/Users/myaka/Documents/Github/Fastboi/src/Camera.cpp"
+},
+{
+  "directory": "C:/Users/myaka/Documents/Github/Fastboi",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/minecraft.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\minecraft.dir\\src\\Collider.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\Collider.cpp",
+  "file": "C:/Users/myaka/Documents/Github/Fastboi/src/Collider.cpp"
+},
+{
+  "directory": "C:/Users/myaka/Documents/Github/Fastboi",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/minecraft.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\minecraft.dir\\src\\Collision.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\Collision.cpp",
+  "file": "C:/Users/myaka/Documents/Github/Fastboi/src/Collision.cpp"
+},
+{
+  "directory": "C:/Users/myaka/Documents/Github/Fastboi",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/minecraft.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\minecraft.dir\\src\\CollisionMask.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\CollisionMask.cpp",
+  "file": "C:/Users/myaka/Documents/Github/Fastboi/src/CollisionMask.cpp"
+},
+{
+  "directory": "C:/Users/myaka/Documents/Github/Fastboi",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/minecraft.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\minecraft.dir\\src\\FastboiCore.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\FastboiCore.cpp",
+  "file": "C:/Users/myaka/Documents/Github/Fastboi/src/FastboiCore.cpp"
+},
+{
+  "directory": "C:/Users/myaka/Documents/Github/Fastboi",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/minecraft.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\minecraft.dir\\src\\GORef.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\GORef.cpp",
+  "file": "C:/Users/myaka/Documents/Github/Fastboi/src/GORef.cpp"
+},
+{
+  "directory": "C:/Users/myaka/Documents/Github/Fastboi",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/minecraft.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\minecraft.dir\\src\\Gameobject.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\Gameobject.cpp",
+  "file": "C:/Users/myaka/Documents/Github/Fastboi/src/Gameobject.cpp"
+},
+{
+  "directory": "C:/Users/myaka/Documents/Github/Fastboi",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/minecraft.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\minecraft.dir\\src\\GameobjectAllocator.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\GameobjectAllocator.cpp",
+  "file": "C:/Users/myaka/Documents/Github/Fastboi/src/GameobjectAllocator.cpp"
+},
+{
+  "directory": "C:/Users/myaka/Documents/Github/Fastboi",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/minecraft.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\minecraft.dir\\src\\Input.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\Input.cpp",
+  "file": "C:/Users/myaka/Documents/Github/Fastboi/src/Input.cpp"
+},
+{
+  "directory": "C:/Users/myaka/Documents/Github/Fastboi",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/minecraft.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\minecraft.dir\\src\\RectUI.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\RectUI.cpp",
+  "file": "C:/Users/myaka/Documents/Github/Fastboi/src/RectUI.cpp"
+},
+{
+  "directory": "C:/Users/myaka/Documents/Github/Fastboi",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/minecraft.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\minecraft.dir\\src\\Renderer.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\Renderer.cpp",
+  "file": "C:/Users/myaka/Documents/Github/Fastboi/src/Renderer.cpp"
+},
+{
+  "directory": "C:/Users/myaka/Documents/Github/Fastboi",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/minecraft.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\minecraft.dir\\src\\Rendering.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\Rendering.cpp",
+  "file": "C:/Users/myaka/Documents/Github/Fastboi/src/Rendering.cpp"
+},
+{
+  "directory": "C:/Users/myaka/Documents/Github/Fastboi",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/minecraft.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\minecraft.dir\\src\\RepeatRenderer.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\RepeatRenderer.cpp",
+  "file": "C:/Users/myaka/Documents/Github/Fastboi/src/RepeatRenderer.cpp"
+},
+{
+  "directory": "C:/Users/myaka/Documents/Github/Fastboi",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/minecraft.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\minecraft.dir\\src\\Resources.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\Resources.cpp",
+  "file": "C:/Users/myaka/Documents/Github/Fastboi/src/Resources.cpp"
+},
+{
+  "directory": "C:/Users/myaka/Documents/Github/Fastboi",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/minecraft.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\minecraft.dir\\src\\Rigidbody.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\Rigidbody.cpp",
+  "file": "C:/Users/myaka/Documents/Github/Fastboi/src/Rigidbody.cpp"
+},
+{
+  "directory": "C:/Users/myaka/Documents/Github/Fastboi",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/minecraft.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\minecraft.dir\\src\\ScreenElement.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\ScreenElement.cpp",
+  "file": "C:/Users/myaka/Documents/Github/Fastboi/src/ScreenElement.cpp"
+},
+{
+  "directory": "C:/Users/myaka/Documents/Github/Fastboi",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/minecraft.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\minecraft.dir\\src\\Shape.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\Shape.cpp",
+  "file": "C:/Users/myaka/Documents/Github/Fastboi/src/Shape.cpp"
+},
+{
+  "directory": "C:/Users/myaka/Documents/Github/Fastboi",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/minecraft.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\minecraft.dir\\src\\Speaker.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\Speaker.cpp",
+  "file": "C:/Users/myaka/Documents/Github/Fastboi/src/Speaker.cpp"
+},
+{
+  "directory": "C:/Users/myaka/Documents/Github/Fastboi",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/minecraft.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\minecraft.dir\\src\\SpriteRenderer.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\SpriteRenderer.cpp",
+  "file": "C:/Users/myaka/Documents/Github/Fastboi/src/SpriteRenderer.cpp"
+},
+{
+  "directory": "C:/Users/myaka/Documents/Github/Fastboi",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/minecraft.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\minecraft.dir\\src\\Texture.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\Texture.cpp",
+  "file": "C:/Users/myaka/Documents/Github/Fastboi/src/Texture.cpp"
+},
+{
+  "directory": "C:/Users/myaka/Documents/Github/Fastboi",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/minecraft.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\minecraft.dir\\src\\Transform.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\Transform.cpp",
+  "file": "C:/Users/myaka/Documents/Github/Fastboi/src/Transform.cpp"
+},
+{
+  "directory": "C:/Users/myaka/Documents/Github/Fastboi",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/minecraft.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\minecraft.dir\\src\\UI\\Screen.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\UI\\Screen.cpp",
+  "file": "C:/Users/myaka/Documents/Github/Fastboi/src/UI/Screen.cpp"
+},
+{
+  "directory": "C:/Users/myaka/Documents/Github/Fastboi",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/minecraft.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\minecraft.dir\\src\\UITexture.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\UITexture.cpp",
+  "file": "C:/Users/myaka/Documents/Github/Fastboi/src/UITexture.cpp"
+},
+{
+  "directory": "C:/Users/myaka/Documents/Github/Fastboi",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/minecraft.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\minecraft.dir\\src\\Utility.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\Utility.cpp",
+  "file": "C:/Users/myaka/Documents/Github/Fastboi/src/Utility.cpp"
+},
+{
+  "directory": "C:/Users/myaka/Documents/Github/Fastboi",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/minecraft.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\minecraft.dir\\src\\WireframeRenderer.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\WireframeRenderer.cpp",
+  "file": "C:/Users/myaka/Documents/Github/Fastboi/src/WireframeRenderer.cpp"
+},
+{
+  "directory": "C:/Users/myaka/Documents/Github/Fastboi",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/minecraft.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\minecraft.dir\\deps\\soloud\\src\\audiosource\\wav\\dr_impl.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\deps\\soloud\\src\\audiosource\\wav\\dr_impl.cpp",
+  "file": "C:/Users/myaka/Documents/Github/Fastboi/deps/soloud/src/audiosource/wav/dr_impl.cpp"
+},
+{
+  "directory": "C:/Users/myaka/Documents/Github/Fastboi",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/minecraft.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\minecraft.dir\\deps\\soloud\\src\\audiosource\\wav\\soloud_wav.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\deps\\soloud\\src\\audiosource\\wav\\soloud_wav.cpp",
+  "file": "C:/Users/myaka/Documents/Github/Fastboi/deps/soloud/src/audiosource/wav/soloud_wav.cpp"
+},
+{
+  "directory": "C:/Users/myaka/Documents/Github/Fastboi",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/minecraft.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\minecraft.dir\\deps\\soloud\\src\\audiosource\\wav\\soloud_wavstream.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\deps\\soloud\\src\\audiosource\\wav\\soloud_wavstream.cpp",
+  "file": "C:/Users/myaka/Documents/Github/Fastboi/deps/soloud/src/audiosource/wav/soloud_wavstream.cpp"
+},
+{
+  "directory": "C:/Users/myaka/Documents/Github/Fastboi",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\clang.exe -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/minecraft.dir/includes_C.rsp -g -Xclang -gcodeview -O0 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -o CMakeFiles\\minecraft.dir\\deps\\soloud\\src\\audiosource\\wav\\stb_vorbis.c.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\deps\\soloud\\src\\audiosource\\wav\\stb_vorbis.c",
+  "file": "C:/Users/myaka/Documents/Github/Fastboi/deps/soloud/src/audiosource/wav/stb_vorbis.c"
+},
+{
+  "directory": "C:/Users/myaka/Documents/Github/Fastboi",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/minecraft.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\minecraft.dir\\deps\\soloud\\src\\core\\soloud.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\deps\\soloud\\src\\core\\soloud.cpp",
+  "file": "C:/Users/myaka/Documents/Github/Fastboi/deps/soloud/src/core/soloud.cpp"
+},
+{
+  "directory": "C:/Users/myaka/Documents/Github/Fastboi",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/minecraft.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\minecraft.dir\\deps\\soloud\\src\\core\\soloud_audiosource.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\deps\\soloud\\src\\core\\soloud_audiosource.cpp",
+  "file": "C:/Users/myaka/Documents/Github/Fastboi/deps/soloud/src/core/soloud_audiosource.cpp"
+},
+{
+  "directory": "C:/Users/myaka/Documents/Github/Fastboi",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/minecraft.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\minecraft.dir\\deps\\soloud\\src\\core\\soloud_bus.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\deps\\soloud\\src\\core\\soloud_bus.cpp",
+  "file": "C:/Users/myaka/Documents/Github/Fastboi/deps/soloud/src/core/soloud_bus.cpp"
+},
+{
+  "directory": "C:/Users/myaka/Documents/Github/Fastboi",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/minecraft.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\minecraft.dir\\deps\\soloud\\src\\core\\soloud_core_3d.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\deps\\soloud\\src\\core\\soloud_core_3d.cpp",
+  "file": "C:/Users/myaka/Documents/Github/Fastboi/deps/soloud/src/core/soloud_core_3d.cpp"
+},
+{
+  "directory": "C:/Users/myaka/Documents/Github/Fastboi",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/minecraft.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\minecraft.dir\\deps\\soloud\\src\\core\\soloud_core_basicops.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\deps\\soloud\\src\\core\\soloud_core_basicops.cpp",
+  "file": "C:/Users/myaka/Documents/Github/Fastboi/deps/soloud/src/core/soloud_core_basicops.cpp"
+},
+{
+  "directory": "C:/Users/myaka/Documents/Github/Fastboi",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/minecraft.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\minecraft.dir\\deps\\soloud\\src\\core\\soloud_core_faderops.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\deps\\soloud\\src\\core\\soloud_core_faderops.cpp",
+  "file": "C:/Users/myaka/Documents/Github/Fastboi/deps/soloud/src/core/soloud_core_faderops.cpp"
+},
+{
+  "directory": "C:/Users/myaka/Documents/Github/Fastboi",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/minecraft.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\minecraft.dir\\deps\\soloud\\src\\core\\soloud_core_filterops.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\deps\\soloud\\src\\core\\soloud_core_filterops.cpp",
+  "file": "C:/Users/myaka/Documents/Github/Fastboi/deps/soloud/src/core/soloud_core_filterops.cpp"
+},
+{
+  "directory": "C:/Users/myaka/Documents/Github/Fastboi",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/minecraft.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\minecraft.dir\\deps\\soloud\\src\\core\\soloud_core_getters.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\deps\\soloud\\src\\core\\soloud_core_getters.cpp",
+  "file": "C:/Users/myaka/Documents/Github/Fastboi/deps/soloud/src/core/soloud_core_getters.cpp"
+},
+{
+  "directory": "C:/Users/myaka/Documents/Github/Fastboi",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/minecraft.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\minecraft.dir\\deps\\soloud\\src\\core\\soloud_core_setters.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\deps\\soloud\\src\\core\\soloud_core_setters.cpp",
+  "file": "C:/Users/myaka/Documents/Github/Fastboi/deps/soloud/src/core/soloud_core_setters.cpp"
+},
+{
+  "directory": "C:/Users/myaka/Documents/Github/Fastboi",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/minecraft.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\minecraft.dir\\deps\\soloud\\src\\core\\soloud_core_voicegroup.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\deps\\soloud\\src\\core\\soloud_core_voicegroup.cpp",
+  "file": "C:/Users/myaka/Documents/Github/Fastboi/deps/soloud/src/core/soloud_core_voicegroup.cpp"
+},
+{
+  "directory": "C:/Users/myaka/Documents/Github/Fastboi",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/minecraft.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\minecraft.dir\\deps\\soloud\\src\\core\\soloud_core_voiceops.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\deps\\soloud\\src\\core\\soloud_core_voiceops.cpp",
+  "file": "C:/Users/myaka/Documents/Github/Fastboi/deps/soloud/src/core/soloud_core_voiceops.cpp"
+},
+{
+  "directory": "C:/Users/myaka/Documents/Github/Fastboi",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/minecraft.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\minecraft.dir\\deps\\soloud\\src\\core\\soloud_fader.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\deps\\soloud\\src\\core\\soloud_fader.cpp",
+  "file": "C:/Users/myaka/Documents/Github/Fastboi/deps/soloud/src/core/soloud_fader.cpp"
+},
+{
+  "directory": "C:/Users/myaka/Documents/Github/Fastboi",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/minecraft.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\minecraft.dir\\deps\\soloud\\src\\core\\soloud_fft.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\deps\\soloud\\src\\core\\soloud_fft.cpp",
+  "file": "C:/Users/myaka/Documents/Github/Fastboi/deps/soloud/src/core/soloud_fft.cpp"
+},
+{
+  "directory": "C:/Users/myaka/Documents/Github/Fastboi",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/minecraft.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\minecraft.dir\\deps\\soloud\\src\\core\\soloud_fft_lut.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\deps\\soloud\\src\\core\\soloud_fft_lut.cpp",
+  "file": "C:/Users/myaka/Documents/Github/Fastboi/deps/soloud/src/core/soloud_fft_lut.cpp"
+},
+{
+  "directory": "C:/Users/myaka/Documents/Github/Fastboi",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/minecraft.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\minecraft.dir\\deps\\soloud\\src\\core\\soloud_file.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\deps\\soloud\\src\\core\\soloud_file.cpp",
+  "file": "C:/Users/myaka/Documents/Github/Fastboi/deps/soloud/src/core/soloud_file.cpp"
+},
+{
+  "directory": "C:/Users/myaka/Documents/Github/Fastboi",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/minecraft.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\minecraft.dir\\deps\\soloud\\src\\core\\soloud_filter.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\deps\\soloud\\src\\core\\soloud_filter.cpp",
+  "file": "C:/Users/myaka/Documents/Github/Fastboi/deps/soloud/src/core/soloud_filter.cpp"
+},
+{
+  "directory": "C:/Users/myaka/Documents/Github/Fastboi",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/minecraft.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\minecraft.dir\\deps\\soloud\\src\\core\\soloud_misc.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\deps\\soloud\\src\\core\\soloud_misc.cpp",
+  "file": "C:/Users/myaka/Documents/Github/Fastboi/deps/soloud/src/core/soloud_misc.cpp"
+},
+{
+  "directory": "C:/Users/myaka/Documents/Github/Fastboi",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/minecraft.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\minecraft.dir\\deps\\soloud\\src\\core\\soloud_queue.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\deps\\soloud\\src\\core\\soloud_queue.cpp",
+  "file": "C:/Users/myaka/Documents/Github/Fastboi/deps/soloud/src/core/soloud_queue.cpp"
+},
+{
+  "directory": "C:/Users/myaka/Documents/Github/Fastboi",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/minecraft.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\minecraft.dir\\deps\\soloud\\src\\core\\soloud_thread.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\deps\\soloud\\src\\core\\soloud_thread.cpp",
+  "file": "C:/Users/myaka/Documents/Github/Fastboi/deps/soloud/src/core/soloud_thread.cpp"
+},
+{
+  "directory": "C:/Users/myaka/Documents/Github/Fastboi",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/minecraft.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\minecraft.dir\\deps\\soloud\\src\\backend\\sdl2_static\\soloud_sdl2_static.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\deps\\soloud\\src\\backend\\sdl2_static\\soloud_sdl2_static.cpp",
+  "file": "C:/Users/myaka/Documents/Github/Fastboi/deps/soloud/src/backend/sdl2_static/soloud_sdl2_static.cpp"
+},
+{
+  "directory": "C:/Users/myaka/Documents/Github/Fastboi",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/minecraft.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\minecraft.dir\\src\\minecraft\\Block.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\minecraft\\Block.cpp",
+  "file": "C:/Users/myaka/Documents/Github/Fastboi/src/minecraft/Block.cpp"
+},
+{
+  "directory": "C:/Users/myaka/Documents/Github/Fastboi",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/minecraft.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\minecraft.dir\\src\\minecraft\\Game.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\minecraft\\Game.cpp",
+  "file": "C:/Users/myaka/Documents/Github/Fastboi/src/minecraft/Game.cpp"
+},
+{
+  "directory": "C:/Users/myaka/Documents/Github/Fastboi",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/minecraft.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\minecraft.dir\\src\\minecraft\\Player.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\minecraft\\Player.cpp",
+  "file": "C:/Users/myaka/Documents/Github/Fastboi/src/minecraft/Player.cpp"
+},
+{
+  "directory": "C:/Users/myaka/Documents/Github/Fastboi",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/minecraft.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\minecraft.dir\\src\\minecraft\\World.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\minecraft\\World.cpp",
+  "file": "C:/Users/myaka/Documents/Github/Fastboi/src/minecraft/World.cpp"
+},
+{
+  "directory": "C:/Users/myaka/Documents/Github/Fastboi",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -DWITH_SDL2_STATIC -D__cpp_lib_ranges @CMakeFiles/minecraft.dir/includes_CXX.rsp -Wall -Wextra -Wno-parentheses-equality -Wno-unused-variable -Wno-unused-function -g -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -flto=thin -std=gnu++20 -o CMakeFiles\\minecraft.dir\\src\\minecraft\\main.cpp.obj -c C:\\Users\\myaka\\Documents\\Github\\Fastboi\\src\\minecraft\\main.cpp",
+  "file": "C:/Users/myaka/Documents/Github/Fastboi/src/minecraft/main.cpp"
 }
 ]

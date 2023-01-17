@@ -11,6 +11,7 @@
 #include "BlockHighlighter.h"
 
 #include <random>
+#include <iostream>
 
 using namespace Fastboi;
 

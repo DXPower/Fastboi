@@ -2,6 +2,7 @@
 #include "ColorComp.h"
 #include "Collider.h"
 #include "FastboiCore.h"
+#include "Archetype.h"
 
 using namespace Fastboi;
 
@@ -122,6 +123,15 @@ void Gameobject::Destroy() {
 
     if (collider)
         collider->Destroy();
+}
+
+void Gameobject::NotifyAddComponent() {
+    auto newArchetypes = detail::NotifyNewComponent(*this, sortedHashes, archetypes);
+    archetypes.insert(archetypes.end(), newArchetypes.begin(), newArchetypes.end());
+}
+
+void Gameobject::NotifyRemoveComponent(uint64_t removedComponentHash) {
+    detail::NotifyRemovedComponent(*this, removedComponentHash, archetypes);
 }
 
 void Gameobject::SetEnabled(bool f) {

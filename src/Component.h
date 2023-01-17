@@ -10,6 +10,7 @@
 #include <type_traits>
 #include <utility>
 #include "Utility.h"
+#include <optional>
 
 namespace Fastboi {
     namespace detail {
@@ -76,7 +77,7 @@ namespace Fastboi {
 
         template<int = 0>
         requires (!detail::HasGOConstructor<Component_t, Args...>) && detail::ComponentConstructible<Component_t, Args...>
-        Component(Gameobject& go, Args&&... args)
+        Component(Gameobject& go [[maybe_unused]], Args&&... args)
          : ComponentBase(ctti::type_id<Component_t>())
          , component(std::in_place, std::forward<Args>(args)...) {
 

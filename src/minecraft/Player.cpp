@@ -2,11 +2,14 @@
 #include "FastboiComps.h"
 #include "Block.h"
 
+#include <iostream>
+
 using namespace Fastboi;
 using namespace Minecraft;
 
 void Player::Update() {
-    Vec<int> dir;
+
+    Vec<int> dir{};
     constexpr float speed = 750.f;
 
     dir.x -= Input::IsKeyDown(SDL_SCANCODE_A);
@@ -16,6 +19,8 @@ void Player::Update() {
         return;
 
     gameobject().GetComponent<Rigidbody>().velocity.x = speed * dir.x;
+
+    // std::cout << "Player pos: " << gameobject().transform->position.x << " " << gameobject().transform->position.y << "\n";
 }
 
 void Player::KeyPress(const KeyEvent& e) const {

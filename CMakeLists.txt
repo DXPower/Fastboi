@@ -23,7 +23,9 @@ set(THIRDPARTY_SRC ${SOLOUD_CORE_SRC} deps/soloud/src/backend/sdl2_static/soloud
 file(GLOB APP_SRC src/adventure/*.cpp)
 
 link_directories(${CMAKE_SOURCE_DIR}/lib)
+
 add_executable(adventure ${SRC} ${THIRDPARTY_SRC} ${APP_SRC})
+set_target_properties(adventure PROPERTIES EXCLUDE_FROM_ALL TRUE)
 
 target_compile_options(adventure PRIVATE -flto=thin)
 target_link_options(adventure PRIVATE -fuse-ld=lld -flto=thin)
@@ -31,5 +33,21 @@ target_include_directories(adventure PRIVATE inc src inc/soloud inc/SDL)
 
 target_link_libraries(adventure PRIVATE SDL2 SDL2main SDL2_image)
 
-target_compile_definitions(adventure PRIVATE WITH_SDL2_STATIC)
+target_compile_definitions(adventure PRIVATE WITH_SDL2_STATIC __cpp_lib_ranges)
+
+
+file(GLOB MC_SRC src/minecraft/*.cpp)
+add_executable(minecraft ${SRC} ${THIRDPARTY_SRC} ${MC_SRC})
+
+target_compile_options(minecraft PRIVATE -flto=thin)
+target_link_options(minecraft PRIVATE -fuse-ld=lld -flto=thin)
+target_include_directories(minecraft PRIVATE inc src inc/soloud inc/SDL)
+
+target_link_libraries(minecraft PRIVATE SDL2 SDL2main SDL2_image)
+
+target_compile_definitions(minecraft PRIVATE WITH_SDL2_STATIC __cpp_lib_ranges)
+
+
+
+
 

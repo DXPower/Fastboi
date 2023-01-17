@@ -4,7 +4,7 @@
 #include "Game.h"
 #include <iostream>
 
-int main(int argc, char* args[]) {
+int main() {
     std::cout << "Starting..." << std::endl;
 
     if (Application::InitApplication()) {

@@ -14,8 +14,6 @@ namespace Adventure {
         inline static const float speed = 760.f;
 
         private:
-        Rigidbody* rigidbody = nullptr;
-
         bool isEaten = false;
         bool isInBridge = false;
 
@@ -27,7 +25,7 @@ namespace Adventure {
         ~Player();
 
         void Start();
-        void Update();
+        static void System(Gameobject& go, Player& player, Collider& col, Rigidbody& rb);
 
         void Eat();
         void RoomChanged(const RoomChangeEvent& e);

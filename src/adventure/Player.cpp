@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "Archetype.h"
 #include "Events.h"
 #include "FastboiComps.h"
 #include "Input.h"
@@ -21,13 +22,11 @@ Player::~Player() {
 
 
 void Player::Start() {
-    rigidbody = &gameobject().GetComponent<Rigidbody>();
-    
     gameobject().AddComponent<Speaker>().SetPan<PanType::POSITIONAL>();
 }
 
-void Player::Update() {
-    if (isEaten) return;
+void Player::System(Gameobject& go [[maybe_unused]], Player& player, Collider& collider, Rigidbody& rigidbody) {
+    if (player.isEaten) return;
 
     Vecf direction(0, 0);
 
@@ -47,24 +46,24 @@ void Player::Update() {
         direction.x -= 1;
     }
 
-    if (isInBridge) {
-        isPhasing = false;
+    if (player.isInBridge) {
+        player.isPhasing = false;
 
-        for (const Collider* col : gameobject().collider->GetCurrentCollisions()) {
+        for (const Collider* col : collider.GetCurrentCollisions()) {
             if (col->IsFixed()) {
                 direction.x = 0; // Can't move sideways in bridge
-                isPhasing = true;
+                player.isPhasing = true;
                 break;
             }
         }
     }
 
-    rigidbody->velocity = direction.normalized() * speed;
+    rigidbody.velocity = direction.normalized() * speed;
 }
 
 void Player::Eat() {
     isEaten = true;
-    rigidbody->velocity = Velocity::zero();
+    gameobject().GetComponent<Rigidbody>().velocity = Velocity::zero();
 
     gameobject().collider->SetEnabled(false);
     gameobject().GetComponent<Speaker>().PlaySound(Resources::GetSound("Death"));
@@ -92,6 +91,8 @@ void Player::ExitBridge() {
 
 void Player::Inst(Gameobject& go, const Position& pos) {
     go.name = "Player";
+
+    Fastboi::RegisterSystem<&Player::System>();
 
     go.AddComponent<Transform>(pos, Room::GetTileSize() / 2.f, 0_deg);
     go.AddComponent<BoxColorRenderer>(RenderData(RenderOrder::UNITS, 10));

@@ -13,5 +13,6 @@ namespace Application {
         , CANNOT_DUPE = 9
         , NO_CAMERA = 10
         , GAME_ERROR = 11
+        , SYSTEM_DIFFERING_PARAMETER_ORDER = 12
     };
 }
