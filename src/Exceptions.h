@@ -2,7 +2,7 @@
 
 namespace Application {
     enum Exception {
-        COPY_NONTARGET_TEXTURE = 1
+          COPY_NONTARGET_TEXTURE = 1
         , COMPONENT_NO_EXIST = 2
         , COMPONENT_ALREADY_EXISTS = 3
         , REQUIREMENTS_NOT_FULFILLED = 4
@@ -14,5 +14,6 @@ namespace Application {
         , NO_CAMERA = 10
         , GAME_ERROR = 11
         , SYSTEM_DIFFERING_PARAMETER_ORDER = 12
+        , LOAD_FAILURE = 13
     };
 }

@@ -6,20 +6,25 @@
 #include "Input.h"
 #include "Player.h"
 #include "Block.h" 
+#include "Resources.h"
+#include "SpriteRenderer.h"
 #include "UI/CommonLayouts.h"
 #include "World.h"
 #include "BlockHighlighter.h"
+#include "UI/Button.h"
+#include "ClickTarget.h"
 
 #include <random>
 #include <iostream>
 
 using namespace Fastboi;
+using namespace Components;
 
-std::random_device rd;  //Will be used to obtain a seed for the random number engine
-std::mt19937 gen(rd()); //Standard mersenne_twister_engine seeded with rd()
+static std::random_device rd;  //Will be used to obtain a seed for the random number engine
+static std::mt19937 gen(rd()); //Standard mersenne_twister_engine seeded with rd()
 
 struct RandomColorChanger {
-    inline static const std::uniform_int_distribution<> distrib{0, 255};
+    inline static std::uniform_int_distribution<> distrib{0, 255};
 
     Components::ColorComp* color = nullptr;
     Input::TargetedClickListener clickListener;
@@ -40,7 +45,16 @@ struct RandomColorChanger {
     }
 };
 
+void BtnClick(const TargetedClickEvent& e);
+void TBtnClick(const TargetedClickEvent& e);
+
+void Minecraft::LoadResources() {
+    Resources::LoadImage("Blocks", "mc_blocks.png");
+}
+
 void Minecraft::InitGame() {
+    LoadResources();
+    
     World::BuildWorld();
 
     Gameobject& player = Instantiate<Player::Inst>(Position(0, -300));
@@ -50,31 +64,49 @@ void Minecraft::InitGame() {
     using namespace UI;
     using namespace Layouts;
 
-    Gameobject& uiThingy = Instantiate<Gameobject>();
-    Gameobject& uiChild = Instantiate<Gameobject>("UI Thingy");
+    // Gameobject& uiThingy = Instantiate<Gameobject>();
+    // Gameobject& uiChild = Instantiate<Gameobject>("UI Thingy");
 
-    uiThingy.AddComponent<Components::ColorComp>(0, 0, 255, 255);
-    uiChild.AddComponent<Components::ColorComp>(255, 0, 0, 255);
+    // uiThingy.AddComponent<Components::ColorComp>(0, 0, 255, 255);
+    // uiChild.AddComponent<Components::ColorComp>(255, 0, 0, 255);
 
-    auto& renderer1 = uiThingy.AddComponent<Components::BoxColorRenderer>(RenderData(RenderOrder::UI, 0));
-    auto& renderer2 = uiChild.AddComponent<Components::BoxColorRenderer>(RenderData(RenderOrder::UI, 10));
+    // auto& renderer1 = uiThingy.AddComponent<Components::BoxColorRenderer>(RenderData(RenderOrder::UI, 0));
+    // auto& renderer2 = uiChild.AddComponent<Components::BoxColorRenderer>(RenderData(RenderOrder::UI, 10));
     
-    uiThingy.AddComponent<Transform>(Position(0, 0), Size(1, 1), 0_deg);
+    // uiThingy.AddComponent<Transform>(Position(0, 0), Size(1, 1), 0_deg);
 
-    renderer1.screen = Screen(
-        Anchor{ Center::Screen.x, PushWithMargin(PushTop::Screen, 25) },
-        Scale{ ScreenWidth * 0.75f, ScreenConst(100.f) }
-    );
+    // renderer1.screen = Screen(
+    //     Anchor{ Center::Screen.x, PushWithMargin(PushTop::Screen, 25) },
+    //     Scale{ ScreenWidth * 0.75f, ScreenConst(100.f) }
+    // );
 
-    uiChild.AddComponent<Transform>(Position(0, 0), Size(1, 1), 0_deg);
-    uiChild.transform->Parent(*uiThingy.transform);
+    // uiChild.AddComponent<Transform>(Position(0, 0), Size(1, 1), 0_deg);
+    // uiChild.transform->Parent(*uiThingy.transform);
 
-    renderer2.screen = Screen(
-        PushBottomMiddle::Parent,
-        ScaleBy::Parent(0.9f, 0.5f)
-    );
+    // renderer2.screen = Screen(
+    //     PushBottomMiddle::Parent,
+    //     ScaleBy::Parent(0.9f, 0.5f)
+    // );
 
-    uiChild.AddComponent<RandomColorChanger>();
+    // uiChild.AddComponent<RandomColorChanger>();
+
+
+    // Gameobject& btn = Instantiate<ColorButton>(ColorComp(209, 66, 245, 255));
+    // btn.GetComponent<ClickTarget>().Signal().connect<&BtnClick>();
+
+    // Gameobject& btn2 = Instantiate<TextureButton>(Resources::GetTexture("Blocks"));
+    // btn2.transform->position += 100.f;
+
+    // btn2.GetComponent<ClickTarget>().Signal().connect<&TBtnClick>();
+    // btn2.GetComponent<SpriteRenderer>().cutout = Rect(0, 0, 16, 16);
+}
+
+void BtnClick(const TargetedClickEvent& e) {
+    e.transform.gameobject().GetComponent<ColorComp>().r += 64;
+}
+
+void TBtnClick(const TargetedClickEvent& e) {
+    e.transform.gameobject().GetComponent<SpriteRenderer>().cutout.x += 16;
 }
 
 

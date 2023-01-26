@@ -1,7 +1,8 @@
 #pragma once
 
+#include <string_view>
+#include "Texture.h"
 #include "Vec.h"
-#undef LoadImageA
 
 struct SDL_Surface;
 struct SDL_Texture;
@@ -12,7 +13,6 @@ namespace SoLoud {
 }
 
 namespace Fastboi {
-    struct Texture;
     struct WindowResizeEvent;
 
     using SoLoud::Wav;
@@ -20,11 +20,11 @@ namespace Fastboi {
 
     namespace Resources {
         // Stores image file as texture to be used later
-        void LoadImage(const char* key, const char* filename);
-        const Texture& GetTexture(const char* key);
+        void LoadImage(std::string_view key, std::string_view filename);
+        CTextureRef GetTexture(std::string_view key);
 
-        void LoadSound(const char* key, const char* filename);
-        Wav& GetSound(const char* key);
+        void LoadSound(std::string_view key, std::string_view filename);
+        Wav& GetSound(std::string_view key);
 
         Soloud& GetSoloud();
 

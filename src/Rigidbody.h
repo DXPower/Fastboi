@@ -14,7 +14,7 @@ namespace Fastboi {
         Velocity velocity = Velocity::zero();
         Velocity maxVelocity = Velocity(std::numeric_limits<float>::infinity(), std::numeric_limits<float>::infinity());
         Velocity acceleration = Velocity::zero();
-        float drag = 0.f;
+        Vec<float> drag{};
 
         Degree rotVelocity = 0_deg;
         Degree rotAcceleration = 0_deg;

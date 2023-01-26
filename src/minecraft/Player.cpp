@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "CollisionMask.h"
 #include "FastboiComps.h"
 #include "Block.h"
 
@@ -15,12 +16,41 @@ void Player::Update() {
     dir.x -= Input::IsKeyDown(SDL_SCANCODE_A);
     dir.x += Input::IsKeyDown(SDL_SCANCODE_D);
 
-    if (dir == Vec<int>::zero())
+    auto& rb = gameobject().GetComponent<Rigidbody>();
+
+    bool isTouchingGround = IsTouchingGround();
+
+    if (isTouchingGround)
+        gameobject().GetComponent<Components::ColorComp>().set(0, 0, 255, 255);
+    else
+        gameobject().GetComponent<Components::ColorComp>().set(150, 0, 250, 255);
+
+    if (dir == Vec<int>::zero()) {
+        if (isTouchingGround)
+            rb.drag.x = 7500.f;
+        else
+            rb.drag.x = 1000.f;
+
         return;
-
+    }
+    
     gameobject().GetComponent<Rigidbody>().velocity.x = speed * dir.x;
+}
 
-    // std::cout << "Player pos: " << gameobject().transform->position.x << " " << gameobject().transform->position.y << "\n";
+bool Player::IsTouchingGround() const {
+    const auto bounds = gameobject().transform->GetBounds();
+
+    const Position  lowerLeft{bounds.lowerBounds.x, bounds.upperBounds.y + 1};
+    const Position& lowerRight = bounds.upperBounds + Vecf{0, 1};
+
+    for (const auto& p : { lowerLeft, lowerRight }) {
+        auto res = Raytrace(p, {0, 1}, CollisionLayer::WALLS, 1.f);
+
+        if (res.hit)
+            return true;
+    }
+
+    return false;
 }
 
 void Player::KeyPress(const KeyEvent& e) const {

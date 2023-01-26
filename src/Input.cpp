@@ -236,7 +236,8 @@ void TargetedClickListener::Init(Transform& t, Renderer& r) {
     transform = &t;
     renderer = &r;
 
-    targetedClickListeners.push_back(this);
+    if (std::find(targetedClickListeners.begin(), targetedClickListeners.end(), this) == targetedClickListeners.end())
+        targetedClickListeners.push_back(this);
 }
 
 

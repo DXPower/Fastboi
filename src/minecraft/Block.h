@@ -42,7 +42,6 @@ namespace Minecraft {
     struct BlockTypeChange {
         BlockType prev, next;
     };
-
 }
 
 namespace std {

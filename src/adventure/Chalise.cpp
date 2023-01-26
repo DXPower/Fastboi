@@ -42,9 +42,9 @@ void Chalise::Update() {
             c.r = 0, c.b = 0, c.g = rollingShift;
     }
 
-    const Texture& tex = go().GetComponent<SpriteRenderer>().texture;
+    CTexturePtr tex = go().GetComponent<SpriteRenderer>().texture;
 
-    SDL_SetTextureColorMod(tex.GetSDL_Texture(), c.r, c.g, c.b);
+    SDL_SetTextureColorMod(tex->GetSDL_Texture(), c.r, c.g, c.b);
 
     if (playWinSequence) {
         Level::GetRoom(go().transform->Parent().position).SetColor(c);

@@ -83,8 +83,6 @@ void Fastboi::Tick() {
 }
 
 void Fastboi::Render() {
-    Texture::CreateQueuedTextures();
-
     uint32_t flags = SDL_GetWindowFlags(Application::gWindow);
     if (!(flags & (SDL_WINDOW_INPUT_FOCUS))) {
         // continue;
