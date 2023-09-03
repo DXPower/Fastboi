@@ -41,7 +41,10 @@ void Item::TryPickup(const CollisionEvent& e) {
         // Check that we aren't picking up the bridge while inside a wall
         if (go().HasComponent<Bridge>() && player.isPhasing) return;
 
-        for (const Transform* child : colgo.transform->GetChildren()) {
+        auto& children = colgo.transform->GetChildren();
+        for (size_t i = 0; i < children.size(); i++) {
+            auto& child = children[children.size() - 1 - i];
+            
             if (child->gameobject().HasComponent<Item>())
                 child->gameobject().GetComponent<Item>().Release();
         }

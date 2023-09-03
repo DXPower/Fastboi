@@ -20,10 +20,10 @@ void Rigidbody::ApplyParameters(Transform& t) {
 
     rotVelocity += rotAcceleration * Fastboi::physicsDelta;
 
-    const float scaledDrag = (float) drag * Fastboi::physicsDelta;
+    const Vec<float> scaledDrag = drag * Fastboi::physicsDelta;
 
     // Absolute value of the new velocity
-    const Velocity newAbsVel(std::max(0.f, std::abs(velocity.x) - scaledDrag), std::max(0.f, std::abs(velocity.y) - scaledDrag));
+    const Velocity newAbsVel(std::max(0.f, std::abs(velocity.x) - scaledDrag.x), std::max(0.f, std::abs(velocity.y) - scaledDrag.y));
     // Create a vector with magnitudes of newAbsVel but signs of velocity
     velocity = Velocity(std::copysign(newAbsVel.x, velocity.x), std::copysign(newAbsVel.y, velocity.y));
 

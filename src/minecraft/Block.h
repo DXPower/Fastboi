@@ -14,7 +14,7 @@ namespace Minecraft {
         , Stone
     };
 
-    class BlockTypeChange;
+    struct BlockTypeChange;
     using BlockUpdateEvent = std::variant<BlockTypeChange>;
 
     struct Block {
@@ -42,7 +42,6 @@ namespace Minecraft {
     struct BlockTypeChange {
         BlockType prev, next;
     };
-
 }
 
 namespace std {

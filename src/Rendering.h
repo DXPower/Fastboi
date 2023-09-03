@@ -10,7 +10,7 @@
 #include <type_traits>
 
 namespace Fastboi {
-    struct Texture;
+    class Texture;
 
     namespace Rendering {
         enum FillType {

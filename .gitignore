@@ -47,3 +47,8 @@ x64/
 # cmake
 build/
 cmake/
+.ninja_deps
+.ninja_log
+*.ninja
+Makefile
+makefile

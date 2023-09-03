@@ -129,12 +129,26 @@ adventure/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/build
 .PHONY : adventure/fast
 
+#=============================================================================
+# Target rules for targets named minecraft
+
+# Build rule for target.
+minecraft: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 minecraft
+.PHONY : minecraft
+
+# fast build rule for target.
+minecraft/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/build
+.PHONY : minecraft/fast
+
 deps/soloud/src/audiosource/wav/dr_impl.obj: deps/soloud/src/audiosource/wav/dr_impl.cpp.obj
 .PHONY : deps/soloud/src/audiosource/wav/dr_impl.obj
 
 # target to build an object file
 deps/soloud/src/audiosource/wav/dr_impl.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/deps/soloud/src/audiosource/wav/dr_impl.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/deps/soloud/src/audiosource/wav/dr_impl.cpp.obj
 .PHONY : deps/soloud/src/audiosource/wav/dr_impl.cpp.obj
 
 deps/soloud/src/audiosource/wav/dr_impl.i: deps/soloud/src/audiosource/wav/dr_impl.cpp.i
@@ -143,6 +157,7 @@ deps/soloud/src/audiosource/wav/dr_impl.i: deps/soloud/src/audiosource/wav/dr_im
 # target to preprocess a source file
 deps/soloud/src/audiosource/wav/dr_impl.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/deps/soloud/src/audiosource/wav/dr_impl.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/deps/soloud/src/audiosource/wav/dr_impl.cpp.i
 .PHONY : deps/soloud/src/audiosource/wav/dr_impl.cpp.i
 
 deps/soloud/src/audiosource/wav/dr_impl.s: deps/soloud/src/audiosource/wav/dr_impl.cpp.s
@@ -151,6 +166,7 @@ deps/soloud/src/audiosource/wav/dr_impl.s: deps/soloud/src/audiosource/wav/dr_im
 # target to generate assembly for a file
 deps/soloud/src/audiosource/wav/dr_impl.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/deps/soloud/src/audiosource/wav/dr_impl.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/deps/soloud/src/audiosource/wav/dr_impl.cpp.s
 .PHONY : deps/soloud/src/audiosource/wav/dr_impl.cpp.s
 
 deps/soloud/src/audiosource/wav/soloud_wav.obj: deps/soloud/src/audiosource/wav/soloud_wav.cpp.obj
@@ -159,6 +175,7 @@ deps/soloud/src/audiosource/wav/soloud_wav.obj: deps/soloud/src/audiosource/wav/
 # target to build an object file
 deps/soloud/src/audiosource/wav/soloud_wav.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/deps/soloud/src/audiosource/wav/soloud_wav.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/deps/soloud/src/audiosource/wav/soloud_wav.cpp.obj
 .PHONY : deps/soloud/src/audiosource/wav/soloud_wav.cpp.obj
 
 deps/soloud/src/audiosource/wav/soloud_wav.i: deps/soloud/src/audiosource/wav/soloud_wav.cpp.i
@@ -167,6 +184,7 @@ deps/soloud/src/audiosource/wav/soloud_wav.i: deps/soloud/src/audiosource/wav/so
 # target to preprocess a source file
 deps/soloud/src/audiosource/wav/soloud_wav.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/deps/soloud/src/audiosource/wav/soloud_wav.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/deps/soloud/src/audiosource/wav/soloud_wav.cpp.i
 .PHONY : deps/soloud/src/audiosource/wav/soloud_wav.cpp.i
 
 deps/soloud/src/audiosource/wav/soloud_wav.s: deps/soloud/src/audiosource/wav/soloud_wav.cpp.s
@@ -175,6 +193,7 @@ deps/soloud/src/audiosource/wav/soloud_wav.s: deps/soloud/src/audiosource/wav/so
 # target to generate assembly for a file
 deps/soloud/src/audiosource/wav/soloud_wav.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/deps/soloud/src/audiosource/wav/soloud_wav.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/deps/soloud/src/audiosource/wav/soloud_wav.cpp.s
 .PHONY : deps/soloud/src/audiosource/wav/soloud_wav.cpp.s
 
 deps/soloud/src/audiosource/wav/soloud_wavstream.obj: deps/soloud/src/audiosource/wav/soloud_wavstream.cpp.obj
@@ -183,6 +202,7 @@ deps/soloud/src/audiosource/wav/soloud_wavstream.obj: deps/soloud/src/audiosourc
 # target to build an object file
 deps/soloud/src/audiosource/wav/soloud_wavstream.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/deps/soloud/src/audiosource/wav/soloud_wavstream.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/deps/soloud/src/audiosource/wav/soloud_wavstream.cpp.obj
 .PHONY : deps/soloud/src/audiosource/wav/soloud_wavstream.cpp.obj
 
 deps/soloud/src/audiosource/wav/soloud_wavstream.i: deps/soloud/src/audiosource/wav/soloud_wavstream.cpp.i
@@ -191,6 +211,7 @@ deps/soloud/src/audiosource/wav/soloud_wavstream.i: deps/soloud/src/audiosource/
 # target to preprocess a source file
 deps/soloud/src/audiosource/wav/soloud_wavstream.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/deps/soloud/src/audiosource/wav/soloud_wavstream.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/deps/soloud/src/audiosource/wav/soloud_wavstream.cpp.i
 .PHONY : deps/soloud/src/audiosource/wav/soloud_wavstream.cpp.i
 
 deps/soloud/src/audiosource/wav/soloud_wavstream.s: deps/soloud/src/audiosource/wav/soloud_wavstream.cpp.s
@@ -199,6 +220,7 @@ deps/soloud/src/audiosource/wav/soloud_wavstream.s: deps/soloud/src/audiosource/
 # target to generate assembly for a file
 deps/soloud/src/audiosource/wav/soloud_wavstream.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/deps/soloud/src/audiosource/wav/soloud_wavstream.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/deps/soloud/src/audiosource/wav/soloud_wavstream.cpp.s
 .PHONY : deps/soloud/src/audiosource/wav/soloud_wavstream.cpp.s
 
 deps/soloud/src/audiosource/wav/stb_vorbis.obj: deps/soloud/src/audiosource/wav/stb_vorbis.c.obj
@@ -207,6 +229,7 @@ deps/soloud/src/audiosource/wav/stb_vorbis.obj: deps/soloud/src/audiosource/wav/
 # target to build an object file
 deps/soloud/src/audiosource/wav/stb_vorbis.c.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/deps/soloud/src/audiosource/wav/stb_vorbis.c.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/deps/soloud/src/audiosource/wav/stb_vorbis.c.obj
 .PHONY : deps/soloud/src/audiosource/wav/stb_vorbis.c.obj
 
 deps/soloud/src/audiosource/wav/stb_vorbis.i: deps/soloud/src/audiosource/wav/stb_vorbis.c.i
@@ -215,6 +238,7 @@ deps/soloud/src/audiosource/wav/stb_vorbis.i: deps/soloud/src/audiosource/wav/st
 # target to preprocess a source file
 deps/soloud/src/audiosource/wav/stb_vorbis.c.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/deps/soloud/src/audiosource/wav/stb_vorbis.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/deps/soloud/src/audiosource/wav/stb_vorbis.c.i
 .PHONY : deps/soloud/src/audiosource/wav/stb_vorbis.c.i
 
 deps/soloud/src/audiosource/wav/stb_vorbis.s: deps/soloud/src/audiosource/wav/stb_vorbis.c.s
@@ -223,6 +247,7 @@ deps/soloud/src/audiosource/wav/stb_vorbis.s: deps/soloud/src/audiosource/wav/st
 # target to generate assembly for a file
 deps/soloud/src/audiosource/wav/stb_vorbis.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/deps/soloud/src/audiosource/wav/stb_vorbis.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/deps/soloud/src/audiosource/wav/stb_vorbis.c.s
 .PHONY : deps/soloud/src/audiosource/wav/stb_vorbis.c.s
 
 deps/soloud/src/backend/sdl2_static/soloud_sdl2_static.obj: deps/soloud/src/backend/sdl2_static/soloud_sdl2_static.cpp.obj
@@ -231,6 +256,7 @@ deps/soloud/src/backend/sdl2_static/soloud_sdl2_static.obj: deps/soloud/src/back
 # target to build an object file
 deps/soloud/src/backend/sdl2_static/soloud_sdl2_static.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/deps/soloud/src/backend/sdl2_static/soloud_sdl2_static.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/deps/soloud/src/backend/sdl2_static/soloud_sdl2_static.cpp.obj
 .PHONY : deps/soloud/src/backend/sdl2_static/soloud_sdl2_static.cpp.obj
 
 deps/soloud/src/backend/sdl2_static/soloud_sdl2_static.i: deps/soloud/src/backend/sdl2_static/soloud_sdl2_static.cpp.i
@@ -239,6 +265,7 @@ deps/soloud/src/backend/sdl2_static/soloud_sdl2_static.i: deps/soloud/src/backen
 # target to preprocess a source file
 deps/soloud/src/backend/sdl2_static/soloud_sdl2_static.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/deps/soloud/src/backend/sdl2_static/soloud_sdl2_static.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/deps/soloud/src/backend/sdl2_static/soloud_sdl2_static.cpp.i
 .PHONY : deps/soloud/src/backend/sdl2_static/soloud_sdl2_static.cpp.i
 
 deps/soloud/src/backend/sdl2_static/soloud_sdl2_static.s: deps/soloud/src/backend/sdl2_static/soloud_sdl2_static.cpp.s
@@ -247,6 +274,7 @@ deps/soloud/src/backend/sdl2_static/soloud_sdl2_static.s: deps/soloud/src/backen
 # target to generate assembly for a file
 deps/soloud/src/backend/sdl2_static/soloud_sdl2_static.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/deps/soloud/src/backend/sdl2_static/soloud_sdl2_static.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/deps/soloud/src/backend/sdl2_static/soloud_sdl2_static.cpp.s
 .PHONY : deps/soloud/src/backend/sdl2_static/soloud_sdl2_static.cpp.s
 
 deps/soloud/src/core/soloud.obj: deps/soloud/src/core/soloud.cpp.obj
@@ -255,6 +283,7 @@ deps/soloud/src/core/soloud.obj: deps/soloud/src/core/soloud.cpp.obj
 # target to build an object file
 deps/soloud/src/core/soloud.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/deps/soloud/src/core/soloud.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/deps/soloud/src/core/soloud.cpp.obj
 .PHONY : deps/soloud/src/core/soloud.cpp.obj
 
 deps/soloud/src/core/soloud.i: deps/soloud/src/core/soloud.cpp.i
@@ -263,6 +292,7 @@ deps/soloud/src/core/soloud.i: deps/soloud/src/core/soloud.cpp.i
 # target to preprocess a source file
 deps/soloud/src/core/soloud.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/deps/soloud/src/core/soloud.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/deps/soloud/src/core/soloud.cpp.i
 .PHONY : deps/soloud/src/core/soloud.cpp.i
 
 deps/soloud/src/core/soloud.s: deps/soloud/src/core/soloud.cpp.s
@@ -271,6 +301,7 @@ deps/soloud/src/core/soloud.s: deps/soloud/src/core/soloud.cpp.s
 # target to generate assembly for a file
 deps/soloud/src/core/soloud.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/deps/soloud/src/core/soloud.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/deps/soloud/src/core/soloud.cpp.s
 .PHONY : deps/soloud/src/core/soloud.cpp.s
 
 deps/soloud/src/core/soloud_audiosource.obj: deps/soloud/src/core/soloud_audiosource.cpp.obj
@@ -279,6 +310,7 @@ deps/soloud/src/core/soloud_audiosource.obj: deps/soloud/src/core/soloud_audioso
 # target to build an object file
 deps/soloud/src/core/soloud_audiosource.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/deps/soloud/src/core/soloud_audiosource.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/deps/soloud/src/core/soloud_audiosource.cpp.obj
 .PHONY : deps/soloud/src/core/soloud_audiosource.cpp.obj
 
 deps/soloud/src/core/soloud_audiosource.i: deps/soloud/src/core/soloud_audiosource.cpp.i
@@ -287,6 +319,7 @@ deps/soloud/src/core/soloud_audiosource.i: deps/soloud/src/core/soloud_audiosour
 # target to preprocess a source file
 deps/soloud/src/core/soloud_audiosource.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/deps/soloud/src/core/soloud_audiosource.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/deps/soloud/src/core/soloud_audiosource.cpp.i
 .PHONY : deps/soloud/src/core/soloud_audiosource.cpp.i
 
 deps/soloud/src/core/soloud_audiosource.s: deps/soloud/src/core/soloud_audiosource.cpp.s
@@ -295,6 +328,7 @@ deps/soloud/src/core/soloud_audiosource.s: deps/soloud/src/core/soloud_audiosour
 # target to generate assembly for a file
 deps/soloud/src/core/soloud_audiosource.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/deps/soloud/src/core/soloud_audiosource.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/deps/soloud/src/core/soloud_audiosource.cpp.s
 .PHONY : deps/soloud/src/core/soloud_audiosource.cpp.s
 
 deps/soloud/src/core/soloud_bus.obj: deps/soloud/src/core/soloud_bus.cpp.obj
@@ -303,6 +337,7 @@ deps/soloud/src/core/soloud_bus.obj: deps/soloud/src/core/soloud_bus.cpp.obj
 # target to build an object file
 deps/soloud/src/core/soloud_bus.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/deps/soloud/src/core/soloud_bus.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/deps/soloud/src/core/soloud_bus.cpp.obj
 .PHONY : deps/soloud/src/core/soloud_bus.cpp.obj
 
 deps/soloud/src/core/soloud_bus.i: deps/soloud/src/core/soloud_bus.cpp.i
@@ -311,6 +346,7 @@ deps/soloud/src/core/soloud_bus.i: deps/soloud/src/core/soloud_bus.cpp.i
 # target to preprocess a source file
 deps/soloud/src/core/soloud_bus.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/deps/soloud/src/core/soloud_bus.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/deps/soloud/src/core/soloud_bus.cpp.i
 .PHONY : deps/soloud/src/core/soloud_bus.cpp.i
 
 deps/soloud/src/core/soloud_bus.s: deps/soloud/src/core/soloud_bus.cpp.s
@@ -319,6 +355,7 @@ deps/soloud/src/core/soloud_bus.s: deps/soloud/src/core/soloud_bus.cpp.s
 # target to generate assembly for a file
 deps/soloud/src/core/soloud_bus.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/deps/soloud/src/core/soloud_bus.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/deps/soloud/src/core/soloud_bus.cpp.s
 .PHONY : deps/soloud/src/core/soloud_bus.cpp.s
 
 deps/soloud/src/core/soloud_core_3d.obj: deps/soloud/src/core/soloud_core_3d.cpp.obj
@@ -327,6 +364,7 @@ deps/soloud/src/core/soloud_core_3d.obj: deps/soloud/src/core/soloud_core_3d.cpp
 # target to build an object file
 deps/soloud/src/core/soloud_core_3d.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/deps/soloud/src/core/soloud_core_3d.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/deps/soloud/src/core/soloud_core_3d.cpp.obj
 .PHONY : deps/soloud/src/core/soloud_core_3d.cpp.obj
 
 deps/soloud/src/core/soloud_core_3d.i: deps/soloud/src/core/soloud_core_3d.cpp.i
@@ -335,6 +373,7 @@ deps/soloud/src/core/soloud_core_3d.i: deps/soloud/src/core/soloud_core_3d.cpp.i
 # target to preprocess a source file
 deps/soloud/src/core/soloud_core_3d.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/deps/soloud/src/core/soloud_core_3d.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/deps/soloud/src/core/soloud_core_3d.cpp.i
 .PHONY : deps/soloud/src/core/soloud_core_3d.cpp.i
 
 deps/soloud/src/core/soloud_core_3d.s: deps/soloud/src/core/soloud_core_3d.cpp.s
@@ -343,6 +382,7 @@ deps/soloud/src/core/soloud_core_3d.s: deps/soloud/src/core/soloud_core_3d.cpp.s
 # target to generate assembly for a file
 deps/soloud/src/core/soloud_core_3d.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/deps/soloud/src/core/soloud_core_3d.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/deps/soloud/src/core/soloud_core_3d.cpp.s
 .PHONY : deps/soloud/src/core/soloud_core_3d.cpp.s
 
 deps/soloud/src/core/soloud_core_basicops.obj: deps/soloud/src/core/soloud_core_basicops.cpp.obj
@@ -351,6 +391,7 @@ deps/soloud/src/core/soloud_core_basicops.obj: deps/soloud/src/core/soloud_core_
 # target to build an object file
 deps/soloud/src/core/soloud_core_basicops.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/deps/soloud/src/core/soloud_core_basicops.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/deps/soloud/src/core/soloud_core_basicops.cpp.obj
 .PHONY : deps/soloud/src/core/soloud_core_basicops.cpp.obj
 
 deps/soloud/src/core/soloud_core_basicops.i: deps/soloud/src/core/soloud_core_basicops.cpp.i
@@ -359,6 +400,7 @@ deps/soloud/src/core/soloud_core_basicops.i: deps/soloud/src/core/soloud_core_ba
 # target to preprocess a source file
 deps/soloud/src/core/soloud_core_basicops.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/deps/soloud/src/core/soloud_core_basicops.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/deps/soloud/src/core/soloud_core_basicops.cpp.i
 .PHONY : deps/soloud/src/core/soloud_core_basicops.cpp.i
 
 deps/soloud/src/core/soloud_core_basicops.s: deps/soloud/src/core/soloud_core_basicops.cpp.s
@@ -367,6 +409,7 @@ deps/soloud/src/core/soloud_core_basicops.s: deps/soloud/src/core/soloud_core_ba
 # target to generate assembly for a file
 deps/soloud/src/core/soloud_core_basicops.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/deps/soloud/src/core/soloud_core_basicops.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/deps/soloud/src/core/soloud_core_basicops.cpp.s
 .PHONY : deps/soloud/src/core/soloud_core_basicops.cpp.s
 
 deps/soloud/src/core/soloud_core_faderops.obj: deps/soloud/src/core/soloud_core_faderops.cpp.obj
@@ -375,6 +418,7 @@ deps/soloud/src/core/soloud_core_faderops.obj: deps/soloud/src/core/soloud_core_
 # target to build an object file
 deps/soloud/src/core/soloud_core_faderops.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/deps/soloud/src/core/soloud_core_faderops.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/deps/soloud/src/core/soloud_core_faderops.cpp.obj
 .PHONY : deps/soloud/src/core/soloud_core_faderops.cpp.obj
 
 deps/soloud/src/core/soloud_core_faderops.i: deps/soloud/src/core/soloud_core_faderops.cpp.i
@@ -383,6 +427,7 @@ deps/soloud/src/core/soloud_core_faderops.i: deps/soloud/src/core/soloud_core_fa
 # target to preprocess a source file
 deps/soloud/src/core/soloud_core_faderops.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/deps/soloud/src/core/soloud_core_faderops.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/deps/soloud/src/core/soloud_core_faderops.cpp.i
 .PHONY : deps/soloud/src/core/soloud_core_faderops.cpp.i
 
 deps/soloud/src/core/soloud_core_faderops.s: deps/soloud/src/core/soloud_core_faderops.cpp.s
@@ -391,6 +436,7 @@ deps/soloud/src/core/soloud_core_faderops.s: deps/soloud/src/core/soloud_core_fa
 # target to generate assembly for a file
 deps/soloud/src/core/soloud_core_faderops.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/deps/soloud/src/core/soloud_core_faderops.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/deps/soloud/src/core/soloud_core_faderops.cpp.s
 .PHONY : deps/soloud/src/core/soloud_core_faderops.cpp.s
 
 deps/soloud/src/core/soloud_core_filterops.obj: deps/soloud/src/core/soloud_core_filterops.cpp.obj
@@ -399,6 +445,7 @@ deps/soloud/src/core/soloud_core_filterops.obj: deps/soloud/src/core/soloud_core
 # target to build an object file
 deps/soloud/src/core/soloud_core_filterops.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/deps/soloud/src/core/soloud_core_filterops.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/deps/soloud/src/core/soloud_core_filterops.cpp.obj
 .PHONY : deps/soloud/src/core/soloud_core_filterops.cpp.obj
 
 deps/soloud/src/core/soloud_core_filterops.i: deps/soloud/src/core/soloud_core_filterops.cpp.i
@@ -407,6 +454,7 @@ deps/soloud/src/core/soloud_core_filterops.i: deps/soloud/src/core/soloud_core_f
 # target to preprocess a source file
 deps/soloud/src/core/soloud_core_filterops.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/deps/soloud/src/core/soloud_core_filterops.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/deps/soloud/src/core/soloud_core_filterops.cpp.i
 .PHONY : deps/soloud/src/core/soloud_core_filterops.cpp.i
 
 deps/soloud/src/core/soloud_core_filterops.s: deps/soloud/src/core/soloud_core_filterops.cpp.s
@@ -415,6 +463,7 @@ deps/soloud/src/core/soloud_core_filterops.s: deps/soloud/src/core/soloud_core_f
 # target to generate assembly for a file
 deps/soloud/src/core/soloud_core_filterops.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/deps/soloud/src/core/soloud_core_filterops.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/deps/soloud/src/core/soloud_core_filterops.cpp.s
 .PHONY : deps/soloud/src/core/soloud_core_filterops.cpp.s
 
 deps/soloud/src/core/soloud_core_getters.obj: deps/soloud/src/core/soloud_core_getters.cpp.obj
@@ -423,6 +472,7 @@ deps/soloud/src/core/soloud_core_getters.obj: deps/soloud/src/core/soloud_core_g
 # target to build an object file
 deps/soloud/src/core/soloud_core_getters.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/deps/soloud/src/core/soloud_core_getters.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/deps/soloud/src/core/soloud_core_getters.cpp.obj
 .PHONY : deps/soloud/src/core/soloud_core_getters.cpp.obj
 
 deps/soloud/src/core/soloud_core_getters.i: deps/soloud/src/core/soloud_core_getters.cpp.i
@@ -431,6 +481,7 @@ deps/soloud/src/core/soloud_core_getters.i: deps/soloud/src/core/soloud_core_get
 # target to preprocess a source file
 deps/soloud/src/core/soloud_core_getters.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/deps/soloud/src/core/soloud_core_getters.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/deps/soloud/src/core/soloud_core_getters.cpp.i
 .PHONY : deps/soloud/src/core/soloud_core_getters.cpp.i
 
 deps/soloud/src/core/soloud_core_getters.s: deps/soloud/src/core/soloud_core_getters.cpp.s
@@ -439,6 +490,7 @@ deps/soloud/src/core/soloud_core_getters.s: deps/soloud/src/core/soloud_core_get
 # target to generate assembly for a file
 deps/soloud/src/core/soloud_core_getters.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/deps/soloud/src/core/soloud_core_getters.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/deps/soloud/src/core/soloud_core_getters.cpp.s
 .PHONY : deps/soloud/src/core/soloud_core_getters.cpp.s
 
 deps/soloud/src/core/soloud_core_setters.obj: deps/soloud/src/core/soloud_core_setters.cpp.obj
@@ -447,6 +499,7 @@ deps/soloud/src/core/soloud_core_setters.obj: deps/soloud/src/core/soloud_core_s
 # target to build an object file
 deps/soloud/src/core/soloud_core_setters.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/deps/soloud/src/core/soloud_core_setters.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/deps/soloud/src/core/soloud_core_setters.cpp.obj
 .PHONY : deps/soloud/src/core/soloud_core_setters.cpp.obj
 
 deps/soloud/src/core/soloud_core_setters.i: deps/soloud/src/core/soloud_core_setters.cpp.i
@@ -455,6 +508,7 @@ deps/soloud/src/core/soloud_core_setters.i: deps/soloud/src/core/soloud_core_set
 # target to preprocess a source file
 deps/soloud/src/core/soloud_core_setters.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/deps/soloud/src/core/soloud_core_setters.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/deps/soloud/src/core/soloud_core_setters.cpp.i
 .PHONY : deps/soloud/src/core/soloud_core_setters.cpp.i
 
 deps/soloud/src/core/soloud_core_setters.s: deps/soloud/src/core/soloud_core_setters.cpp.s
@@ -463,6 +517,7 @@ deps/soloud/src/core/soloud_core_setters.s: deps/soloud/src/core/soloud_core_set
 # target to generate assembly for a file
 deps/soloud/src/core/soloud_core_setters.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/deps/soloud/src/core/soloud_core_setters.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/deps/soloud/src/core/soloud_core_setters.cpp.s
 .PHONY : deps/soloud/src/core/soloud_core_setters.cpp.s
 
 deps/soloud/src/core/soloud_core_voicegroup.obj: deps/soloud/src/core/soloud_core_voicegroup.cpp.obj
@@ -471,6 +526,7 @@ deps/soloud/src/core/soloud_core_voicegroup.obj: deps/soloud/src/core/soloud_cor
 # target to build an object file
 deps/soloud/src/core/soloud_core_voicegroup.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/deps/soloud/src/core/soloud_core_voicegroup.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/deps/soloud/src/core/soloud_core_voicegroup.cpp.obj
 .PHONY : deps/soloud/src/core/soloud_core_voicegroup.cpp.obj
 
 deps/soloud/src/core/soloud_core_voicegroup.i: deps/soloud/src/core/soloud_core_voicegroup.cpp.i
@@ -479,6 +535,7 @@ deps/soloud/src/core/soloud_core_voicegroup.i: deps/soloud/src/core/soloud_core_
 # target to preprocess a source file
 deps/soloud/src/core/soloud_core_voicegroup.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/deps/soloud/src/core/soloud_core_voicegroup.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/deps/soloud/src/core/soloud_core_voicegroup.cpp.i
 .PHONY : deps/soloud/src/core/soloud_core_voicegroup.cpp.i
 
 deps/soloud/src/core/soloud_core_voicegroup.s: deps/soloud/src/core/soloud_core_voicegroup.cpp.s
@@ -487,6 +544,7 @@ deps/soloud/src/core/soloud_core_voicegroup.s: deps/soloud/src/core/soloud_core_
 # target to generate assembly for a file
 deps/soloud/src/core/soloud_core_voicegroup.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/deps/soloud/src/core/soloud_core_voicegroup.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/deps/soloud/src/core/soloud_core_voicegroup.cpp.s
 .PHONY : deps/soloud/src/core/soloud_core_voicegroup.cpp.s
 
 deps/soloud/src/core/soloud_core_voiceops.obj: deps/soloud/src/core/soloud_core_voiceops.cpp.obj
@@ -495,6 +553,7 @@ deps/soloud/src/core/soloud_core_voiceops.obj: deps/soloud/src/core/soloud_core_
 # target to build an object file
 deps/soloud/src/core/soloud_core_voiceops.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/deps/soloud/src/core/soloud_core_voiceops.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/deps/soloud/src/core/soloud_core_voiceops.cpp.obj
 .PHONY : deps/soloud/src/core/soloud_core_voiceops.cpp.obj
 
 deps/soloud/src/core/soloud_core_voiceops.i: deps/soloud/src/core/soloud_core_voiceops.cpp.i
@@ -503,6 +562,7 @@ deps/soloud/src/core/soloud_core_voiceops.i: deps/soloud/src/core/soloud_core_vo
 # target to preprocess a source file
 deps/soloud/src/core/soloud_core_voiceops.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/deps/soloud/src/core/soloud_core_voiceops.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/deps/soloud/src/core/soloud_core_voiceops.cpp.i
 .PHONY : deps/soloud/src/core/soloud_core_voiceops.cpp.i
 
 deps/soloud/src/core/soloud_core_voiceops.s: deps/soloud/src/core/soloud_core_voiceops.cpp.s
@@ -511,6 +571,7 @@ deps/soloud/src/core/soloud_core_voiceops.s: deps/soloud/src/core/soloud_core_vo
 # target to generate assembly for a file
 deps/soloud/src/core/soloud_core_voiceops.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/deps/soloud/src/core/soloud_core_voiceops.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/deps/soloud/src/core/soloud_core_voiceops.cpp.s
 .PHONY : deps/soloud/src/core/soloud_core_voiceops.cpp.s
 
 deps/soloud/src/core/soloud_fader.obj: deps/soloud/src/core/soloud_fader.cpp.obj
@@ -519,6 +580,7 @@ deps/soloud/src/core/soloud_fader.obj: deps/soloud/src/core/soloud_fader.cpp.obj
 # target to build an object file
 deps/soloud/src/core/soloud_fader.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/deps/soloud/src/core/soloud_fader.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/deps/soloud/src/core/soloud_fader.cpp.obj
 .PHONY : deps/soloud/src/core/soloud_fader.cpp.obj
 
 deps/soloud/src/core/soloud_fader.i: deps/soloud/src/core/soloud_fader.cpp.i
@@ -527,6 +589,7 @@ deps/soloud/src/core/soloud_fader.i: deps/soloud/src/core/soloud_fader.cpp.i
 # target to preprocess a source file
 deps/soloud/src/core/soloud_fader.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/deps/soloud/src/core/soloud_fader.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/deps/soloud/src/core/soloud_fader.cpp.i
 .PHONY : deps/soloud/src/core/soloud_fader.cpp.i
 
 deps/soloud/src/core/soloud_fader.s: deps/soloud/src/core/soloud_fader.cpp.s
@@ -535,6 +598,7 @@ deps/soloud/src/core/soloud_fader.s: deps/soloud/src/core/soloud_fader.cpp.s
 # target to generate assembly for a file
 deps/soloud/src/core/soloud_fader.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/deps/soloud/src/core/soloud_fader.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/deps/soloud/src/core/soloud_fader.cpp.s
 .PHONY : deps/soloud/src/core/soloud_fader.cpp.s
 
 deps/soloud/src/core/soloud_fft.obj: deps/soloud/src/core/soloud_fft.cpp.obj
@@ -543,6 +607,7 @@ deps/soloud/src/core/soloud_fft.obj: deps/soloud/src/core/soloud_fft.cpp.obj
 # target to build an object file
 deps/soloud/src/core/soloud_fft.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/deps/soloud/src/core/soloud_fft.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/deps/soloud/src/core/soloud_fft.cpp.obj
 .PHONY : deps/soloud/src/core/soloud_fft.cpp.obj
 
 deps/soloud/src/core/soloud_fft.i: deps/soloud/src/core/soloud_fft.cpp.i
@@ -551,6 +616,7 @@ deps/soloud/src/core/soloud_fft.i: deps/soloud/src/core/soloud_fft.cpp.i
 # target to preprocess a source file
 deps/soloud/src/core/soloud_fft.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/deps/soloud/src/core/soloud_fft.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/deps/soloud/src/core/soloud_fft.cpp.i
 .PHONY : deps/soloud/src/core/soloud_fft.cpp.i
 
 deps/soloud/src/core/soloud_fft.s: deps/soloud/src/core/soloud_fft.cpp.s
@@ -559,6 +625,7 @@ deps/soloud/src/core/soloud_fft.s: deps/soloud/src/core/soloud_fft.cpp.s
 # target to generate assembly for a file
 deps/soloud/src/core/soloud_fft.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/deps/soloud/src/core/soloud_fft.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/deps/soloud/src/core/soloud_fft.cpp.s
 .PHONY : deps/soloud/src/core/soloud_fft.cpp.s
 
 deps/soloud/src/core/soloud_fft_lut.obj: deps/soloud/src/core/soloud_fft_lut.cpp.obj
@@ -567,6 +634,7 @@ deps/soloud/src/core/soloud_fft_lut.obj: deps/soloud/src/core/soloud_fft_lut.cpp
 # target to build an object file
 deps/soloud/src/core/soloud_fft_lut.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/deps/soloud/src/core/soloud_fft_lut.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/deps/soloud/src/core/soloud_fft_lut.cpp.obj
 .PHONY : deps/soloud/src/core/soloud_fft_lut.cpp.obj
 
 deps/soloud/src/core/soloud_fft_lut.i: deps/soloud/src/core/soloud_fft_lut.cpp.i
@@ -575,6 +643,7 @@ deps/soloud/src/core/soloud_fft_lut.i: deps/soloud/src/core/soloud_fft_lut.cpp.i
 # target to preprocess a source file
 deps/soloud/src/core/soloud_fft_lut.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/deps/soloud/src/core/soloud_fft_lut.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/deps/soloud/src/core/soloud_fft_lut.cpp.i
 .PHONY : deps/soloud/src/core/soloud_fft_lut.cpp.i
 
 deps/soloud/src/core/soloud_fft_lut.s: deps/soloud/src/core/soloud_fft_lut.cpp.s
@@ -583,6 +652,7 @@ deps/soloud/src/core/soloud_fft_lut.s: deps/soloud/src/core/soloud_fft_lut.cpp.s
 # target to generate assembly for a file
 deps/soloud/src/core/soloud_fft_lut.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/deps/soloud/src/core/soloud_fft_lut.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/deps/soloud/src/core/soloud_fft_lut.cpp.s
 .PHONY : deps/soloud/src/core/soloud_fft_lut.cpp.s
 
 deps/soloud/src/core/soloud_file.obj: deps/soloud/src/core/soloud_file.cpp.obj
@@ -591,6 +661,7 @@ deps/soloud/src/core/soloud_file.obj: deps/soloud/src/core/soloud_file.cpp.obj
 # target to build an object file
 deps/soloud/src/core/soloud_file.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/deps/soloud/src/core/soloud_file.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/deps/soloud/src/core/soloud_file.cpp.obj
 .PHONY : deps/soloud/src/core/soloud_file.cpp.obj
 
 deps/soloud/src/core/soloud_file.i: deps/soloud/src/core/soloud_file.cpp.i
@@ -599,6 +670,7 @@ deps/soloud/src/core/soloud_file.i: deps/soloud/src/core/soloud_file.cpp.i
 # target to preprocess a source file
 deps/soloud/src/core/soloud_file.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/deps/soloud/src/core/soloud_file.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/deps/soloud/src/core/soloud_file.cpp.i
 .PHONY : deps/soloud/src/core/soloud_file.cpp.i
 
 deps/soloud/src/core/soloud_file.s: deps/soloud/src/core/soloud_file.cpp.s
@@ -607,6 +679,7 @@ deps/soloud/src/core/soloud_file.s: deps/soloud/src/core/soloud_file.cpp.s
 # target to generate assembly for a file
 deps/soloud/src/core/soloud_file.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/deps/soloud/src/core/soloud_file.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/deps/soloud/src/core/soloud_file.cpp.s
 .PHONY : deps/soloud/src/core/soloud_file.cpp.s
 
 deps/soloud/src/core/soloud_filter.obj: deps/soloud/src/core/soloud_filter.cpp.obj
@@ -615,6 +688,7 @@ deps/soloud/src/core/soloud_filter.obj: deps/soloud/src/core/soloud_filter.cpp.o
 # target to build an object file
 deps/soloud/src/core/soloud_filter.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/deps/soloud/src/core/soloud_filter.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/deps/soloud/src/core/soloud_filter.cpp.obj
 .PHONY : deps/soloud/src/core/soloud_filter.cpp.obj
 
 deps/soloud/src/core/soloud_filter.i: deps/soloud/src/core/soloud_filter.cpp.i
@@ -623,6 +697,7 @@ deps/soloud/src/core/soloud_filter.i: deps/soloud/src/core/soloud_filter.cpp.i
 # target to preprocess a source file
 deps/soloud/src/core/soloud_filter.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/deps/soloud/src/core/soloud_filter.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/deps/soloud/src/core/soloud_filter.cpp.i
 .PHONY : deps/soloud/src/core/soloud_filter.cpp.i
 
 deps/soloud/src/core/soloud_filter.s: deps/soloud/src/core/soloud_filter.cpp.s
@@ -631,6 +706,7 @@ deps/soloud/src/core/soloud_filter.s: deps/soloud/src/core/soloud_filter.cpp.s
 # target to generate assembly for a file
 deps/soloud/src/core/soloud_filter.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/deps/soloud/src/core/soloud_filter.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/deps/soloud/src/core/soloud_filter.cpp.s
 .PHONY : deps/soloud/src/core/soloud_filter.cpp.s
 
 deps/soloud/src/core/soloud_misc.obj: deps/soloud/src/core/soloud_misc.cpp.obj
@@ -639,6 +715,7 @@ deps/soloud/src/core/soloud_misc.obj: deps/soloud/src/core/soloud_misc.cpp.obj
 # target to build an object file
 deps/soloud/src/core/soloud_misc.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/deps/soloud/src/core/soloud_misc.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/deps/soloud/src/core/soloud_misc.cpp.obj
 .PHONY : deps/soloud/src/core/soloud_misc.cpp.obj
 
 deps/soloud/src/core/soloud_misc.i: deps/soloud/src/core/soloud_misc.cpp.i
@@ -647,6 +724,7 @@ deps/soloud/src/core/soloud_misc.i: deps/soloud/src/core/soloud_misc.cpp.i
 # target to preprocess a source file
 deps/soloud/src/core/soloud_misc.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/deps/soloud/src/core/soloud_misc.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/deps/soloud/src/core/soloud_misc.cpp.i
 .PHONY : deps/soloud/src/core/soloud_misc.cpp.i
 
 deps/soloud/src/core/soloud_misc.s: deps/soloud/src/core/soloud_misc.cpp.s
@@ -655,6 +733,7 @@ deps/soloud/src/core/soloud_misc.s: deps/soloud/src/core/soloud_misc.cpp.s
 # target to generate assembly for a file
 deps/soloud/src/core/soloud_misc.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/deps/soloud/src/core/soloud_misc.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/deps/soloud/src/core/soloud_misc.cpp.s
 .PHONY : deps/soloud/src/core/soloud_misc.cpp.s
 
 deps/soloud/src/core/soloud_queue.obj: deps/soloud/src/core/soloud_queue.cpp.obj
@@ -663,6 +742,7 @@ deps/soloud/src/core/soloud_queue.obj: deps/soloud/src/core/soloud_queue.cpp.obj
 # target to build an object file
 deps/soloud/src/core/soloud_queue.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/deps/soloud/src/core/soloud_queue.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/deps/soloud/src/core/soloud_queue.cpp.obj
 .PHONY : deps/soloud/src/core/soloud_queue.cpp.obj
 
 deps/soloud/src/core/soloud_queue.i: deps/soloud/src/core/soloud_queue.cpp.i
@@ -671,6 +751,7 @@ deps/soloud/src/core/soloud_queue.i: deps/soloud/src/core/soloud_queue.cpp.i
 # target to preprocess a source file
 deps/soloud/src/core/soloud_queue.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/deps/soloud/src/core/soloud_queue.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/deps/soloud/src/core/soloud_queue.cpp.i
 .PHONY : deps/soloud/src/core/soloud_queue.cpp.i
 
 deps/soloud/src/core/soloud_queue.s: deps/soloud/src/core/soloud_queue.cpp.s
@@ -679,6 +760,7 @@ deps/soloud/src/core/soloud_queue.s: deps/soloud/src/core/soloud_queue.cpp.s
 # target to generate assembly for a file
 deps/soloud/src/core/soloud_queue.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/deps/soloud/src/core/soloud_queue.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/deps/soloud/src/core/soloud_queue.cpp.s
 .PHONY : deps/soloud/src/core/soloud_queue.cpp.s
 
 deps/soloud/src/core/soloud_thread.obj: deps/soloud/src/core/soloud_thread.cpp.obj
@@ -687,6 +769,7 @@ deps/soloud/src/core/soloud_thread.obj: deps/soloud/src/core/soloud_thread.cpp.o
 # target to build an object file
 deps/soloud/src/core/soloud_thread.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/deps/soloud/src/core/soloud_thread.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/deps/soloud/src/core/soloud_thread.cpp.obj
 .PHONY : deps/soloud/src/core/soloud_thread.cpp.obj
 
 deps/soloud/src/core/soloud_thread.i: deps/soloud/src/core/soloud_thread.cpp.i
@@ -695,6 +778,7 @@ deps/soloud/src/core/soloud_thread.i: deps/soloud/src/core/soloud_thread.cpp.i
 # target to preprocess a source file
 deps/soloud/src/core/soloud_thread.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/deps/soloud/src/core/soloud_thread.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/deps/soloud/src/core/soloud_thread.cpp.i
 .PHONY : deps/soloud/src/core/soloud_thread.cpp.i
 
 deps/soloud/src/core/soloud_thread.s: deps/soloud/src/core/soloud_thread.cpp.s
@@ -703,6 +787,7 @@ deps/soloud/src/core/soloud_thread.s: deps/soloud/src/core/soloud_thread.cpp.s
 # target to generate assembly for a file
 deps/soloud/src/core/soloud_thread.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/deps/soloud/src/core/soloud_thread.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/deps/soloud/src/core/soloud_thread.cpp.s
 .PHONY : deps/soloud/src/core/soloud_thread.cpp.s
 
 src/AABBTree.obj: src/AABBTree.cpp.obj
@@ -711,6 +796,7 @@ src/AABBTree.obj: src/AABBTree.cpp.obj
 # target to build an object file
 src/AABBTree.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/AABBTree.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/AABBTree.cpp.obj
 .PHONY : src/AABBTree.cpp.obj
 
 src/AABBTree.i: src/AABBTree.cpp.i
@@ -719,6 +805,7 @@ src/AABBTree.i: src/AABBTree.cpp.i
 # target to preprocess a source file
 src/AABBTree.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/AABBTree.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/AABBTree.cpp.i
 .PHONY : src/AABBTree.cpp.i
 
 src/AABBTree.s: src/AABBTree.cpp.s
@@ -727,6 +814,7 @@ src/AABBTree.s: src/AABBTree.cpp.s
 # target to generate assembly for a file
 src/AABBTree.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/AABBTree.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/AABBTree.cpp.s
 .PHONY : src/AABBTree.cpp.s
 
 src/Angles.obj: src/Angles.cpp.obj
@@ -735,6 +823,7 @@ src/Angles.obj: src/Angles.cpp.obj
 # target to build an object file
 src/Angles.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/Angles.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/Angles.cpp.obj
 .PHONY : src/Angles.cpp.obj
 
 src/Angles.i: src/Angles.cpp.i
@@ -743,6 +832,7 @@ src/Angles.i: src/Angles.cpp.i
 # target to preprocess a source file
 src/Angles.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/Angles.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/Angles.cpp.i
 .PHONY : src/Angles.cpp.i
 
 src/Angles.s: src/Angles.cpp.s
@@ -751,6 +841,7 @@ src/Angles.s: src/Angles.cpp.s
 # target to generate assembly for a file
 src/Angles.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/Angles.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/Angles.cpp.s
 .PHONY : src/Angles.cpp.s
 
 src/Application.obj: src/Application.cpp.obj
@@ -759,6 +850,7 @@ src/Application.obj: src/Application.cpp.obj
 # target to build an object file
 src/Application.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/Application.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/Application.cpp.obj
 .PHONY : src/Application.cpp.obj
 
 src/Application.i: src/Application.cpp.i
@@ -767,6 +859,7 @@ src/Application.i: src/Application.cpp.i
 # target to preprocess a source file
 src/Application.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/Application.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/Application.cpp.i
 .PHONY : src/Application.cpp.i
 
 src/Application.s: src/Application.cpp.s
@@ -775,6 +868,7 @@ src/Application.s: src/Application.cpp.s
 # target to generate assembly for a file
 src/Application.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/Application.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/Application.cpp.s
 .PHONY : src/Application.cpp.s
 
 src/BoundingBoxRenderer.obj: src/BoundingBoxRenderer.cpp.obj
@@ -783,6 +877,7 @@ src/BoundingBoxRenderer.obj: src/BoundingBoxRenderer.cpp.obj
 # target to build an object file
 src/BoundingBoxRenderer.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/BoundingBoxRenderer.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/BoundingBoxRenderer.cpp.obj
 .PHONY : src/BoundingBoxRenderer.cpp.obj
 
 src/BoundingBoxRenderer.i: src/BoundingBoxRenderer.cpp.i
@@ -791,6 +886,7 @@ src/BoundingBoxRenderer.i: src/BoundingBoxRenderer.cpp.i
 # target to preprocess a source file
 src/BoundingBoxRenderer.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/BoundingBoxRenderer.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/BoundingBoxRenderer.cpp.i
 .PHONY : src/BoundingBoxRenderer.cpp.i
 
 src/BoundingBoxRenderer.s: src/BoundingBoxRenderer.cpp.s
@@ -799,6 +895,7 @@ src/BoundingBoxRenderer.s: src/BoundingBoxRenderer.cpp.s
 # target to generate assembly for a file
 src/BoundingBoxRenderer.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/BoundingBoxRenderer.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/BoundingBoxRenderer.cpp.s
 .PHONY : src/BoundingBoxRenderer.cpp.s
 
 src/BoxColorRenderer.obj: src/BoxColorRenderer.cpp.obj
@@ -807,6 +904,7 @@ src/BoxColorRenderer.obj: src/BoxColorRenderer.cpp.obj
 # target to build an object file
 src/BoxColorRenderer.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/BoxColorRenderer.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/BoxColorRenderer.cpp.obj
 .PHONY : src/BoxColorRenderer.cpp.obj
 
 src/BoxColorRenderer.i: src/BoxColorRenderer.cpp.i
@@ -815,6 +913,7 @@ src/BoxColorRenderer.i: src/BoxColorRenderer.cpp.i
 # target to preprocess a source file
 src/BoxColorRenderer.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/BoxColorRenderer.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/BoxColorRenderer.cpp.i
 .PHONY : src/BoxColorRenderer.cpp.i
 
 src/BoxColorRenderer.s: src/BoxColorRenderer.cpp.s
@@ -823,6 +922,7 @@ src/BoxColorRenderer.s: src/BoxColorRenderer.cpp.s
 # target to generate assembly for a file
 src/BoxColorRenderer.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/BoxColorRenderer.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/BoxColorRenderer.cpp.s
 .PHONY : src/BoxColorRenderer.cpp.s
 
 src/Camera.obj: src/Camera.cpp.obj
@@ -831,6 +931,7 @@ src/Camera.obj: src/Camera.cpp.obj
 # target to build an object file
 src/Camera.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/Camera.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/Camera.cpp.obj
 .PHONY : src/Camera.cpp.obj
 
 src/Camera.i: src/Camera.cpp.i
@@ -839,6 +940,7 @@ src/Camera.i: src/Camera.cpp.i
 # target to preprocess a source file
 src/Camera.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/Camera.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/Camera.cpp.i
 .PHONY : src/Camera.cpp.i
 
 src/Camera.s: src/Camera.cpp.s
@@ -847,6 +949,7 @@ src/Camera.s: src/Camera.cpp.s
 # target to generate assembly for a file
 src/Camera.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/Camera.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/Camera.cpp.s
 .PHONY : src/Camera.cpp.s
 
 src/Collider.obj: src/Collider.cpp.obj
@@ -855,6 +958,7 @@ src/Collider.obj: src/Collider.cpp.obj
 # target to build an object file
 src/Collider.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/Collider.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/Collider.cpp.obj
 .PHONY : src/Collider.cpp.obj
 
 src/Collider.i: src/Collider.cpp.i
@@ -863,6 +967,7 @@ src/Collider.i: src/Collider.cpp.i
 # target to preprocess a source file
 src/Collider.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/Collider.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/Collider.cpp.i
 .PHONY : src/Collider.cpp.i
 
 src/Collider.s: src/Collider.cpp.s
@@ -871,6 +976,7 @@ src/Collider.s: src/Collider.cpp.s
 # target to generate assembly for a file
 src/Collider.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/Collider.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/Collider.cpp.s
 .PHONY : src/Collider.cpp.s
 
 src/Collision.obj: src/Collision.cpp.obj
@@ -879,6 +985,7 @@ src/Collision.obj: src/Collision.cpp.obj
 # target to build an object file
 src/Collision.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/Collision.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/Collision.cpp.obj
 .PHONY : src/Collision.cpp.obj
 
 src/Collision.i: src/Collision.cpp.i
@@ -887,6 +994,7 @@ src/Collision.i: src/Collision.cpp.i
 # target to preprocess a source file
 src/Collision.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/Collision.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/Collision.cpp.i
 .PHONY : src/Collision.cpp.i
 
 src/Collision.s: src/Collision.cpp.s
@@ -895,6 +1003,7 @@ src/Collision.s: src/Collision.cpp.s
 # target to generate assembly for a file
 src/Collision.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/Collision.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/Collision.cpp.s
 .PHONY : src/Collision.cpp.s
 
 src/CollisionMask.obj: src/CollisionMask.cpp.obj
@@ -903,6 +1012,7 @@ src/CollisionMask.obj: src/CollisionMask.cpp.obj
 # target to build an object file
 src/CollisionMask.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/CollisionMask.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/CollisionMask.cpp.obj
 .PHONY : src/CollisionMask.cpp.obj
 
 src/CollisionMask.i: src/CollisionMask.cpp.i
@@ -911,6 +1021,7 @@ src/CollisionMask.i: src/CollisionMask.cpp.i
 # target to preprocess a source file
 src/CollisionMask.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/CollisionMask.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/CollisionMask.cpp.i
 .PHONY : src/CollisionMask.cpp.i
 
 src/CollisionMask.s: src/CollisionMask.cpp.s
@@ -919,6 +1030,7 @@ src/CollisionMask.s: src/CollisionMask.cpp.s
 # target to generate assembly for a file
 src/CollisionMask.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/CollisionMask.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/CollisionMask.cpp.s
 .PHONY : src/CollisionMask.cpp.s
 
 src/FastboiCore.obj: src/FastboiCore.cpp.obj
@@ -927,6 +1039,7 @@ src/FastboiCore.obj: src/FastboiCore.cpp.obj
 # target to build an object file
 src/FastboiCore.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/FastboiCore.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/FastboiCore.cpp.obj
 .PHONY : src/FastboiCore.cpp.obj
 
 src/FastboiCore.i: src/FastboiCore.cpp.i
@@ -935,6 +1048,7 @@ src/FastboiCore.i: src/FastboiCore.cpp.i
 # target to preprocess a source file
 src/FastboiCore.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/FastboiCore.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/FastboiCore.cpp.i
 .PHONY : src/FastboiCore.cpp.i
 
 src/FastboiCore.s: src/FastboiCore.cpp.s
@@ -943,6 +1057,7 @@ src/FastboiCore.s: src/FastboiCore.cpp.s
 # target to generate assembly for a file
 src/FastboiCore.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/FastboiCore.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/FastboiCore.cpp.s
 .PHONY : src/FastboiCore.cpp.s
 
 src/GORef.obj: src/GORef.cpp.obj
@@ -951,6 +1066,7 @@ src/GORef.obj: src/GORef.cpp.obj
 # target to build an object file
 src/GORef.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/GORef.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/GORef.cpp.obj
 .PHONY : src/GORef.cpp.obj
 
 src/GORef.i: src/GORef.cpp.i
@@ -959,6 +1075,7 @@ src/GORef.i: src/GORef.cpp.i
 # target to preprocess a source file
 src/GORef.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/GORef.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/GORef.cpp.i
 .PHONY : src/GORef.cpp.i
 
 src/GORef.s: src/GORef.cpp.s
@@ -967,6 +1084,7 @@ src/GORef.s: src/GORef.cpp.s
 # target to generate assembly for a file
 src/GORef.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/GORef.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/GORef.cpp.s
 .PHONY : src/GORef.cpp.s
 
 src/Gameobject.obj: src/Gameobject.cpp.obj
@@ -975,6 +1093,7 @@ src/Gameobject.obj: src/Gameobject.cpp.obj
 # target to build an object file
 src/Gameobject.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/Gameobject.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/Gameobject.cpp.obj
 .PHONY : src/Gameobject.cpp.obj
 
 src/Gameobject.i: src/Gameobject.cpp.i
@@ -983,6 +1102,7 @@ src/Gameobject.i: src/Gameobject.cpp.i
 # target to preprocess a source file
 src/Gameobject.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/Gameobject.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/Gameobject.cpp.i
 .PHONY : src/Gameobject.cpp.i
 
 src/Gameobject.s: src/Gameobject.cpp.s
@@ -991,6 +1111,7 @@ src/Gameobject.s: src/Gameobject.cpp.s
 # target to generate assembly for a file
 src/Gameobject.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/Gameobject.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/Gameobject.cpp.s
 .PHONY : src/Gameobject.cpp.s
 
 src/GameobjectAllocator.obj: src/GameobjectAllocator.cpp.obj
@@ -999,6 +1120,7 @@ src/GameobjectAllocator.obj: src/GameobjectAllocator.cpp.obj
 # target to build an object file
 src/GameobjectAllocator.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/GameobjectAllocator.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/GameobjectAllocator.cpp.obj
 .PHONY : src/GameobjectAllocator.cpp.obj
 
 src/GameobjectAllocator.i: src/GameobjectAllocator.cpp.i
@@ -1007,6 +1129,7 @@ src/GameobjectAllocator.i: src/GameobjectAllocator.cpp.i
 # target to preprocess a source file
 src/GameobjectAllocator.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/GameobjectAllocator.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/GameobjectAllocator.cpp.i
 .PHONY : src/GameobjectAllocator.cpp.i
 
 src/GameobjectAllocator.s: src/GameobjectAllocator.cpp.s
@@ -1015,6 +1138,7 @@ src/GameobjectAllocator.s: src/GameobjectAllocator.cpp.s
 # target to generate assembly for a file
 src/GameobjectAllocator.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/GameobjectAllocator.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/GameobjectAllocator.cpp.s
 .PHONY : src/GameobjectAllocator.cpp.s
 
 src/Input.obj: src/Input.cpp.obj
@@ -1023,6 +1147,7 @@ src/Input.obj: src/Input.cpp.obj
 # target to build an object file
 src/Input.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/Input.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/Input.cpp.obj
 .PHONY : src/Input.cpp.obj
 
 src/Input.i: src/Input.cpp.i
@@ -1031,6 +1156,7 @@ src/Input.i: src/Input.cpp.i
 # target to preprocess a source file
 src/Input.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/Input.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/Input.cpp.i
 .PHONY : src/Input.cpp.i
 
 src/Input.s: src/Input.cpp.s
@@ -1039,6 +1165,7 @@ src/Input.s: src/Input.cpp.s
 # target to generate assembly for a file
 src/Input.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/Input.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/Input.cpp.s
 .PHONY : src/Input.cpp.s
 
 src/RectUI.obj: src/RectUI.cpp.obj
@@ -1047,6 +1174,7 @@ src/RectUI.obj: src/RectUI.cpp.obj
 # target to build an object file
 src/RectUI.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/RectUI.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/RectUI.cpp.obj
 .PHONY : src/RectUI.cpp.obj
 
 src/RectUI.i: src/RectUI.cpp.i
@@ -1055,6 +1183,7 @@ src/RectUI.i: src/RectUI.cpp.i
 # target to preprocess a source file
 src/RectUI.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/RectUI.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/RectUI.cpp.i
 .PHONY : src/RectUI.cpp.i
 
 src/RectUI.s: src/RectUI.cpp.s
@@ -1063,6 +1192,7 @@ src/RectUI.s: src/RectUI.cpp.s
 # target to generate assembly for a file
 src/RectUI.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/RectUI.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/RectUI.cpp.s
 .PHONY : src/RectUI.cpp.s
 
 src/Renderer.obj: src/Renderer.cpp.obj
@@ -1071,6 +1201,7 @@ src/Renderer.obj: src/Renderer.cpp.obj
 # target to build an object file
 src/Renderer.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/Renderer.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/Renderer.cpp.obj
 .PHONY : src/Renderer.cpp.obj
 
 src/Renderer.i: src/Renderer.cpp.i
@@ -1079,6 +1210,7 @@ src/Renderer.i: src/Renderer.cpp.i
 # target to preprocess a source file
 src/Renderer.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/Renderer.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/Renderer.cpp.i
 .PHONY : src/Renderer.cpp.i
 
 src/Renderer.s: src/Renderer.cpp.s
@@ -1087,6 +1219,7 @@ src/Renderer.s: src/Renderer.cpp.s
 # target to generate assembly for a file
 src/Renderer.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/Renderer.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/Renderer.cpp.s
 .PHONY : src/Renderer.cpp.s
 
 src/Rendering.obj: src/Rendering.cpp.obj
@@ -1095,6 +1228,7 @@ src/Rendering.obj: src/Rendering.cpp.obj
 # target to build an object file
 src/Rendering.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/Rendering.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/Rendering.cpp.obj
 .PHONY : src/Rendering.cpp.obj
 
 src/Rendering.i: src/Rendering.cpp.i
@@ -1103,6 +1237,7 @@ src/Rendering.i: src/Rendering.cpp.i
 # target to preprocess a source file
 src/Rendering.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/Rendering.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/Rendering.cpp.i
 .PHONY : src/Rendering.cpp.i
 
 src/Rendering.s: src/Rendering.cpp.s
@@ -1111,6 +1246,7 @@ src/Rendering.s: src/Rendering.cpp.s
 # target to generate assembly for a file
 src/Rendering.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/Rendering.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/Rendering.cpp.s
 .PHONY : src/Rendering.cpp.s
 
 src/RepeatRenderer.obj: src/RepeatRenderer.cpp.obj
@@ -1119,6 +1255,7 @@ src/RepeatRenderer.obj: src/RepeatRenderer.cpp.obj
 # target to build an object file
 src/RepeatRenderer.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/RepeatRenderer.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/RepeatRenderer.cpp.obj
 .PHONY : src/RepeatRenderer.cpp.obj
 
 src/RepeatRenderer.i: src/RepeatRenderer.cpp.i
@@ -1127,6 +1264,7 @@ src/RepeatRenderer.i: src/RepeatRenderer.cpp.i
 # target to preprocess a source file
 src/RepeatRenderer.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/RepeatRenderer.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/RepeatRenderer.cpp.i
 .PHONY : src/RepeatRenderer.cpp.i
 
 src/RepeatRenderer.s: src/RepeatRenderer.cpp.s
@@ -1135,6 +1273,7 @@ src/RepeatRenderer.s: src/RepeatRenderer.cpp.s
 # target to generate assembly for a file
 src/RepeatRenderer.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/RepeatRenderer.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/RepeatRenderer.cpp.s
 .PHONY : src/RepeatRenderer.cpp.s
 
 src/Resources.obj: src/Resources.cpp.obj
@@ -1143,6 +1282,7 @@ src/Resources.obj: src/Resources.cpp.obj
 # target to build an object file
 src/Resources.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/Resources.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/Resources.cpp.obj
 .PHONY : src/Resources.cpp.obj
 
 src/Resources.i: src/Resources.cpp.i
@@ -1151,6 +1291,7 @@ src/Resources.i: src/Resources.cpp.i
 # target to preprocess a source file
 src/Resources.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/Resources.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/Resources.cpp.i
 .PHONY : src/Resources.cpp.i
 
 src/Resources.s: src/Resources.cpp.s
@@ -1159,6 +1300,7 @@ src/Resources.s: src/Resources.cpp.s
 # target to generate assembly for a file
 src/Resources.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/Resources.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/Resources.cpp.s
 .PHONY : src/Resources.cpp.s
 
 src/Rigidbody.obj: src/Rigidbody.cpp.obj
@@ -1167,6 +1309,7 @@ src/Rigidbody.obj: src/Rigidbody.cpp.obj
 # target to build an object file
 src/Rigidbody.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/Rigidbody.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/Rigidbody.cpp.obj
 .PHONY : src/Rigidbody.cpp.obj
 
 src/Rigidbody.i: src/Rigidbody.cpp.i
@@ -1175,6 +1318,7 @@ src/Rigidbody.i: src/Rigidbody.cpp.i
 # target to preprocess a source file
 src/Rigidbody.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/Rigidbody.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/Rigidbody.cpp.i
 .PHONY : src/Rigidbody.cpp.i
 
 src/Rigidbody.s: src/Rigidbody.cpp.s
@@ -1183,6 +1327,7 @@ src/Rigidbody.s: src/Rigidbody.cpp.s
 # target to generate assembly for a file
 src/Rigidbody.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/Rigidbody.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/Rigidbody.cpp.s
 .PHONY : src/Rigidbody.cpp.s
 
 src/ScreenElement.obj: src/ScreenElement.cpp.obj
@@ -1191,6 +1336,7 @@ src/ScreenElement.obj: src/ScreenElement.cpp.obj
 # target to build an object file
 src/ScreenElement.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/ScreenElement.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/ScreenElement.cpp.obj
 .PHONY : src/ScreenElement.cpp.obj
 
 src/ScreenElement.i: src/ScreenElement.cpp.i
@@ -1199,6 +1345,7 @@ src/ScreenElement.i: src/ScreenElement.cpp.i
 # target to preprocess a source file
 src/ScreenElement.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/ScreenElement.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/ScreenElement.cpp.i
 .PHONY : src/ScreenElement.cpp.i
 
 src/ScreenElement.s: src/ScreenElement.cpp.s
@@ -1207,6 +1354,7 @@ src/ScreenElement.s: src/ScreenElement.cpp.s
 # target to generate assembly for a file
 src/ScreenElement.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/ScreenElement.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/ScreenElement.cpp.s
 .PHONY : src/ScreenElement.cpp.s
 
 src/Shape.obj: src/Shape.cpp.obj
@@ -1215,6 +1363,7 @@ src/Shape.obj: src/Shape.cpp.obj
 # target to build an object file
 src/Shape.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/Shape.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/Shape.cpp.obj
 .PHONY : src/Shape.cpp.obj
 
 src/Shape.i: src/Shape.cpp.i
@@ -1223,6 +1372,7 @@ src/Shape.i: src/Shape.cpp.i
 # target to preprocess a source file
 src/Shape.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/Shape.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/Shape.cpp.i
 .PHONY : src/Shape.cpp.i
 
 src/Shape.s: src/Shape.cpp.s
@@ -1231,6 +1381,7 @@ src/Shape.s: src/Shape.cpp.s
 # target to generate assembly for a file
 src/Shape.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/Shape.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/Shape.cpp.s
 .PHONY : src/Shape.cpp.s
 
 src/Speaker.obj: src/Speaker.cpp.obj
@@ -1239,6 +1390,7 @@ src/Speaker.obj: src/Speaker.cpp.obj
 # target to build an object file
 src/Speaker.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/Speaker.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/Speaker.cpp.obj
 .PHONY : src/Speaker.cpp.obj
 
 src/Speaker.i: src/Speaker.cpp.i
@@ -1247,6 +1399,7 @@ src/Speaker.i: src/Speaker.cpp.i
 # target to preprocess a source file
 src/Speaker.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/Speaker.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/Speaker.cpp.i
 .PHONY : src/Speaker.cpp.i
 
 src/Speaker.s: src/Speaker.cpp.s
@@ -1255,6 +1408,7 @@ src/Speaker.s: src/Speaker.cpp.s
 # target to generate assembly for a file
 src/Speaker.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/Speaker.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/Speaker.cpp.s
 .PHONY : src/Speaker.cpp.s
 
 src/SpriteRenderer.obj: src/SpriteRenderer.cpp.obj
@@ -1263,6 +1417,7 @@ src/SpriteRenderer.obj: src/SpriteRenderer.cpp.obj
 # target to build an object file
 src/SpriteRenderer.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/SpriteRenderer.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/SpriteRenderer.cpp.obj
 .PHONY : src/SpriteRenderer.cpp.obj
 
 src/SpriteRenderer.i: src/SpriteRenderer.cpp.i
@@ -1271,6 +1426,7 @@ src/SpriteRenderer.i: src/SpriteRenderer.cpp.i
 # target to preprocess a source file
 src/SpriteRenderer.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/SpriteRenderer.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/SpriteRenderer.cpp.i
 .PHONY : src/SpriteRenderer.cpp.i
 
 src/SpriteRenderer.s: src/SpriteRenderer.cpp.s
@@ -1279,6 +1435,7 @@ src/SpriteRenderer.s: src/SpriteRenderer.cpp.s
 # target to generate assembly for a file
 src/SpriteRenderer.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/SpriteRenderer.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/SpriteRenderer.cpp.s
 .PHONY : src/SpriteRenderer.cpp.s
 
 src/Texture.obj: src/Texture.cpp.obj
@@ -1287,6 +1444,7 @@ src/Texture.obj: src/Texture.cpp.obj
 # target to build an object file
 src/Texture.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/Texture.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/Texture.cpp.obj
 .PHONY : src/Texture.cpp.obj
 
 src/Texture.i: src/Texture.cpp.i
@@ -1295,6 +1453,7 @@ src/Texture.i: src/Texture.cpp.i
 # target to preprocess a source file
 src/Texture.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/Texture.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/Texture.cpp.i
 .PHONY : src/Texture.cpp.i
 
 src/Texture.s: src/Texture.cpp.s
@@ -1303,6 +1462,7 @@ src/Texture.s: src/Texture.cpp.s
 # target to generate assembly for a file
 src/Texture.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/Texture.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/Texture.cpp.s
 .PHONY : src/Texture.cpp.s
 
 src/Transform.obj: src/Transform.cpp.obj
@@ -1311,6 +1471,7 @@ src/Transform.obj: src/Transform.cpp.obj
 # target to build an object file
 src/Transform.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/Transform.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/Transform.cpp.obj
 .PHONY : src/Transform.cpp.obj
 
 src/Transform.i: src/Transform.cpp.i
@@ -1319,6 +1480,7 @@ src/Transform.i: src/Transform.cpp.i
 # target to preprocess a source file
 src/Transform.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/Transform.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/Transform.cpp.i
 .PHONY : src/Transform.cpp.i
 
 src/Transform.s: src/Transform.cpp.s
@@ -1327,6 +1489,7 @@ src/Transform.s: src/Transform.cpp.s
 # target to generate assembly for a file
 src/Transform.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/Transform.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/Transform.cpp.s
 .PHONY : src/Transform.cpp.s
 
 src/UI/Screen.obj: src/UI/Screen.cpp.obj
@@ -1335,6 +1498,7 @@ src/UI/Screen.obj: src/UI/Screen.cpp.obj
 # target to build an object file
 src/UI/Screen.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/UI/Screen.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/UI/Screen.cpp.obj
 .PHONY : src/UI/Screen.cpp.obj
 
 src/UI/Screen.i: src/UI/Screen.cpp.i
@@ -1343,6 +1507,7 @@ src/UI/Screen.i: src/UI/Screen.cpp.i
 # target to preprocess a source file
 src/UI/Screen.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/UI/Screen.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/UI/Screen.cpp.i
 .PHONY : src/UI/Screen.cpp.i
 
 src/UI/Screen.s: src/UI/Screen.cpp.s
@@ -1351,6 +1516,7 @@ src/UI/Screen.s: src/UI/Screen.cpp.s
 # target to generate assembly for a file
 src/UI/Screen.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/UI/Screen.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/UI/Screen.cpp.s
 .PHONY : src/UI/Screen.cpp.s
 
 src/UITexture.obj: src/UITexture.cpp.obj
@@ -1359,6 +1525,7 @@ src/UITexture.obj: src/UITexture.cpp.obj
 # target to build an object file
 src/UITexture.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/UITexture.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/UITexture.cpp.obj
 .PHONY : src/UITexture.cpp.obj
 
 src/UITexture.i: src/UITexture.cpp.i
@@ -1367,6 +1534,7 @@ src/UITexture.i: src/UITexture.cpp.i
 # target to preprocess a source file
 src/UITexture.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/UITexture.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/UITexture.cpp.i
 .PHONY : src/UITexture.cpp.i
 
 src/UITexture.s: src/UITexture.cpp.s
@@ -1375,6 +1543,7 @@ src/UITexture.s: src/UITexture.cpp.s
 # target to generate assembly for a file
 src/UITexture.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/UITexture.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/UITexture.cpp.s
 .PHONY : src/UITexture.cpp.s
 
 src/Utility.obj: src/Utility.cpp.obj
@@ -1383,6 +1552,7 @@ src/Utility.obj: src/Utility.cpp.obj
 # target to build an object file
 src/Utility.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/Utility.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/Utility.cpp.obj
 .PHONY : src/Utility.cpp.obj
 
 src/Utility.i: src/Utility.cpp.i
@@ -1391,6 +1561,7 @@ src/Utility.i: src/Utility.cpp.i
 # target to preprocess a source file
 src/Utility.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/Utility.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/Utility.cpp.i
 .PHONY : src/Utility.cpp.i
 
 src/Utility.s: src/Utility.cpp.s
@@ -1399,6 +1570,7 @@ src/Utility.s: src/Utility.cpp.s
 # target to generate assembly for a file
 src/Utility.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/Utility.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/Utility.cpp.s
 .PHONY : src/Utility.cpp.s
 
 src/WireframeRenderer.obj: src/WireframeRenderer.cpp.obj
@@ -1407,6 +1579,7 @@ src/WireframeRenderer.obj: src/WireframeRenderer.cpp.obj
 # target to build an object file
 src/WireframeRenderer.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/WireframeRenderer.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/WireframeRenderer.cpp.obj
 .PHONY : src/WireframeRenderer.cpp.obj
 
 src/WireframeRenderer.i: src/WireframeRenderer.cpp.i
@@ -1415,6 +1588,7 @@ src/WireframeRenderer.i: src/WireframeRenderer.cpp.i
 # target to preprocess a source file
 src/WireframeRenderer.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/WireframeRenderer.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/WireframeRenderer.cpp.i
 .PHONY : src/WireframeRenderer.cpp.i
 
 src/WireframeRenderer.s: src/WireframeRenderer.cpp.s
@@ -1423,6 +1597,7 @@ src/WireframeRenderer.s: src/WireframeRenderer.cpp.s
 # target to generate assembly for a file
 src/WireframeRenderer.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/WireframeRenderer.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/WireframeRenderer.cpp.s
 .PHONY : src/WireframeRenderer.cpp.s
 
 src/adventure/Bridge.obj: src/adventure/Bridge.cpp.obj
@@ -1713,6 +1888,30 @@ src/adventure/Room.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/adventure/Room.cpp.s
 .PHONY : src/adventure/Room.cpp.s
 
+src/adventure/TestSystem.obj: src/adventure/TestSystem.cpp.obj
+.PHONY : src/adventure/TestSystem.obj
+
+# target to build an object file
+src/adventure/TestSystem.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/adventure/TestSystem.cpp.obj
+.PHONY : src/adventure/TestSystem.cpp.obj
+
+src/adventure/TestSystem.i: src/adventure/TestSystem.cpp.i
+.PHONY : src/adventure/TestSystem.i
+
+# target to preprocess a source file
+src/adventure/TestSystem.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/adventure/TestSystem.cpp.i
+.PHONY : src/adventure/TestSystem.cpp.i
+
+src/adventure/TestSystem.s: src/adventure/TestSystem.cpp.s
+.PHONY : src/adventure/TestSystem.s
+
+# target to generate assembly for a file
+src/adventure/TestSystem.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/adventure/TestSystem.cpp.s
+.PHONY : src/adventure/TestSystem.cpp.s
+
 src/adventure/main.obj: src/adventure/main.cpp.obj
 .PHONY : src/adventure/main.obj
 
@@ -1737,6 +1936,126 @@ src/adventure/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\adventure.dir\build.make CMakeFiles/adventure.dir/src/adventure/main.cpp.s
 .PHONY : src/adventure/main.cpp.s
 
+src/minecraft/Block.obj: src/minecraft/Block.cpp.obj
+.PHONY : src/minecraft/Block.obj
+
+# target to build an object file
+src/minecraft/Block.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/minecraft/Block.cpp.obj
+.PHONY : src/minecraft/Block.cpp.obj
+
+src/minecraft/Block.i: src/minecraft/Block.cpp.i
+.PHONY : src/minecraft/Block.i
+
+# target to preprocess a source file
+src/minecraft/Block.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/minecraft/Block.cpp.i
+.PHONY : src/minecraft/Block.cpp.i
+
+src/minecraft/Block.s: src/minecraft/Block.cpp.s
+.PHONY : src/minecraft/Block.s
+
+# target to generate assembly for a file
+src/minecraft/Block.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/minecraft/Block.cpp.s
+.PHONY : src/minecraft/Block.cpp.s
+
+src/minecraft/Game.obj: src/minecraft/Game.cpp.obj
+.PHONY : src/minecraft/Game.obj
+
+# target to build an object file
+src/minecraft/Game.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/minecraft/Game.cpp.obj
+.PHONY : src/minecraft/Game.cpp.obj
+
+src/minecraft/Game.i: src/minecraft/Game.cpp.i
+.PHONY : src/minecraft/Game.i
+
+# target to preprocess a source file
+src/minecraft/Game.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/minecraft/Game.cpp.i
+.PHONY : src/minecraft/Game.cpp.i
+
+src/minecraft/Game.s: src/minecraft/Game.cpp.s
+.PHONY : src/minecraft/Game.s
+
+# target to generate assembly for a file
+src/minecraft/Game.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/minecraft/Game.cpp.s
+.PHONY : src/minecraft/Game.cpp.s
+
+src/minecraft/Player.obj: src/minecraft/Player.cpp.obj
+.PHONY : src/minecraft/Player.obj
+
+# target to build an object file
+src/minecraft/Player.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/minecraft/Player.cpp.obj
+.PHONY : src/minecraft/Player.cpp.obj
+
+src/minecraft/Player.i: src/minecraft/Player.cpp.i
+.PHONY : src/minecraft/Player.i
+
+# target to preprocess a source file
+src/minecraft/Player.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/minecraft/Player.cpp.i
+.PHONY : src/minecraft/Player.cpp.i
+
+src/minecraft/Player.s: src/minecraft/Player.cpp.s
+.PHONY : src/minecraft/Player.s
+
+# target to generate assembly for a file
+src/minecraft/Player.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/minecraft/Player.cpp.s
+.PHONY : src/minecraft/Player.cpp.s
+
+src/minecraft/World.obj: src/minecraft/World.cpp.obj
+.PHONY : src/minecraft/World.obj
+
+# target to build an object file
+src/minecraft/World.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/minecraft/World.cpp.obj
+.PHONY : src/minecraft/World.cpp.obj
+
+src/minecraft/World.i: src/minecraft/World.cpp.i
+.PHONY : src/minecraft/World.i
+
+# target to preprocess a source file
+src/minecraft/World.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/minecraft/World.cpp.i
+.PHONY : src/minecraft/World.cpp.i
+
+src/minecraft/World.s: src/minecraft/World.cpp.s
+.PHONY : src/minecraft/World.s
+
+# target to generate assembly for a file
+src/minecraft/World.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/minecraft/World.cpp.s
+.PHONY : src/minecraft/World.cpp.s
+
+src/minecraft/main.obj: src/minecraft/main.cpp.obj
+.PHONY : src/minecraft/main.obj
+
+# target to build an object file
+src/minecraft/main.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/minecraft/main.cpp.obj
+.PHONY : src/minecraft/main.cpp.obj
+
+src/minecraft/main.i: src/minecraft/main.cpp.i
+.PHONY : src/minecraft/main.i
+
+# target to preprocess a source file
+src/minecraft/main.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/minecraft/main.cpp.i
+.PHONY : src/minecraft/main.cpp.i
+
+src/minecraft/main.s: src/minecraft/main.cpp.s
+.PHONY : src/minecraft/main.s
+
+# target to generate assembly for a file
+src/minecraft/main.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\minecraft.dir\build.make CMakeFiles/minecraft.dir/src/minecraft/main.cpp.s
+.PHONY : src/minecraft/main.cpp.s
+
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -1746,6 +2065,7 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... adventure
+	@echo ... minecraft
 	@echo ... deps/soloud/src/audiosource/wav/dr_impl.obj
 	@echo ... deps/soloud/src/audiosource/wav/dr_impl.i
 	@echo ... deps/soloud/src/audiosource/wav/dr_impl.s
@@ -1944,9 +2264,27 @@ help:
 	@echo ... src/adventure/Room.obj
 	@echo ... src/adventure/Room.i
 	@echo ... src/adventure/Room.s
+	@echo ... src/adventure/TestSystem.obj
+	@echo ... src/adventure/TestSystem.i
+	@echo ... src/adventure/TestSystem.s
 	@echo ... src/adventure/main.obj
 	@echo ... src/adventure/main.i
 	@echo ... src/adventure/main.s
+	@echo ... src/minecraft/Block.obj
+	@echo ... src/minecraft/Block.i
+	@echo ... src/minecraft/Block.s
+	@echo ... src/minecraft/Game.obj
+	@echo ... src/minecraft/Game.i
+	@echo ... src/minecraft/Game.s
+	@echo ... src/minecraft/Player.obj
+	@echo ... src/minecraft/Player.i
+	@echo ... src/minecraft/Player.s
+	@echo ... src/minecraft/World.obj
+	@echo ... src/minecraft/World.i
+	@echo ... src/minecraft/World.s
+	@echo ... src/minecraft/main.obj
+	@echo ... src/minecraft/main.i
+	@echo ... src/minecraft/main.s
 .PHONY : help
 
 

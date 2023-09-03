@@ -5,12 +5,12 @@
 
 namespace Fastboi {
     namespace Components {
-        struct RepeatRenderer final : Fastboi::Renderer {
+        struct RepeatRenderer : Fastboi::Renderer {
             private:
             Size lastSize;
 
             public:
-            const Texture& baseTexture;
+            CTexturePtr baseTexture;
             Texture repeatTexture;
             Size tileSize;
             
@@ -21,8 +21,8 @@ namespace Fastboi {
             void Render() override;
 
             protected:
-            RepeatRenderer(const RepeatRenderer& copy) = default;
-            Renderer& Duplicate() const override;
+            // RepeatRenderer(const RepeatRenderer& copy) = default;
+            // Renderer& Duplicate() const override;
 
             private:
             void CreateRepeatTexture(const Size& newSize);

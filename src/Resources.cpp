@@ -1,5 +1,6 @@
 #include "Resources.h"
 #include "Application.h"
+#include "Exceptions.h"
 #include "Input.h"
 #include "Rect.h"
 #include "Rendering.h"
@@ -13,29 +14,28 @@
 #include "Texture.h"
 #include <unordered_map>
 #include "Utility.h"
+#include <string>
 
 #undef LoadImageA
 #undef LoadImage
 
 using namespace Fastboi;
 
-std::unordered_map<const char*, Texture, cstring_hasher, cstring_eq> textures;
-std::unordered_map<const char*, Wav, cstring_hasher, cstring_eq> sounds;
+static std::unordered_map<std::string, Texture> textures;
+static std::unordered_map<std::string, Wav> sounds;
 
-constexpr const char* imagePath = "res/images/";
-constexpr const char* soundPath = "res/sound/";
+constexpr std::string_view imagePath = "res/images/";
+constexpr std::string_view soundPath = "res/sound/";
 
 Soloud gSoloud;
 
-void Resources::LoadImage(const char* key, const char* filename) {
-    char* pathBuffer = new char[strlen(imagePath) + strlen(filename) + 10];
-    sprintf(pathBuffer, "%s%s", imagePath, filename);
+void Resources::LoadImage(std::string_view key, std::string_view filename) {
+    auto path = std::string(imagePath) + std::string(filename);
 
-    SDL_Surface* surface = IMG_Load(pathBuffer);
+    SDL_Surface* surface = IMG_Load(path.c_str());
 
     if (surface == nullptr) {
-        printf("Could not load %s\n", pathBuffer);
-        throw -1;
+        Application::ThrowRuntimeException("Could not load image " + path, Application::LOAD_FAILURE);
     }
 
     // Create texture from surface optimized for global SDL renderer
@@ -43,9 +43,7 @@ void Resources::LoadImage(const char* key, const char* filename) {
     SDL_FreeSurface(surface);
 
     if (texture == nullptr) {
-        printf("Could not create texture from %s\n", pathBuffer);
-
-        throw -1;
+        Application::ThrowRuntimeException("Could not create texture from " + path, Application::LOAD_FAILURE);
     }
 
     SDL_SetTextureBlendMode(texture, SDL_BLENDMODE_BLEND);
@@ -54,7 +52,7 @@ void Resources::LoadImage(const char* key, const char* filename) {
     textures.emplace(key, texture);
 }
 
-const Texture& Resources::GetTexture(const char* key) {
+CTextureRef Resources::GetTexture(std::string_view key) {
     // printf("Getting texture %s\n", key);
 
     // printf("textures size: %i\n", textures.size());
@@ -62,25 +60,24 @@ const Texture& Resources::GetTexture(const char* key) {
     // if (textures.find(key) == textures.end())
     //     printf("Doesn't exist!\n");
 
-    return textures.at(key);
+    return textures.at(std::string(key));
 }
 
 void Resources::Cleanup() {
     textures.clear();
 }
 
-void Resources::LoadSound(const char* key, const char* filename) {
-    char* pathBuffer = new char[strlen(soundPath) + strlen(filename) + 10];
-    sprintf(pathBuffer, "%s%s", soundPath, filename);
+void Resources::LoadSound(std::string_view key, std::string_view filename) {
+    auto path = std::string(soundPath) + std::string(filename);
 
     sounds.emplace(std::piecewise_construct, std::make_tuple(key), std::make_tuple());
+
     Wav& w = GetSound(key);
-    SoLoud::result res = w.load(pathBuffer);
-    // printf("Path: %s Sound loaded: %p. Result: %u\n", pathBuffer, w.mData, res);
+    SoLoud::result res = w.load(path.c_str());
 }
 
-Wav& Resources::GetSound(const char* key) {
-    return sounds.at(key);
+Wav& Resources::GetSound(std::string_view key) {
+    return sounds.at(std::string(key));
 }
 
 Soloud& Resources::GetSoloud() {

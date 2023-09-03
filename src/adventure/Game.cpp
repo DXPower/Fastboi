@@ -14,6 +14,8 @@
 #include "Room.h"
 #include "RoomCamera.h"
 #include "AABBTree.h"
+#include "Archetype.h"
+#include "TestSystem.h"
 
 using namespace Fastboi;
 using namespace Fastboi::Components;
@@ -76,6 +78,9 @@ void LoadResources() {
 
 void Adventure::InitGame() {
     Rendering::SetBGColor(ColorComp(170, 170, 170, 255));
+
+    RegisterSystem<&TestKeySystem>();
+    std::cout << "System registered!\n";
 
     LoadResources();
     LoadLevel1();

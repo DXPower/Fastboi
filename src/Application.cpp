@@ -1,6 +1,7 @@
+#include <iostream>
+#include <format>
 #include "Application.h"
 #include "Input.h"
-#include <iostream>
 // #include "Room.h"
 #include "SDL/SDL.h"
 #include "SDL/SDL_image.h"
@@ -110,14 +111,14 @@ bool Application::IsFullscreen() {
     return isFullscreen;
 }
 
-void Application::ThrowRuntimeException(const char* err, Exception code, const char* msg) {
-    printf("Runtime exception thrown. Code %i: %s %s\n", code, err, msg);
+void Application::ThrowRuntimeException(std::string_view err, Exception code, std::string_view msg) {
+    std::cout << std::format("Runtime exception thrown. Code {}: {} {}\n", (int) code, err, msg);
     std::exit(code);
     __builtin_unreachable();
 }
 
-void Application::ThrowRuntimeException(const char* err, Exception code) {
-    printf("Runtime exception thrown. Code %i: %s\n", code, err);
+void Application::ThrowRuntimeException(std::string_view err, Exception code) {
+    printf("Runtime exception thrown. Code %i: %s\n", code, err.data());
     std::exit(code);
     __builtin_unreachable();
 }

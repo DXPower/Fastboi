@@ -15,6 +15,8 @@ namespace Minecraft {
         void KeyPress(const KeyEvent& e) const;
         void Update();
 
+        bool IsTouchingGround() const;
+
         static void Inst(Gameobject& go, Position pos);
     };
 }

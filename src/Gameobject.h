@@ -4,6 +4,7 @@
 #include "Collider.h"
 #include "Component.h"
 #include "Events.h"
+#include <algorithm>
 #include <memory>
 #include <unordered_map>
 #include "Renderer.h"
@@ -15,6 +16,8 @@
 // #include ".h"
 
 namespace Fastboi {
+    struct ArchetypeBase;
+
     void Tick();
     void Destroy(Gameobject&);
 
@@ -26,7 +29,12 @@ namespace Fastboi {
         bool isEnabled = true;
         bool componentsLock = false;
 
+        uint64_t componentsHash = 0;
+
         uint64_t rendererTypeHash = 0;
+
+        std::vector<ArchetypeBase*> archetypes;
+        std::vector<uint64_t> sortedHashes;
 
         public:
         std::string name;
@@ -93,6 +101,8 @@ namespace Fastboi {
         void Destroy();
         void AddComponentsOnStack();
         void RemoveComponentsOnStack();
+        void NotifyAddComponent();
+        void NotifyRemoveComponent(uint64_t removedComponentHash);
 
         friend void Fastboi::Tick();
         friend void Fastboi::Collision::ProgressRigidbodies();
@@ -106,6 +116,12 @@ namespace Fastboi {
     T& Gameobject::AddComponent(Args&&... args) {
         using namespace std;
 
+        constexpr uint64_t typekey = ctti::type_id<T>().hash();
+
+        auto insertLocation = std::ranges::upper_bound(sortedHashes, typekey);
+        sortedHashes.insert(insertLocation, typekey);
+        NotifyAddComponent();
+
         // Special cases for transform and render due to their special treatmeant in Gameobject:: above
         if constexpr (is_same_v<T, Transform>) {
             transform = make_unique<Transform>(forward<Args>(args)...);
@@ -116,8 +132,6 @@ namespace Fastboi {
         } else if constexpr (is_same_v<Collider, T>) {
             collider = make_unique<Collider>(*this, forward<Args>(args)...);
         } else {
-            constexpr uint64_t typekey = ctti::type_id<T>().hash();
-
             //. Component<T, Args...> creates a Component that instantiates T, with T's arguments forwarded by forward<Args>
             if (isStarted || componentsLock) {
                 componentsToAdd.emplace(typekey, make_unique<Component<T, Args...>>(*this, forward<Args>(args)...));
@@ -166,6 +180,10 @@ namespace Fastboi {
     void Gameobject::RemoveComponent() {
         if (isDestroying) return; // This is to prevent component's destroyers from removing components they manage
 
+        constexpr uint64_t typekey = ctti::type_id<T>().hash();
+        std::erase(sortedHashes, typekey);
+        NotifyRemoveComponent(typekey);
+
         if constexpr (std::is_same_v<T, Transform>) {
             transform.reset();
         } else if constexpr (std::is_base_of_v<Renderer, T>) {
@@ -174,7 +192,6 @@ namespace Fastboi {
         } else if constexpr (std::is_base_of_v<Collider, T>) {
             collider.reset();
         } else {
-            constexpr uint64_t typekey = ctti::type_id<T>().hash();
             componentsToRemove.push(typekey);
         }
     }
